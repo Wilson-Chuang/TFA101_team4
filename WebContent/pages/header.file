@@ -13,7 +13,7 @@
 						<div class="col-md-5 pt-2">
 							<div class="row g-0 d-flex justify-content-center">
 								<div class="btn-group btn-group-sm" role="group">
-									<input type="radio" class="btn-check" name="btn-route" id="motorbike" value="motorbike" autocomplete="on" checked />
+									<input type="radio" class="btn-check" name="btn-route" id="motorbike" value="motorbike" autocomplete="on" />
 									<label class="btn btn-outline-primary" for="motorbike">
 										<i class="mdi mdi-motorbike" aria-hidden="true"></i>
 									</label>
@@ -21,7 +21,7 @@
 									<label class="btn btn-outline-primary" for="bike">
 										<i class="mdi mdi-bike" aria-hidden="true"></i>
 									</label>
-									<input type="radio" class="btn-check" name="btn-route" id="walk" value="walk" autocomplete="on" />
+									<input type="radio" class="btn-check" name="btn-route" id="walk" value="walk" autocomplete="on" checked />
 									<label class="btn btn-outline-primary" for="walk">
 										<i class="mdi mdi-walk" aria-hidden="true"></i>
 									</label>
@@ -36,7 +36,7 @@
 								</div>
 							</div>
 							<div class="text-center">
-								<label class="pt-2">搜尋範圍: <label id="reachtime">5</label>分鐘內可抵達（<label id="route">機車</label>）</label>
+								<label class="pt-2"><label id="reachtime">5</label>分鐘內可抵達（<label id="route">走路</label>）</label>
 								<div class="row g-0 d-flex justify-content-center align-items-center">
 									<div class="col-sm-9 px-3">
 										<div id="range-slider"></div>

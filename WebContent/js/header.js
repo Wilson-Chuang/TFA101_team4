@@ -13,7 +13,7 @@ $("#range-slider").wRunner({
   },
 
   // default value
-  singleValue: 5,
+  singleValue: 15,
   
   // root element
   roots: document.body,
@@ -31,26 +31,40 @@ $("#range-slider").wRunner({
   direction: 'horizontal'
 });
 
+var reachtime = 15;
+var speed = 5;
+var distance = 1250;
+
 $("#range-slider").on("DOMSubtreeModified", ".wrunner__value-note" ,function() {
-  const result = $(".wrunner__value-note > div").text().split("分鐘");
-  $("#reachtime").html(result);
-  $("#btn-reachtime").attr("value", result.slice(0, -1));
+  reachtime = $(".wrunner__value-note > div").text().split("分鐘");
+  $("#reachtime").html(reachtime);
+  $("#btn-reachtime").attr("value", reachtime.slice(0, -1));
 });
 
 /* 交通工具標籤 */
 $("#motorbike").on("click",function() {
+  speed = 60;
+  distance = speed * (reachtime / 60) * 1000;
   $("#route").html("機車");
 });
 $("#bike").on("click",function() {
+  speed = 15;
+  distance = speed * (reachtime / 60) * 1000;
   $("#route").html("腳踏車");
 });
 $("#walk").on("click",function() {
+  speed = 5;
+  distance = speed * (reachtime / 60) * 1000;
   $("#route").html("走路");
 });
 $("#car").on("click",function() {
+  speed = 80;
+  distance = speed * (reachtime / 60) * 1000;
   $("#route").html("汽車");
 });
 $("#train").on("click",function() {
+  speed = 120;
+  distance = speed * (reachtime / 60) * 1000;
   $("#route").html("大眾運輸");
 });
 
