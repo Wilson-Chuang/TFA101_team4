@@ -32,41 +32,43 @@ $("#range-slider").wRunner({
 });
 
 var reachtime = 15;
-var speed = 5;
-var distance = 1250;
+var speed = 2;
+var distance = speed * (reachtime / 60) * 1000;
 
 $("#range-slider").on("DOMSubtreeModified", ".wrunner__value-note" ,function() {
-  reachtime = $(".wrunner__value-note > div").text().split("分鐘");
+  reachtime = $(".wrunner__value-note > div").text().split("分鐘").slice(0, -1).toString();
   $("#reachtime").html(reachtime);
-  $("#btn-reachtime").attr("value", reachtime.slice(0, -1));
+  $("#btn-reachtime").attr("value", reachtime);
+  distance = speed * (reachtime / 60) * 1000;
 });
 
 /* 交通工具標籤 */
 $("#motorbike").on("click",function() {
-  speed = 60;
+  speed = 10;
   distance = speed * (reachtime / 60) * 1000;
   $("#route").html("機車");
 });
 $("#bike").on("click",function() {
-  speed = 15;
+  speed = 4;
   distance = speed * (reachtime / 60) * 1000;
   $("#route").html("腳踏車");
 });
 $("#walk").on("click",function() {
-  speed = 5;
+  speed = 2;
   distance = speed * (reachtime / 60) * 1000;
   $("#route").html("走路");
 });
 $("#car").on("click",function() {
-  speed = 80;
+  speed = 15;
   distance = speed * (reachtime / 60) * 1000;
   $("#route").html("汽車");
 });
 $("#train").on("click",function() {
-  speed = 120;
+  speed = 15;
   distance = speed * (reachtime / 60) * 1000;
   $("#route").html("大眾運輸");
 });
+
 
 
 /* 搜尋關鍵字提示 */
