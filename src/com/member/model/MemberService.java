@@ -1,0 +1,97 @@
+package com.member.model;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
+
+import com.member_follower.model.Member_FollowerDAO;
+import com.member_follower.model.Member_FollowerDAO_Interface;
+import com.member_follower.model.Member_FollowerVO;
+import com.shop.model.ShopDAO;
+import com.shop.model.ShopDAO_interface;
+import com.shop.model.ShopVO;
+
+
+
+public class MemberService {
+	private MemberDAO_Interface dao;
+	private Member_FollowerDAO_Interface dao_fol;
+	private ShopDAO_interface dao_shop;
+	
+	public MemberService() {
+		dao= new MemberDAO();
+		dao_fol=new Member_FollowerDAO();
+		dao_shop=new ShopDAO();
+	}
+	public MemberVO insert(String Member_email,String Member_password){
+		MemberVO memberVO=new MemberVO();
+		memberVO.setMember_email(Member_email);
+		memberVO.setMember_password(Member_password);
+		dao.insert(memberVO);
+		
+		return memberVO;
+	}
+
+	public MemberVO update(String Member_name,Integer Member_gender,Date Member_birth,
+		String Member_phone,String Member_address,String Member_pic,Timestamp Member_update_time,
+		Integer Member_age,String Member_email) {
+		MemberVO memberVO=new MemberVO();
+		memberVO.setMember_name(Member_name);
+		memberVO.setMember_gender(Member_gender);
+		memberVO.setMember_birth(Member_birth);
+		memberVO.setMember_phone(Member_phone);
+		memberVO.setMember_address(Member_address);
+		memberVO.setMember_pic(Member_pic);
+		memberVO.setMember_update_time(Member_update_time);
+		memberVO.setMember_age(Member_age);
+		memberVO.setMember_email(Member_email);
+		dao.update(memberVO);
+
+		return memberVO;
+	}
+	public ShopVO update_shop(String Shop_name, int Shop_price_level, String Shop_opening_time,
+			String Shop_address, String Shop_website, String Shop_phone, Timestamp Shop_update_time,
+			String filename,int id) {
+		ShopVO ShopVO=new ShopVO();
+		ShopVO.setShop_name(Shop_name);
+		ShopVO.setShop_price_level(Shop_price_level);
+		ShopVO.setShop_opening_time(Shop_opening_time);
+		ShopVO.setShop_address(Shop_address);
+		ShopVO.setShop_website(Shop_website);
+		ShopVO.setShop_phone(Shop_phone);
+		ShopVO.setShop_update_time(Shop_update_time);
+		ShopVO.setShop_main_img(filename);
+		ShopVO.setShop_id(id);
+		dao_shop.update_shop(ShopVO);
+		return ShopVO;
+	}
+
+	public void delete_fol(Integer MEMBER_ID,Integer MEMBER_ID_FOLLOWER) {
+		Member_FollowerVO Member_FollowerVO=new Member_FollowerVO();
+		Member_FollowerVO.setMEMBER_ID(MEMBER_ID);
+		Member_FollowerVO.setMEMBER_ID_FOLLOWER(MEMBER_ID_FOLLOWER);
+		dao_fol.delete(Member_FollowerVO);
+	}
+	public void delete(String MEMBER_EMAIL) {
+		dao.delete(MEMBER_EMAIL);
+	}
+
+	public MemberVO getOneMem(String MEMBER_EMAIL) {
+		return dao.getOneStmt(MEMBER_EMAIL);
+	}
+	public MemberVO GET_ONE_BY_ID(Integer MEMBER_ID) {
+		return dao.GET_ONE_BY_ID(MEMBER_ID);
+	}
+	public ShopVO GET_ONE_BY_MEMBER(Integer MEMBER_ID) {
+		return dao_shop.findByMemberId(MEMBER_ID);
+	}
+
+	public List<MemberVO> getAll() {
+		return dao.getAll();
+	}
+	 public List<String> check() {
+		 return dao.accountCheck();
+		 
+	 }
+	
+}

@@ -1,0 +1,338 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    background-color: #f9f9f9;
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+
+
+div.main{
+/*     border: 1px solid black; */
+    clear: both;
+}
+
+div.side_nav{
+    /* border: 1px solid red; */
+    /* height: 80%; */
+    width: 30%;
+    float: left;
+    margin-top: 80px;
+    padding: 0 60px;
+    margin-bottom: 80px;
+}
+
+div.product_list{
+/*     border: 1px solid blue; */
+    width: 70%;
+    float: right;
+    /* height: 1600px; */
+    margin-top: 80px;
+    
+}
+
+
+
+div.side_nav ul{
+    /* border: 1px black solid; */
+
+}
+
+
+
+div.side_nav li{
+    border-bottom: 0.5px rgb(216, 216, 216) solid;
+    font-size: 20px;
+   	height:80px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-weight: lighter;
+    position:relative;
+    z-index:1;
+}
+
+div.side_nav input{
+	cursor:pointer;
+	position:absolute;
+	bottom:0px;
+	z-index:-1;
+	height:70px;
+	width:100%;
+	opacity:0.0;
+}
+
+
+div.side_nav a, div.side_nav a:visited{
+	color:black;
+	text-decoration:none;
+	position:absolute;
+	bottom:20px;
+	z-index:-2;
+	letter-spacing:3px;
+}
+
+
+
+
+
+div.product{
+    /* border: black 1px solid; */
+    height: 400px;
+    width: 240px;
+    float: left;
+    margin-left: 5%;
+    margin-bottom: 50px;
+}
+
+div.product img{
+    width: 240px;
+    height: 240px;
+    /* border: black 5px solid; */
+}
+
+div.product_info{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 150px;
+}
+
+div.product_info a,div.product_info a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+
+div.product_info p{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 10px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    padding: 15px 20px 0px 20px;
+}
+
+div.product_info h2{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 16px;
+    padding: 10px 20px 10px 20px;
+    letter-spacing: 2px;
+/*     border:1px solid red; */
+    height:60px;
+}
+
+div.product_price{
+    /* margin-top: 10px; */
+    width: 100%;
+    height: 50px;
+    /* border: 1px solid red; */
+    clear: both;
+    position: relative;
+}
+
+div.product_price p{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 18px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    /* border: 1px black solid; */
+    width: 65%;
+    float: left;
+    position: absolute;
+    left: 0%;
+    bottom: 10px;
+}
+
+button.cart2{
+    /* border: 1px solid red; */
+    float: left;
+    font-size: 20px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(70, 70, 70);
+    cursor: pointer; 
+    position: absolute;
+    right: 5%;
+    bottom: 10px;
+    border: 0;
+    z-index:-2;
+}
+
+button.cart2:hover{
+    color: gray;
+}
+
+.cart_submit{
+	height: 30px;
+	position: absolute;
+	right:3px;
+	bottom:5px;
+	cursor: pointer;
+	z-index:1;
+	color:black;
+	background-color:white;
+	border-radius:4px;
+	border:1px solid black;
+}
+
+.cart_submit:hover{
+	background-color:rgb(179, 179, 179);
+	color:white;
+	border:0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*購物車界面*/
+div.shopping_cart_title{
+    height: 80px;
+    width: 100%;
+    border-bottom: 0.5px solid rgb(219, 219, 219);
+}
+
+div.shopping_cart_title h1{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 16px;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+div.shopping_cart_product{
+    /* border: 1px solid red; */
+}
+
+div.shopping_cart_product ul{
+    /* border: 1px red solid; */
+}
+
+div.shopping_cart_product li{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    /* border: 1px black solid; */
+    padding: 30px 20px;
+    border-bottom: 0.5px solid rgb(219, 219, 219);
+}
+
+div.shopping_cart_product img{
+    width: 120px;
+    height: 120px;
+}
+
+div.shopping_cart_detail{
+    float: right;
+    /* border: 1px black solid; */
+    width: 250px;
+    height: 120px;
+    padding-left: 10px;
+    position: relative;
+}
+
+div.shopping_cart_detail h2{
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+div.shopping_cart_detail h3{    
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 12px;
+    color: gray;
+}
+
+div.shopping_cart_detail h4{    
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 30px;
+    color: black;
+}
+
+.delete_button, .delete_button:hover{
+    position: absolute;
+    right: 0%;
+    bottom: 9%;
+    font-size: 10px;
+    background-color: white;
+    cursor: pointer;
+    border: 0;
+    color: rgb(153, 153, 153);
+    font-weight: lighter;
+}
+
+div.check_out{
+    width: 100%;
+    /* border: 1px solid black; */
+    height: 100%;
+}
+
+.check_out_button{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    width: 50%;
+    height: 50px;
+    border: 0;
+    cursor: pointer;
+    margin: 40px 25% 0px 25%;
+    font-size: 16px;
+    letter-spacing: 5px;
+}
+
+.back_button{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    color: rgb(0, 0, 0);
+    width: 50%;
+    height: 50px;
+    cursor: pointer;
+    margin: 15px 25%;
+    font-size: 16px;
+    letter-spacing: 5px;
+}
