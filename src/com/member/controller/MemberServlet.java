@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +24,6 @@ import javax.servlet.http.Part;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 import com.member_follower.model.Member_FollowerService;
-import com.member_follower.model.Member_FollowerVO;
 import com.shop.model.ShopVO;
 import com.shop_favorites.model.Shop_FavoritesService;
 import com.shop_favorites.model.Shop_FavoritesVO;
