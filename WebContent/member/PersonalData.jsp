@@ -3,7 +3,6 @@
 <%@ page import="com.member.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
@@ -16,12 +15,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|我的錢包</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/bootstrap-icons.css" rel="stylesheet" />
-<link href="css/materialdesignicons.min.css" rel="stylesheet" />
-<link href="css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="css/style.css" rel="stylesheet" />
+<title>Giude好食|修改個人資料</title>
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 </head>
@@ -148,60 +147,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </nav>
 <div class="container">
-        <div class="row">
-            <div class="col-2">
-                <img src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
-            </div>
-            <div class="col-10">
-                <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
-                <span class="member_status">一般會員</span><br>
-                <span class="comments_count">0則評論</span>
-                <span class="followers_count"><%=((MemberVO) (session.getAttribute("login"))).getMember_fans() %>個粉絲</span>
-                <span class="followers_count">會員ID:<%=((MemberVO) (session.getAttribute("login"))).getMember_id() %></span>
-            </div>
-
-        </div>
+        
+            
 
         <div class="row">
 
             <div class="col-2">
-                <ul class="sidebar_ul">
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="signin">
-                    <input type="submit" value="個人資料" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toWallet">
-                    <input type="submit" value="我的錢包" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toFavorites">
-                    <input type="submit" value="我的收藏" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toActive">
-                    <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar  lock"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toShop">
-                    <input type="submit" value="商家專區" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                </ul>
+                
             </div>
             <div class="col-10">
-        <div class="row">
-            <span class="point">目前積分餘額:<br><%=((MemberVO) (session.getAttribute("login"))).getMember_point() %></span><br>
+                <form action="member.html" class="personal_form" method="post"  enctype="multipart/form-data">
+                <input type=hidden value="${MemberVO.getMember_email()}" name="MEMBER_EMAIL">
+                    <label for="">名稱<br><input type="text" name="MEMBER_NAME" value="${MemberVO.getMember_name()}"></label>
+                    <label for="">性別<br><select name="MEMBER_GENDER">
+                            <%if(MemberVO.getMember_gender()==1)%><option selected=selected >男</option><option >女</option><%else%><option>男</option><option selected=selected>女</option>
+                   </select></label><br>
+                    <label for="">生日<br><input type="date" name="MEMBER_BIRTH"  value="${MemberVO.getMember_birth().toString()}"></label><br>
+                    <label for="">地址<br><input type="text" name="MEMBER_ADDRESS" value="${MemberVO.getMember_address()}"></label><br>
+                    <label for="">電話<br><input type="text" name="MEMBER_PHONE" value="${MemberVO.getMember_phone()}"></label><br>
+					<input type="file" name="MEMBER_PIC" value="/upload/${MemberVO.getMember_pic()}">                    
+                    <input type="hidden" name="action" value="update">
+                    <input type="submit" value="儲存" class="save_btn" style="width:150px">
+                </form>
+            </div>
         </div>
-        <h3 class="wallet" style="text-align:center;">消費紀錄</h3>  
-        <ul class="shopping_record" >
-            <li><span class="date">2021/05/13</span><span class="time">12:25</span><span class="item">使用1000積分購買「LADY M草莓千層蛋糕」</span></li>
-            <li><span class="date">2021/05/12</span><span class="time">16:25</span><span class="item">使用優惠券「胡同燒肉」</span></li>
-            <li><span class="date">2021/05/11</span><span class="time">11:05</span><span class="item">使用5000積分購買「星巴克不鏽鋼保溫瓶」</span></li>
-            <li><span class="date">2021/05/10</span><span class="time">19:55</span><span class="item">使用優惠券「王品牛排」</span></li>
-        </ul>
     </div>
-</div>
-</div>
 
 </body>
 <script type="text/javascript">

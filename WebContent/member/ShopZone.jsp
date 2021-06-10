@@ -1,26 +1,31 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <%
 	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
+	MemberService memSvc=new MemberService();
+	ShopVO ShopVO= memSvc.GET_ONE_BY_MEMBER(MemberVO.getMember_id());
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|修改個人資料</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/bootstrap-icons.css" rel="stylesheet" />
-<link href="css/materialdesignicons.min.css" rel="stylesheet" />
-<link href="css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="css/style.css" rel="stylesheet" />
+<title>Giude好食|商家專區</title>
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 </head>
@@ -147,33 +152,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </nav>
 <div class="container">
-        
-            
+        <div class="row">
+            <div class="col-2">
+                <img src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
+            </div>
+            <div class="col-10">
+                <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
+                <span class="member_status">一般會員</span><br>
+                <span class="comments_count">0則評論</span>
+                <span class="followers_count"><%=((MemberVO) (session.getAttribute("login"))).getMember_fans() %>個粉絲</span>
+                <span class="followers_count">會員ID:<%=((MemberVO) (session.getAttribute("login"))).getMember_id() %></span>
+            </div>
+
+        </div>
 
         <div class="row">
 
             <div class="col-2">
-                
+                <ul class="sidebar_ul">
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="signin">
+                    <input type="submit" value="個人資料" class="save_btn" style="width:150px;background:none;color:black"></form>
+                        </li>
+                    <hr>
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toWallet">
+                    <input type="submit" value="我的錢包" class="save_btn" style="width:150px;background:none;color:black"></form>
+                        </li>
+                    <hr>
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toFavorites">
+                    <input type="submit" value="我的收藏" class="save_btn" style="width:150px;background:none;color:black"></form>
+                        </li>
+                    <hr>
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toActive">
+                    <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
+                        </li>
+                    <hr>
+                    <li class="sidebar  lock"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toShop">
+                    <input type="submit" value="商家專區" class="save_btn" style="width:150px;background:none;color:black"></form>
+                        </li>
+                    <hr>
+                </ul>
             </div>
-            <div class="col-10">
-                <form action="member.html" class="personal_form" method="post"  enctype="multipart/form-data">
-                <input type=hidden value="${MemberVO.getMember_email()}" name="MEMBER_EMAIL">
-                    <label for="">名稱<br><input type="text" name="MEMBER_NAME" value="${MemberVO.getMember_name()}"></label>
-                    <label for="">性別<br><select name="MEMBER_GENDER">
-                            <%if(MemberVO.getMember_gender()==1)%><option selected=selected >男</option><option >女</option><%else%><option>男</option><option selected=selected>女</option>
-                   </select></label><br>
-                    <label for="">生日<br><input type="date" name="MEMBER_BIRTH"  value="${MemberVO.getMember_birth().toString()}"></label><br>
-                    <label for="">地址<br><input type="text" name="MEMBER_ADDRESS" value="${MemberVO.getMember_address()}"></label><br>
-                    <label for="">電話<br><input type="text" name="MEMBER_PHONE" value="${MemberVO.getMember_phone()}"></label><br>
-					<input type="file" name="MEMBER_PIC" value="/upload/${MemberVO.getMember_pic()}">                    
-                    <input type="hidden" name="action" value="update">
-                    <input type="submit" value="儲存" class="save_btn" style="width:150px">
-                </form>
+                    <div class="col-10">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="/upload/<%=ShopVO.getShop_main_img() %>" class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8 shop_zone">
+                        <h1 class="shop_title"><%=ShopVO.getShop_name() %></h1>
+                        <span class="ratins"><%=ShopVO.getShop_rating() %><i class="fas fa-star"></i></span><span class="coms">125則評論</span>
+                        <span class="avg_prices">均消:<%=ShopVO.getShop_price_level() %></span> <span class="tags">清酒 串燒 燒烤</span><br>
+                        <span class="open_time">營業時間:<%=ShopVO.getShop_opening_time() %></span><br>
+                        <span class="address">地址:<%=ShopVO.getShop_address() %></span><br>
+                        <span class="web	s"><a>粉絲專頁:<%=ShopVO.getShop_website() %></a></span><br>
+                        <span class="phone">連絡電話:<%=ShopVO.getShop_phone() %></span><br>
+                   		<form action="member.html"  method="post" >
+                   		<input type=hidden name= "SHOP_ID" value="${ShopVO.shop_id}">
+                   		<input type=hidden name= "MEMBER_EMAIL" value="${MemberVO.member_email}">
+					<input type=hidden name="action" value="change_shop">
+                    <input type="submit" value="修改" class="save_btn" style="width:150px">
+					</form>
+                    </div>
+					
+                </div>
+                <h1>餐廳照片</h1>
+                <div class="row">
+
+                    <div class="shop_pic">
+                        <img src="./wilson/1.jpg" class="shop_img">
+                    </div>
+                    <div class="shop_pic">
+                        <img src="./wilson/2.jpg" class="shop_img">
+                    </div>
+                    <div class="shop_pic">
+                        <img src="./wilson/3.jpg" class="shop_img">
+                    </div>
+                    <div class="shop_pic">
+                        <img src="./wilson/4.jpg" class="shop_img">
+                    </div>
+
+                </div>
+         
+                </div>
+
             </div>
         </div>
-    </div>
+
 
 </body>
+   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
 		function show(f) {
 			var reader = new FileReader();//建立檔案讀取物件

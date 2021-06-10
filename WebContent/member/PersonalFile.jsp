@@ -20,11 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Giude好食|個人頁面</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/bootstrap-icons.css" rel="stylesheet" />
-<link href="css/materialdesignicons.min.css" rel="stylesheet" />
-<link href="css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="css/style.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 </head>
@@ -204,14 +204,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr><th>更新日期:</th><td><fmt:formatDate value="${MemberVO.member_update_time}" pattern="yyyy/MM/dd"/></td></tr>
                 
                 </table>
-<%--                     <label for="">信箱:${MemberVO.member_email}</label><br> --%>
-<%--                     <label for="">性別:<%if(MemberVO.getMember_gender()==1)%>男</label><br><%else%>女</label><br> --%>
-<%--                     <label for="">生日:${MemberVO.member_birth}</label><br> --%>
-<%--                     <label for="">年齡:${MemberVO.member_age}</label><br> --%>
-<%--                     <label for="">地址:${MemberVO.member_address}</label><br> --%>
-<%--                     <label for="">電話:${MemberVO.member_phone}</label><br> --%>
-<%--                     <label for="">註冊日期:<fmt:formatDate value="${MemberVO.member_create_time}" pattern="yyyy/MM/dd HH:mm"/></label><br> --%>
-<%--                     <label for="">更新日期:<fmt:formatDate value="${MemberVO.member_update_time}" pattern="yyyy/MM/dd HH:mm"/></label><br> --%>
                     <input type=hidden name= "MEMBER_EMAIL" value="${MemberVO.member_email}">
                     <input type=hidden name= "MEMBER_NAME" value="${MemberVO.member_name}">
                     <input type=hidden name= "MEMBER_GENDER" value="${MemberVO.member_gender}">

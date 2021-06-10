@@ -1,34 +1,26 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
-<%@ page import="com.shop.model.*"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%String path =request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <%
 	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
-
-	ShopVO ShopVO = (ShopVO) request.getAttribute("ShopVO");
 %>
-<!DOCTYPE html>
+
 <html>
 <head>
-<base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|修改個人資料</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/bootstrap-icons.css" rel="stylesheet" />
-<link href="css/materialdesignicons.min.css" rel="stylesheet" />
-<link href="css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="css/style.css" rel="stylesheet" />
+<title>Giude好食|註冊頁面</title>
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
+
 </head>
-<body>
- <nav class="fixed-top bg-body">
+<body class="sign_right">
+    <nav class="fixed-top bg-body">
         <div class="container-fluid">
             <div class="row g-0">
                 <div class="col-lg-2 d-flex justify-content-center align-items-center">
@@ -149,44 +141,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
     </nav>
-<div class="container">
-        
-            
+	<div class="container">
+		<div class="row">
+			<div class="col-4">
+				<div class="sign_in_form">
+					<h3 class="sign_title">Sign Up</h3>
+						<%-- 錯誤表列 --%>
+					<c:if test="${not empty errorMsgs}">
+						<font style="color: red">請修正以下錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+					<form name="signup" action="member.html" method="post">
+					<label for="">EMAIL ADDRESS<br></label> 
+					<input type="text" name="EMAIL_ADDRESS"class="sign_form" placeholder="name@address.com">
+					<label	for="" class="ps_zone">PASSWORD</label>
+					<input type="text" name="PASSWORD"class="sign_form" placeholder="Password"> 
+					<label for="" class="ps_zone">CONFIRM YOUR PASSWORD</label>
+					<input type="text" name="CON_PASSWORD"class="sign_form" placeholder="Password">
+				    <input type="hidden" name="action" value="insert">
+                    <input type="submit" value="會員註冊">
+					</form>
 
-        <div class="row">
+				</div>
+				<div style="text-align: center;">
+					<hr>
+					<span class="sign_up">註冊則代表您同意以下<a href="">隱私條款</a></span>
+				</div>
 
-            <div class="col-2">
-                
-            </div>
-            <div class="col-10">
-                <form action="member.html"  method="post"  enctype="multipart/form-data">
-                	<input type=hidden value="${ShopVO.getShop_id()}" name="SHOP_ID">
-                	<input type=hidden value="${MemberVO.getMember_email()}" name="MEMBER_EMAIL">
-                    <label for="">店名<br><input type="text" name="SHOP_NAME" value="${ShopVO.getShop_name()}"></label><br>
-                    <label for="">均消<br><input type="text" name="SHOP_PRICE_LEVEL"  value="${ShopVO.getShop_price_level()}"></label><br>
-                    <label for="">營業時間<br><input type="text" name="SHOP_OPENING_TIME"  value="${ShopVO.getShop_opening_time()}"></label><br>
-                    <label for="">地址<br><input type="text" name="SHOP_ADDRESS" value="${ShopVO.getShop_address()}"></label><br>
-                    <label for="">縣市<br><input type="text" name="SHOP_CITY" value="${ShopVO.getShop_city()}"></label><br>
-                    <label for="">粉絲專頁<br><input type="text" name="SHOP_WEBSITE" value="${ShopVO.getShop_website()}"></label><br>
-                    <label for="">電話<br><input type="text" name="SHOP_PHONE" value="${ShopVO.getShop_phone()}"></label><br>
-					<input type="file" name="SHOP_MAIN_IMG" value="/upload/${ShopVO.getShop_main_img()}">                    
-                    <input type="hidden" name="action" value="update_shop">
-                    <input type="submit" value="儲存" class="save_btn" style="width:150px">
-                </form>
-            </div>
-        </div>
-    </div>
+			</div>
+			<div class="col-8 "></div>
+		</div>
+	</div>
 
 </body>
-<script type="text/javascript">
-		function show(f) {
-			var reader = new FileReader();//建立檔案讀取物件
-			var files = f.files[0];//獲取file元件中的檔案
-			reader.readAsDataURL(files);//檔案讀取裝換為base64型別
-			reader.onloadend = function(e) {
-				//載入完畢之後獲取結果賦值給img
-				document.getElementById("showimg").src = this.result;
-			}
-		}
-	</script>
+
+
+
+
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+
 </html>

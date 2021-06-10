@@ -10,11 +10,11 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Giude好食|登入頁面</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/bootstrap-icons.css" rel="stylesheet" />
-<link href="css/materialdesignicons.min.css" rel="stylesheet" />
-<link href="css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="css/style.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 
@@ -208,7 +208,7 @@
 						<span>OR</span>
 					</h3>
 					<span class="sign_up">還沒有帳號?<a
-						href="http://localhost:8081/TFA101_team4/signup.jsp">點我註冊</a></span>
+						href="http://localhost:8081/TFA101_team4/member/signup.jsp">點我註冊</a></span>
 				</div>
 			</div>
 			<div class="col-8 "></div>
@@ -225,10 +225,10 @@
 
 
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/wrunner-jquery.js"></script>
-	<script src="js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 
 </body>
 

@@ -25,6 +25,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>MemberServlet</servlet-name>
-  	<url-pattern>/member.html</url-pattern>
+  	<url-pattern>/member/member.html</url-pattern>
   </servlet-mapping>
+
 </web-app>
