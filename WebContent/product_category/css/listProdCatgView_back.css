@@ -1,0 +1,197 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    background-color: #f5f5f5;
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+div.main{
+    /* background-color: #9ec0d6; */
+/*     border: 1px solid red; */
+    border-radius: 20px;
+  	box-shadow: 0px 0px 8px rgb(216, 216, 216);
+    width: 60%;
+    margin: 0 auto;
+    background-color: white;
+  
+}
+
+div.listProd_content{
+
+    background-color: white;
+    border-radius: 20px;
+    margin: 38px 0px;
+}
+
+div.product_title{
+    border-bottom: 1px rgb(204, 204, 204) solid;
+    height: 40px;
+    border-radius: 20px 20px 0 0;
+    padding: 30px 0 0 30px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.product_title h1{
+    font-size: 20px;
+    /* border: 1px red solid; */
+    color: rgb(39, 39, 39);
+    letter-spacing: 3px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.product_navbar{
+    height: 80px;
+/*     border: 1px red solid; */
+    position: relative;
+}
+
+div.datacount{
+/* 	border: 1px red solid; */
+	font-size: 16px;
+	width:25%;
+	position:absolute;
+	left: 4%;
+    bottom: 38%;
+    letter-spacing:2px;
+}
+
+div.product_navbar button{
+    background-color: #3899ec;
+    color: white;
+    position: absolute;
+    border: 0;
+    right: 5%;
+    bottom: 30%;
+    border-radius: 40px;
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.listProd_content table{
+    /* border: 1px solid red; */
+    margin: 0px auto;
+    width: 100%;
+}
+
+div.listProd_content th{
+    border-bottom: 1px solid rgb(226, 226, 226);
+    /* border: 1px solid red; */
+    vertical-align: middle;
+    font-size: 12px;
+    text-align: left;
+    height: 40px;
+    background-color: #f5f5f5;
+    letter-spacing: 2px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.listProd_content tr{
+    border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+div.listProd_content td{
+/*  	border:1px red solid; */
+    vertical-align: middle;
+    font-size: 16px;
+    height: 140px;
+    letter-spacing: 1.5px;
+    position: relative;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	padding-right:12px;
+}
+
+
+.img{
+/* 	width:125px; */
+/* 	length:125px; */
+}
+
+div.listProd_content img{
+    height: 120px;
+    width: 120px;
+	margin-left:12px;
+}
+
+div.listProd_content input{
+	background-color: white;
+	border: 0;
+	cursor: pointer;
+	font-size: 16px;
+	letter-spacing: 1.5px;
+	float:right;
+	position:relative;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.listProd_content a,div.listProd_content a:hover, div.listProd_content a:visited{
+	color:gray;
+	text-decoration: none;
+}
+
+div.include_file{
+	position:relative;
+	text-align:center;
+	letter-spacing:5px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	margin-top:40px;
+	padding-bottom:40px;
+}
+
+
+.select{
+    border:1.5px solid rgb(172, 172, 172);;
+    font-size: 16px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    height:30px;
+    padding-left:10px;
+    color:gray;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+.select:focus{
+    outline:none;
+}
+
