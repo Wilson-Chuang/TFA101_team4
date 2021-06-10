@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>test.1</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-                                     
-  
-  <resource-ref>
-    <description>DB Connection</description>
-    <res-ref-name>jdbc/Team4DB</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-  </resource-ref>
-  
-  <servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>TFA_101_04</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/Team4DB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<servlet>
 		<servlet-name>logCheckServlet</servlet-name>
 		<servlet-class>logCheckServlet</servlet-class>
 	</servlet>
@@ -26,59 +29,69 @@
 		<servlet-name>logCheckServlet</servlet-name>
 		<url-pattern>/logCheckServlet</url-pattern>
 	</servlet-mapping>
-  <servlet>
-  	<servlet-name>MemberServlet</servlet-name>
-  	<servlet-class>com.member.controller.MemberServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>MemberServlet</servlet-name>
-  	<url-pattern>/member.html</url-pattern>
-  </servlet-mapping>
-  
-   <resource-ref>
-    <description>DB Connection</description>
-    <res-ref-name>jdbc/TestDB</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-  </resource-ref>
-  
-  <servlet>
-    <servlet-name>ProductServlet</servlet-name>
-    <servlet-class>com.product.controller.ProductServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>ProductServlet</servlet-name>
-    <url-pattern>/product/product.do</url-pattern>
-  </servlet-mapping>
-  
-  
-   <servlet>
-    <servlet-name>Product_categoryServlet</servlet-name>
-    <servlet-class>com.product_category.controller.Product_categoryServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>Product_categoryServlet</servlet-name>
-    <url-pattern>/product_category/product_category.do</url-pattern>
-  </servlet-mapping>
- 
-    <servlet>
-    <servlet-name>ShoppingServlet</servlet-name>
-    <servlet-class>shoppingServlet.ShoppingServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>ShoppingServlet</servlet-name>
-    <url-pattern>/product_list/shopping.html</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ManagerServlet</servlet-name>
-    <servlet-class>com.manager.controller.ManagerServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ManagerServlet</servlet-name>
-    <url-pattern>/manager/manager.do</url-pattern>
-  </servlet-mapping>
-  
+	<servlet>
+		<servlet-name>ShopServlet</servlet-name>
+		<servlet-class>com.shop.controller.ShopServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShopServlet</servlet-name>
+		<url-pattern>/shop/shop.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member.html</url-pattern>
+	</servlet-mapping>
+
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/TestDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/product/product.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>Product_categoryServlet</servlet-name>
+		<servlet-class>com.product_category.controller.Product_categoryServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Product_categoryServlet</servlet-name>
+		<url-pattern>/product_category/product_category.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<servlet-class>shoppingServlet.ShoppingServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<url-pattern>/product_list/shopping.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ManagerServlet</servlet-name>
+		<servlet-class>com.manager.controller.ManagerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerServlet</servlet-name>
+		<url-pattern>/manager/manager.do</url-pattern>
+	</servlet-mapping>
+
 </web-app>
