@@ -10,6 +10,12 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/Team4DB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
   
   <servlet>
 		<servlet-name>logCheckServlet</servlet-name>
@@ -27,4 +33,14 @@
   	<servlet-name>MemberServlet</servlet-name>
   	<url-pattern>/member.html</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ManagerServlet</servlet-name>
+    <servlet-class>com.manager.controller.ManagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManagerServlet</servlet-name>
+    <url-pattern>/manager/manager.do</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
