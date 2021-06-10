@@ -1,0 +1,370 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    color:#2e2e2e;
+}
+
+.dropdown-menu {
+	min-width: auto;
+}
+
+body{
+	padding-top: 380px;
+}
+
+@media (max-width: 991px) {	
+	body{
+		padding-top: 0px;
+	}
+	.fixed-top{
+		position: static;
+	}
+}
+
+div.container{
+    /* border:1px solid black; */
+    margin-top: 20px;
+}
+div.row{
+    /* border:1px solid red; */
+    margin-bottom: 50px;
+}
+/* div.col-2{
+    border: 1px solid blue;
+} */
+div.col-10{
+    /* border:1px solid green; */
+    padding: 25px;
+}
+
+img.member_pic{
+    max-width:100%;
+    border-radius: 50%;
+}
+span{
+   
+    font-size: 12px;
+}
+span.member_name{
+ font-size: 24px; 
+ color:black;  
+}
+ul{
+    list-style-type:none;
+    text-align: center;
+    
+}
+form.personal_form{
+    margin-left: 5%;
+}
+a.paginaiton{
+    color:black;
+    text-decoration: none;
+}
+
+input{
+    border-radius: 10px;
+    border-color:#707070;
+    border-width: 1.5px;
+}
+
+
+input.save_btn{
+    width: 150px;
+    color:white;
+    background-color: #4166f8;
+    border:none;
+    margin-top: 25px;
+}
+li.sidebar{
+    position: relative;
+}
+  .lock::before {
+      position:absolute;
+      content: "";
+      left:0%;
+      top:25%;
+    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f023";
+  }
+  .sidebar::after{
+    position:absolute;
+    content: "";
+    right:0%;
+    bottom: 25%;
+    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f054";
+  }
+  ul.nav{
+      margin-bottom: 30px;
+  }
+  .point{
+      font-size: 24px;
+      text-align: center;
+      margin: 0 auto;
+      width:30%;
+      color:white;
+    background-color: #b2b2b2;
+    border-radius: 5px;
+  }
+  button.wallet{
+      display:block;
+      margin: 20px auto 0 auto;
+      background-color:white;
+      /* border-radius: 10px;    */
+      width:80%;
+  }
+  ul.shopping_record{
+      margin: 0 auto;
+      background-color: #e5e5e5;
+      width: 80%;
+      border-radius:25px;
+  }
+  div.wallet_coupon{
+    margin:0 auto;
+    background-color:#e5e5e5;
+    border-radius:10px;
+    width:80%;
+    text-align: center;
+  }
+  div.card{
+      display: inline-block;
+      margin-bottom: 10px;
+  }
+  .btn-used{
+      background-color: gray;
+      color:white
+  }
+  ul.nav{
+      border: none;
+      justify-content: space-around;
+      
+  }
+
+  a.favorite_page{
+      color:#9a9a9a;
+      text-decoration:none;
+      border: black;
+  }
+  li.favorite_page_li{
+    color:#9a9a9a;
+    padding: 0 50px;
+    border-bottom: 1px solid #9c9c9c;
+}
+div#article_follower,div#shop_favorite,div#member_follower,div#member_follower_fans,div#member_follower_follow{
+    text-align: center;
+    margin: 10px auto;
+}
+div.card.mb-3{
+border:none;
+}
+div.col-md-8{
+     padding-top: 5%;
+}
+a.now{
+    font-size:larger ;
+    font-weight:bolder;
+}
+
+img.card-img-top{
+    border-radius: 50%;
+}
+
+div.fans_card{
+    background-color: tomato;
+}
+div.follow_card{
+    background-color: cornflowerblue;
+}
+img.active_img{
+    display: block;
+    margin:auto ;
+    width: 50%;
+    translate: 50%;
+}
+div.bki{
+    border:1px solid black;
+}
+html{
+    height: 100%;
+}
+.sign_right{
+    background-image: url("./wilson/loginBg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right;
+    background-size:contain;
+}
+.sign_bk{
+    /* background-image: url(/wilson/bki.png); */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position:center;
+    background-size:cover;
+    color:white;
+    -webkit-filter:blur(1px);
+    -moz-filter:blur(1px);
+    -o-filter:blur(1px);
+    -ms-filter:blur(1px);
+    filter:blur(1px);
+    position:absolute;
+}
+div.sign_in_form{
+    margin:auto; 
+    line-height: 200% ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: space-around;
+}
+h3.sign_title{
+    color:#707070;
+    
+}
+
+
+.sign_form{
+    width: 100%;
+    padding-left: 2%;
+}
+button.btn_sign_in{
+    background-color: #4166F8;
+    color:white;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0 auto;
+    margin: auto;
+    
+}
+
+
+div.sign_in_other{
+    margin:auto; 
+    line-height: 150% ;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+button.fb_sign{
+    color:#4166F8;
+    border-radius: 5px;
+    border-width: 1px;
+    width: 100%;
+    border-color: #4166F8;
+    background-color: white;
+    letter-spacing:5px;
+    text-align:center;
+    margin: auto;
+}
+span.fb_text{
+    display: inline-block;
+    color:#4166F8;
+    width: 80%;
+}
+
+button.google_sign{
+    color:#707070;
+    border-radius: 5px;
+    border-width: 1px;
+    width: 100%;
+    border-color: #707070;
+    background-color: white;
+    letter-spacing:5px;
+    text-align:center;
+    margin: auto;
+}
+span.g_text{
+    display: inline-block;
+    color:#707070;
+    width: 80%;
+}
+
+.title {
+    text-align: center;
+    
+  }
+  .title span {
+    display: block;
+    color: #aaa;
+    position: relative;
+   
+  }
+  .title span:before,
+  .title span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    background: #aaa;
+    width: 40%;
+    height: 1px;
+  }
+  .title span:before {
+    left: 5%; 
+  }
+  .title span:after {
+    right: 5%;
+  }
+span.sign_up{
+    display: inline-block;
+    width: 100%;
+}
+button.btn_sign_up{
+    background-color: #4166F8;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0 auto;
+    margin:5% auto;
+    
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    }
+
+    div.shop_zone{
+        
+        color:#707070;
+    }
+    h1.shop_title{
+        font-weight:bolder;
+    }
+    .ratins{
+        display: inline-block;
+        border-radius: 15px;
+        border-width: 120%;
+        background-color: tomato;
+        padding:0 1%;
+    }
+    div.shop_pic{
+        display: inline-block;
+        width: 25%;
+        margin: 0.4%;
+        overflow: hidden;
+        
+    }
+    img.shop_img{
+       width: 100%;
+       height: 100%;
+    }
+    input.comment_text{
+        width: 100%;
+        height: 100%;
+    }
+    button.photo_update,input.comment_btn{
+         width: 150px;
+        color:white;
+        background-color: #4166f8;
+        border-radius: 5px;
+        border:none;
+        margin:10px ;
+    }
+    input[type="submit"]{
+    background-color: #4166F8;
+    color:white;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0 auto;
+    margin: 15px auto;
+    border:none;
+}
