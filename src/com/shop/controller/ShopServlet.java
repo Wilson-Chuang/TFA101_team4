@@ -535,7 +535,7 @@ public class ShopServlet extends HttpServlet {
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 				MemberService memberSvc = new MemberService();
 				if(requestURL.equals("/member/listShops_ByMember_id.jsp") || requestURL.equals("/member/listAllMember.jsp"))
-					req.setAttribute("listShops_ByMember_id",memberSvc.getShopsByMember_id(shopVO.getMember_id())); // 資料庫取出的list物件,存入request
+					req.setAttribute("listShops_ByMember_id",memberSvc.GET_ONE_BY_MEMBER(shopVO.getMember_id())); // 資料庫取出的list物件,存入request
 				
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
