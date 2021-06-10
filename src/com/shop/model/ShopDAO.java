@@ -365,4 +365,129 @@ public class ShopDAO implements ShopDAO_interface {
 		}
 		return list;
 	}
+	
+	// ====================組長的code======================
+	private static final String UPDATE_SHOP = "UPDATE shop set shop_name=?, shop_price_level=?, shop_opening_time=?,shop_address=?, "
+			+ "shop_website=?,  shop_phone=?,shop_update_time=? ,shop_main_img=? where shop_id = ?";
+
+	
+	@Override
+	public void update_shop(ShopVO shopVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_SHOP);
+			pstmt.setString(1, shopVO.getShop_name());
+			pstmt.setInt(2, shopVO.getShop_price_level());
+			pstmt.setString(3, shopVO.getShop_opening_time());
+			pstmt.setString(4, shopVO.getShop_address());
+			pstmt.setString(5, shopVO.getShop_website());
+			pstmt.setString(6, shopVO.getShop_phone());
+			pstmt.setTimestamp(7, shopVO.getShop_update_time());
+			pstmt.setString(8, shopVO.getShop_main_img());
+			pstmt.setInt(9, shopVO.getShop_id());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫發生錯誤! 訊息為: " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	@Override
+	public ShopVO findByMemberId(Integer member_id) {
+		
+		ShopVO shopVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			
+			pstmt.setInt(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				shopVO = new ShopVO();
+				shopVO.setShop_id(rs.getInt("shop_id"));
+				shopVO.setMember_id(rs.getInt("member_id"));
+				shopVO.setShop_tax_id(rs.getString("shop_tax_id"));
+				shopVO.setShop_name(rs.getString("shop_name"));
+				shopVO.setShop_zip_code(rs.getString("shop_zip_code"));
+				shopVO.setShop_city(rs.getString("shop_city"));
+				shopVO.setShop_address(rs.getString("shop_address"));
+				shopVO.setShop_latitude(rs.getDouble("shop_latitude"));
+				shopVO.setShop_longitude(rs.getDouble("shop_longitude"));
+				shopVO.setShop_description(rs.getString("shop_description"));
+				shopVO.setShop_tag(rs.getString("shop_tag"));
+				shopVO.setShop_rating(rs.getDouble("shop_rating"));
+				shopVO.setShop_rating_count(rs.getInt("shop_rating_count"));
+				shopVO.setShop_rating_total(rs.getInt("shop_rating_total"));
+				shopVO.setShop_email(rs.getString("shop_email"));
+				shopVO.setShop_phone(rs.getString("shop_phone"));
+				shopVO.setShop_price_level(rs.getInt("shop_price_level"));
+				shopVO.setShop_opening_time(rs.getString("shop_opening_time"));
+				shopVO.setShop_website(rs.getString("shop_website"));
+				shopVO.setShop_main_img(rs.getString("shop_main_img"));
+				shopVO.setShop_gallery(rs.getString("shop_gallery"));
+				shopVO.setShop_create_time(rs.getTimestamp("shop_create_time"));
+				shopVO.setShop_update_time(rs.getTimestamp("shop_update_time"));
+				shopVO.setShop_total_view(rs.getInt("shop_total_view"));
+				shopVO.setShop_reserv_status(rs.getInt("shop_reserv_status"));
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫發生錯誤! 訊息為: " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return shopVO;
+	}
 }
