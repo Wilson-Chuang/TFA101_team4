@@ -7,17 +7,16 @@ public interface ShopDAO_interface {
 
 	public void update(ShopVO shopVO);
 
-
 	public void delete(Integer shop_id);
 
 	public ShopVO findByPrimaryKey(Integer shop_id);
-
-	public ShopVO findByMemberId(Integer member_id);
-
+	
 	public List<ShopVO> getAll();
-	// è¬ç”¨è¤‡åˆæŸ¥è©¢(å‚³å…¥åƒæ•¸å‹æ…‹Map)(å›å‚³ List)
-//        public List<ShopVO> getAll(Map<String, String[]> map); 
-
+	
+	// ¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
+	// public List<ShopVO> getAll(Map<String, String[]> map); 
+	
+	// ====================²Õªøªºcode======================
+	public ShopVO findByMemberId(Integer member_id);
 	public void update_shop(ShopVO shopVO);
-
 }

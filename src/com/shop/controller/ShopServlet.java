@@ -227,6 +227,13 @@ public class ShopServlet extends HttpServlet {
 		        }
 		        System.out.println("上傳到資料夾到:" + fileSaveDir.getAbsolutePath());
 		        
+		        File[] listOfFiles = fileSaveDir.listFiles();
+		        for (File file : listOfFiles) {
+			        if (file.isFile()) {
+			        	file.delete();
+			        }
+			    }
+		        
 		        Part imgPart = req.getPart("shop_main_img");
 			    String shop_main_img = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
 			    imgPart.write(uploadFilePath + File.separator + shop_main_img);
@@ -245,8 +252,14 @@ public class ShopServlet extends HttpServlet {
 			    for (Part galleryPart : fileParts) {
 			        String fileName = Paths.get(galleryPart.getSubmittedFileName()).getFileName().toString();
 			        galleryPart.write(uploadFilePath + File.separator + fileName);
-			        hs.add(fileName);
 			    }
+			    listOfFiles = fileSaveDir.listFiles();
+			    for (File file : listOfFiles) {
+			        if (file.isFile()) {
+			        	hs.add(file.getName());
+			        }
+			    }
+			    
 			    String shop_gallery = hs.toString();
 			    
 				Date date = new Date();
@@ -426,6 +439,7 @@ public class ShopServlet extends HttpServlet {
 						"shop_gallery".equals(part.getName()) 
 						&& part.getSize() > 0).collect(Collectors.toList());
 				HashSet<String> hs = new HashSet<String>();
+				
 			    for (Part galleryPart : fileParts) {
 			        String fileName = Paths.get(galleryPart.getSubmittedFileName()).getFileName().toString();
 			        galleryPart.write(uploadFilePath + File.separator + fileName);
@@ -520,12 +534,12 @@ public class ShopServlet extends HttpServlet {
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 				MemberService memberSvc = new MemberService();
-//				if(requestURL.equals("/member/listShops_ByMember_id.jsp") || requestURL.equals("/member/listAllMember.jsp"))
-//					req.setAttribute("listShops_ByMember_id",memberSvc.getShopsByMember_id(shopVO.getMember_id())); // 資料庫取出的list物件,存入request
+				if(requestURL.equals("/member/listShops_ByMember_id.jsp") || requestURL.equals("/member/listAllMember.jsp"))
+					req.setAttribute("listShops_ByMember_id",memberSvc.GET_ONE_BY_MEMBER(shopVO.getMember_id())); // 資料庫取出的list物件,存入request
 				
-//				String url = requestURL;
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
-//				successView.forward(req, res);
+				String url = requestURL;
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {

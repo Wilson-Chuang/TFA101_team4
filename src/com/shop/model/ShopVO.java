@@ -2,7 +2,7 @@ package com.shop.model;
 import java.sql.Timestamp;
 
 public class ShopVO implements java.io.Serializable{
-//	private static final long serialVersionUID = -9212598224687489064L;
+	private static final long serialVersionUID = -9212598224687489064L;
 	private Integer shop_id;
 	private Integer member_id;
 	private String shop_tax_id;

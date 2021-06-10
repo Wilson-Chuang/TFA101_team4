@@ -18,6 +18,7 @@ public class MemberDAO implements MemberDAO_Interface {
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/team4");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

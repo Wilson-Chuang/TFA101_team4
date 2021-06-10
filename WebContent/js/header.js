@@ -1,1 +1,416 @@
-$("#range-slider").wRunner({step:5,type:"single",limits:{minLimit:5,maxLimit:60},singleValue:5,roots:document.body,scaleDivisionsCount:0,valueNoteDisplay:!0,theme:"default",direction:"horizontal"}),$("#range-slider").on("DOMSubtreeModified",".wrunner__value-note",function(){const e=$(".wrunner__value-note > div").text().split("分鐘");$("#reachtime").html(e),$("#btn-reachtime").attr("value",e.slice(0,-1))}),$("#motorbike").on("click",function(){$("#route").html("機車")}),$("#bike").on("click",function(){$("#route").html("腳踏車")}),$("#walk").on("click",function(){$("#route").html("走路")}),$("#car").on("click",function(){$("#route").html("汽車")}),$("#train").on("click",function(){$("#route").html("大眾運輸")});const DEFAULTS={treshold:1,maximumItems:5,highlightTyped:!0,highlightClass:"text-primary"};class Autocomplete{constructor(e,a){this.field=e,this.options=Object.assign({},DEFAULTS,a),this.dropdown=null,e.parentNode.classList.add("dropdown"),e.setAttribute("data-toggle","dropdown"),e.classList.add("dropdown-toggle");const l=ce('<div class="dropdown-menu" ></div>');this.options.dropdownClass&&l.classList.add(this.options.dropdownClass),insertAfter(l,e),this.dropdown=new bootstrap.Dropdown(e,this.options.dropdownOptions),e.addEventListener("click",e=>{0===this.createItems()&&(e.stopPropagation(),this.dropdown.hide())}),e.addEventListener("input",()=>{this.options.onInput&&this.options.onInput(this.field.value),this.renderIfNeeded()}),e.addEventListener("keydown",e=>{27!==e.keyCode?40!==e.keyCode||this.dropdown._menu.children[0].focus():this.dropdown.hide()})}setData(e){this.options.data=e,this.renderIfNeeded()}renderIfNeeded(){this.createItems()>0?this.dropdown.show():this.field.click()}createItem(e,a){let l;if(this.options.highlightTyped){const t=a.label.toLowerCase().indexOf(e.toLowerCase()),n=Array.isArray(this.options.highlightClass)?this.options.highlightClass.join(" "):"string"==typeof this.options.highlightClass?this.options.highlightClass:"";l=a.label.substring(0,t)+`<span class="${n}">${a.label.substring(t,t+e.length)}</span>`+a.label.substring(t+e.length,a.label.length)}else l=a.label;return this.options.showValue&&(l+=` ${a.value}`),ce(`<button type="button" class="dropdown-item" data-label="${a.label}" data-value="${a.value}">${l}</button>`)}createItems(){const e=this.field.value;if(e.length<this.options.treshold)return this.dropdown.hide(),0;const a=this.field.nextSibling;a.innerHTML="";let l=0;for(let t=0;t<this.options.data.length;t++){const{label:n,value:o}=this.options.data[t],u={label:n,value:o};if(u.label.toLowerCase().indexOf(e.toLowerCase())>=0&&(a.appendChild(this.createItem(e,u)),this.options.maximumItems>0&&++l>=this.options.maximumItems))break}return this.field.nextSibling.querySelectorAll(".dropdown-item").forEach(e=>{e.addEventListener("click",e=>{e.target.getAttribute("data-value");this.field.value=e.target.innerText,this.options.onSelectItem&&this.options.onSelectItem({value:e.target.dataset.value,label:e.target.innerText}),this.dropdown.hide()})}),a.childNodes.length}}function ce(e){let a=document.createElement("div");return a.innerHTML=e,a.firstChild}function insertAfter(e,a){return a.parentNode.insertBefore(e,a.nextSibling)}var datasrc=[{label:"Afghanistan",value:"AF"},{label:"Albania",value:"AL"},{label:"Algeria",value:"DZ"},{label:"American Samoa",value:"AS"},{label:"Andorra",value:"AD"},{label:"Angola",value:"AO"},{label:"Anguilla",value:"AI"},{label:"Antarctica",value:"AQ"},{label:"Antigua and Barbuda",value:"AG"},{label:"Argentina",value:"AR"},{label:"Armenia",value:"AM"},{label:"Aruba",value:"AW"},{label:"Australia",value:"AU"},{label:"Austria",value:"AT"},{label:"Azerbaijan",value:"AZ"},{label:"Bahamas (the)",value:"BS"},{label:"Bahrain",value:"BH"},{label:"Bangladesh",value:"BD"},{label:"Barbados",value:"BB"},{label:"Belarus",value:"BY"},{label:"Belgium",value:"BE"},{label:"Belize",value:"BZ"},{label:"Benin",value:"BJ"},{label:"Bermuda",value:"BM"},{label:"Bhutan",value:"BT"},{label:"Bolivia (Plurinational State of)",value:"BO"},{label:"Bonaire, Sint Eustatius and Saba",value:"BQ"},{label:"Bosnia and Herzegovina",value:"BA"},{label:"Botswana",value:"BW"},{label:"Bouvet Island",value:"BV"},{label:"Brazil",value:"BR"},{label:"British Indian Ocean Territory (the)",value:"IO"},{label:"Brunei Darussalam",value:"BN"},{label:"Bulgaria",value:"BG"},{label:"Burkina Faso",value:"BF"},{label:"Burundi",value:"BI"},{label:"Cabo Verde",value:"CV"},{label:"Cambodia",value:"KH"},{label:"Cameroon",value:"CM"},{label:"Canada",value:"CA"},{label:"Cayman Islands (the)",value:"KY"},{label:"Central African Republic (the)",value:"CF"},{label:"Chad",value:"TD"},{label:"Chile",value:"CL"},{label:"China",value:"CN"},{label:"Christmas Island",value:"CX"},{label:"Cocos (Keeling) Islands (the)",value:"CC"},{label:"Colombia",value:"CO"},{label:"Comoros (the)",value:"KM"},{label:"Congo (the Democratic Republic of the)",value:"CD"},{label:"Congo (the)",value:"CG"},{label:"Cook Islands (the)",value:"CK"},{label:"Costa Rica",value:"CR"},{label:"Croatia",value:"HR"},{label:"Cuba",value:"CU"},{label:"Curaçao",value:"CW"},{label:"Cyprus",value:"CY"},{label:"Czechia",value:"CZ"},{label:"Côte d'Ivoire",value:"CI"},{label:"Denmark",value:"DK"},{label:"Djibouti",value:"DJ"},{label:"Dominica",value:"DM"},{label:"Dominican Republic (the)",value:"DO"},{label:"Ecuador",value:"EC"},{label:"Egypt",value:"EG"},{label:"El Salvador",value:"SV"},{label:"Equatorial Guinea",value:"GQ"},{label:"Eritrea",value:"ER"},{label:"Estonia",value:"EE"},{label:"Eswatini",value:"SZ"},{label:"Ethiopia",value:"ET"},{label:"Falkland Islands (the) [Malvinas]",value:"FK"},{label:"Faroe Islands (the)",value:"FO"},{label:"Fiji",value:"FJ"},{label:"Finland",value:"FI"},{label:"France",value:"FR"},{label:"French Guiana",value:"GF"},{label:"French Polynesia",value:"PF"},{label:"French Southern Territories (the)",value:"TF"},{label:"Gabon",value:"GA"},{label:"Gambia (the)",value:"GM"},{label:"Georgia",value:"GE"},{label:"Germany",value:"DE"},{label:"Ghana",value:"GH"},{label:"Gibraltar",value:"GI"},{label:"Greece",value:"GR"},{label:"Greenland",value:"GL"},{label:"Grenada",value:"GD"},{label:"Guadeloupe",value:"GP"},{label:"Guam",value:"GU"},{label:"Guatemala",value:"GT"},{label:"Guernsey",value:"GG"},{label:"Guinea",value:"GN"},{label:"Guinea-Bissau",value:"GW"},{label:"Guyana",value:"GY"},{label:"Haiti",value:"HT"},{label:"Heard Island and McDonald Islands",value:"HM"},{label:"Holy See (the)",value:"VA"},{label:"Honduras",value:"HN"},{label:"Hong Kong",value:"HK"},{label:"Hungary",value:"HU"},{label:"Iceland",value:"IS"},{label:"India",value:"IN"},{label:"Indonesia",value:"ID"},{label:"Iran (Islamic Republic of)",value:"IR"},{label:"Iraq",value:"IQ"},{label:"Ireland",value:"IE"},{label:"Isle of Man",value:"IM"},{label:"Israel",value:"IL"},{label:"Italy",value:"IT"},{label:"Jamaica",value:"JM"},{label:"Japan",value:"JP"},{label:"Jersey",value:"JE"},{label:"Jordan",value:"JO"},{label:"Kazakhstan",value:"KZ"},{label:"Kenya",value:"KE"},{label:"Kiribati",value:"KI"},{label:"Korea (the Democratic People's Republic of)",value:"KP"},{label:"Korea (the Republic of)",value:"KR"},{label:"Kuwait",value:"KW"},{label:"Kyrgyzstan",value:"KG"},{label:"Lao People's Democratic Republic (the)",value:"LA"},{label:"Latvia",value:"LV"},{label:"Lebanon",value:"LB"},{label:"Lesotho",value:"LS"},{label:"Liberia",value:"LR"},{label:"Libya",value:"LY"},{label:"Liechtenstein",value:"LI"},{label:"Lithuania",value:"LT"},{label:"Luxembourg",value:"LU"},{label:"Macao",value:"MO"},{label:"Madagascar",value:"MG"},{label:"Malawi",value:"MW"},{label:"Malaysia",value:"MY"},{label:"Maldives",value:"MV"},{label:"Mali",value:"ML"},{label:"Malta",value:"MT"},{label:"Marshall Islands (the)",value:"MH"},{label:"Martinique",value:"MQ"},{label:"Mauritania",value:"MR"},{label:"Mauritius",value:"MU"},{label:"Mayotte",value:"YT"},{label:"Mexico",value:"MX"},{label:"Micronesia (Federated States of)",value:"FM"},{label:"Moldova (the Republic of)",value:"MD"},{label:"Monaco",value:"MC"},{label:"Mongolia",value:"MN"},{label:"Montenegro",value:"ME"},{label:"Montserrat",value:"MS"},{label:"Morocco",value:"MA"},{label:"Mozambique",value:"MZ"},{label:"Myanmar",value:"MM"},{label:"Namibia",value:"NA"},{label:"Nauru",value:"NR"},{label:"Nepal",value:"NP"},{label:"Netherlands (the)",value:"NL"},{label:"New Caledonia",value:"NC"},{label:"New Zealand",value:"NZ"},{label:"Nicaragua",value:"NI"},{label:"Niger (the)",value:"NE"},{label:"Nigeria",value:"NG"},{label:"Niue",value:"NU"},{label:"Norfolk Island",value:"NF"},{label:"Northern Mariana Islands (the)",value:"MP"},{label:"Norway",value:"NO"},{label:"Oman",value:"OM"},{label:"Pakistan",value:"PK"},{label:"Palau",value:"PW"},{label:"Palestine, State of",value:"PS"},{label:"Panama",value:"PA"},{label:"Papua New Guinea",value:"PG"},{label:"Paraguay",value:"PY"},{label:"Peru",value:"PE"},{label:"Philippines (the)",value:"PH"},{label:"Pitcairn",value:"PN"},{label:"Poland",value:"PL"},{label:"Portugal",value:"PT"},{label:"Puerto Rico",value:"PR"},{label:"Qatar",value:"QA"},{label:"Republic of North Macedonia",value:"MK"},{label:"Romania",value:"RO"},{label:"Russian Federation (the)",value:"RU"},{label:"Rwanda",value:"RW"},{label:"Réunion",value:"RE"},{label:"Saint Barthélemy",value:"BL"},{label:"Saint Helena, Ascension and Tristan da Cunha",value:"SH"},{label:"Saint Kitts and Nevis",value:"KN"},{label:"Saint Lucia",value:"LC"},{label:"Saint Martin (French part)",value:"MF"},{label:"Saint Pierre and Miquelon",value:"PM"},{label:"Saint Vincent and the Grenadines",value:"VC"},{label:"Samoa",value:"WS"},{label:"San Marino",value:"SM"},{label:"Sao Tome and Principe",value:"ST"},{label:"Saudi Arabia",value:"SA"},{label:"Senegal",value:"SN"},{label:"Serbia",value:"RS"},{label:"Seychelles",value:"SC"},{label:"Sierra Leone",value:"SL"},{label:"Singapore",value:"SG"},{label:"Sint Maarten (Dutch part)",value:"SX"},{label:"Slovakia",value:"SK"},{label:"Slovenia",value:"SI"},{label:"Solomon Islands",value:"SB"},{label:"Somalia",value:"SO"},{label:"South Africa",value:"ZA"},{label:"South Georgia and the South Sandwich Islands",value:"GS"},{label:"South Sudan",value:"SS"},{label:"Spain",value:"ES"},{label:"Sri Lanka",value:"LK"},{label:"Sudan (the)",value:"SD"},{label:"Suriname",value:"SR"},{label:"Svalbard and Jan Mayen",value:"SJ"},{label:"Sweden",value:"SE"},{label:"Switzerland",value:"CH"},{label:"Syrian Arab Republic",value:"SY"},{label:"Taiwan (Province of China)",value:"TW"},{label:"Tajikistan",value:"TJ"},{label:"Tanzania, United Republic of",value:"TZ"},{label:"Thailand",value:"TH"},{label:"Timor-Leste",value:"TL"},{label:"Togo",value:"TG"},{label:"Tokelau",value:"TK"},{label:"Tonga",value:"TO"},{label:"Trinidad and Tobago",value:"TT"},{label:"Tunisia",value:"TN"},{label:"Turkey",value:"TR"},{label:"Turkmenistan",value:"TM"},{label:"Turks and Caicos Islands (the)",value:"TC"},{label:"Tuvalu",value:"TV"},{label:"Uganda",value:"UG"},{label:"Ukraine",value:"UA"},{label:"United Arab Emirates (the)",value:"AE"},{label:"United Kingdom of Great Britain and Northern Ireland (the)",value:"GB"},{label:"United States Minor Outlying Islands (the)",value:"UM"},{label:"United States of America (the)",value:"US"},{label:"Uruguay",value:"UY"},{label:"Uzbekistan",value:"UZ"},{label:"Vanuatu",value:"VU"},{label:"Venezuela (Bolivarian Republic of)",value:"VE"},{label:"Viet Nam",value:"VN"},{label:"Virgin Islands (British)",value:"VG"},{label:"Virgin Islands (U.S.)",value:"VI"},{label:"Wallis and Futuna",value:"WF"},{label:"Western Sahara",value:"EH"},{label:"Yemen",value:"YE"},{label:"Zambia",value:"ZM"},{label:"Zimbabwe",value:"ZW"},{label:"Åland Islands",value:"AX"},{label:"甘雨",value:"Ganyu"},{label:"可莉",value:"Klee"}],place=new Autocomplete(document.getElementById("place-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}}),keyword=new Autocomplete(document.getElementById("shop-keyword-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}});$("#search-type").on("change",function(){switch(this.value){case"shop":$(".search-bar").remove(),$('<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" /><input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />').insertAfter("#search-type"),place=new Autocomplete(document.getElementById("place-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}}),keyword=new Autocomplete(document.getElementById("shop-keyword-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}}),$(".dropdown-menu.show").length&&$(".dropdown-menu.show").remove();break;case"article":$(".search-bar").remove(),$('<input type="text" name="article-keyword-bar" id="article-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />').insertAfter("#search-type"),keyword=new Autocomplete(document.getElementById("article-keyword-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}}),$(".dropdown-menu.show").length&&$(".dropdown-menu.show").remove();break;case"product":$(".search-bar").remove(),$('<input type="text" name="product-keyword-bar" id="product-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />').insertAfter("#search-type"),keyword=new Autocomplete(document.getElementById("product-keyword-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}}),$(".dropdown-menu.show").length&&$(".dropdown-menu.show").remove();break;case"party":$(".search-bar").remove(),$('<input type="text" name="party-keyword-bar" id="party-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />').insertAfter("#search-type"),keyword=new Autocomplete(document.getElementById("party-keyword-bar"),{data:datasrc,onSelectItem:({label:e,value:a})=>{console.log("搜尋選擇:",e,a)}}),$(".dropdown-menu.show").length&&$(".dropdown-menu.show").remove()}}),$("#topnav").on("click",".guest",function(){$(".guest").remove(),$('<a href="#" class="link-dark text-decoration-none dropdown-toggle mx-4 logged" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false"><img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"></a><ul class="dropdown-menu text-small mt-2 logged" aria-labelledby="dropdownUser"><li><a class="dropdown-item" href="#">我的商家</a></li><li><a class="dropdown-item" href="#">設定</a></li><li><a class="dropdown-item" href="#">個人檔案</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item" href="#" id="logout">登出</a></li></ul>').insertAfter("#shop-join")}),$("#topnav").on("click","#logout",function(){$(".logged").remove(),$('<button type="button" class="btn btn-outline-primary me-3 guest">登入</button><button type="button" class="btn btn-primary me-4 guest">註冊</button>').insertAfter("#shop-join")}),document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".navbar-expand-lg .nav-item").forEach(function(e){e.addEventListener("mouseover",function(e){let a=this.querySelector("a[data-bs-toggle]");if(null!=a){let e=a.nextElementSibling;a.classList.add("show"),e.classList.add("show")}}),e.addEventListener("mouseleave",function(e){let a=this.querySelector("a[data-bs-toggle]");if(null!=a){let e=a.nextElementSibling;a.classList.remove("show"),e.classList.remove("show")}})})});
+/* 範圍滑塊 */
+$("#range-slider").wRunner({
+  // step size
+  step: 5,
+
+  // or 'range'
+  type: "single",
+
+  // min/max values
+  limits: {
+    minLimit: 5, 
+    maxLimit: 60
+  },
+
+  // default value
+  singleValue: 15,
+  
+  // root element
+  roots: document.body,
+
+  // the number of divisions
+  scaleDivisionsCount: 0,
+
+  // shows labels
+  valueNoteDisplay: true,
+
+  // theme name
+  theme: "default",
+
+  // or 'vertical'
+  direction: 'horizontal'
+});
+
+var reachtime = 15;
+var speed = 2;
+var distance = speed * (reachtime / 60) * 1000;
+
+$("#range-slider").on("DOMSubtreeModified", ".wrunner__value-note" ,function() {
+  reachtime = $(".wrunner__value-note > div").text().split("分鐘").slice(0, -1).toString();
+  $("#reachtime").html(reachtime);
+  $("#btn-reachtime").attr("value", reachtime);
+  distance = speed * (reachtime / 60) * 1000;
+});
+
+/* 交通工具標籤 */
+$("#motorbike").on("click",function() {
+  speed = 10;
+  distance = speed * (reachtime / 60) * 1000;
+  $("#route").html("機車");
+});
+$("#bike").on("click",function() {
+  speed = 4;
+  distance = speed * (reachtime / 60) * 1000;
+  $("#route").html("腳踏車");
+});
+$("#walk").on("click",function() {
+  speed = 2;
+  distance = speed * (reachtime / 60) * 1000;
+  $("#route").html("走路");
+});
+$("#car").on("click",function() {
+  speed = 15;
+  distance = speed * (reachtime / 60) * 1000;
+  $("#route").html("汽車");
+});
+$("#train").on("click",function() {
+  speed = 15;
+  distance = speed * (reachtime / 60) * 1000;
+  $("#route").html("大眾運輸");
+});
+
+
+
+/* 搜尋關鍵字提示 */
+const DEFAULTS = {
+  treshold: 1,
+  maximumItems: 5,
+  highlightTyped: true,
+  highlightClass: 'text-primary',
+
+};
+
+class Autocomplete {
+  constructor(field, options) {
+    this.field = field;
+    this.options = Object.assign({}, DEFAULTS, options);
+    this.dropdown = null;
+
+    field.parentNode.classList.add('dropdown');
+    field.setAttribute('data-toggle', 'dropdown');
+    field.classList.add('dropdown-toggle');
+
+    const dropdown = ce(`<div class="dropdown-menu" ></div>`);
+    if (this.options.dropdownClass)
+      dropdown.classList.add(this.options.dropdownClass);
+
+    insertAfter(dropdown, field);
+
+    this.dropdown = new bootstrap.Dropdown(field, this.options.dropdownOptions)
+
+    field.addEventListener('click', (e) => {
+      if (this.createItems() === 0) {
+        e.stopPropagation();
+        this.dropdown.hide();
+      }
+    });
+
+    field.addEventListener('input', () => {
+      if (this.options.onInput)
+        this.options.onInput(this.field.value);
+      this.renderIfNeeded();
+    });
+
+    field.addEventListener('keydown', (e) => {
+      if (e.keyCode === 27) {
+        this.dropdown.hide();
+        return;
+      }
+      if (e.keyCode === 40) {
+        this.dropdown._menu.children[0].focus();
+        return;
+      }
+    });
+  }
+
+  setData(data) {
+    this.options.data = data;
+    this.renderIfNeeded();
+  }
+
+  renderIfNeeded() {
+    if (this.createItems() > 0)
+      this.dropdown.show();
+    else
+      this.field.click();
+  }
+
+  createItem(lookup, item) {
+    let label;
+    if (this.options.highlightTyped) {
+      const idx = item.label.toLowerCase().indexOf(lookup.toLowerCase());
+      const className = Array.isArray(this.options.highlightClass) ? this.options.highlightClass.join(' ')
+        : (typeof this.options.highlightClass == 'string' ? this.options.highlightClass : '');
+      label = item.label.substring(0, idx)
+        + `<span class="${className}">${item.label.substring(idx, idx + lookup.length)}</span>`
+        + item.label.substring(idx + lookup.length, item.label.length);
+    } else {
+      label = item.label;
+    }
+    if (this.options.showValue) {
+      label += ` ${item.value}`;
+    }
+    return ce(`<button type="button" class="dropdown-item" data-label="${item.label}" data-value="${item.value}">${label}</button>`);
+  }
+
+  createItems() {
+    const lookup = this.field.value;
+    if (lookup.length < this.options.treshold) {
+      this.dropdown.hide();
+      return 0;
+    }
+
+    const items = this.field.nextSibling;
+    items.innerHTML = '';
+
+    let count = 0;
+    for (let i = 0; i < this.options.data.length; i++) {
+      const {label, value} = this.options.data[i];
+      const item = {label, value};
+      if (item.label.toLowerCase().indexOf(lookup.toLowerCase()) >= 0) {
+        items.appendChild(this.createItem(lookup, item));
+        if (this.options.maximumItems > 0 && ++count >= this.options.maximumItems)
+          break;
+      }
+    }
+
+    this.field.nextSibling.querySelectorAll('.dropdown-item').forEach((item) => {
+      item.addEventListener('click', (e) => {
+        let dataValue = e.target.getAttribute('data-value');
+        this.field.value = e.target.innerText;
+        if (this.options.onSelectItem)
+          this.options.onSelectItem({
+            value: e.target.dataset.value,
+            label: e.target.innerText,
+          });
+        this.dropdown.hide();
+      })
+    });
+
+    return items.childNodes.length;
+  }
+}
+
+
+function ce(html) {
+  let div = document.createElement('div');
+  div.innerHTML = html;
+  return div.firstChild;
+}
+
+function insertAfter(elem, refElem) {
+  return refElem.parentNode.insertBefore(elem, refElem.nextSibling)
+}
+
+var placesrc = [
+    {
+	    "label": "台北市"
+	  },		  
+	  {
+	    "label": "基隆市"
+	  },
+	  {
+	    "label": "新北市"
+	  },
+	  {
+	    "label": "連江縣"
+	  },
+	  {
+	    "label": "宜蘭縣"
+	  },
+	  {
+	    "label": "釣魚臺"
+	  },
+	  {
+	    "label": "新竹市"
+	  },
+	  {
+	    "label": "新竹縣"
+	  },
+	  {
+	    "label": "桃園市"
+	  },
+	  {
+	    "label": "苗栗縣"
+	  },
+	  {
+	    "label": "臺中市"
+	  },
+	  {
+	    "label": "彰化縣"
+	  },
+	  {
+	    "label": "南投縣"
+	  },
+	  {
+	    "label": "嘉義市"
+	  },
+	  {
+	    "label": "嘉義縣"
+	  },
+	  {
+	    "label": "雲林縣"
+	  },
+	  {
+	    "label": "臺南市"
+	  },
+	  {
+	    "label": "高雄市"
+	  },
+	  {
+	    "label": "南海島"
+	  },
+	  {
+	    "label": "澎湖縣"
+	  },
+	  {
+	    "label": "金門縣"
+	  },
+	  {
+	    "label": "屏東縣"
+	  },
+	  {
+	    "label": "臺東縣"
+	  },
+	  {
+	    "label": "花蓮縣"
+	  }
+	];
+
+var place = new Autocomplete(document.getElementById('place-bar'), {
+	data: placesrc,
+	onSelectItem: ({label, value}) => {
+		console.log("搜尋選擇:", label, value);
+	}
+});
+
+var keyword = new Autocomplete(document.getElementById('shop-keyword-bar'), {
+	data: shopsrc,
+	onSelectItem: ({label, value}) => {
+		console.log("搜尋選擇:", label, value);
+	}
+});
+
+$('#search-type').on('change', function () {
+	let shop = 
+	'<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" />' + 
+	'<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />';
+	
+	let article =
+	'<input type="text" name="article-keyword-bar" id="article-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	
+	let product =
+	'<input type="text" name="product-keyword-bar" id="product-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	
+	let party =
+	'<input type="text" name="party-keyword-bar" id="party-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+		
+	switch(this.value){
+		case "shop":
+			$(".search-bar").remove();
+			$(shop).insertAfter("#search-type");
+			place = new Autocomplete(document.getElementById('place-bar'), {
+				data: placesrc,
+				onSelectItem: ({label, value}) => {
+					console.log("搜尋選擇:", label, value);
+				}
+			});
+			keyword = new Autocomplete(document.getElementById('shop-keyword-bar'), {
+				data: shopsrc,
+				onSelectItem: ({label, value}) => {
+					console.log("搜尋選擇:", label, value);
+				}
+			});
+			if($(".dropdown-menu.show").length)
+			{
+				$(".dropdown-menu.show").remove();
+			}			
+			break;
+		case "article":
+			$(".search-bar").remove();
+			$(article).insertAfter("#search-type");
+			keyword = new Autocomplete(document.getElementById('article-keyword-bar'), {
+				data: shopsrc,
+				onSelectItem: ({label, value}) => {
+					console.log("搜尋選擇:", label, value);
+				}
+			});
+			if($(".dropdown-menu.show").length)
+			{
+				$(".dropdown-menu.show").remove();
+			}
+			break;
+		case "product":
+			$(".search-bar").remove();
+			$(product).insertAfter("#search-type");
+			keyword = new Autocomplete(document.getElementById('product-keyword-bar'), {
+				data: shopsrc,
+				onSelectItem: ({label, value}) => {
+					console.log("搜尋選擇:", label, value);
+				}
+			});
+			if($(".dropdown-menu.show").length)
+			{
+				$(".dropdown-menu.show").remove();
+			}
+			break;
+		case "party":
+			$(".search-bar").remove();
+			$(party).insertAfter("#search-type");
+			keyword = new Autocomplete(document.getElementById('party-keyword-bar'), {
+				data: shopsrc,
+				onSelectItem: ({label, value}) => {
+					console.log("搜尋選擇:", label, value);
+				}
+			});
+			if($(".dropdown-menu.show").length)
+			{
+				$(".dropdown-menu.show").remove();
+			}
+			break;
+	}
+});
+
+$('#topnav').on('click', ".guest", function () {
+	let logged = '<a href="#" class="link-dark text-decoration-none dropdown-toggle mx-4 logged" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">' +
+		'<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">' +
+		'</a>' +
+		'<ul class="dropdown-menu text-small mt-2 logged" aria-labelledby="dropdownUser">' +
+		'<li><a class="dropdown-item" href="#">我的商家</a></li>' +
+		'<li><a class="dropdown-item" href="#">設定</a></li>' +
+		'<li><a class="dropdown-item" href="#">個人檔案</a></li>' +
+		'<li><hr class="dropdown-divider"></li>' +
+		'<li><a class="dropdown-item" href="#" id="logout">登出</a></li>' +
+		'</ul>';
+	$(".guest").remove();
+	$(logged).insertAfter("#shop-join");
+});
+
+$('#topnav').on('click', "#logout", function () {
+	let guest = '<button type="button" class="btn btn-outline-primary me-3 guest">登入</button>' +
+		'<button type="button" class="btn btn-primary me-4 guest">註冊</button>';
+	$(".logged").remove();
+	$(guest).insertAfter("#shop-join");
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+	document.querySelectorAll('.navbar-expand-lg .nav-item').forEach(function(everyitem){
+		everyitem.addEventListener('mouseover', function(e){
+			let el_link = this.querySelector('a[data-bs-toggle]');
+			if(el_link != null){
+				let nextEl = el_link.nextElementSibling;
+				el_link.classList.add('show');
+				nextEl.classList.add('show');
+			}
+		});
+		everyitem.addEventListener('mouseleave', function(e){
+			let el_link = this.querySelector('a[data-bs-toggle]');
+
+			if(el_link != null){
+				let nextEl = el_link.nextElementSibling;
+				el_link.classList.remove('show');
+				nextEl.classList.remove('show');
+			}
+		})
+	});
+});
