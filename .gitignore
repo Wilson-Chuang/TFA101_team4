@@ -27,3 +27,4 @@ config/database.yml
 # eclispe相關設定
 */.settings/**
 .settings/
+/bin/
