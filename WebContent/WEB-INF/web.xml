@@ -84,4 +84,20 @@
 		<servlet-name>ManagerServlet</servlet-name>
 		<url-pattern>/manager/manager.do</url-pattern>
 	</servlet-mapping>
+	 <servlet>
+		<servlet-name>ForumPostServlet</servlet-name>
+		<servlet-class>com.forum_post.controller.ForumPostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ForumPostServlet</servlet-name>
+		<url-pattern>/forumPost/forumPost.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ForumReplyServlet</servlet-name>
+		<servlet-class>com.forum_reply.controller.ForumReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ForumReplyServlet</servlet-name>
+		<url-pattern>/forumPost/forumReply.do</url-pattern>
+	</servlet-mapping>
 </web-app>
