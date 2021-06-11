@@ -2,7 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.shop_favorites.model.*"%>
+<%@ page import="com.shop.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -14,11 +16,13 @@
 
 <%
 	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
+
+
+	List<ShopVO> list_myFavShop = (List<ShopVO>) request.getAttribute("list_myFavShop");
 	List<MemberVO> list_following = (List<MemberVO>) request.getAttribute("list_following");
 
-	List<MemberVO> list_followed = (List<MemberVO>) request.getAttribute("list_followed");
+	List<MemberVO> list_fans = (List<MemberVO>) request.getAttribute("list_fans");
 	Shop_FavoritesService shopfavSvc= new Shop_FavoritesService();
-	List<Shop_FavoritesVO> list_shop_fav = shopfavSvc.getAll();
 %>
 <!DOCTYPE html>
 <html>
@@ -284,51 +288,70 @@
 					
 					
 					<%
-							for (Shop_FavoritesVO sf : list_shop_fav) {
-						%>
-					
+ 							for (ShopVO shop : list_myFavShop) {
+ 						%> 
+							
+						<div class="card" style="width: 18rem;">
+							<a href="<%=request.getContextPath()+"/member/Shop.jsp?shop_id="+shop.getShop_id() %>">
+							<img class="card-img-top" src="/upload/<%=shop.getShop_main_img() %>" alt="">
+							</a>
+							<div class="card-body">
+							
+								<h5 class="card-title"><%=shop.getShop_name() %></h5>
+								<form action="member.html" method="post">
+								<i class="fas fa-trash-alt"></i>
+								<input type=hidden name= "MEMBER_ID" value="${MemberVO.member_id}">
+								<input type=hidden name= "SHOP_ID" value="<%=shop.getShop_id()%>">
+								<input type=hidden name="action" value="delete_sf">
+								<input type="submit" value="移除"></input>
+								</form>
+							</div>
+						</div>
 					<%
-							}
-						%>
+ 							}
+						%> 
 					
-						<div class="card" style="width: 18rem;">
-							<img class="card-img-top" src="./wilson/2.jpg" alt="">
-							<div class="card-body">
-								<h5 class="card-title">老二樓串燒居酒屋</h5>
-								<a href="#"> <i class="fas fa-trash-alt"></i>
-								</a>
-							</div>
-						</div>
-						<div class="card" style="width: 18rem;">
-							<img class="card-img-top" src="./wilson/3.jpg" alt="">
-							<div class="card-body">
-								<h5 class="card-title">老二樓串燒居酒屋</h5>
-								<a href="#"> <i class="fas fa-trash-alt"></i>
-								</a>
-							</div>
-						</div>
-						<div class="card" style="width: 18rem;">
-							<img class="card-img-top" src="./wilson/4.jpg" alt="">
-							<div class="card-body">
-								<h5 class="card-title">老二樓串燒居酒屋</h5>
-								<a href="#"> <i class="fas fa-trash-alt"></i>
-								</a>
-							</div>
-						</div>
+						
 					</div>
 					<div class="tab-pane fade" id="member_follower_fans">
+					<%
+							for (MemberVO fans : list_fans) {
+						%>
+						<div class="card follow_card" style="width: 18rem;">
+						<a href="<%=request.getContextPath()+"/member/Person.jsp?member_id="+fans.getMember_id() %>">
+							<img class="card-img-top" src="/upload/<%=fans.getMember_pic()%>"
+								alt="Card image cap"></a>
+							<div class="card-body">
+								<h5 class="card-title"><%=fans.getMember_name()%></h5>
+							</div>
+							<ul class="list-group list-group-flush">
+							<li class="list-group-item"><a href="#" class="card-link"><i
+										class="fas fa-comments">聊天</i></a></li>
+								</ul>
+
+						</div>
+						<%
+							}
+						%>
+					</div>
+						
+					<div class="tab-pane fade" id="member_follower_follow">
 						<%
 							for (MemberVO fing : list_following) {
 // 								System.out.println(fing.getMember_id());
 // 								System.out.println(MemberVO.getMember_id());
 						%>
 						<div class="card fans_card" style="width: 18rem;">
+						<a href="<%=request.getContextPath()+"/member/Person.jsp?member_id="+fing.getMember_id() %>">
 							<img class="card-img-top"
-								src="/upload/<%=fing.getMember_pic()%>" alt="Card image cap">
+								src="/upload/<%=fing.getMember_pic()%>" alt="Card image cap"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fing.getMember_name()%></h5>
 							</div>
 							<ul class="list-group list-group-flush">
+							<li class="list-group-item"><a href="#" class="card-link"><i
+										class="fas fa-comments">聊天</i></a></li>
+								<li class="list-group-item">
 								<form action="member.html" method="post">
 								<i class="fas fa-user-times">
 								<input type=hidden name= "MEMBER_ID" value="${MemberVO.member_id}">
@@ -344,47 +367,10 @@
 						%>
 
 
-
-
-
-
-
-					</div>
-					<div class="tab-pane fade" id="member_follower_follow">
-						<%
-							for (MemberVO fed : list_followed) {
-// 								System.out.println(fed.getMember_id());
-// 								System.out.println(MemberVO.getMember_id());
-						%>
-						<div class="card follow_card" style="width: 18rem;">
-							<img class="card-img-top" src="/upload/<%=fed.getMember_pic()%>"
-								alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title"><%=fed.getMember_name()%></h5>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item"><a href="#" class="card-link"><i
-										class="fas fa-comments">聊天</i></a></li>
-								<li class="list-group-item">
-								<form action="member.html" method="post">
-								<i class="fas fa-user-times">
-								<input type=hidden name= "MEMBER_ID" value="${MemberVO.member_id}">
-								<input type=hidden name= "MEMBER_ID_FOL" value="<%= fed.getMember_id()%>">
-								<input type=hidden name="action" value="delete_fol">
-								<input type="submit" value="移除"></input></i>
-								</form>
-										</li>
-							</ul>
-
-						</div>
-						<%
-							}
-						%>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 </body>

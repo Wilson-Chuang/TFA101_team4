@@ -24,6 +24,8 @@ import javax.servlet.http.Part;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 import com.member_follower.model.Member_FollowerService;
+import com.member_follower.model.Member_FollowerVO;
+import com.shop.model.ShopService;
 import com.shop.model.ShopVO;
 import com.shop_favorites.model.Shop_FavoritesService;
 import com.shop_favorites.model.Shop_FavoritesVO;
@@ -130,6 +132,54 @@ public class MemberServlet extends HttpServlet {
 		}
 		
 		
+		if ("follow".equals(action)) { // 來自select_page.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+//				String email = req.getParameter("EMAIL_ADDRESS");
+//				MemberDAO dao = new MemberDAO();
+//				
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+				int member_id= Integer.valueOf(req.getParameter("member_id"));
+				int myMember_id= Integer.valueOf(req.getParameter("myMember_id"));
+				/*************************** 2.開始查詢資料 *****************************************/
+//				MemberDAO dao = new MemberDAO();
+				Member_FollowerService memFolSvc= new Member_FollowerService();
+//				List<String> list=dao.accountCheck();
+				System.out.println("a");
+//				Member_FollowerVO Member_FollowerVO=memFolSvc.insert(member_id,myMember_id);
+				     
+				Member_FollowerVO Member_FollowerVO = new Member_FollowerVO();
+				Member_FollowerVO.setMEMBER_ID(member_id);
+				Member_FollowerVO.setMEMBER_ID_FOLLOWER(myMember_id);
+				memFolSvc.insert(member_id,myMember_id);
+				System.out.println("a");
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/signup.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("Member_FollowerVO", Member_FollowerVO); // 資料庫取出的empVO物件,存入req
+				String url = "/member/Person.jsp?member_id="+req.getParameter("member_id");
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/signup.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 		
 		
@@ -508,7 +558,6 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		if ("toFavorites".equals(action)) { // 來自select_page.jsp的請求
-
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -573,10 +622,15 @@ public class MemberServlet extends HttpServlet {
 			int Member_id=MemberVO.getMember_id();
 			
 			
-			Shop_FavoritesService shopfavSvc= new Shop_FavoritesService();
-			List<Shop_FavoritesVO> list_shop_fav = shopfavSvc.getAll();
-			
-			
+			List<Shop_FavoritesVO> Shop_FavoritesVO= (List<Shop_FavoritesVO>) memSvc.getAllByMember(Member_id);
+			List<ShopVO> list_myFavShop = new ArrayList<ShopVO>();
+			for(Shop_FavoritesVO i:Shop_FavoritesVO) {
+				int shop_id= i.getSHOP_ID();
+				ShopService shopSvc = new ShopService();
+				ShopVO ShopVO = shopSvc.getOneShop(shop_id);
+				list_myFavShop.add(ShopVO);
+			}
+							
 			Member_FollowerService memfolSvc=new Member_FollowerService();
 			List<Integer> following = memfolSvc.GET_ALL_FOLLOWING(Member_id);
 			List<MemberVO> list_following= new ArrayList<MemberVO>();
@@ -584,17 +638,18 @@ public class MemberServlet extends HttpServlet {
 		            MemberVO Member_folVO = memSvc.GET_ONE_BY_ID(i);
 		            list_following.add(Member_folVO);
 		        }
-			List<Integer> followed = memfolSvc.GET_ALL_FOLLOWED(Member_id);
-			List<MemberVO> list_followed= new ArrayList<MemberVO>();
-			for(int i:followed){
+			List<Integer> fans = memfolSvc.GET_ALL_FANS(Member_id);
+			List<MemberVO> list_fans= new ArrayList<MemberVO>();
+			for(int i:fans){
 	            MemberVO Member_folVO = memSvc.GET_ONE_BY_ID(i);
-	            list_followed.add(Member_folVO);
+	            list_fans.add(Member_folVO);
 	           
 	        }
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				req.setAttribute("list_following", list_following); // 資料庫取出的empVO物件,存入req
-				req.setAttribute("list_followed", list_followed); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_fans", list_fans); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_myFavShop", list_myFavShop); // 資料庫取出的empVO物件,存入req
 				
 				String url = "/member/MyFavorites.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
@@ -716,7 +771,6 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		if ("toShop".equals(action)) { // 來自select_page.jsp的請求
-
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -1011,32 +1065,102 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				int Member_ID= Integer.parseInt(req.getParameter("MEMBER_ID"));
 				int Member_ID_Follwer= Integer.parseInt(req.getParameter("MEMBER_ID_FOL"));
-
 				/*************************** 2.開始查詢資料 *****************************************/
 				MemberService memSvc = new MemberService();
 				memSvc.delete_fol(Member_ID,Member_ID_Follwer);
 //				HttpSession session=req.getSession();
 				MemberVO MemberVO= memSvc.GET_ONE_BY_ID(Member_ID);
 				int Member_id=MemberVO.getMember_id();
-							Member_FollowerService memfolSvc=new Member_FollowerService();
-							List<Integer> following = memfolSvc.GET_ALL_FOLLOWING(Member_id);
-							List<MemberVO> list_following= new ArrayList<MemberVO>();
-							 for(int i:following){
-						            MemberVO Member_folVO = memSvc.GET_ONE_BY_ID(i);
-						            list_following.add(Member_folVO);
-						        }
-							List<Integer> followed = memfolSvc.GET_ALL_FOLLOWED(Member_id);
-							List<MemberVO> list_followed= new ArrayList<MemberVO>();
-							for(int i:followed){
-					            MemberVO Member_folVO = memSvc.GET_ONE_BY_ID(i);
-					            list_followed.add(Member_folVO);
-					           
-					        }
+				List<Shop_FavoritesVO> Shop_FavoritesVO= (List<Shop_FavoritesVO>) memSvc.getAllByMember(Member_id);
+				List<ShopVO> list_myFavShop = new ArrayList<ShopVO>();
+				for(Shop_FavoritesVO i:Shop_FavoritesVO) {
+					int shop_id= i.getSHOP_ID();
+					ShopService shopSvc = new ShopService();
+					ShopVO ShopVO = shopSvc.getOneShop(shop_id);
+					list_myFavShop.add(ShopVO);
+				}
+				Member_FollowerService memfolSvc=new Member_FollowerService();
+				List<Integer> following = memfolSvc.GET_ALL_FOLLOWING(Member_id);
+				List<MemberVO> list_following= new ArrayList<MemberVO>();
+				 for(int i:following){
+			            MemberVO Member_fing = memSvc.GET_ONE_BY_ID(i);
+			            list_following.add(Member_fing);
+			        }
+				List<Integer> fans = memfolSvc.GET_ALL_FANS(Member_id);
+				List<MemberVO> list_fans= new ArrayList<MemberVO>();
+				for(int i:fans){
+		            MemberVO Member_fans = memSvc.GET_ONE_BY_ID(i);
+		            list_fans.add(Member_fans);
+		        }
+				// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/member/signin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			  	req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_following", list_following); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_fans", list_fans); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_myFavShop", list_myFavShop); // 資料庫取出的empVO物件,存入req
+				System.out.println("a");
+				String url = "/member/MyFavorites.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/member/signin.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		if ("delete_sf".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				int Member_ID= Integer.parseInt(req.getParameter("MEMBER_ID"));
+				int Shop_ID= Integer.parseInt(req.getParameter("SHOP_ID"));
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				MemberService memSvc = new MemberService();
+				memSvc.delete_sf(Member_ID,Shop_ID);
+				MemberVO MemberVO= memSvc.GET_ONE_BY_ID(Member_ID);
+				int Member_id=MemberVO.getMember_id();
+				List<Shop_FavoritesVO> Shop_FavoritesVO= (List<Shop_FavoritesVO>) memSvc.getAllByMember(Member_id);
+				List<ShopVO> list_myFavShop = new ArrayList<ShopVO>();
+				for(Shop_FavoritesVO i:Shop_FavoritesVO) {
+					int shop_id= i.getSHOP_ID();
+					ShopService shopSvc = new ShopService();
+					ShopVO ShopVO = shopSvc.getOneShop(shop_id);
+					list_myFavShop.add(ShopVO);
+				}
+								
+				Member_FollowerService memfolSvc=new Member_FollowerService();
+				List<Integer> following = memfolSvc.GET_ALL_FOLLOWING(Member_id);
+				List<MemberVO> list_following= new ArrayList<MemberVO>();
+				 for(int i:following){
+			            MemberVO Member_folVO = memSvc.GET_ONE_BY_ID(i);
+			            list_following.add(Member_folVO);
+			        }
+				List<Integer> fans = memfolSvc.GET_ALL_FANS(Member_id);
+				List<MemberVO> list_fans= new ArrayList<MemberVO>();
+				for(int i:fans){
+		            MemberVO Member_folVO = memSvc.GET_ONE_BY_ID(i);
+		            list_fans.add(Member_folVO);
+		           
+		        }
 					      							
 				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -1049,7 +1173,9 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			  	req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				req.setAttribute("list_following", list_following); // 資料庫取出的empVO物件,存入req
-				req.setAttribute("list_followed", list_followed); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_fans", list_fans); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("list_myFavShop", list_myFavShop); // 資料庫取出的empVO物件,存入req
+				
 				String url = "/member/MyFavorites.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -1062,6 +1188,7 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 	}
+	
 	
 	
 

@@ -10,6 +10,9 @@ import com.member_follower.model.Member_FollowerVO;
 import com.shop.model.ShopDAO;
 import com.shop.model.ShopDAO_interface;
 import com.shop.model.ShopVO;
+import com.shop_favorites.model.Shop_FavoritesDAO;
+import com.shop_favorites.model.Shop_FavoritesDAO_Interface;
+import com.shop_favorites.model.Shop_FavoritesVO;
 
 
 
@@ -17,11 +20,13 @@ public class MemberService {
 	private MemberDAO_Interface dao;
 	private Member_FollowerDAO_Interface dao_fol;
 	private ShopDAO_interface dao_shop;
+	private Shop_FavoritesDAO_Interface dao_shop_fav;
 	
 	public MemberService() {
 		dao= new MemberDAO();
 		dao_fol=new Member_FollowerDAO();
 		dao_shop=new ShopDAO();
+		dao_shop_fav=new Shop_FavoritesDAO();
 	}
 	public MemberVO insert(String Member_email,String Member_password){
 		MemberVO memberVO=new MemberVO();
@@ -68,9 +73,17 @@ public class MemberService {
 
 	public void delete_fol(Integer MEMBER_ID,Integer MEMBER_ID_FOLLOWER) {
 		Member_FollowerVO Member_FollowerVO=new Member_FollowerVO();
-		Member_FollowerVO.setMEMBER_ID(MEMBER_ID);
-		Member_FollowerVO.setMEMBER_ID_FOLLOWER(MEMBER_ID_FOLLOWER);
+		Member_FollowerVO.setMEMBER_ID(MEMBER_ID_FOLLOWER);
+		Member_FollowerVO.setMEMBER_ID_FOLLOWER(MEMBER_ID);
 		dao_fol.delete(Member_FollowerVO);
+	}
+	
+public void delete_sf(int member_ID, int shop_ID) {
+		Shop_FavoritesVO Shop_Favorites=new Shop_FavoritesVO();
+		Shop_Favorites.setMEMBER_ID(member_ID);
+		Shop_Favorites.setSHOP_ID(shop_ID);
+		dao_shop_fav.delete_sf(Shop_Favorites);
+		
 	}
 	public void delete(String MEMBER_EMAIL) {
 		dao.delete(MEMBER_EMAIL);
@@ -85,7 +98,9 @@ public class MemberService {
 	public ShopVO GET_ONE_BY_MEMBER(Integer MEMBER_ID) {
 		return dao_shop.findByMemberId(MEMBER_ID);
 	}
-
+	public List<Shop_FavoritesVO> getAllByMember(Integer Member_ID) {
+		return dao_shop_fav.getAllByMember(Member_ID);
+	}
 	public List<MemberVO> getAll() {
 		return dao.getAll();
 	}
@@ -93,5 +108,6 @@ public class MemberService {
 		 return dao.accountCheck();
 		 
 	 }
+	
 	
 }

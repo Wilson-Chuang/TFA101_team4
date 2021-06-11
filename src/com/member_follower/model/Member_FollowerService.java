@@ -14,7 +14,7 @@ public class Member_FollowerService {
 		Member_FollowerVO.setMEMBER_ID(MEMBER_ID);
 		Member_FollowerVO.setMEMBER_ID_FOLLOWER(MEMBER_ID_FOLLOWER);
 
-		dao.update(Member_FollowerVO);
+		dao.insert(Member_FollowerVO);
 
 		return Member_FollowerVO;
 	}
@@ -47,7 +47,7 @@ public class Member_FollowerService {
 
 		return dao.GET_ALL_FOLLOWING(MEMBER_ID_FOLLOWER);
 	}
-	public List<Integer> GET_ALL_FOLLOWED(Integer MEMBER_ID) {
+	public List<Integer> GET_ALL_FANS(Integer MEMBER_ID) {
 		
 		return dao.GET_ALL_FOLLOWED(MEMBER_ID);
 	}
