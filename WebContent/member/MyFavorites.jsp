@@ -7,6 +7,7 @@
 <%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="/pages/header.file" %>
 
 <%
 	String path = request.getContextPath();
@@ -196,8 +197,12 @@
 			</div>
 			<div class="col-10">
 				<span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name()%></span>
-				<span class="member_status">一般會員</span><br> <span
-					class="comments_count">0則評論</span> <span class="followers_count"><%=((MemberVO) (session.getAttribute("login"))).getMember_fans()%>個粉絲</span>
+				<%if(((MemberVO) (session.getAttribute("login"))).getMember_status()==1) {%>
+                <span class="member_status">一般會員</span><br>
+                <%}else{ %>
+                 <span class="member_status">商業會員</span><br>
+                 <%} %>
+				<span class="comments_count">0則評論</span> <span class="followers_count"><%=((MemberVO) (session.getAttribute("login"))).getMember_fans()%>個粉絲</span>
 				<span class="followers_count">會員ID:<%=((MemberVO) (session.getAttribute("login"))).getMember_id()%></span>
 			</div>
 
@@ -235,13 +240,11 @@
 								style="width: 150px; background: none; color: black">
 						</form></li>
 					<hr>
-					<li class="sidebar  lock"><form action="member.html"
-							class="personal_form">
-							<input type=hidden name="action" value="toShop"> <input
-								type="submit" value="商家專區" class="save_btn"
-								style="width: 150px; background: none; color: black">
-						</form></li>
-					<hr>
+					      <%if(((MemberVO) (session.getAttribute("login"))).getMember_status()==2) {%>
+                    <li class="sidebar  lock"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toShop">
+                    <input type="submit" value="商家專區" class="save_btn" style="width:150px;background:none;color:black"></form>
+                        </li>
+                    <hr><%} %>
 				</ul>
 			</div>
 			<div class="col-10">
@@ -288,6 +291,12 @@
 					
 					
 					<%
+							if(list_myFavShop.isEmpty()){%>
+							
+							
+							<img src="/upload/empty.jpg" alt="empty" style="width:100%">
+							<%
+							}else{
  							for (ShopVO shop : list_myFavShop) {
  						%> 
 							
@@ -309,12 +318,20 @@
 						</div>
 					<%
  							}
+						}
 						%> 
 					
 						
 					</div>
 					<div class="tab-pane fade" id="member_follower_fans">
 					<%
+							if(list_fans.isEmpty()){%>
+							
+							
+							<img src="/upload/empty.jpg" alt="empty" style="width:100%">
+							<%
+							}else{
+				
 							for (MemberVO fans : list_fans) {
 						%>
 						<div class="card follow_card" style="width: 18rem;">
@@ -332,11 +349,19 @@
 						</div>
 						<%
 							}
+							}
 						%>
 					</div>
 						
 					<div class="tab-pane fade" id="member_follower_follow">
+					
 						<%
+							if(list_following.isEmpty()){%>
+							
+							
+							<img src="/upload/empty.jpg" alt="empty" style="width:100%">
+							<%
+							}else{
 							for (MemberVO fing : list_following) {
 // 								System.out.println(fing.getMember_id());
 // 								System.out.println(MemberVO.getMember_id());
@@ -349,20 +374,28 @@
 								<h5 class="card-title"><%=fing.getMember_name()%></h5>
 							</div>
 							<ul class="list-group list-group-flush">
-							<li class="list-group-item"><a href="#" class="card-link"><i
-										class="fas fa-comments">聊天</i></a></li>
+							
+							<li class="list-group-item">
+							<form action="<%=request.getContextPath() %>/chat.do" method="post">
+								<input type=hidden name= "MEMBER_ID" value="${MemberVO.member_id}">
+								<input type=hidden name= "userName" value="${MemberVO.member_name}">
+								<input type=hidden name= "MEMBER_ID_FOL" value="<%= fing.getMember_id()%>">
+								<input type=hidden name="action" value="chat">
+								<label ><i class="fas fa-comments"></i>聊天<span style="display:none"><input type="submit" value="聊天"></input></span></label><br>
+							</form>
 								<li class="list-group-item">
 								<form action="member.html" method="post">
 								<i class="fas fa-user-times">
 								<input type=hidden name= "MEMBER_ID" value="${MemberVO.member_id}">
 								<input type=hidden name= "MEMBER_ID_FOL" value="<%= fing.getMember_id()%>">
 								<input type=hidden name="action" value="delete_fol">
-								<input type="submit" value="移除"></input></i>
+								<label ><i class="fas fa-user-times"></i>移除<span style="display:none"><input type="submit" value="移除"></input></span></label><br>
 								</form>
 							</ul>
 						</div>
 
 						<%
+							}
 							}
 						%>
 
