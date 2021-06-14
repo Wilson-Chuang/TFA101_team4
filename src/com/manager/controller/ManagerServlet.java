@@ -1,18 +1,23 @@
 package com.manager.controller;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.manager.model.ManagerService;
 import com.manager.model.ManagerVO;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class ManagerServlet extends HttpServlet{
 	
@@ -79,7 +84,7 @@ ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("managerVO", managerVO); // 資料庫取出的managerVO物件,存入req
-				String url = "/managerVO/listOneManager.jsp";
+				String url = "/manager/listOneManager.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -134,6 +139,7 @@ ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer manager_id = new Integer(req.getParameter("manager_id").trim());
+				System.out.println(manager_id);
 				
 				String manager_account = req.getParameter("manager_account");
 				String manager_accountReg = "^[(a-zA-Z0-9_)]{2,10}$";
@@ -143,13 +149,12 @@ ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 					errorMsgs.add("管理員帳號: 只能是英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
+				System.out.println(manager_account);
+				
 				String manager_name = req.getParameter("manager_name");
-				String manager_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (manager_name == null || manager_name.trim().length() == 0) {
 					errorMsgs.add("管理員姓名: 請勿空白");
-				} else if(!manager_name.trim().matches(manager_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				}
 				
 				String manager_email = req.getParameter("manager_email");
 				String manager_emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
@@ -168,24 +173,38 @@ ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 	            }
 
 				String manager_phone = req.getParameter("manager_phone");
-				String manager_phoneReg = "[0-9]{4}-[0-9]{6}$";
+				String manager_phoneReg = "^09[0-9]{8}$$";
 				if (manager_phone == null || manager_phone.trim().length() == 0) {
 					errorMsgs.add("管理員電話: 請勿空白");
 				} else if(!manager_phone.trim().matches(manager_phoneReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("管理員電話有誤，請再次確認");
 	            }
 				
+				//圖片，用getpart()
+				Part file = req.getPart("manager_pic");
+				String fileName = file.getSubmittedFileName();
 				
-//				Integer deptno = new Integer(req.getParameter("deptno").trim());
-
+				String path = "C:/uploadpic/" + fileName;
+				
+				FileOutputStream fos = new FileOutputStream(path);
+			    InputStream is = file.getInputStream();   
+			    
+			    byte[] manager_pic = new byte[is.available()];
+				is.read(manager_pic);
+				fos.write(manager_pic);
+				fos.close();
+				
+				String manager_picname = file.getSubmittedFileName();
+				
 				ManagerVO managerVO = new ManagerVO();
 				managerVO.setManager_id(manager_id);
 				managerVO.setManager_account(manager_account);
 				managerVO.setManager_name(manager_name);
-//圖片待處理		managerVO.setManager_pic(manager_pic);
+				managerVO.setManager_pic(manager_pic);
 				managerVO.setManager_email(manager_email);
 				managerVO.setManager_password(manager_password);
 				managerVO.setManager_phone(manager_phone);
+				managerVO.setManager_picname(manager_picname);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -198,8 +217,8 @@ ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 				
 				/***************************2.開始修改資料*****************************************/
 				ManagerService managerSvc = new ManagerService();
-				managerVO = managerSvc.updateManager(manager_account, manager_name, manager_email, manager_password, manager_phone);
-//manager_pic, 先拿掉待處理
+				managerVO = managerSvc.updateManager(manager_id, manager_account, manager_name, manager_pic, manager_email, manager_password, manager_phone, manager_picname);
+
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("managerVO", managerVO); // 資料庫update成功後,正確的的managerVO物件,存入req
@@ -226,6 +245,7 @@ if ("insert".equals(action)) { // 來自addmanager.jsp的請求
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String manager_account = req.getParameter("manager_account");
+				System.out.println(manager_account);
 				String manager_accountReg = "^[(a-zA-Z0-9_)]{2,10}$";
 				if (manager_account == null || manager_account.trim().length() == 0) {
 					errorMsgs.add("管理員帳號: 請勿空白");
@@ -234,12 +254,9 @@ if ("insert".equals(action)) { // 來自addmanager.jsp的請求
 	            }
 				
 				String manager_name = req.getParameter("manager_name");
-				String manager_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (manager_name == null || manager_name.trim().length() == 0) {
 					errorMsgs.add("管理員姓名: 請勿空白");
-				} else if(!manager_name.trim().matches(manager_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-	            }
+				} 
 				
 				String manager_email = req.getParameter("manager_email");
 				String manager_emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
@@ -258,23 +275,38 @@ if ("insert".equals(action)) { // 來自addmanager.jsp的請求
 	            }
 
 				String manager_phone = req.getParameter("manager_phone");
-				String manager_phoneReg = "[0-9]{4}-[0-9]{6}$";
+				String manager_phoneReg = "^09[0-9]{8}$";
 				if (manager_phone == null || manager_phone.trim().length() == 0) {
 					errorMsgs.add("管理員電話: 請勿空白");
 				} else if(!manager_phone.trim().matches(manager_phoneReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("管理員電話有誤，請再次確認");
 	            }
 				
+				//圖片，用getpart()
+				Part file = req.getPart("manager_pic");
+				String fileName = file.getSubmittedFileName();
 				
-//				Integer deptno = new Integer(req.getParameter("deptno").trim());
+				String path = "C:/uploadpic/" + fileName;
+				
+				FileOutputStream fos = new FileOutputStream(path);
+			    InputStream is = file.getInputStream();   
+			    
+			    byte[] manager_pic = new byte[is.available()];
+				is.read(manager_pic);
+				fos.write(manager_pic);
+				fos.close();
+				
+				String manager_picname = file.getSubmittedFileName();
+				
 
 				ManagerVO managerVO = new ManagerVO();
 				managerVO.setManager_account(manager_account);
 				managerVO.setManager_name(manager_name);
-//圖片待處理		managerVO.setManager_pic(manager_pic);
+				managerVO.setManager_pic(manager_pic);
 				managerVO.setManager_email(manager_email);
 				managerVO.setManager_password(manager_password);
 				managerVO.setManager_phone(manager_phone);
+				managerVO.setManager_picname(manager_picname);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -287,8 +319,9 @@ req.setAttribute("managerVO", managerVO); // 含有輸入格式錯誤的managerV
 				
 				/***************************2.開始新增資料***************************************/
 				ManagerService managerSvc = new ManagerService();
-				managerVO = managerSvc.addManager(manager_account, manager_name, manager_email, manager_password, manager_phone);
-//manager_pic, 先拿掉待處理
+				managerVO = managerSvc.addManager(manager_account, manager_name, manager_pic, manager_email, manager_password, manager_phone, manager_picname);
+				
+				System.out.println("準備新增");
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/manager/listAllManager.jsp";
