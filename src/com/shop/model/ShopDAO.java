@@ -1,6 +1,7 @@
 package com.shop.model;
 
 import java.util.*;
+import java.math.BigDecimal;
 import java.sql.*;
 
 import javax.naming.Context;
@@ -365,6 +366,106 @@ public class ShopDAO implements ShopDAO_interface {
 		}
 		return list;
 	}
+	
+	private static final String GET_ALL_BY_LATLNG = "SELECT DISTINCT shop_id,member_id,shop_tax_id,"
+			+ "shop_name,shop_zip_code,shop_city,shop_address,shop_latitude,shop_longitude,"
+			+ "Truncate(shop_latitude,1),Truncate(shop_longitude,1),shop_description,"
+			+ "shop_tag,shop_rating,shop_rating_count,shop_rating_total,"
+			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
+			+ "shop_website,shop_main_img,shop_gallery,shop_create_time,"
+			+ "shop_update_time,shop_total_view,shop_reserv_status"
+			+ " FROM shop WHERE "
+			+ "Truncate(shop_latitude,1) = ? AND "
+			+ "Truncate(shop_longitude,1) = ?";
+	
+	@Override
+	public List<ShopVO> getAllbyLatLng(Double lat, Double lng) {
+		List<ShopVO> list = new ArrayList<ShopVO>();
+		ShopVO shopVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BY_LATLNG);
+			
+			 if (lat > 0) {
+				 lat = new BigDecimal(String.valueOf(lat)).setScale(1, BigDecimal.ROUND_FLOOR).doubleValue();
+			 } else {
+				 lat = new BigDecimal(String.valueOf(lat)).setScale(1, BigDecimal.ROUND_CEILING).doubleValue();
+			 }
+			
+			 if (lng > 0) {
+				 lng = new BigDecimal(String.valueOf(lng)).setScale(1, BigDecimal.ROUND_FLOOR).doubleValue();
+			 } else {
+				 lng = new BigDecimal(String.valueOf(lng)).setScale(1, BigDecimal.ROUND_CEILING).doubleValue();
+			 }
+			 
+			pstmt.setDouble(1, lat);
+			pstmt.setDouble(2, lng);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				shopVO = new ShopVO();
+				shopVO.setShop_id(rs.getInt("shop_id"));
+				shopVO.setMember_id(rs.getInt("member_id"));
+				shopVO.setShop_tax_id(rs.getString("shop_tax_id"));
+				shopVO.setShop_name(rs.getString("shop_name"));
+				shopVO.setShop_zip_code(rs.getString("shop_zip_code"));
+				shopVO.setShop_city(rs.getString("shop_city"));
+				shopVO.setShop_address(rs.getString("shop_address"));
+				shopVO.setShop_latitude(rs.getDouble("shop_latitude"));
+				shopVO.setShop_longitude(rs.getDouble("shop_longitude"));
+				shopVO.setShop_description(rs.getString("shop_description"));
+				shopVO.setShop_tag(rs.getString("shop_tag"));
+				shopVO.setShop_rating(rs.getDouble("shop_rating"));
+				shopVO.setShop_rating_count(rs.getInt("shop_rating_count"));
+				shopVO.setShop_rating_total(rs.getInt("shop_rating_total"));
+				shopVO.setShop_email(rs.getString("shop_email"));
+				shopVO.setShop_phone(rs.getString("shop_phone"));
+				shopVO.setShop_price_level(rs.getInt("shop_price_level"));
+				shopVO.setShop_opening_time(rs.getString("shop_opening_time"));
+				shopVO.setShop_website(rs.getString("shop_website"));
+				shopVO.setShop_main_img(rs.getString("shop_main_img"));
+				shopVO.setShop_gallery(rs.getString("shop_gallery"));
+				shopVO.setShop_create_time(rs.getTimestamp("shop_create_time"));
+				shopVO.setShop_update_time(rs.getTimestamp("shop_update_time"));
+				shopVO.setShop_total_view(rs.getInt("shop_total_view"));
+				shopVO.setShop_reserv_status(rs.getInt("shop_reserv_status"));
+				list.add(shopVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}	
 	
 	private static final String SEARCH_SHOP_BOTH = "SELECT DISTINCT shop_id,member_id,shop_tax_id,"
 			+ "shop_name,shop_zip_code,shop_city,shop_address,"

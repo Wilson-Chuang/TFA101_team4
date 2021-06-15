@@ -107,6 +107,10 @@ public class ShopService {
 		return dao.getAll();
 	}
 	
+	public List<ShopVO> getAllbyLatLng(Double lat, Double lng) {
+		return dao.getAllbyLatLng(lat, lng);
+	}
+	
 	public List<ShopVO> findShopPlace(String place) {
 		return dao.findShopPlace(place);
 	}
