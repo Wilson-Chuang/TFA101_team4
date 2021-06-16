@@ -294,16 +294,20 @@ var keyword = new Autocomplete(document.getElementById('shop-keyword-bar'), {
 $('#search-type').on('change', function () {
 	let shop = 
 	'<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" />' + 
-	'<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="shop_search">';
 	
 	let article =
-	'<input type="text" name="article-keyword-bar" id="article-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="article-keyword-bar" id="article-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="article_search">';
 	
 	let product =
-	'<input type="text" name="product-keyword-bar" id="product-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="product-keyword-bar" id="product-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="product_search">';
 	
 	let party =
-	'<input type="text" name="party-keyword-bar" id="party-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="party-keyword-bar" id="party-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="party_search">';
 		
 	switch(this.value){
 		case "shop":

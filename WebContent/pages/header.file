@@ -8,7 +8,7 @@
 						<img style="min-height:70px;min-width:150px;max-height:70px" src="./img/header/logo.png" />
 					</a>
 				</div>
-				<form class="col-lg-6" method="post" action="">
+				<form class="col-lg-6" method="post" action="<%=request.getContextPath()%>/search.do">
 					<div class="row">
 						<div class="col-md-5 pt-2">
 							<div class="row g-0 d-flex justify-content-center">
@@ -58,7 +58,8 @@
 								</select>
 								<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" />
 								<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />
-								<button type="button" class="btn btn-primary btn-sm" id="btn-submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+								<button type="submit" class="btn btn-primary btn-sm" id="btn-submit"><i class="bi bi-search" aria-hidden="true"></i></button>
+								<input type="hidden" name="action" class="search-bar" value="shop_search">
 							</div>
 							<div class="row g-2 d-flex justify-content-evenly align-items-center pt-4" id="popular-key">
 								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">火鍋</a>

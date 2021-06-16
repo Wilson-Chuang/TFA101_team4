@@ -102,8 +102,23 @@ public class ShopService {
 	public ShopVO getOneShop(Integer shop_id) {
 		return dao.findByPrimaryKey(shop_id);
 	}
-
+	
 	public List<ShopVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<ShopVO> getAllbyLatLng(Double lat, Double lng) {
+		return dao.getAllbyLatLng(lat, lng);
+	}
+	
+	public List<ShopVO> findShopPlace(String place) {
+		return dao.findShopPlace(place);
+	}
+	public List<ShopVO> findShopKeyword(String keyword) {
+		return dao.findShopKeyword(keyword);
+	}
+	public List<ShopVO> findShopBoth(String keyword, String place) {
+		return dao.findShopBoth(keyword, place);
+	}
+	
 }

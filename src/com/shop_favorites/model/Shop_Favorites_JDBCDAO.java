@@ -242,4 +242,10 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 		return list;
 	}
 
+	@Override
+	public List<Shop_FavoritesVO> getAllByMember(Integer Member_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
-<%@ page import="com.shop.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -10,17 +9,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <%
-	int shop_id= Integer.valueOf(request.getParameter("shop_id"));
-	MemberVO MemberVO = (MemberVO) session.getAttribute("login");
-	ShopService shopSvc=new ShopService();
-	ShopVO ShopVO= shopSvc.getOneShop(shop_id);
+		int member_id= Integer.valueOf(request.getParameter("member_id"));
+		MemberService memSvc=new MemberService();
+		MemberVO MemberVO= memSvc.GET_ONE_BY_ID(member_id);
+		MemberVO myMemberVO = (MemberVO)(session.getAttribute("login"));
+		
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|商店頁面</title>
+<title>Giude好食|個人頁面</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -152,125 +152,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </nav>
 <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="/upload/<%= MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
+            </div>
+            <div class="col-10">
+                <span class="member_name"><%= MemberVO.getMember_name()%></span>
+                <span class="member_status">一般會員</span><br>
+                <span class="comments_count">0則評論</span>
+                <span class="followers_count"><%= MemberVO.getMember_fans()%>個粉絲</span>
+                <span class="followers_count">會員ID:<%= MemberVO.getMember_id()%></span>
+            </div>
+
+        </div>
 
         <div class="row">
 
             <div class="col-2">
                 <ul class="sidebar_ul">
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="signin">
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="signin">
                     <input type="submit" value="個人資料" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toWallet">
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toWallet">
                     <input type="submit" value="我的錢包" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toFavorites">
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toFavorites">
                     <input type="submit" value="我的收藏" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toActive">
+                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toActive">
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <li class="sidebar  lock"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toShop">
+                    <li class="sidebar  lock"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toShop">
                     <input type="submit" value="商家專區" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
                 </ul>
             </div>
-                    <div class="col-10">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="/upload/<%=ShopVO.getShop_main_img() %>" class="card-img" alt="...">
-                    </div>
-                    <div class="col-md-8 shop_zone">
-                        <h1 class="shop_title"><%=ShopVO.getShop_name() %></h1>
-                        <span class="ratins"><%=ShopVO.getShop_rating() %><i class="fas fa-star"></i></span><span class="coms">125則評論</span>
-                        <span class="avg_prices">均消$<%=ShopVO.getShop_price_level() %></span> <span class="tags">清酒 串燒 燒烤</span><br>
-                        <span class="open_time">營業時間:<%=ShopVO.getShop_opening_time() %></span><br>
-                        <span class="address">地址:<%=ShopVO.getShop_address() %></span><br>
-                        <span class="webs"><a>粉絲專頁:<%=ShopVO.getShop_website() %></a></span><br>
-                        <span class="phone">連絡電話:<%=ShopVO.getShop_phone() %></span><br>
-                    </div>
-                </div>
-                <h1>餐廳照片</h1>
-                <div class="row">
-
-                    <div class="shop_pic">
-                        <img src="./wilson/1.jpg" class="shop_img">
-                    </div>
-                    <div class="shop_pic">
-                        <img src="./wilson/2.jpg" class="shop_img">
-                    </div>
-                    <div class="shop_pic">
-                        <img src="./wilson/3.jpg" class="shop_img">
-                    </div>
-                    <div class="shop_pic">
-                        <img src="./wilson/4.jpg" class="shop_img">
-                    </div>
-
-                </div>
-                <h1>餐廳評論</h1>
-                <div class="row">
-                    <div class="comment_table">
-                    	<form>
-                        <a href="#" class="text-decoration-none commentStar star-count-1">
-    <i class="fa fa-star text-light p-1 bg-secondary" aria-hidden="true"></i>
-  </a>
-  <a href="#" class="text-decoration-none commentStar star-count-2">
-    <i class="fa fa-star text-light p-1 bg-secondary" aria-hidden="true"></i>
-  </a>
-  <a href="#" class="text-decoration-none commentStar star-count-3">
-    <i class="fa fa-star text-light p-1 bg-secondary" aria-hidden="true"></i>
-  </a>
-  <a href="#" class="text-decoration-none commentStar star-count-4">
-    <i class="fa fa-star text-light p-1 bg-secondary" aria-hidden="true"></i>
-  </a>
-  <a href="#" class="text-decoration-none commentStar star-count-5">
-    <i class="fa fa-star text-light p-1 bg-secondary" aria-hidden="true"></i>
-  </a>
-                        <br>
-                        <textarea class="comment_text" placeholder="想說什麼呢?"></textarea><br>
-                        <button class="photo_update">上傳照片</button><br>
-                        <input type="submit" value="送出" class="comment_btn"><br><hr>
-                    </div>
-                    <div class="comment_zone">
-                        <h3 class="user">用戶A</h3>
-                        <p>2021/05/05 11:24:32</p>
-                        <span class="ratins">4<i class="fas fa-star"></i></span><br>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas assumenda sequi
-                            dignissimos possimus asperiores laboriosam, dolorum odit commodi vel aperiam voluptates
-                            numquam voluptatibus quia iure, porro, quo beatae veniam mollitia. Dolores officia officiis,
-                            quidem, tempore reiciendis est assumenda doloribus voluptate optio eos, sit maxime
-                            consequatur dolorum iure itaque natus.</p>
-                            <img src="./wilson/1.jpg" alt="" style="width:25%">
-                            <hr>
-                    </div>
-                    <div class="comment_zone">
-                        <h3 class="user">用戶B</h3>
-                        <p>2021/05/04 10:04:22</p>
-                        <span class="ratins">4<i class="fas fa-star"></i></span><br>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas assumenda sequi
-                            dignissimos possimus asperiores laboriosam, dolorum odit commodi vel aperiam voluptates
-                            numquam voluptatibus quia iure, porro, quo beatae veniam mollitia. Dolores officia officiis,
-                            quidem, tempore reiciendis est assumenda doloribus voluptate optio eos, sit maxime
-                            consequatur dolorum iure itaque natus.</p>
-                            <img src="./wilson/2.jpg" alt="" style="width:25%">
-                            <hr>
-                    </div>
-                </div>
-
+            <div class="col-10">
+                <form action="member.html" class="personal_form" method="post"  enctype="multipart/form-data">
+                <table class="table table-striped">
+                <tr><th>信箱:</th><td><%= MemberVO.getMember_email()%></td></tr>
+                <tr><th>性別:</th><td><%if(MemberVO.getMember_gender()==1)%>男<%else%>女</td></tr>
+                <tr><th>生日:</th><td><%= MemberVO.getMember_birth()%></td></tr>
+                <tr><th>年齡:</th><td><%= MemberVO.getMember_age()%></td></tr>
+                <tr><th>地址:</th><td><%= MemberVO.getMember_address()%></td></tr>
+                <tr><th>電話:</th><td><%= MemberVO.getMember_phone()%></td></tr> 
+                <tr><th>註冊日期:</th><td><fmt:formatDate value="<%= MemberVO.getMember_create_time()%>" pattern="yyyy/MM/dd"/></td></tr>
+                <tr><th>更新日期:</th><td><fmt:formatDate value="<%= MemberVO.getMember_update_time()%>" pattern="yyyy/MM/dd"/></td></tr>
+                
+                </table>
+                
+                </form>
+ 				 <form action="member.html"method="post">
+ 				 	<input type=hidden name="member_id" value="<%= MemberVO.getMember_id()%>">
+ 				 	<input type=hidden name="myMember_id" value="<%= myMemberVO.getMember_id()%>">
+ 				    <input type=hidden name="action" value="follow">
+                    <input type="submit" value="追蹤" class="save_btn" style="width:150px">
+ 				 </form>
             </div>
         </div>
     </div>
 
-
 </body>
-   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 <script type="text/javascript">
 		function show(f) {
 			var reader = new FileReader();//建立檔案讀取物件
@@ -281,29 +228,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				document.getElementById("showimg").src = this.result;
 			}
 		}
-	</script>
-	<script type="text/javascript">
-	let starIcon = document.querySelectorAll('.commentStar i');
-	for (let i = 0; i < starIcon.length; i++) {
-	  starIcon[i].addEventListener(
-	    'click',
-	    function(event) {
-	      event.preventDefault();
-	      console.log('preventDefault will stop you from checking this checkbox!');
-	      console.log(this);
-	      for (let j = 0; j <= i; j++) {
-	        starIcon[j].classList.add('bg-danger');
-	        console.log('第 ' + j + ' 號星 加上紅色');
-	      }
-	      for (let k = 4; k > i; k--) {
-	        starIcon[k].classList.remove('bg-danger');
-	        console.log('第 ' + k + ' 號星 去除紅色');
-	      }
-	      var starNumber = i + 1; // starNumber = 傳到資料庫的星數
-	      console.log('評論星數為 ' + starNumber);
-	    },
-	    false
-	  );
-	}
 	</script>
 </html>

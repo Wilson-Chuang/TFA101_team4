@@ -12,7 +12,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	String email = ((MemberVO) request.getAttribute("MemberVO")).getMember_email();
 	MemberService memSvc=new MemberService();
 	MemberVO MemberVO = memSvc.getOneMem(email);
-	System.out.println(MemberVO.getMember_email());
 %>
 <!DOCTYPE html>
 <html>

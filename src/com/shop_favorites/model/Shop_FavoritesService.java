@@ -2,15 +2,12 @@ package com.shop_favorites.model;
 
 import java.util.List;
 
-import com.member_follower.model.Member_FollowerDAO;
-import com.member_follower.model.Member_FollowerDAO_Interface;
-import com.member_follower.model.Member_FollowerVO;
 
 public class Shop_FavoritesService {
 	private Shop_FavoritesDAO_Interface dao;
 
 	public Shop_FavoritesService() {
-		dao = new Shop_Favorites_JDBCDAO();
+		dao = new Shop_FavoritesDAO();
 	}
 
 	public Shop_FavoritesVO insert(Integer MEMBER_ID, Integer SHOP_ID) {
@@ -45,6 +42,11 @@ public class Shop_FavoritesService {
 
 		return dao.getAll();
 	}
+	
+	
+	public List<Shop_FavoritesVO> getAllByMember(Integer Member_ID) {
 
+		return dao.getAllByMember(Member_ID);
+	}
 
 }
