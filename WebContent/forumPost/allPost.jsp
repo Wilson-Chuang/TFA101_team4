@@ -6,16 +6,19 @@
 <%@ page import="com.member.model.*"%>
 
 <%
+    ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");
+
 	ForumPostService forumPostSvc = new ForumPostService();
 	List<ForumPostVO> list = forumPostSvc.getAll();
 	pageContext.setAttribute("list", list);
+	
 %>
 
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 
 <html>
 <head>
-<title>討論區</title>
+<title>Guide好食|討論區</title>
 
 <style>
 table {
@@ -47,7 +50,7 @@ th, td {
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
-			<c:forEach var="message" items="${erroeMsgs}">
+			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
 			</c:forEach>
 		</ul>
@@ -60,7 +63,7 @@ th, td {
 	<table>
 		<tr>
 			<th>主題</th>
-			<th>回復數量</th>
+			<th>回覆數量</th>
 			<th>用戶名</th>
 			<th>按讚</th>
 			<th>發表時間</th>
@@ -69,8 +72,8 @@ th, td {
 			<tr>
 				<FORM METHOD="post" ACTION="forumPost.do">
 					<td><input type="submit" value="${forumPost.forum_post_title}"></td>
-					<td>${forumPost.member_id}</td>
-					<td>${memberSvc.getOneMember(forumPost.member_id).member_account}</td>
+					<td>${forumPost.forum_post_reply_total}</td>
+					<td>${memberSvc.GET_ONE_BY_ID(forumPost.member_id).member_email}</td>
 					<td>${forumPost.forum_post_like}</td>
 					<td><fmt:formatDate value="${forumPost.forum_post_time}"
 							pattern="yyyy/MM/dd HH:mm" /></td>

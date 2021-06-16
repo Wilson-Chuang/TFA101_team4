@@ -7,7 +7,7 @@ public class ForumPostService {
 	private ForumPostDAO dao;
 
 	public ForumPostService() {
-		dao = new ForumPostJNDIDAO();
+		dao = new ForumPostJDBCDAO();
 	}
 	
 	public ForumPostVO addForumPost(Integer member_id, String forum_post_title, 

@@ -7,7 +7,7 @@ public class ForumReplyService {
 	private ForumReplyDAO dao;
 
 	public ForumReplyService() {
-		dao = new ForumReplyJNDIDAO();
+		dao = new ForumReplyJDBCDAO();
 	}
 	
 	public ForumReplyVO addForumReply(Integer member_id, 

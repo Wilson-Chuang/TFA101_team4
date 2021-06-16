@@ -276,6 +276,7 @@ public class ForumReplyJDBCDAO implements ForumReplyDAO{
 			
 			while(rs.next()) {
 				forumReply = new ForumReplyVO();
+				forumReply.setForum_reply_id(rs.getInt("FORUM_REPLY_ID"));
 				forumReply.setMember_id(rs.getInt("MEMBER_ID"));
 				forumReply.setForum_post_id(rs.getInt("FORUM_POST_ID"));
 				forumReply.setForum_reply_content(rs.getString("FORUM_REPLY_CONTENT"));
