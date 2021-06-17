@@ -8,7 +8,6 @@
 	Set<String> shop_tags = new HashSet<String>();
 	for(int i = 0; i < searchlist.size(); i++){
 		if(searchlist.get(i).getSearch_type() == 2){
-			System.out.println(searchlist.get(i).getSearch_key());
 			 shop_tags.add(searchlist.get(i).getSearch_key());
 		}
 	}
