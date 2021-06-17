@@ -474,12 +474,7 @@ public class ShopDAO implements ShopDAO_interface {
 			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
 			+ "shop_website,shop_main_img,shop_gallery,shop_create_time,"
 			+ "shop_update_time,shop_total_view,shop_reserv_status"
-			+ " FROM shop WHERE "
-			+ "shop_name LIKE ? OR "
-			+ "shop_description LIKE ? OR "
-			+ "shop_tag LIKE ? OR "
-			+ "shop_city LIKE ? OR "
-			+ "shop_address LIKE ?";
+			+ " FROM shop WHERE (shop_city LIKE ? OR shop_address LIKE ?) AND (";
 	
 	@Override
 	public List<ShopVO> findShopBoth(String keyword, String place) {
@@ -492,14 +487,40 @@ public class ShopDAO implements ShopDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(SEARCH_SHOP_BOTH);
-
-			pstmt.setString(1, "%" + keyword + "%");
-			pstmt.setString(2, "%" + keyword + "%");
-			pstmt.setString(3, "%" + keyword + "%");
-			pstmt.setString(4, "%" + place + "%");
-			pstmt.setString(5, "%" + place + "%");
-
+			
+			String tempStmt = SEARCH_SHOP_BOTH;
+			String[] keyArray = keyword.split("\\s+");
+			int keyCount = 0;
+			for(int i = 0;i < keyArray.length;i++) {
+				if(i == keyArray.length - 1) {
+					tempStmt += 
+							"shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?)";
+					keyCount += 3;
+				}else {
+					tempStmt += 
+							"shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ? OR ";
+					keyCount += 3;
+				}				
+			}
+			System.out.println(tempStmt);
+			pstmt = con.prepareStatement(tempStmt);
+			pstmt.setString(1, "%" + place + "%");
+			pstmt.setString(2, "%" + place + "%");						
+			int totalCount = 2;
+			for(int temp = 0;temp < keyArray.length;) {
+				for(;totalCount < keyCount; temp++) {
+					totalCount++;
+					pstmt.setString(totalCount, "%" + keyArray[temp] + "%");
+					totalCount++;
+					pstmt.setString(totalCount, "%" + keyArray[temp] + "%");
+					totalCount++;
+					pstmt.setString(totalCount, "%" + keyArray[temp] + "%");
+				}				
+			}
+			
+			System.out.println(pstmt);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -569,10 +590,7 @@ public class ShopDAO implements ShopDAO_interface {
 			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
 			+ "shop_website,shop_main_img,shop_gallery,shop_create_time,"
 			+ "shop_update_time,shop_total_view,shop_reserv_status"
-			+ " FROM shop WHERE "
-			+ "shop_name LIKE ? OR "
-			+ "shop_description LIKE ? OR "
-			+ "shop_tag LIKE ?";
+			+ " FROM shop WHERE ";
 	
 	@Override
 	public List<ShopVO> findShopKeyword(String keyword) {
@@ -584,10 +602,39 @@ public class ShopDAO implements ShopDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(SEARCH_SHOP_KEYWORD);
-			pstmt.setString(1, "%" + keyword + "%");
-			pstmt.setString(2, "%" + keyword + "%");
-			pstmt.setString(3, "%" + keyword + "%");
+			
+			String tempStmt = SEARCH_SHOP_KEYWORD;
+			String[] keyArray = keyword.split("\\s+");
+			int keyCount = 0;
+			for(int i = 0;i < keyArray.length;i++) {
+				if(i == keyArray.length - 1) {
+					tempStmt += 
+							"shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?";
+					keyCount += 3;
+				}else {
+					tempStmt += 
+							"shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ? OR ";
+					keyCount += 3;
+				}				
+			}
+			System.out.println(tempStmt);
+			pstmt = con.prepareStatement(tempStmt);
+			
+			int totalCount = 0;
+			for(int temp = 0;temp < keyArray.length;) {
+				for(;totalCount < keyCount; temp++) {
+					totalCount++;
+					pstmt.setString(totalCount, "%" + keyArray[temp] + "%");
+					totalCount++;
+					pstmt.setString(totalCount, "%" + keyArray[temp] + "%");
+					totalCount++;
+					pstmt.setString(totalCount, "%" + keyArray[temp] + "%");
+				}
+			}
+			
+			System.out.println(pstmt);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				shopVO = new ShopVO();

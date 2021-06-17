@@ -1,5 +1,42 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+	SearchService searchSvc = new SearchService();
+	List<SearchVO> searchlist = searchSvc.getAll();
+	pageContext.setAttribute("searchlist",searchlist);
+	
+	Set<String> shop_tags = new HashSet<String>();
+	for(int i = 0; i < searchlist.size(); i++){
+		if(searchlist.get(i).getSearch_type() == 2){
+			System.out.println(searchlist.get(i).getSearch_key());
+			 shop_tags.add(searchlist.get(i).getSearch_key());
+		}
+	}
+	pageContext.setAttribute("shop_tags",shop_tags);
+	
+	Set<String> place_tags = new HashSet<String>();		
+	for(int i = 0; i < searchlist.size(); i++){
+		if(searchlist.get(i).getSearch_type() == 1){
+			place_tags.add(searchlist.get(i).getSearch_key());
+		}
+	}
+	pageContext.setAttribute("place_tags",place_tags);
+%>
+
+<script>
+	var shopsrc = [
+		<c:forEach items="${shop_tags}" var="value" varStatus="status">
+			{"label": "${value}"}
+			<c:if test="${!status.last}">,</c:if>
+		</c:forEach>];
+	
+	var placesrc = [
+		<c:forEach items="${place_tags}" var="value" varStatus="status">
+			{"label": "${value}"}
+			<c:if test="${!status.last}">,</c:if>
+		</c:forEach>];
+</script>
+
 <nav class="fixed-top bg-body">
 		<div class="container-fluid">
 			<div class="row g-0">
