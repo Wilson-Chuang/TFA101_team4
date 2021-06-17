@@ -10,6 +10,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+import org.json.JSONObject;
+
 import com.member.model.MemberService;
 import com.shop.model.*;
 
@@ -96,7 +98,6 @@ public class ShopServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllShop.jsp 或  /dept/listShops_ByDeptno.jsp 的請求
 
@@ -549,5 +550,31 @@ public class ShopServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("getPartQuery".equals(action)) {
+			res.setContentType("application/json; charset=utf-8");
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				Double lat = new Double(req.getParameter("lat"));
+				Double lng = new Double(req.getParameter("lng"));
+				/***************************2.開始查詢資料****************************************/
+				ShopService shopSvc = new ShopService();
+				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
+				JSONObject resJSON = new JSONObject();
+				resJSON.put("list",list);
+				resJSON.put("status", "OK");
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				PrintWriter out = res.getWriter();				 
+		        out.println(resJSON);
+
+				/***************************其他可能的錯誤處理************************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
 	}
 }
