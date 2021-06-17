@@ -19,7 +19,7 @@ maxRequestSize=1024*1024*100)
 public class ShopServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8523979247180883296L;
-	private static final String UPLOAD_DIR = "uploads";
+	private static final String UPLOAD_DIR = "uploads" + File.separator + "shop";
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
