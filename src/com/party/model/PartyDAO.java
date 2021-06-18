@@ -8,9 +8,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.party.model.PartyVO;
 
-public class PartyDAO implements PartyDAO_interface{
+public class PartyDAO implements PartyDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
 	private static DataSource ds = null;
 	static {
@@ -24,13 +23,12 @@ public class PartyDAO implements PartyDAO_interface{
 	private static final String INSERT_STMT = "INSERT INTO party (party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min FROM party order by party_id";
 	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min FROM party where party_id = ?";
-	private static final String UPDATE = "UPDATE party set party_id=?, party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=? where party_id = ?";
-
+	private static final String DELETE = "DELETE FROM party where party_id = ?";
+	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=? where party_id = ?";
 
 	@Override
 	public void insert(PartyVO partyVO) {
 
-		System.out.println("有近來dao");
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -82,13 +80,14 @@ public class PartyDAO implements PartyDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, partyVO.getParty_id());
-			pstmt.setString(2, partyVO.getParty_title());
-			pstmt.setTimestamp(3, partyVO.getParty_start_time());
-			pstmt.setTimestamp(4, partyVO.getParty_end_time());
-			pstmt.setString(5, partyVO.getParty_intro());
-			pstmt.setInt(6, partyVO.getParty_participants_max());
-			pstmt.setInt(7, partyVO.getParty_participants_min());
+			pstmt.setString(1, partyVO.getParty_title());
+			pstmt.setTimestamp(2, partyVO.getParty_start_time());
+			pstmt.setTimestamp(3, partyVO.getParty_end_time());
+			pstmt.setString(4, partyVO.getParty_intro());
+			pstmt.setInt(5, partyVO.getParty_participants_max());
+			pstmt.setInt(6, partyVO.getParty_participants_min());
+			pstmt.setInt(7, partyVO.getParty_id());
+
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -114,6 +113,43 @@ public class PartyDAO implements PartyDAO_interface{
 
 	}
 
+	@Override
+	public void delete(Integer party_id) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setInt(1, party_id);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 	
 	@Override
 	public PartyVO findByPrimaryKey(Integer party_id) {
@@ -232,15 +268,3 @@ public class PartyDAO implements PartyDAO_interface{
 		return list;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

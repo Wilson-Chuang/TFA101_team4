@@ -1,20 +1,15 @@
 package com.party.controller;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import com.party.model.*;
 
 
-import com.party.model.PartyService;
-import com.party.model.PartyVO;
-
-import oracle.sql.TIMESTAMP;
 
 public class PartyServlet extends HttpServlet {
 
@@ -88,7 +83,6 @@ public class PartyServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) { // 來自listAllEmp.jsp的請求
-System.out.println("33333333");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -97,34 +91,38 @@ System.out.println("33333333");
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String party_title = req.getParameter("party_title").trim();
-				System.out.println(party_title);
-//				if (party_title == null || party_title.trim().length() == 0) {
-//					errorMsgs.add("標題請勿空白");
-//					System.out.println("22222");
-//				}
+				if (party_title == null || party_title.trim().length() == 0) {
+					errorMsgs.add("標題請勿空白");
+				}
 				String party_intro = req.getParameter("party_intro").trim();
-				System.out.println(party_intro);
-//				if (party_intro == null || party_intro.trim().length() == 0) {
-//					errorMsgs.add("內容請勿空白");
-//					System.out.println("111111");
-//				}
+				if (party_intro == null || party_intro.trim().length() == 0) {
+					errorMsgs.add("內容請勿空白");
+				}
 //				Integer member_id = null;
 //				try {
 //					member_id = new Integer(req.getParameter("memberID"));
 //				} catch (NumberFormatException e) {
 //					errorMsgs.add("請檢查是否已登入");
 //				}
+				Integer party_participants_max = null;
+				try {
+					party_participants_max = new Integer(req.getParameter("party_participants_max").trim());
+				} catch (NumberFormatException e) {
+					party_participants_max = 0;
+					errorMsgs.add("請填最高人數");
+				}
+				
+				Integer party_participants_min = null;
+				try {
+					party_participants_min = new Integer(req.getParameter("party_participants_min").trim());
+				} catch (NumberFormatException e) {
+					party_participants_min = 0;
+					errorMsgs.add("請填最低人數");
+				}
+				
 				Date date = new Date();
 				Timestamp Party_start_time = new Timestamp(date.getTime());
-				System.out.println(Party_start_time);
 				Timestamp Party_end_time = new Timestamp(date.getTime());
-				System.out.println(Party_end_time);
-//				Timestamp Party_end_time = new Timestamp(System.currentTimeMillis()); 
-				Integer party_participants_max = new Integer(req.getParameter("party_participants_max").trim());
-				System.out.println(party_participants_max);
-				Integer party_participants_min = new Integer(req.getParameter("party_participants_min").trim());
-				System.out.println(party_participants_min);
-
 				PartyVO partyVO = new PartyVO();
 
 				partyVO.setParty_title(party_title);
@@ -139,7 +137,6 @@ System.out.println("33333333");
 					req.setAttribute("partyVO", partyVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/party/addparty.jsp");
 					failureView.forward(req, res);
-					System.out.println("555555");
 					return;
 				}
 				
@@ -158,10 +155,44 @@ System.out.println("33333333");
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/party/addparty.jsp");
 				failureView.forward(req, res);
-				System.out.println("123455");
 
 			}
 		}
+		
+		
+		
+		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				Integer party_id = new Integer(req.getParameter("party_id"));
+				
+				/***************************2.開始查詢資料****************************************/
+				PartyService partySvc = new PartyService();
+				PartyVO partyVO = partySvc.getOneParty(party_id);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("partyVO", partyVO);         // 資料庫取出的empVO物件,存入req
+				String url = "/party/update_party_input.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/party/listAllParty.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		
 		
 		
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
@@ -173,29 +204,42 @@ System.out.println("33333333");
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String party_title = req.getParameter("party_title").trim();
+				Integer party_id = new Integer(req.getParameter("party_id").trim());
+				
+				String party_title = req.getParameter("party_title").trim();   
 				if (party_title == null || party_title.trim().length() == 0) {
 					errorMsgs.add("標題請勿空白");
 				}
-				String party_intro = req.getParameter("party_intro").trim();
-				if (party_intro == null || party_intro.trim().length() == 0) {
-					errorMsgs.add("內容請勿空白");
-				}
+				String party_intro = req.getParameter("party_intro").trim();    
+//				if (party_intro == null || party_intro.trim().length() == 0) {
+//					errorMsgs.add("內容請勿空白");
+//				}
+				
 //				Integer member_id = null;
 //				try {
 //					member_id = new Integer(req.getParameter("memberID"));
 //				} catch (NumberFormatException e) {
 //					errorMsgs.add("請檢查是否已登入");
 //				}
+				Integer party_participants_max = null;
+				try {
+					party_participants_max = new Integer(req.getParameter("party_participants_max").trim());
+				} catch (NumberFormatException e) {
+					party_participants_max = 0;
+					errorMsgs.add("請填最高人數");
+				}
+				Integer party_participants_min = null;
+				try {
+					party_participants_min = new Integer(req.getParameter("party_participants_min").trim());
+				} catch (NumberFormatException e) {
+					party_participants_min = 0;
+					errorMsgs.add("請填最低人數");
+				}
+				
 
 				Date date = new Date();
 				Timestamp Party_start_time = new Timestamp(date.getTime());
 				Timestamp Party_end_time = new Timestamp(date.getTime());
-//				Timestamp Party_end_time = new Timestamp(System.currentTimeMillis()); 
-				Integer party_participants_max = new Integer(req.getParameter("participants_max").trim());
-				Integer party_participants_min = new Integer(req.getParameter("participants_min").trim());
-				Integer party_id = new Integer(req.getParameter("party_id").trim());
-
 				PartyVO partyVO = new PartyVO();
 
 
@@ -209,25 +253,61 @@ System.out.println("33333333");
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("partyVO", partyVO);
-RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_input.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/party/update_party_input.jsp");
 					failureView.forward(req, res);
+					System.out.println("1");
 					return;
 				}
 
 				/*************************** 2.開始修改資料 *****************************************/
 				PartyService partySvc = new PartyService();
-				partyVO = partySvc.updateParty( party_id, party_title, Party_start_time, Party_end_time, party_intro,
+				partyVO = partySvc.updateParty(party_id, party_title, Party_start_time, Party_end_time, party_intro,
 						party_participants_max, party_participants_min);
+				System.out.println("2");
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("partyVO", partyVO); // 資料庫update成功後,正確的的empVO物件,存入req
-String url = "/party/listOneParty.jsp";
+				String url = "/party/listOneParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
+				System.out.println("6");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
 RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_input.jsp");
+				failureView.forward(req, res);
+				System.out.println("7");
+			}
+		}
+		
+		
+		
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				Integer party_id = new Integer(req.getParameter("party_id"));
+				
+				/***************************2.開始刪除資料***************************************/
+				PartyService partySvc = new PartyService();
+				partySvc.deleteParty(party_id);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				String url = "/party/listAllParty.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/party/listAllParty.jsp");
 				failureView.forward(req, res);
 			}
 		}

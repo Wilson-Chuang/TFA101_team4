@@ -57,7 +57,4 @@ public class PartyVO implements java.io.Serializable {
 	public void setParty_participants_min(Integer party_participants_min) {
 		this.party_participants_min = party_participants_min;
 	}
-	
-	
-	
 }

@@ -37,4 +37,21 @@
     <url-pattern>/party/party.do</url-pattern>
   </servlet-mapping>
   
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/TestDB3</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  
+  <servlet>
+    <servlet-name>loadOnStartupServlet</servlet-name>
+    <servlet-class>base64Encoder.initialize.loadOnStartupServlet</servlet-class>
+    <init-param>
+      <param-name>noData</param-name>
+      <param-value>/resources/NoData/nopic.jpg</param-value>
+    </init-param>
+    <load-on-startup>10</load-on-startup>
+  </servlet>
+  
 </web-app>

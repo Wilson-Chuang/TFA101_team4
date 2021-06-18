@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.party.model.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	PartyVO partyVO = (PartyVO) request.getAttribute("PartyVO");
@@ -33,7 +36,7 @@ h4 {
 	display: inline;
 }
 </style>
-
+<script src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
@@ -66,11 +69,6 @@ h4 {
 		<table>
 
 			<tr>
-				<td>揪團編號:</td>
-				<td><input type="TEXT" name="Party_id" size="45"
-					value="<%=(partyVO == null) ? "0001" : partyVO.getParty_id()%>" /></td>
-			</tr>
-			<tr>
 				<td>揪團標題:</td>
 				<td><input type="TEXT" name="party_title" size="45"
 					value="<%=(partyVO == null) ? "標題" : partyVO.getParty_title()%>" /></td>
@@ -78,40 +76,30 @@ h4 {
 			
 			<tr>
 				<td>開始日期時間:</td>
-				<td><input name="party_start_time" id="party_start_time" type="text"></td>
+				<td><input name="party_start_time" id="party_start_time" type="text" ></td>
 			</tr>
 			<tr>
+			<fmt:formatDate type="party_start_time" value="${party_start_time }" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+			
 				<td>結束日期時間:</td>
-				<td><input name="party_end_time" id="party_end_time" type="text"></td>
+				<td><input name="party_end_time" id="party_end_time" type="text"><fmt:formatDate type="party_end_time" value="${party_end_time }" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
 			</tr>
 			
-			
-<!-- 			<tr> -->
-<!-- 				<td>最低人數:</td> -->
-<!-- 				<td><input type="TEXT" name="party_participants_min" size="45" -->
-<%-- 					value="<%= partyVO.getParty_participants_min()%>" /></td> --%>
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td>最高人數:</td> -->
-<!-- 				<td><input type="TEXT" name="party_participants_max" size="45" /> -->
-<!-- 				</td> -->
-<%-- 					value="<%= partyVO.getParty_participants_max()%>" /></td> --%>
-<!-- 			</tr> -->
 
 			<tr>
 				<td>最高人數:</td>
 				<td><input type="TEXT" name="party_participants_max" size="45"
-							value="<%= (partyVO == null) ? "" : partyVO.getParty_participants_max()%>" /></td>
+							value="<%= (partyVO == null) ? "4" : partyVO.getParty_participants_max()%>" /></td>
 			</tr>
 			<tr>
 				<td>最低人數:</td>
 				<td><input type="TEXT" name="party_participants_min" size="45"
-							value="<%=(partyVO == null) ? "" : partyVO.getParty_participants_min()%>" /></td>
+							value="<%=(partyVO == null) ? "1" : partyVO.getParty_participants_min()%>" /></td>
 			</tr>
 			<tr>
 				<td>揪團介紹:</td>
-				<td><input type="TEXT" name="party_intro" size="45"
-					value="<%=(partyVO == null) ? "介紹" : partyVO.getParty_intro()%>" /></td>
+				<td>
+					 <textarea class="ckeditor" id="mContent" name="party_intro" ></textarea></td>
 			</tr>
 
 
@@ -159,7 +147,8 @@ $('#party_start_time').datetimepicker({
    timepicker:false,       //timepicker:true,
    step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    format:'Y-m-d',         //format:'Y-m-d H:i:s',
-   value: '<%=party_start_time%>', // value:   new Date(),
+   value: '<%=party_start_time%>', 
+   // value:   new Date(),
    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
    //startDate:	            '2017/07/10',  // 起始日
    //minDate:               '-1970-01-01', // 去除今日(不含)之前
@@ -182,7 +171,8 @@ $('#party_end_time').datetimepicker({
    timepicker:false,       //timepicker:true,
    step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    format:'Y-m-d',         //format:'Y-m-d H:i:s',
-   value: '<%=party_end_time%>', // value:   new Date(),
+   value: '<%=party_end_time%>', 
+   //value:   new Date(),
    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
    //startDate:	            '2017/07/10',  // 起始日
    //minDate:               '-1970-01-01', // 去除今日(不含)之前

@@ -30,7 +30,7 @@ public class PartyService {
 		return partyVO;
 	}
 
-	public PartyVO updateParty( Integer party_id, String party_title, Timestamp party_start_time,
+	public PartyVO updateParty(Integer party_id ,String party_title, Timestamp party_start_time,
 			Timestamp party_end_time, String party_intro, Integer party_participants_max,
 			Integer party_participants_min) {
 
@@ -50,6 +50,10 @@ public class PartyService {
 
 	public PartyVO getOneParty(Integer party_id) {
 		return dao.findByPrimaryKey(party_id);
+	}
+	
+	public void deleteParty(Integer party_id) {
+		dao.delete(party_id);
 	}
 
 	public List<PartyVO> getAll() {

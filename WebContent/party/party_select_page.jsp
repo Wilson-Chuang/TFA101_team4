@@ -77,10 +77,8 @@
 <h3>發起揪團</h3>
 
 <ul>
-  <li><a href='addparty.jsp'>Add</a> a new PARTY.</li>
+  <li><a href='addparty.jsp'>發起揪團</a></li>
 </ul>
-
-
 
 </body>
 </html>
