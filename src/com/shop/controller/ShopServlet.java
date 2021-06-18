@@ -22,6 +22,13 @@ public class ShopServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8523979247180883296L;
 	private static final String UPLOAD_DIR = "uploads" + File.separator + "shop";
+	private ShopService shopSvc;
+	
+	@Override
+	public void init() throws ServletException {
+		shopSvc = new ShopService();
+	}
+	
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -58,7 +65,7 @@ public class ShopServlet extends HttpServlet {
 				
 				Integer shop_id = null;
 				try {
-					shop_id = new Integer(str);
+					shop_id = Integer.parseInt(str);
 				} catch (Exception e) {
 					errorMsgs.add("商家編號格式不正確");
 				}
@@ -71,7 +78,6 @@ public class ShopServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shop_id);
 				if (shopVO == null) {
 					errorMsgs.add("查無資料");
@@ -108,10 +114,9 @@ public class ShopServlet extends HttpServlet {
 			
 			try {
 				/***************************1.接收請求參數****************************************/
-				Integer shop_id = new Integer(req.getParameter("shop_id"));
+				Integer shop_id = Integer.parseInt(req.getParameter("shop_id"));
 				
 				/***************************2.開始查詢資料****************************************/
-				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shop_id);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
@@ -136,7 +141,7 @@ public class ShopServlet extends HttpServlet {
 			
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				Integer shop_id = new Integer(req.getParameter("shop_id").trim());
+				Integer shop_id = Integer.parseInt(req.getParameter("shop_id").trim());
 												
 				String shop_tax_id = req.getParameter("shop_tax_id").trim();
 				String shop_tax_idReg = "^[0-9]{8}$";
@@ -168,7 +173,7 @@ public class ShopServlet extends HttpServlet {
 				
 				Double shop_latitude = null;
 				try {
-					shop_latitude = new Double(req.getParameter("shop_latitude").trim());
+					shop_latitude = Double.parseDouble(req.getParameter("shop_latitude").trim());
 				} catch (NumberFormatException e) {
 					shop_latitude = 0.0;
 					errorMsgs.add("請填正確格式的緯度");
@@ -176,7 +181,7 @@ public class ShopServlet extends HttpServlet {
 
 				Double shop_longitude = null;
 				try {
-					shop_longitude = new Double(req.getParameter("shop_longitude").trim());
+					shop_longitude = Double.parseDouble(req.getParameter("shop_longitude").trim());
 				} catch (NumberFormatException e) {
 					shop_longitude = 0.0;
 					errorMsgs.add("請填正確格式的經度");
@@ -187,14 +192,14 @@ public class ShopServlet extends HttpServlet {
 				
 				Double shop_rating = null;
 				try {
-					shop_rating = new Double(req.getParameter("shop_rating").trim());
+					shop_rating = Double.parseDouble(req.getParameter("shop_rating").trim());
 				} catch (NumberFormatException e) {
 					shop_rating = 0.0;
 					errorMsgs.add("請填正確格式的評價");
 				}
 				
-				Integer shop_rating_count = new Integer(req.getParameter("shop_rating_count").trim());
-				Integer shop_rating_total = new Integer(req.getParameter("shop_rating_total").trim());
+				Integer shop_rating_count = Integer.parseInt(req.getParameter("shop_rating_count").trim());
+				Integer shop_rating_total = Integer.parseInt(req.getParameter("shop_rating_total").trim());
 						
 				String shop_emailReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";
 				String shop_email = req.getParameter("shop_email");
@@ -212,7 +217,7 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("手機號碼: 手機號碼格式錯誤");
 	            }				
 
-				Integer shop_price_level = new Integer(req.getParameter("shop_price_level").trim());
+				Integer shop_price_level = Integer.parseInt(req.getParameter("shop_price_level").trim());
 				
 				
 				String shop_opening_time = req.getParameter("shop_opening_time");
@@ -265,9 +270,9 @@ public class ShopServlet extends HttpServlet {
 			    
 				Date date = new Date();
 				Timestamp shop_update_time = new Timestamp(date.getTime());
-				Integer shop_total_view = new Integer(req.getParameter("shop_total_view").trim());
-				Integer shop_reserv_status = new Integer(req.getParameter("shop_reserv_status").trim());				
-				Integer member_id = new Integer(req.getParameter("member_id").trim());
+				Integer shop_total_view = Integer.parseInt(req.getParameter("shop_total_view").trim());
+				Integer shop_reserv_status = Integer.parseInt(req.getParameter("shop_reserv_status").trim());				
+				Integer member_id = Integer.parseInt(req.getParameter("member_id").trim());
 				ShopVO shopVO = new ShopVO();
 				shopVO.setShop_id(shop_id);
 				shopVO.setMember_id(member_id);
@@ -303,7 +308,6 @@ public class ShopServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				ShopService shopSvc = new ShopService();
 				shopVO = shopSvc.updateShop(shop_id,member_id,shop_tax_id,
 						shop_name,shop_zip_code,shop_city,shop_address,
 						shop_latitude,shop_longitude,shop_description,
@@ -366,7 +370,7 @@ public class ShopServlet extends HttpServlet {
 				
 				Double shop_latitude = null;
 				try {
-					shop_latitude = new Double(req.getParameter("shop_latitude").trim());
+					shop_latitude = Double.parseDouble(req.getParameter("shop_latitude").trim());
 				} catch (NumberFormatException e) {
 					shop_latitude = 0.0;
 					errorMsgs.add("請填正確格式的緯度");
@@ -374,7 +378,7 @@ public class ShopServlet extends HttpServlet {
 
 				Double shop_longitude = null;
 				try {
-					shop_longitude = new Double(req.getParameter("shop_longitude").trim());
+					shop_longitude = Double.parseDouble(req.getParameter("shop_longitude").trim());
 				} catch (NumberFormatException e) {
 					shop_longitude = 0.0;
 					errorMsgs.add("請填正確格式的經度");
@@ -385,14 +389,14 @@ public class ShopServlet extends HttpServlet {
 				
 				Double shop_rating = null;
 				try {
-					shop_rating = new Double(req.getParameter("shop_rating").trim());
+					shop_rating = Double.parseDouble(req.getParameter("shop_rating").trim());
 				} catch (NumberFormatException e) {
 					shop_rating = 0.0;
 					errorMsgs.add("請填正確格式的評價");
 				}
 				
-				Integer shop_rating_count = new Integer(req.getParameter("shop_rating_count").trim());
-				Integer shop_rating_total = new Integer(req.getParameter("shop_rating_total").trim());
+				Integer shop_rating_count = Integer.parseInt(req.getParameter("shop_rating_count").trim());
+				Integer shop_rating_total = Integer.parseInt(req.getParameter("shop_rating_total").trim());
 						
 				String shop_emailReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";
 				String shop_email = req.getParameter("shop_email");
@@ -410,7 +414,7 @@ public class ShopServlet extends HttpServlet {
 					errorMsgs.add("手機號碼: 手機號碼格式錯誤");
 	            }				
 
-				Integer shop_price_level =  new Integer(req.getParameter("shop_price_level").trim());
+				Integer shop_price_level =  Integer.parseInt(req.getParameter("shop_price_level").trim());
 								
 				String shop_opening_time = req.getParameter("shop_opening_time");
 				String shop_website = req.getParameter("shop_website");
@@ -451,9 +455,9 @@ public class ShopServlet extends HttpServlet {
 				Date date = new Date();
 				Timestamp shop_create_time = new Timestamp(date.getTime());
 				Timestamp shop_update_time = new Timestamp(date.getTime());
-				Integer shop_total_view = new Integer(req.getParameter("shop_total_view").trim());
-				Integer shop_reserv_status = new Integer(req.getParameter("shop_reserv_status").trim());
-				Integer member_id = new Integer(req.getParameter("member_id").trim());
+				Integer shop_total_view = Integer.parseInt(req.getParameter("shop_total_view").trim());
+				Integer shop_reserv_status = Integer.parseInt(req.getParameter("shop_reserv_status").trim());
+				Integer member_id = Integer.parseInt(req.getParameter("member_id").trim());
 				
 				ShopVO shopVO = new ShopVO();
 				shopVO.setMember_id(member_id);
@@ -491,7 +495,6 @@ public class ShopServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				ShopService shopSvc = new ShopService();
 				shopVO = shopSvc.addShop(member_id,shop_tax_id,
 						shop_name,shop_zip_code,shop_city,shop_address,
 						shop_latitude,shop_longitude,shop_description,
@@ -526,10 +529,9 @@ public class ShopServlet extends HttpServlet {
 	
 			try {
 				/***************************1.接收請求參數***************************************/
-				Integer shop_id = new Integer(req.getParameter("shop_id"));
+				Integer shop_id = Integer.parseInt(req.getParameter("shop_id"));
 				
 				/***************************2.開始刪除資料***************************************/
-				ShopService shopSvc = new ShopService();
 				ShopVO shopVO = shopSvc.getOneShop(shop_id);
 				shopSvc.deleteShop(shop_id);
 				
@@ -558,10 +560,9 @@ public class ShopServlet extends HttpServlet {
 			
 			try {
 				/***************************1.接收請求參數****************************************/
-				Double lat = new Double(req.getParameter("lat"));
-				Double lng = new Double(req.getParameter("lng"));
+				Double lat = Double.parseDouble(req.getParameter("lat"));
+				Double lng = Double.parseDouble(req.getParameter("lng"));
 				/***************************2.開始查詢資料****************************************/
-				ShopService shopSvc = new ShopService();
 				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
 				JSONObject resJSON = new JSONObject();
 				resJSON.put("list",list);
