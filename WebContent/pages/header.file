@@ -98,18 +98,18 @@
 								<input type="hidden" name="action" class="search-bar" value="shop_search">
 							</div>
 							<div class="row g-2 d-flex justify-content-evenly align-items-center pt-4" id="popular-key">
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">火鍋</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">早午餐</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">約會餐廳</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">牛排</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">居酒屋</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">餐酒館</a>								
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">日式料理</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">吃到飽</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">甜點</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">燒肉</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">拉麵</a>
-								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">小吃</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=火鍋" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">火鍋</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=早午餐" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">早午餐</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=約會餐廳" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">約會餐廳</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=牛排" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">牛排</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=居酒屋" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">居酒屋</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=餐酒館" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">餐酒館</a>								
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=日式料理" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">日式料理</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=吃到飽" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">吃到飽</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=甜點" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">甜點</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=燒肉" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">燒肉</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=拉麵" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">拉麵</a>
+								<a href="<%=request.getContextPath()%>/search.do?action=shop_search&shop-keyword-bar=小吃" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">小吃</a>
 							</div>
 						</div>
 					</div>
