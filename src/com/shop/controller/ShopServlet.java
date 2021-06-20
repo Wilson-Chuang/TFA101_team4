@@ -224,49 +224,53 @@ public class ShopServlet extends HttpServlet {
 				String shop_website = req.getParameter("shop_website");
 				
 				// 主圖 
+				Part imgPart = req.getPart("shop_main_img");
+				String shop_main_img = "";
 				String appPath = req.getServletContext().getRealPath("");
 				String uploadFilePath = appPath + File.separator + 
 						UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "images";
-		        File fileSaveDir = new File(uploadFilePath);
-		        if (!fileSaveDir.exists()) {
-		            fileSaveDir.mkdirs();
-		        }
-		        System.out.println("上傳到資料夾到:" + fileSaveDir.getAbsolutePath());
-		        
-		        File[] listOfFiles = fileSaveDir.listFiles();
-		        for (File file : listOfFiles) {
+				File fileSaveDir = new File(uploadFilePath);
+				File[] listOfFiles = fileSaveDir.listFiles();
+				for (File file : listOfFiles) {
 			        if (file.isFile()) {
 			        	file.delete();
 			        }
 			    }
-		        
-		        Part imgPart = req.getPart("shop_main_img");
-			    String shop_main_img = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
-			    imgPart.write(uploadFilePath + File.separator + shop_main_img);
-				// 圖片庫
-				uploadFilePath = appPath + File.separator + 
-						UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "gallery";
-		        fileSaveDir = new File(uploadFilePath);
-		        if (!fileSaveDir.exists()) {
-		            fileSaveDir.mkdirs();
-		        }		       
-		        System.out.println("上傳到資料夾到:" + fileSaveDir.getAbsolutePath());		        
-				List<Part> fileParts = req.getParts().stream().filter(part -> 
-						"shop_gallery".equals(part.getName()) 
-						&& part.getSize() > 0).collect(Collectors.toList());
-				HashSet<String> hs = new HashSet<String>();
-			    for (Part galleryPart : fileParts) {
-			        String fileName = Paths.get(galleryPart.getSubmittedFileName()).getFileName().toString();
-			        galleryPart.write(uploadFilePath + File.separator + fileName);
-			    }
-			    listOfFiles = fileSaveDir.listFiles();
-			    for (File file : listOfFiles) {
-			        if (file.isFile()) {
-			        	hs.add(file.getName());
+				if(imgPart.getSize() > 0) {
+			        if (!fileSaveDir.exists()) {
+			            fileSaveDir.mkdirs();
 			        }
+			        System.out.println("上傳到資料夾到:" + fileSaveDir.getAbsolutePath());
+			        
+				    shop_main_img = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
+				    imgPart.write(uploadFilePath + File.separator + shop_main_img);
+				}
+			    // 圖片庫	   
+			    List<Part> fileParts = req.getParts().stream().filter(part -> 
+										"shop_gallery".equals(part.getName()) 
+										&& part.getSize() > 0).collect(Collectors.toList());
+			    String shop_gallery = "";
+			    if(!fileParts.isEmpty()) {
+					uploadFilePath = appPath + File.separator + 
+							UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "gallery";
+			        fileSaveDir = new File(uploadFilePath);
+			        if (!fileSaveDir.exists()) {
+			            fileSaveDir.mkdirs();
+			        }
+			        System.out.println("上傳到資料夾到:" + fileSaveDir.getAbsolutePath());		
+					HashSet<String> hs = new HashSet<String>();
+				    for (Part galleryPart : fileParts) {
+				        String fileName = Paths.get(galleryPart.getSubmittedFileName()).getFileName().toString();
+				        galleryPart.write(uploadFilePath + File.separator + fileName);
+				    }
+				    listOfFiles = fileSaveDir.listFiles();
+				    for (File file : listOfFiles) {
+				        if (file.isFile()) {
+				        	hs.add(file.getName());
+				        }
+				    }
+				    shop_gallery = hs.toString();
 			    }
-			    
-			    String shop_gallery = hs.toString();
 			    
 				Date date = new Date();
 				Timestamp shop_update_time = new Timestamp(date.getTime());
