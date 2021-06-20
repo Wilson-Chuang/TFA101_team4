@@ -344,3 +344,49 @@ document.addEventListener("DOMContentLoaded", function(){
 		})
 	});
 });
+
+	$("#btn-submit").on("click", function(){
+		let recentArray = [];
+		let searchedObj = new Object();
+
+		
+		if (localStorage.getItem("searched") != null){
+			let searched = JSON.parse(localStorage.getItem("searched"));		
+			for(let key in searched) {
+				recentArray.push(searched[key]);
+			}
+		}
+		if($("#shop-keyword-bar").val().trim() != ""){
+			searchedObj["keyword"] = $("#shop-keyword-bar").val();
+		}
+		if($("#place-bar").val().trim() != ""){
+			searchedObj["place"] = $("#place-bar").val();
+		}
+		if($("#shop-keyword-bar").val().trim() != "" || $("#place-bar").val().trim() != ""){
+			searchedObj["time"] = new Date();
+			recentArray.push(searchedObj);
+			localStorage.setItem("searched", JSON.stringify(recentArray));
+			if (typeof searchedList !== "undefined") {
+				searchedList();
+			}
+		}
+	});
+
+	$("#popular-key").find("a").on("click", function(){
+		let recentArray = [];
+		let searchedObj = new Object();
+		
+		if (localStorage.getItem("searched") != null){
+			let searched = JSON.parse(localStorage.getItem("searched"));		
+			for(let key in searched) {
+				recentArray.push(searched[key]);
+			}
+		}
+		searchedObj["keyword"] = $(this).text();
+		searchedObj["time"] = new Date();
+		recentArray.push(searchedObj);
+		localStorage.setItem("searched", JSON.stringify(recentArray));
+		if (typeof searchedList !== "undefined") {
+			searchedList();
+		}
+	});
