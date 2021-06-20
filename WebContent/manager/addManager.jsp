@@ -5,7 +5,7 @@
 <%
   ManagerVO managerVO = (ManagerVO) request.getAttribute("managerVO");
 %>
-
+<%= managerVO==null %>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -65,37 +65,36 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="manager.do" name="form1">
+<FORM METHOD="post" ACTION="manager.do" name="form1" enctype="multipart/form-data">
 <table>
-	<jsp:useBean id="managerSvc" scope="page" class="com.manager.model.ManagerService" />
 	<tr>
 		<td>帳號:</td>
-		<td><input type="TEXT" name="Manager_account" size="45" 
-			 value="<%= (managerVO==null)? "testaccount1" : managerVO.getManager_account()%>" /></td>
+		<td><input type="TEXT" name="manager_account" size="45" 
+			 value="<%= (managerVO==null)? "test11" : managerVO.getManager_account()%>" /></td>
 	</tr>
 	<tr>
 		<td>姓名:</td>
-		<td><input type="TEXT" name="Manager_name" size="45"
+		<td><input type="TEXT" name="manager_name" size="45"
 			 value="<%= (managerVO==null)? "測試名" : managerVO.getManager_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>大頭貼:</td>
-		<td><input type="file" name="Manager_pic()"
+		<td><input type="file" name="manager_pic"
 			 value="<%= (managerVO==null)? "請放圖" : managerVO.getManager_pic()%>" /></td>
 	</tr>
 	<tr>
 		<td>信箱:</td>
-		<td><input type="TEXT" name="Manager_email" size="45"
+		<td><input type="TEXT" name="manager_email" size="45"
 			 value="<%= (managerVO==null)? "testemail@gmail.com" : managerVO.getManager_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>密碼:</td>
-		<td><input type="TEXT" name="Manager_password" size="45"
+		<td><input type="TEXT" name="manager_password" size="45"
 			 value="<%= (managerVO==null)? "123456" : managerVO.getManager_password()%>" /></td>
 	</tr>
 	<tr>
 		<td>電話:</td>
-		<td><input type="TEXT" name="Manager_phone" size="45"
+		<td><input type="TEXT" name="manager_phone" size="45"
 			 value="<%= (managerVO==null)? "0900111222" : managerVO.getManager_phone()%>" /></td>
 	</tr>
 

@@ -21,15 +21,15 @@ public class ManagerDAO implements ManagerDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO manager(manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO manager(manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone FROM manager ORDER BY manager_id";
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname FROM manager ORDER BY manager_id";
 	private static final String GET_ONE_STMT = 
-			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone FROM manager WHERE manager_id = ?";
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname FROM manager WHERE manager_id = ?";
 	private static final String DELETE = 
 			"DELETE FROM manager WHERE manager_id = ?";
 	private static final String UPDATE = 
-			"UPDATE manager SET manager_account=?, manager_name=?, manager_pic=?, manager_email=?, manager_password=?, manager_phone=? WHERE manager_id = ?";
+			"UPDATE manager SET manager_account=?, manager_name=?, manager_pic=?, manager_email=?, manager_password=?, manager_phone=?, manager_picname=? WHERE manager_id = ?";
 	
 	
 	@Override
@@ -49,6 +49,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 			pstmt.setString(4, managerVO.getManager_email());
 			pstmt.setString(5, managerVO.getManager_password());
 			pstmt.setString(6, managerVO.getManager_phone());
+			pstmt.setString(7, managerVO.getManager_picname());
 
 			pstmt.executeUpdate();
 
@@ -93,7 +94,8 @@ public class ManagerDAO implements ManagerDAO_interface {
 			pstmt.setString(4, managerVO.getManager_email());
 			pstmt.setString(5, managerVO.getManager_password());
 			pstmt.setString(6, managerVO.getManager_phone());
-			pstmt.setInt(7, managerVO.getManager_id());
+			pstmt.setString(7, managerVO.getManager_picname());
+			pstmt.setInt(8, managerVO.getManager_id());
 
 			pstmt.executeUpdate();
 
@@ -186,6 +188,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 				managerVO.setManager_email(rs.getString("manager_email"));
 				managerVO.setManager_password(rs.getString("manager_password"));
 				managerVO.setManager_phone(rs.getString("manager_phone"));
+				managerVO.setManager_picname(rs.getString("manager_picname"));
 				managerVO.setManager_id(rs.getInt("manager_id"));
 			}
 
@@ -246,6 +249,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 				managerVO.setManager_email(rs.getString("manager_email"));
 				managerVO.setManager_password(rs.getString("manager_password"));
 				managerVO.setManager_phone(rs.getString("manager_phone"));
+				managerVO.setManager_picname(rs.getString("manager_picname"));
 				managerVO.setManager_id(rs.getInt("manager_id"));
 				list.add(managerVO); // Store the row in the list
 			}

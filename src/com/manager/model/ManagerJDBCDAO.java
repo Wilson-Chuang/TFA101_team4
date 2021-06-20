@@ -1,6 +1,7 @@
 package com.manager.model;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,20 +15,21 @@ import java.util.List;
 public class ManagerJDBCDAO implements ManagerDAO_interface {
 	
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TEAM4?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/TEAM4DB?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 	
+	//尚未加入manager_picname
 	private static final String INSERT_STMT = 
-			"INSERT INTO manager(manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone) VALUES(?, ?, ?, ?, ?, ?)";
+			"INSERT INTO manager(manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone FROM manager ORDER BY manager_id";
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname FROM manager ORDER BY manager_id";
 	private static final String GET_ONE_STMT = 
-			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone FROM manager WHERE manager_id = ?";
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname FROM manager WHERE manager_id = ?";
 	private static final String DELETE = 
 			"DELETE FROM manager WHERE manager_id = ?";
 	private static final String UPDATE = 
-			"UPDATE manager SET manager_account=?, manager_name=?, manager_pic=?, manager_email=?, manager_password=?, manager_phone=? WHERE manager_id = ?";
+			"UPDATE manager SET manager_account=?, manager_name=?, manager_pic=?, manager_email=?, manager_password=?, manager_phone=?, manager_picname=? WHERE manager_id = ?";
 	
 	@Override
 	public void insert(ManagerVO managerVO) {
@@ -39,6 +41,7 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
+			FileInputStream fis = new FileInputStream("C:/uploadpic/manager_pic1.png");
 
 			pstmt.setString(1, managerVO.getManager_account());
 			pstmt.setString(2, managerVO.getManager_name());
@@ -46,7 +49,8 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 			pstmt.setString(4, managerVO.getManager_email());
 			pstmt.setString(5, managerVO.getManager_password());
 			pstmt.setString(6, managerVO.getManager_phone());
-
+			System.out.println("圖片新增");
+			
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -58,6 +62,9 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -88,6 +95,7 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
+			FileInputStream fis = new FileInputStream("C:/uploadpic/manager_pic1.png");
 
 			pstmt.setString(1, managerVO.getManager_account());
 			pstmt.setString(2, managerVO.getManager_name());
@@ -108,6 +116,9 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -306,29 +317,29 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 		ManagerJDBCDAO dao = new ManagerJDBCDAO();
 		
 		// 新增
-		ManagerVO managerVO1 = new ManagerVO();
-		managerVO1.setManager_account("David");
-		managerVO1.setManager_name("David");
-		byte[] manager_pic = getPictureByteArray("WebContent/manager/images/manager_pic1.png");
-		managerVO1.setManager_pic(manager_pic);
-		managerVO1.setManager_email("David@tibame.com");
-		managerVO1.setManager_password("123456");
-		managerVO1.setManager_phone("09xxxxxxxx");
-		dao.insert(managerVO1);	
+//		ManagerVO managerVO1 = new ManagerVO();
+//		managerVO1.setManager_account("David");
+//		managerVO1.setManager_name("David");
+//		byte[] manager_pic = getPictureByteArray("WebContent/manager/images/manager_pic1.png");
+//		managerVO1.setManager_pic(manager_pic);
+//		managerVO1.setManager_email("David@tibame.com");
+//		managerVO1.setManager_password("123456");
+//		managerVO1.setManager_phone("09xxxxxxxx");
+//		dao.insert(managerVO1);	
 		
 		// 修改
-		ManagerVO managerVO2 = new ManagerVO();
-		managerVO2.setManager_account("test22");
-		managerVO2.setManager_name("更新測試");
-//		managerVO2.setManager_pic(rs.getBytes("manager_pic"));
-		managerVO2.setManager_email("update@tibame.com");
-		managerVO2.setManager_password("123456");
-		managerVO2.setManager_phone("0900222222");
-		managerVO2.setManager_id(2);
-		dao.update(managerVO2);
+//		ManagerVO managerVO2 = new ManagerVO();
+//		managerVO2.setManager_account("test22");
+//		managerVO2.setManager_name("更新測試");
+////		managerVO2.setManager_pic(rs.getBytes("manager_pic"));
+//		managerVO2.setManager_email("update@tibame.com");
+//		managerVO2.setManager_password("123456");
+//		managerVO2.setManager_phone("0900222222");
+//		managerVO2.setManager_id(2);
+//		dao.update(managerVO2);
 		
 		// 刪除
-		dao.delete(1);
+//		dao.delete(1);
 		
 		// 查詢
 		ManagerVO managerVO3 = dao.findByPrimaryKey(2);
@@ -338,6 +349,7 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 		System.out.print(managerVO3.getManager_email() + ",");
 		System.out.print(managerVO3.getManager_password() + ",");
 		System.out.print(managerVO3.getManager_phone() + ",");
+		System.out.print(managerVO3.getManager_picname() + ",");
 		System.out.println(managerVO3.getManager_id());
 		System.out.println("---------------------");
 		
@@ -350,6 +362,7 @@ public class ManagerJDBCDAO implements ManagerDAO_interface {
 			System.out.print(aManager.getManager_email() + ",");
 			System.out.print(aManager.getManager_password() + ",");
 			System.out.print(aManager.getManager_phone() + ",");
+			System.out.print(aManager.getManager_picname() + ",");
 			System.out.print(aManager.getManager_id());
 			System.out.println();
 		}

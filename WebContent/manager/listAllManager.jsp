@@ -47,6 +47,9 @@
     padding: 5px;
     text-align: center;
   }
+  img {
+  width: 100%
+  }
 </style>
 
 </head>
@@ -91,7 +94,7 @@
 			<td>${managerVO.manager_id}</td>
 			<td>${managerVO.manager_account}</td>
 			<td>${managerVO.manager_name}</td>
-			<td>${managerVO.manager_pic}</td>
+			<td><img src="/uploadpic/${managerVO.manager_picname}"></td>
 			<td>${managerVO.manager_email}</td>
 			<td>${managerVO.manager_password}</td> 
 			<td>${managerVO.manager_phone}</td>

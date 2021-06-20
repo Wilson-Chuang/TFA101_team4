@@ -64,7 +64,7 @@
    
   <li>
      <FORM METHOD="post" ACTION="manager.do" >
-       <b>選擇員工編號:</b>
+       <b>選擇管理員編號:</b>
        <select size="1" name="manager_id">
          <c:forEach var="managerVO" items="${managerSvc.all}" > 
           <option value="${managerVO.manager_id}">${managerVO.manager_id}
@@ -77,7 +77,7 @@
   
   <li>
      <FORM METHOD="post" ACTION="manager.do" >
-       <b>選擇姓名:</b>
+       <b>選擇管理員姓名:</b>
        <select size="1" name="manager_id">
          <c:forEach var="managerVO" items="${managerSvc.all}" > 
           <option value="${managerVO.manager_id}">${managerVO.manager_name}

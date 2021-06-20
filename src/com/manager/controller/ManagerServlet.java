@@ -181,6 +181,7 @@ ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 	            }
 				
 				//圖片，用getpart()
+
 				Part file = req.getPart("manager_pic");
 				String fileName = file.getSubmittedFileName();
 				
