@@ -38,7 +38,6 @@ h4 {
 
 <style>
 table {
-	width: 450px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -126,6 +125,7 @@ th, td {
 
 </body>
 
+
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
@@ -145,6 +145,10 @@ th, td {
 </style>
 
 <script>
+
+
+
+
 
 $.datetimepicker.setLocale('zh');
 $('#party_start_time').datetimepicker({
@@ -171,11 +175,6 @@ $('#party_end_time').datetimepicker({
    //minDate:               '-1970-01-01', // 去除今日(不含)之前
    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 });
-
-
-
-
-
 
 
 </script>

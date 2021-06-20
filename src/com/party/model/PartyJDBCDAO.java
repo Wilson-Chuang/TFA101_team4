@@ -281,28 +281,28 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 		return list;
 	}
 
-//	public static void main(String[] args) {
-//
-//       PartyJDBCDAO dao = new PartyJDBCDAO();
+	public static void main(String[] args) {
+
+       PartyJDBCDAO dao = new PartyJDBCDAO();
 
 		// 新增
-//		PartyVO partyVO1 = new PartyVO();
-//		partyVO1.setParty_id(0003);
-//		System.out.println("111111");
-//		partyVO1.setParty_title("揪團標題測試");
-//		System.out.println("111111");
-//		partyVO1.setParty_intro("揪團介紹測試");
-//		System.out.println("111111");
-//		partyVO1.setParty_participants_max(10);
-//		System.out.println("111111");
-//		partyVO1.setParty_participants_min(20);
-//		System.out.println("111111");
-//		partyVO1.setParty_start_time(Timestamp.valueOf("2021-06-14 00:00:00"));
-//		System.out.println("111111");
-//		partyVO1.setParty_end_time(Timestamp.valueOf("2021-06-14 00:00:00"));
-//		System.out.println("111111");
-//		dao.insert(partyVO1);
-////	}
+		PartyVO partyVO1 = new PartyVO();
+		partyVO1.setParty_id(0003);
+		System.out.println("111111");
+		partyVO1.setParty_title("揪團標題測試");
+		System.out.println("111111");
+		partyVO1.setParty_intro("揪團介紹測試");
+		System.out.println("111111");
+		partyVO1.setParty_participants_max(10);
+		System.out.println("111111");
+		partyVO1.setParty_participants_min(20);
+		System.out.println("111111");
+		partyVO1.setParty_start_time(Timestamp.valueOf("2021-06-14 00:00:00"));
+		System.out.println("111111");
+		partyVO1.setParty_end_time(Timestamp.valueOf("2021-06-14 00:00:00"));
+		System.out.println("111111");
+		dao.insert(partyVO1);
+	}
 //
 		// 修改
 //		PartyVO partyVO2 = new PartyVO();
