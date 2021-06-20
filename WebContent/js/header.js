@@ -389,4 +389,4 @@ document.addEventListener("DOMContentLoaded", function(){
 		if (typeof searchedList !== "undefined") {
 			searchedList();
 		}
-	});
+	});	
