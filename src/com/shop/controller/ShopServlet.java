@@ -139,7 +139,7 @@ public class ShopServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer shop_id = Integer.parseInt(req.getParameter("shop_id").trim());
 												
@@ -342,12 +342,12 @@ public class ShopServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/shop/update_shop_input.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/shop/update_shop_input.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
         if ("insert".equals(action)) { // 來自addShop.jsp的請求  
