@@ -103,6 +103,10 @@ public class ShopService {
 		return dao.findByPrimaryKey(shop_id);
 	}
 	
+	public ShopVO findShop_tax_id(String shop_tax_id) {
+		return dao.findShop_tax_id(shop_tax_id);
+	}
+	
 	public List<ShopVO> getAll() {
 		return dao.getAll();
 	}

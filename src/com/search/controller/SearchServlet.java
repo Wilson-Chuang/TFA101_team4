@@ -1,6 +1,7 @@
 package com.search.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.search.model.SearchService;
 import com.search.model.SearchVO;
 import com.shop.model.ShopService;
@@ -17,7 +20,15 @@ import com.shop.model.ShopVO;
 
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private ShopService shopSvc;
+	private SearchService searchSvc;
+	
+	@Override
+	public void init() throws ServletException {
+		shopSvc = new ShopService();
+		searchSvc = new SearchService();
+	}
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -25,7 +36,7 @@ public class SearchServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		
 		if ("shop_search".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -50,9 +61,7 @@ public class SearchServlet extends HttpServlet {
 				}
 				List<ShopVO> list;
 				SearchVO searchedShop;
-				SearchVO searchedPlace;
-				ShopService shopSvc = new ShopService();
-				SearchService searchSvc = new SearchService();
+				SearchVO searchedPlace;				
 				if (place.length() > 0 && shop.length() > 0) {
 					list = shopSvc.findShopBoth(shop, place);
 					searchedShop = searchSvc.getOneSearch(shop);
@@ -113,6 +122,26 @@ public class SearchServlet extends HttpServlet {
 			String party = req.getParameter("party-keyword-bar");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+		}
+		if ("getPartQuery".equals(action)) {
+			res.setContentType("application/json; charset=utf-8");
+			try {
+				/***************************1.接收請求參數****************************************/
+				Double lat = Double.parseDouble(req.getParameter("lat"));
+				Double lng = Double.parseDouble(req.getParameter("lng"));
+				/***************************2.開始查詢資料****************************************/
+				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
+				JSONObject resJSON = new JSONObject();
+				resJSON.put("list",list);
+				resJSON.put("status", "OK");
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				PrintWriter out = res.getWriter();				 
+		        out.println(resJSON);
+
+				/***************************其他可能的錯誤處理************************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
 		}
 
 	}
