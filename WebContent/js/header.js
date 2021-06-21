@@ -251,10 +251,26 @@ $('#search-type').on('change', function () {
 					console.log("搜尋選擇:", label, value);
 				}
 			});
-			if($(".dropdown-menu.show").length)
-			{
+			if($(".dropdown-menu.show").length)	{
 				$(".dropdown-menu.show").remove();
-			}			
+			}
+			$("#btn-submit").prop('disabled',true);
+			$('#place-bar').keyup(function(){
+				$('#btn-submit').prop('disabled', this.value == "" && $('#shop-keyword-bar').val() == "" ? true : false); 
+		    });
+		    $('#shop-keyword-bar').keyup(function(){
+		    	$('#btn-submit').prop('disabled', this.value == "" && $('#place-bar').val() == "" ? true : false);   
+		    });
+		    $('#place-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
+		    $('#shop-keyword-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
 			break;
 		case "article":
 			$(".search-bar").remove();
@@ -269,6 +285,15 @@ $('#search-type').on('change', function () {
 			{
 				$(".dropdown-menu.show").remove();
 			}
+			$("#btn-submit").prop('disabled',true);
+			$('#article-keyword-bar').keyup(function(){
+		        $('#btn-submit').prop('disabled', this.value == "" ? true : false);     
+		    });
+			 $('#article-keyword-bar').focusout(function(){
+			    	if($(".dropdown-menu.show").length)	{
+						$(".dropdown-menu.show").remove();
+					}
+			    });
 			break;
 		case "product":
 			$(".search-bar").remove();
@@ -283,6 +308,15 @@ $('#search-type').on('change', function () {
 			{
 				$(".dropdown-menu.show").remove();
 			}
+			$("#btn-submit").prop('disabled',true);
+			$('#product-keyword-bar').keyup(function(){
+				$('#btn-submit').prop('disabled', this.value == "" ? true : false);     
+			});
+			$('#product-keyword-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
 			break;
 		case "party":
 			$(".search-bar").remove();
@@ -297,6 +331,15 @@ $('#search-type').on('change', function () {
 			{
 				$(".dropdown-menu.show").remove();
 			}
+			$("#btn-submit").prop('disabled',true);
+			$('#party-keyword-bar').keyup(function(){
+		        $('#btn-submit').prop('disabled', this.value == "" ? true : false);     
+		    });
+			$('#party-keyword-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
 			break;
 	}
 });
@@ -349,7 +392,6 @@ document.addEventListener("DOMContentLoaded", function(){
 		let recentArray = [];
 		let searchedObj = new Object();
 
-		
 		if (localStorage.getItem("searched") != null){
 			let searched = JSON.parse(localStorage.getItem("searched"));		
 			for(let key in searched) {
@@ -389,4 +431,24 @@ document.addEventListener("DOMContentLoaded", function(){
 		if (typeof searchedList !== "undefined") {
 			searchedList();
 		}
-	});	
+	});
+	
+	$(document).ready(function(){
+		$("#btn-submit").prop('disabled',true);
+	    $('#place-bar').keyup(function(){
+	        $('#btn-submit').prop('disabled', this.value == "" && $('#shop-keyword-bar').val() == "" ? true : false);     
+	    });
+	    $('#shop-keyword-bar').keyup(function(){
+	        $('#btn-submit').prop('disabled', this.value == "" && $('#place-bar').val() == "" ? true : false);
+	    });
+	    $('#place-bar').focusout(function(){
+	    	if($(".dropdown-menu.show").length)	{
+				$(".dropdown-menu.show").remove();
+			}
+	    });
+	    $('#shop-keyword-bar').focusout(function(){
+	    	if($(".dropdown-menu.show").length)	{
+				$(".dropdown-menu.show").remove();
+			}
+	    });
+	});
