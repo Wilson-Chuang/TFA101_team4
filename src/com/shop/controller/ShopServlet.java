@@ -139,17 +139,31 @@ public class ShopServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
+//			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer shop_id = Integer.parseInt(req.getParameter("shop_id").trim());
 												
 				String shop_tax_id = req.getParameter("shop_tax_id").trim();
 				String shop_tax_idReg = "^[0-9]{8}$";
+				
 				if (shop_tax_id == null || shop_tax_id.trim().length() == 0) {
 					errorMsgs.add("統一編號請勿空白");
 				} else if(!shop_tax_id.trim().matches(shop_tax_idReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("統一編號: 統一編號格式錯誤，須為八個數字");
 	            }
+				String appPath = req.getServletContext().getRealPath("");
+				String uploadFilePath = appPath + File.separator + 
+						UPLOAD_DIR + File.separator;
+				ShopVO oldVO = shopSvc.getOneShop(shop_id);
+				File sourceFilename = new File(uploadFilePath + oldVO.getShop_tax_id());
+				File destFilename = new File(uploadFilePath + shop_tax_id);
+				 
+				if (sourceFilename.renameTo(destFilename)) {
+				    System.out.println(oldVO.getShop_tax_id() +"資料夾更名到" + shop_tax_id);
+				} else {
+				    System.out.println("資料夾名稱更名失敗");
+				}
+				
 				
 				String shop_name = req.getParameter("shop_name");
 				if (shop_name == null || shop_name.trim().length() == 0) {
@@ -225,18 +239,19 @@ public class ShopServlet extends HttpServlet {
 				
 				// 主圖 
 				Part imgPart = req.getPart("shop_main_img");
-				String shop_main_img = "";
-				String appPath = req.getServletContext().getRealPath("");
-				String uploadFilePath = appPath + File.separator + 
+				String shop_main_img = oldVO.getShop_main_img();
+				appPath = req.getServletContext().getRealPath("");
+				uploadFilePath = appPath + File.separator + 
 						UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "images";
 				File fileSaveDir = new File(uploadFilePath);
 				File[] listOfFiles = fileSaveDir.listFiles();
-				for (File file : listOfFiles) {
-			        if (file.isFile()) {
-			        	file.delete();
-			        }
-			    }
+								
 				if(imgPart.getSize() > 0) {
+					for (File file : listOfFiles) {
+				        if (file.isFile()) {
+				        	file.delete();
+				        }
+				    }
 			        if (!fileSaveDir.exists()) {
 			            fileSaveDir.mkdirs();
 			        }
@@ -249,7 +264,7 @@ public class ShopServlet extends HttpServlet {
 			    List<Part> fileParts = req.getParts().stream().filter(part -> 
 										"shop_gallery".equals(part.getName()) 
 										&& part.getSize() > 0).collect(Collectors.toList());
-			    String shop_gallery = "";
+			    String shop_gallery = oldVO.getShop_gallery();
 			    if(!fileParts.isEmpty()) {
 					uploadFilePath = appPath + File.separator + 
 							UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "gallery";
@@ -327,12 +342,12 @@ public class ShopServlet extends HttpServlet {
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/shop/update_shop_input.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:"+e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/shop/update_shop_input.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
         if ("insert".equals(action)) { // 來自addShop.jsp的請求  
