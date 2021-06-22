@@ -202,80 +202,6 @@ function insertAfter(elem, refElem) {
   return refElem.parentNode.insertBefore(elem, refElem.nextSibling)
 }
 
-var placesrc = [
-    {
-	    "label": "台北市"
-	  },		  
-	  {
-	    "label": "基隆市"
-	  },
-	  {
-	    "label": "新北市"
-	  },
-	  {
-	    "label": "連江縣"
-	  },
-	  {
-	    "label": "宜蘭縣"
-	  },
-	  {
-	    "label": "釣魚臺"
-	  },
-	  {
-	    "label": "新竹市"
-	  },
-	  {
-	    "label": "新竹縣"
-	  },
-	  {
-	    "label": "桃園市"
-	  },
-	  {
-	    "label": "苗栗縣"
-	  },
-	  {
-	    "label": "臺中市"
-	  },
-	  {
-	    "label": "彰化縣"
-	  },
-	  {
-	    "label": "南投縣"
-	  },
-	  {
-	    "label": "嘉義市"
-	  },
-	  {
-	    "label": "嘉義縣"
-	  },
-	  {
-	    "label": "雲林縣"
-	  },
-	  {
-	    "label": "臺南市"
-	  },
-	  {
-	    "label": "高雄市"
-	  },
-	  {
-	    "label": "南海島"
-	  },
-	  {
-	    "label": "澎湖縣"
-	  },
-	  {
-	    "label": "金門縣"
-	  },
-	  {
-	    "label": "屏東縣"
-	  },
-	  {
-	    "label": "臺東縣"
-	  },
-	  {
-	    "label": "花蓮縣"
-	  }
-	];
 
 var place = new Autocomplete(document.getElementById('place-bar'), {
 	data: placesrc,
@@ -294,16 +220,20 @@ var keyword = new Autocomplete(document.getElementById('shop-keyword-bar'), {
 $('#search-type').on('change', function () {
 	let shop = 
 	'<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" />' + 
-	'<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="shop_search">';
 	
 	let article =
-	'<input type="text" name="article-keyword-bar" id="article-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="article-keyword-bar" id="article-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="article_search">';
 	
 	let product =
-	'<input type="text" name="product-keyword-bar" id="product-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="product-keyword-bar" id="product-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="product_search">';
 	
 	let party =
-	'<input type="text" name="party-keyword-bar" id="party-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />';
+	'<input type="text" name="party-keyword-bar" id="party-keyword-bar" class="form-control w-50 search-bar" placeholder="關鍵字" />' + 
+	'<input type="hidden" name="action" class="search-bar" value="party_search">';
 		
 	switch(this.value){
 		case "shop":
@@ -321,10 +251,26 @@ $('#search-type').on('change', function () {
 					console.log("搜尋選擇:", label, value);
 				}
 			});
-			if($(".dropdown-menu.show").length)
-			{
+			if($(".dropdown-menu.show").length)	{
 				$(".dropdown-menu.show").remove();
-			}			
+			}
+			$("#btn-submit").prop('disabled',true);
+			$('#place-bar').keyup(function(){
+				$('#btn-submit').prop('disabled', this.value == "" && $('#shop-keyword-bar').val() == "" ? true : false); 
+		    });
+		    $('#shop-keyword-bar').keyup(function(){
+		    	$('#btn-submit').prop('disabled', this.value == "" && $('#place-bar').val() == "" ? true : false);   
+		    });
+		    $('#place-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
+		    $('#shop-keyword-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
 			break;
 		case "article":
 			$(".search-bar").remove();
@@ -339,6 +285,15 @@ $('#search-type').on('change', function () {
 			{
 				$(".dropdown-menu.show").remove();
 			}
+			$("#btn-submit").prop('disabled',true);
+			$('#article-keyword-bar').keyup(function(){
+		        $('#btn-submit').prop('disabled', this.value == "" ? true : false);     
+		    });
+			 $('#article-keyword-bar').focusout(function(){
+			    	if($(".dropdown-menu.show").length)	{
+						$(".dropdown-menu.show").remove();
+					}
+			    });
 			break;
 		case "product":
 			$(".search-bar").remove();
@@ -353,6 +308,15 @@ $('#search-type').on('change', function () {
 			{
 				$(".dropdown-menu.show").remove();
 			}
+			$("#btn-submit").prop('disabled',true);
+			$('#product-keyword-bar').keyup(function(){
+				$('#btn-submit').prop('disabled', this.value == "" ? true : false);     
+			});
+			$('#product-keyword-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
 			break;
 		case "party":
 			$(".search-bar").remove();
@@ -367,6 +331,15 @@ $('#search-type').on('change', function () {
 			{
 				$(".dropdown-menu.show").remove();
 			}
+			$("#btn-submit").prop('disabled',true);
+			$('#party-keyword-bar').keyup(function(){
+		        $('#btn-submit').prop('disabled', this.value == "" ? true : false);     
+		    });
+			$('#party-keyword-bar').focusout(function(){
+		    	if($(".dropdown-menu.show").length)	{
+					$(".dropdown-menu.show").remove();
+				}
+		    });
 			break;
 	}
 });
@@ -414,3 +387,68 @@ document.addEventListener("DOMContentLoaded", function(){
 		})
 	});
 });
+
+	$("#btn-submit").on("click", function(){
+		let recentArray = [];
+		let searchedObj = new Object();
+
+		if (localStorage.getItem("searched") != null){
+			let searched = JSON.parse(localStorage.getItem("searched"));		
+			for(let key in searched) {
+				recentArray.push(searched[key]);
+			}
+		}
+		if($("#shop-keyword-bar").val().trim() != ""){
+			searchedObj["keyword"] = $("#shop-keyword-bar").val();
+		}
+		if($("#place-bar").val().trim() != ""){
+			searchedObj["place"] = $("#place-bar").val();
+		}
+		if($("#shop-keyword-bar").val().trim() != "" || $("#place-bar").val().trim() != ""){
+			searchedObj["time"] = new Date();
+			recentArray.push(searchedObj);
+			localStorage.setItem("searched", JSON.stringify(recentArray));
+			if (typeof searchedList !== "undefined") {
+				searchedList();
+			}
+		}
+	});
+
+	$("#popular-key").find("a").on("click", function(){
+		let recentArray = [];
+		let searchedObj = new Object();
+		
+		if (localStorage.getItem("searched") != null){
+			let searched = JSON.parse(localStorage.getItem("searched"));		
+			for(let key in searched) {
+				recentArray.push(searched[key]);
+			}
+		}
+		searchedObj["keyword"] = $(this).text();
+		searchedObj["time"] = new Date();
+		recentArray.push(searchedObj);
+		localStorage.setItem("searched", JSON.stringify(recentArray));
+		if (typeof searchedList !== "undefined") {
+			searchedList();
+		}
+	});
+	
+	$(document).ready(function(){
+		$("#btn-submit").prop('disabled',true);
+	    $('#place-bar').keyup(function(){
+	        $('#btn-submit').prop('disabled', this.value == "" && $('#shop-keyword-bar').val() == "" ? true : false);     
+	    });
+	    $('#shop-keyword-bar').keyup(function(){
+	        $('#btn-submit').prop('disabled', this.value == "" && $('#place-bar').val() == "" ? true : false);
+	    });
+	    $('#place-bar').focusout(function(){
+	    	if($(".dropdown-menu.show").length)	{
+				$(".dropdown-menu.show").remove();
+			}
+	    });
+	    $('#shop-keyword-bar').focusout(function(){
+	    	if($(".dropdown-menu.show").length)	{
+				$(".dropdown-menu.show").remove();
+			}
+	    });
+	});
