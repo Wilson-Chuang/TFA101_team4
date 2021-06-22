@@ -42,19 +42,14 @@ public class SearchServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				String place;
-				String shop;
-				if (req.getParameter("place-bar") == null) {
-					place = "";
-				} else {
+				String place = "";
+				String shop = "";
+				if (req.getParameter("place-bar") != null) {
 					place = req.getParameter("place-bar").trim();
 				}
-				if (req.getParameter("shop-keyword-bar") == null) {
-					shop = "";
-				} else {
+				if (req.getParameter("shop-keyword-bar") != null) {
 					shop = req.getParameter("shop-keyword-bar").trim();
 				}
-
 				if (place == "" && shop == "") {
 					res.sendRedirect(req.getContextPath());
 					return;
@@ -86,10 +81,28 @@ public class SearchServlet extends HttpServlet {
 					}
 				} else if (shop.length() > 0) {
 					list = shopSvc.findShopKeyword(shop);
-					searchSvc.addSearch(2, shop, 1);
+					searchedShop = searchSvc.getOneSearch(shop);
+					if (searchedShop == null) {
+						searchSvc.addSearch(2, shop, 1);
+					} else {
+						searchSvc.updateSearch(
+								searchedShop.getSearch_id(),
+								searchedShop.getSearch_type(),
+								searchedShop.getSearch_key(),
+								searchedShop.getSearch_count()+1);
+					}
 				} else {
 					list = shopSvc.findShopPlace(place);
-					searchSvc.addSearch(1, place, 1);
+					searchedPlace = searchSvc.getOneSearch(place);
+					if (searchedPlace == null) {
+						searchSvc.addSearch(1, place, 1);
+					} else {
+						searchSvc.updateSearch(
+								searchedPlace.getSearch_id(),
+								searchedPlace.getSearch_type(),
+								searchedPlace.getSearch_key(),
+								searchedPlace.getSearch_count()+1);
+					}
 				}
 				if (list.size() == 0) {
 					errorMsgs.add("查無資料");
@@ -123,12 +136,77 @@ public class SearchServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 		}
+		if ("part_search".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {				
+				/***************************1.接收請求參數****************************************/
+				Double lat = 0.0;
+				Double lng = 0.0;
+				if (req.getParameter("lat") != null) {					
+					try {
+						lat = Double.parseDouble(req.getParameter("lat").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+						errorMsgs.add("請填正確格式的緯度");
+					}
+				}
+				if (req.getParameter("lng") != null) {
+					try {
+						lng = Double.parseDouble(req.getParameter("lng").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+						errorMsgs.add("請填正確格式的經度");
+					}					
+				}
+				if (lat == 0.0 && lng == 0.0) {
+					res.sendRedirect(req.getContextPath());
+					return;
+				}
+				/***************************2.開始查詢資料****************************************/
+				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
+				if (list.size() == 0) {
+					errorMsgs.add("查無資料");
+				}
+				if (!errorMsgs.isEmpty()) {
+					System.out.println(errorMsgs);
+					res.sendRedirect(req.getContextPath());
+					return;
+				}
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/				
+				req.setAttribute("searchResult", list);
+				String url = "/index.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				/***************************其他可能的錯誤處理************************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
 		if ("getPartQuery".equals(action)) {
 			res.setContentType("application/json; charset=utf-8");
 			try {
 				/***************************1.接收請求參數****************************************/
-				Double lat = Double.parseDouble(req.getParameter("lat"));
-				Double lng = Double.parseDouble(req.getParameter("lng"));
+				Double lat = 0.0;
+				Double lng = 0.0;
+				if (req.getParameter("lat") != null) {					
+					try {
+						lat = Double.parseDouble(req.getParameter("lat").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+				if (req.getParameter("lng") != null) {
+					try {
+						lng = Double.parseDouble(req.getParameter("lng").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}					
+				}
+				if (lat == 0.0 && lng == 0.0) {
+					res.sendRedirect(req.getContextPath());
+					return;
+				}
 				/***************************2.開始查詢資料****************************************/
 				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
 				JSONObject resJSON = new JSONObject();

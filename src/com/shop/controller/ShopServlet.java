@@ -206,8 +206,8 @@ public class ShopServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 				errorMsgs.put("shop_longitude", "請填正確格式的經度");
-			}			
-		}		
+			}
+		}
 		
 		Double shop_rating = 0.0;
 		if(tmp_shop_longitude!=null && tmp_shop_longitude.length()!=0) {
