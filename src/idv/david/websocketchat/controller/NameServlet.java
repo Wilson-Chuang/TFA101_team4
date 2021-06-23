@@ -1,0 +1,29 @@
+package idv.david.websocketchat.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.member.model.MemberVO;
+
+public class NameServlet extends HttpServlet {
+	
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		HttpSession session=req.getSession();
+		
+		String userName = ((MemberVO)(session.getAttribute("login"))).getMember_name();
+		Integer userID =((MemberVO)(session.getAttribute("login"))).getMember_id();
+		String name = userID+":"+userName;
+		req.setAttribute("userName", name);
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/chat.jsp");
+		dispatcher.forward(req, res);
+	}
+}
