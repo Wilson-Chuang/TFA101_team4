@@ -1,12 +1,10 @@
 /* 範圍滑塊 */
 $("#range-slider").wRunner({
-  // step size
   step: 5,
 
   // or 'range'
   type: "single",
 
-  // min/max values
   limits: {
     minLimit: 5, 
     maxLimit: 60

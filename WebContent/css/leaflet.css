@@ -254,7 +254,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	outline: 0;
 	}
 .leaflet-container a {
-	color: rgb(20, 109, 156);
+	color: #0b5d90;
 	}
 .leaflet-container a.leaflet-active {
 	outline: 2px solid orange;
@@ -643,18 +643,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	border-right-color: #fff;
 	}
 .map-popup-img{
-	object-fit: cover;
 	width: 100px;
 	height: 100px;
 	border-radius: 12px;
 }
 .map-popup-info{
-	flex: 1 1 0%;
 	padding-left: 8px;
 	overflow: hidden;
 }
 .map-popup-title{
-	display: flex;
 	white-space: nowrap;
 }
 .map-popup-review{
@@ -672,7 +669,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	font-size: 12px;
 	color: rgb(155, 155, 155);
 	margin-left: 5px;
-	line-height: 18px;
 }
 .map-popup-level{
 	color: rgb(235, 112, 74);
@@ -703,4 +699,3 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	color: rgb(74, 74, 74);
 	white-space: nowrap;
 }
-
