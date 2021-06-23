@@ -1,3 +1,6 @@
+.result-main{
+	height: 68%;
+}
 .result-img{
 	width: 100%;
 	height: 137px;
@@ -104,4 +107,38 @@
 }
 .page-desc{
 	color: #4a4a4a;
+}
+.page-heading{
+	border-bottom: 1px solid #eee;
+	padding: 0 24px;
+}
+.page-heading h2{
+	font-size: 22px;
+	font-weight: 400;
+	line-height: 40px;
+	margin: 2px 0;
+	color: #0b5d90;
+	margin-right: 12px;
+	padding-right: 12px;
+}
+.page-heading h2 span{
+	font-size: 13px;
+	color: #134f6c;
+	padding-left: 10px;
+}
+.page-heading .breads{
+	font-size: 12px;
+	color: #0b5d90;
+	margin-top: 10px;
+}
+.page-heading .breads a{
+	color: #0b5d90;
+	text-decoration: none;
+}
+#search-order-now{
+	padding: 8px;
+	border-radius: 3px;
+}
+#search-order-now > i.mdi-sort-variant{
+	margin-right: 3px;
 }
