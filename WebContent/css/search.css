@@ -11,7 +11,7 @@
 	white-space: nowrap;
 	color: #0b5d90;
 }
-.result-info > span{
+.result-info > div > span{
 	margin-right: 8px;
 	color: #12344a78;
 }
@@ -60,7 +60,7 @@
 	font-size: 14px;
 }
 .result-article{
-	margin-top: 4px;
+	margin-top: 10px;
 	background-color: rgba(0,0,0,.03);
 }
 .result-article-1{
