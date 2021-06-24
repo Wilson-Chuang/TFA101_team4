@@ -38,11 +38,15 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MemberServlet</servlet-name>
-		<url-pattern>/member/member.html</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>MemberServlet</servlet-name>
 		<url-pattern>/member.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>signMemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>signMemberServlet</servlet-name>
+		<url-pattern>/sign/member.html</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ShopServlet</servlet-name>
@@ -51,14 +55,6 @@
 	<servlet-mapping>
 		<servlet-name>ShopServlet</servlet-name>
 		<url-pattern>/shop/shop.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>SearchServlet</servlet-name>
-		<servlet-class>com.search.controller.SearchServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SearchServlet</servlet-name>
-		<url-pattern>/search.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ProductServlet</servlet-name>
@@ -92,4 +88,26 @@
 		<servlet-name>ManagerServlet</servlet-name>
 		<url-pattern>/manager/manager.do</url-pattern>
 	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>NameServlet</servlet-name>
+		<servlet-class>idv.david.websocketchat.controller.NameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NameServlet</servlet-name>
+		<url-pattern>/chat.do</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>filters.loginFilters</filter-class>	
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/member/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 </web-app>

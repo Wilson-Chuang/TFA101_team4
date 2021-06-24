@@ -13,13 +13,17 @@ public class ArticleJDBCDAO implements ArticleDAO_interface{
 			"INSERT INTO ARTICLE (ARTICLE_TITLE,ARTICLE_CONTENT,ARTICLE_CREATE_TIME,ARTICLE_COLLECTIONS,ARTICLE_VERIFY_STATUS,ARTICLE_STATUS,MEMBER_ID,SHOP_ID,ARTICLE_CATEGORY_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT ARTICLE_ID,ARTICLE_TITLE,ARTICLE_CONTENT,ARTICLE_CREATE_TIME,ARTICLE_COLLECTIONS,ARTICLE_VERIFY_STATUS,ARTICLE_STATUS,MEMBER_ID,SHOP_ID,ARTICLE_CATEGORY_ID FROM ARTICLE ORDER BY ARTICLE_ID";
+		
 		private static final String GET_ONE_STMT = 
 			"SELECT ARTICLE_ID,ARTICLE_TITLE,ARTICLE_CONTENT,ARTICLE_CREATE_TIME,ARTICLE_COLLECTIONS,ARTICLE_VERIFY_STATUS,ARTICLE_STATUS,MEMBER_ID,SHOP_ID,ARTICLE_CATEGORY_ID FROM ARTICLE WHERE ARTICLE_ID = ?";
 		private static final String DELETE = 
 			"DELETE FROM ARTICLE WHERE ARTICLE_ID= ?";
 		private static final String UPDATE = 
 			"UPDATE ARTICLE SET ARTICLE_TITLE=?, ARTICLE_CONTENT=?, ARTICLE_CREATE_TIME=?, ARTICLE_COLLECTIONS=?, ARTICLE_VERIFY_STATUS=?, ARTICLE_STATUS=?, MEMBER_ID=?, SHOP_ID=?, ARTICLE_CATEGORY_ID=? WHERE ARTICLE_ID = ?";
-
+		private static final String GET_MY_ARTICLE =
+				"SELECT * FROM ARTICLE WHERE MEMBER_ID=? order by article_id desc";
+		private static final String GET_ARTICLE_FOLLOWED =
+				"SELECT * FROM ARTICLE WHERE ARTICLE_ID=? order by article_id desc";
 		
 		@Override
 		public void insert(ArticleVO articleVO) {
@@ -306,6 +310,8 @@ public class ArticleJDBCDAO implements ArticleDAO_interface{
 			return list;
 		}
 		
+
+
 		
 		public static void main(String[] args) {
 
@@ -371,4 +377,21 @@ public class ArticleJDBCDAO implements ArticleDAO_interface{
 				System.out.println();
 			}
 		}
+
+
+		@Override
+		public List<ArticleVO> getMyArticle(Integer member_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+		@Override
+		public ArticleVO getArticleFollowed(Integer article_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
 }

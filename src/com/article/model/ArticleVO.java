@@ -14,8 +14,22 @@ import java.sql.Timestamp;
 		private Integer member_no;
 		private Integer shop_no;
 		private Integer category_no;
+		private byte[] article_img;
+		private String article_img_name;
 		
 		
+		public byte[] getArticle_img() {
+			return article_img;
+		}
+		public void setArticle_img(byte[] article_img) {
+			this.article_img = article_img;
+		}
+		public String getArticle_img_name() {
+			return article_img_name;
+		}
+		public void setArticle_img_name(String article_img_name) {
+			this.article_img_name = article_img_name;
+		}
 		public Integer getArticle_no() {
 			return article_no;
 		}

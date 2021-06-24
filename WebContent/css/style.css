@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
-    color:#2e2e2e;
 }
 
 .dropdown-menu {
@@ -81,13 +80,6 @@ input.save_btn{
 li.sidebar{
     position: relative;
 }
-  .lock::before {
-      position:absolute;
-      content: "";
-      left:0%;
-      top:25%;
-    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f023";
-  }
   .sidebar::after{
     position:absolute;
     content: "";
@@ -131,6 +123,10 @@ li.sidebar{
       display: inline-block;
       margin-bottom: 10px;
   }
+  div.shop_card{
+      background-color: moccasin;
+  
+  }
   .btn-used{
       background-color: gray;
       color:white
@@ -151,7 +147,7 @@ li.sidebar{
     padding: 0 50px;
     border-bottom: 1px solid #9c9c9c;
 }
-div#article_follower,div#shop_favorite,div#member_follower,div#member_follower_fans,div#member_follower_follow{
+div#article_follower,div#shop_favorite,div#member_follower,div#member_follower_fans,div#member_follower_follow,div#myArtlcle{
     text-align: center;
     margin: 10px auto;
 }
@@ -189,14 +185,14 @@ html{
     height: 100%;
 }
 .sign_right{
-    background-image: url("./wilson/loginBg.jpg");
+    background-image: url("/upload/loginBg.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: right;
     background-size:contain;
 }
 .sign_bk{
-    /* background-image: url(/wilson/bki.png); */
+    background-image: url("/upload/loginBg.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position:center;
@@ -367,4 +363,4 @@ input:focus, textarea:focus {
     padding: 0 auto;
     margin: 15px auto;
     border:none;
-}
+	}

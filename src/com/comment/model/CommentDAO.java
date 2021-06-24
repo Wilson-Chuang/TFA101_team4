@@ -39,6 +39,8 @@ public class CommentDAO  implements CommentDAO_Interface{
 			"SELECT count(*) FROM comment where member_id =?";
 		private static final String COUNT_BY_SHOP = 
 				"SELECT count(*) FROM comment where shop_id =?";
+		private static final String COUNT_TOTAL_RATING_BY_SHOP = 
+				"SELECT sum(comment_rating) FROM comment where shop_id =?";
 		
 		
 	@Override
@@ -367,7 +369,7 @@ public class CommentDAO  implements CommentDAO_Interface{
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(COUNT_BY_MEMBER);
+			pstmt = con.prepareStatement(COUNT_BY_SHOP);
 			pstmt.setInt(1, Shop_ID);
 			rs = pstmt.executeQuery();
 
@@ -403,6 +405,53 @@ public class CommentDAO  implements CommentDAO_Interface{
 		}
 
 		return count;
+	}
+	@Override
+	public Integer countRating(Integer Shop_ID) {
+		int sum=0;
+		CommentVO com = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(COUNT_TOTAL_RATING_BY_SHOP);
+			pstmt.setInt(1, Shop_ID);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				sum= rs.getInt(1);
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return sum;
 	}
 }
 

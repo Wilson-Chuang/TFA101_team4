@@ -11,6 +11,7 @@ public class CommentVO implements java.io.Serializable{
 	private BigDecimal COMMENT_RATING;
 	private Timestamp COMMENT_TIME;
 	private Integer COMMENT_STATUS;
+	private String COMMENT_PIC;
 	public Integer getCOMMENT_ID() {
 		return COMMENT_ID;
 	}
@@ -52,6 +53,12 @@ public class CommentVO implements java.io.Serializable{
 	}
 	public void setCOMMENT_STATUS(Integer cOMMENT_STATUS) {
 		COMMENT_STATUS = cOMMENT_STATUS;
+	}
+	public String getCOMMENT_PIC() {
+		return COMMENT_PIC;
+	}
+	public void setCOMMENT_PIC(String cOMMENT_PIC) {
+		COMMENT_PIC = cOMMENT_PIC;
 	}
 	
 	

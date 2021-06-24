@@ -76,4 +76,7 @@ public class ForumPostService {
 	public List<ForumPostVO> getAll(){
 		return dao.getAll();
 	}
+	public List<ForumPostVO> getMyForum(Integer member_id){
+		return dao.getMyForum(member_id);
+	}
 }

@@ -1,4 +1,4 @@
-package com.shop_favorites.model;
+package com.reservation.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,34 +8,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop_favorites.model.Shop_FavoritesVO;
 
-public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
+public class Reservation_JDBCDAO implements ReservationDAO_Interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/new_schema?serverTimezone=Asia/Taipei";
 	String userid = "David";
 	String passwd = "123456";
 	private static final String INSERT_STMT = 
-			"INSERT INTO shop_favorites (member_id,shop_id) VALUES (?, ?)";
+			"INSERT INTO Reservation (shop_id,reservation_people_limited,reservation_period_status,reservation_group_status) VALUES (?, ? ,? ,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT * FROM shop_favorites order by shop_favorites_id";
+			"SELECT * FROM Reservation order by Reservation_id";
 		private static final String GET_ONE_STMT = 
-			"SELECT * FROM shop_favorites where shop_favorites_id= ?";
+			"SELECT * FROM Reservation where Reservation_id= ?";
 		private static final String DELETE = 
-			"DELETE FROM shop_favorites where shop_favorites_id = ?";
+			"DELETE FROM Reservation where Reservation_id = ?";
 		private static final String UPDATE = 
-			"UPDATE shop_favorites set member_id=?,shop_id=? where shop_favorites_id=?" ;
+			"UPDATE Reservation set shop_id=?,reservation_people_limited=?,reservation_period_status=? ,reservation_group_status=?  where Reservation_id=?" ;
+		
 		
 		
 	@Override
-	public void insert(Shop_FavoritesVO Shop_FavoritesVO) {
+	public void insert(ReservationVO ReservationVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setInt(1,Shop_FavoritesVO.getMEMBER_ID());
-			pstmt.setInt(2,Shop_FavoritesVO.getSHOP_ID());
+			pstmt.setInt(1,ReservationVO.getShop_id());
+			pstmt.setInt(2,ReservationVO.getReservation_people_limited());
+			pstmt.setTimestamp(3,ReservationVO.getReservation_period_status());
+			pstmt.setInt(4,ReservationVO.getReservation_group_status());
 			pstmt.execute();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -58,20 +62,23 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 					e.printStackTrace(System.err);
 				}
 			}
-		}		
+		}	
+		
 	}
 
 	@Override
-	public void update(Shop_FavoritesVO Shop_FavoritesVO) {
+	public void update(ReservationVO ReservationVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1,Shop_FavoritesVO.getMEMBER_ID());
-			pstmt.setInt(2,Shop_FavoritesVO.getSHOP_ID());
-			pstmt.setInt(3	,Shop_FavoritesVO.getSHOP_FAVORITES_ID());
+			pstmt.setInt(1,ReservationVO.getShop_id());
+			pstmt.setInt(2,ReservationVO.getReservation_people_limited());
+			pstmt.setTimestamp(3,ReservationVO.getReservation_period_status());
+			pstmt.setInt(4,ReservationVO.getReservation_group_status());
+			pstmt.setInt(5,ReservationVO.getReservation_id());
 			pstmt.execute();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -95,17 +102,18 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 				}
 			}
 		}		
+		
 	}
 
 	@Override
-	public void delete(Integer Shop_Favorites_ID) {
+	public void delete(Integer Reservation_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1,Shop_Favorites_ID);
+			pstmt.setInt(1,Reservation_id);
 
 			pstmt.execute();
 		} catch (ClassNotFoundException e) {
@@ -130,11 +138,13 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 				}
 			}
 		}
+		
 	}
 
+
 	@Override
-	public Shop_FavoritesVO getOneStmt(Integer Shop_Favorites_ID) {
-		Shop_FavoritesVO sf = null;
+	public ReservationVO getOneStmt(Integer Reservation_id) {
+		ReservationVO sf = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -143,14 +153,16 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			pstmt.setInt(1, Shop_Favorites_ID);
+			pstmt.setInt(1, Reservation_id);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				sf = new Shop_FavoritesVO();
-				sf.setSHOP_FAVORITES_ID(rs.getInt("SHOP_FAVORITES_ID"));
-				sf.setMEMBER_ID(rs.getInt("MEMBER_ID"));
-				sf.setSHOP_ID(rs.getInt("SHOP_ID"));
+				sf = new ReservationVO();
+				sf.setReservation_id(rs.getInt("Reservation_id"));
+				sf.setShop_id(rs.getInt("Shop_id"));
+				sf.setReservation_people_limited(rs.getInt("Reservation_people_limited"));
+				sf.setReservation_period_status(rs.getTimestamp("Reservation_period_status"));
+				sf.setReservation_group_status(rs.getInt("Reservation_group_status"));
 			}
 
 		} catch (SQLException se) {
@@ -184,13 +196,12 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 		}
 
 		return sf;
-	
 	}
 
 	@Override
-	public List<Shop_FavoritesVO> getAll() {
-		List<Shop_FavoritesVO> list= new ArrayList<Shop_FavoritesVO>();
-		Shop_FavoritesVO sf=null;
+	public List<ReservationVO> getAll() {
+		List<ReservationVO> list= new ArrayList<ReservationVO>();
+		ReservationVO sf=null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -202,10 +213,12 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				sf = new Shop_FavoritesVO();
-				sf.setSHOP_FAVORITES_ID(rs.getInt("SHOP_FAVORITES_ID"));
-				sf.setMEMBER_ID(rs.getInt("MEMBER_ID"));
-				sf.setSHOP_ID(rs.getInt("SHOP_ID"));
+				sf = new ReservationVO();
+				sf.setReservation_id(rs.getInt("Reservation_id"));
+				sf.setShop_id(rs.getInt("Shop_id"));
+				sf.setReservation_people_limited(rs.getInt("Reservation_people_limited"));
+				sf.setReservation_period_status(rs.getTimestamp("Reservation_period_status"));
+				sf.setReservation_group_status(rs.getInt("Reservation_group_status"));
 				list.add(sf);
 			}
 
@@ -240,18 +253,6 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 		}
 		
 		return list;
-	}
-
-	@Override
-	public List<Shop_FavoritesVO> getAllByMember(Integer Member_ID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete_sf(Shop_FavoritesVO shop_Favorites) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

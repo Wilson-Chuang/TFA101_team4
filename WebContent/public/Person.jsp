@@ -5,29 +5,34 @@
 <%@ page import="com.comment.model.*"%>
 <%@ page import="com.article.model.*"%>
 <%@ page import="com.forum_post.model.*"%>
-<%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/pages/header.file" %>
+<%@ page import="java.util.*"%>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <%
-	MemberVO MemberVO = (MemberVO) session.getAttribute("login");
-	MemberService memSvc=new MemberService();
-	int Member_id=MemberVO.getMember_id();
-	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
-	ForumPostService forSvc=new ForumPostService();
-	List<ForumPostVO> list_myForum=forSvc.getMyForum(Member_id);
+		int member_id= Integer.valueOf(request.getParameter("member_id"));
+		MemberService memSvc=new MemberService();
+		MemberVO MemberVO= memSvc.GET_ONE_BY_ID(member_id);
+		MemberVO myMemberVO = (MemberVO)(session.getAttribute("login"));
+		Member_FollowerService memfolSvc=new Member_FollowerService();
+		List<ArticleVO> list_myArticle=memSvc.getMyArticle(member_id);
+		ForumPostService forSvc=new ForumPostService();
+		List<ForumPostVO> list_myForum=forSvc.getMyForum(member_id);
+		
+
+		
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|活動紀錄</title>
+<title>Giude好食|個人頁面</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -37,24 +42,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body>
+ 
 <div class="container">
-        <div class="row">
-            <div class="col-2">
-                <img src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
-            </div>
-            <div class="col-10">
-                <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
-                <span class="member_status">一般會員</span><br>
-                <%CommentService comSvc= new CommentService(); 
-                	int countByMember = comSvc.countByMember(MemberVO.getMember_id());%>
-                <span class="comments_count">發表<%=countByMember %>則評論|</span>
-                <%Member_FollowerService folSvc=new Member_FollowerService(); 
-                	int count_fans = folSvc.count_fans(MemberVO.getMember_id());%>
-                	  <span class="followers_count"><%=count_fans%>個粉絲|</span>
-                <span class="followers_count">會員ID:<%=((MemberVO) (session.getAttribute("login"))).getMember_id() %></span>
-            </div>
-
-        </div>
+        
 
         <div class="row">
 
@@ -76,6 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
+                    <%if(!(myMemberVO==null)){ %>
                     <li class="sidebar">
 									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
 									<input type=hidden name="userName" value=<%=MemberVO.getMember_name() %>  > 
@@ -83,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								style="width: 150px; background: none; color: black">
 									</form>
 								</li>
-					<hr>
+					<hr><%} %>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">
 							<input type=hidden name="action" value="toShop"> <input
@@ -94,14 +85,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
             </div>
             <div class="col-10">
+            <div class="row">
+            <div class="col-2">
+                <img src="/upload/<%= MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
+            </div>
+            <div class="col-10">
+                <span class="member_name"><%= MemberVO.getMember_name()%></span>
+                <%if(MemberVO.getMember_status()==1){ %>                
+                <span class="member_status">一般會員</span><br>
+                <%}else{ %>
+                <span class="member_status">商家管理會員</span><br>
+                <%} %>
+                <%CommentService comSvc= new CommentService(); 
+                	int countByMember = comSvc.countByMember(MemberVO.getMember_id());%>
+                <span class="comments_count">發表<%=countByMember %>則評論|</span>
+                <%Member_FollowerService folSvc=new Member_FollowerService(); 
+                	int count_fans = folSvc.count_fans(MemberVO.getMember_id());%>
+                	  <span class="followers_count"><%=count_fans%>個粉絲|</span>
+                <span class="followers_count">會員ID:<%= MemberVO.getMember_id()%></span><br>
+                <%
+                if(!(myMemberVO==null)){
+                boolean followed =memfolSvc.check_follow(member_id, myMemberVO.getMember_id());
+                if(followed){%>
+                	<form action="member.html" method="post">
+									<input type=hidden name= "MEMBER_ID_FOL" value="<%=MemberVO.getMember_id()%>">
+									<input type=hidden name= "MEMBER_ID" value="<%= myMemberVO.getMember_id()%>">
+									<input type=hidden name="action" value="delete_fol">
+									<input type="submit" value="取消追蹤" class="save_btn" style="width:150px">
+								</form>
+                <%	
+                }else{
+                %>
+                
+ 				 <form action="member.html"method="post">
+ 				 	<input type=hidden name="member_id" value="<%= MemberVO.getMember_id()%>">
+ 				 	<input type=hidden name="myMember_id" value="<%= myMemberVO.getMember_id()%>">
+ 				    <input type=hidden name="action" value="follow">
+                    <input type="submit" value="追蹤" class="save_btn" style="width:150px">
+ 				 </form>
+ 				 <%}} %>
+            </div>
+
+        </div>
 				<ul class="nav nav-tabs">
 					<li class="favorite_page_li"><a class="favorite_page"
 						href="#myArticle" rel="external nofollow" data-toggle="tab">我的文章</a></li>
 					<li class="favorite_page_li"><a class="favorite_page"
 						href="#myforum" rel="external nofollow" data-toggle="tab">我的討論</a></li>
 				</ul>
-				<!--標籤的內容-->
-				<div id="myTabContent" class="tab-content">
+<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade in active" id="myArticle">
 					<%if(!list_myArticle.isEmpty()){
 							for(ArticleVO article:list_myArticle){						
@@ -138,11 +170,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<%} %>
 						
 					</div>
-						
-				</div>
+
+            </div>
+        </div>
     </div>
-</div>
-    </div>
+
 </body>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
