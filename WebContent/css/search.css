@@ -1,5 +1,5 @@
 .result-main{
-	height: 68%;
+	height: 400px;
 }
 .result-img{
 	width: 100%;
@@ -97,6 +97,7 @@
 	margin-right: 5px;
 }
 .result-article-img{
+	margin-top: 10px;
 	width: 42px;
 	height: 42px;
 	border-radius: 5px;
@@ -141,4 +142,32 @@
 }
 #search-order-now > i.mdi-sort-variant{
 	margin-right: 3px;
+}
+.result-date{
+	font-size: 14px;
+	margin-top: 6px;
+	line-height: 19px;
+	color: #4a4a4a;
+	align-items: center;
+}
+#isOpen{
+	background-color: #89d321;
+	width: 8px;
+	height: 8px;
+	display: inline-block;
+	margin-right: 6px;
+	border-radius: 4px;
+}
+#isNotOpen{
+	background-color: #888;
+	width: 8px;
+	height: 8px;
+	display: inline-block;
+	margin-right: 6px;
+	border-radius: 4px;
+	opacity: .3;
+}
+#loading{
+	top: 63%;
+	left: 24.5%;
 }
