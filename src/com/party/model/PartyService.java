@@ -12,13 +12,12 @@ public class PartyService {
 		dao = new PartyDAO();
 	}
 
-	public PartyVO addParty(String party_title, Timestamp party_start_time, 
+	public PartyVO addParty( String party_title, Timestamp party_start_time, 
 			Timestamp party_end_time,String party_intro, Integer party_participants_max,
 			Integer party_participants_min) {
 
 		PartyVO partyVO = new PartyVO();
 
-//  partyVO.setMember_id(member_id);
 		partyVO.setParty_title(party_title);
 		partyVO.setParty_start_time(party_start_time);
 		partyVO.setParty_end_time(party_end_time);
@@ -30,7 +29,7 @@ public class PartyService {
 		return partyVO;
 	}
 
-	public PartyVO updateParty(Integer party_id ,String party_title, Timestamp party_start_time,
+	public PartyVO updateParty(Integer party_id , String party_title, Timestamp party_start_time,
 			Timestamp party_end_time, String party_intro, Integer party_participants_max,
 			Integer party_participants_min) {
 

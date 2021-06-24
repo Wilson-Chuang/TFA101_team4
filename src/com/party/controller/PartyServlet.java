@@ -120,19 +120,36 @@ public class PartyServlet extends HttpServlet {
 					errorMsgs.add("請填最低人數");
 				}
 				
-				Date date = new Date();
-				Timestamp Party_start_time = new Timestamp(date.getTime());
-				Timestamp Party_end_time = new Timestamp(date.getTime());
+				
+				  java.sql.Timestamp Party_start_time = null;
+				    try {
+				    	System.out.println(req.getParameter("party_start_time").trim());
+				    	Party_start_time = java.sql.Timestamp.valueOf(req.getParameter("party_start_time").trim() + ":00");
+				    } catch (IllegalArgumentException e) {
+				    	Party_start_time = new java.sql.Timestamp(System.currentTimeMillis());
+				     errorMsgs.add("請輸入日期!");
+				    }
+				    
+				    java.sql.Timestamp Party_end_time = null;
+				    try {
+				    	Party_end_time = java.sql.Timestamp.valueOf(req.getParameter("party_end_time").trim() + ":00");
+				    } catch (IllegalArgumentException e) {
+				    	Party_end_time = new java.sql.Timestamp(System.currentTimeMillis());
+				    	errorMsgs.add("請輸入日期!");
+				    }
+				
+//				Date date = new Date();
+//				Timestamp Party_start_time = new Timestamp(date.getTime());
+//				Timestamp Party_end_time = new Timestamp(date.getTime());
 				PartyVO partyVO = new PartyVO();
-
 				partyVO.setParty_title(party_title);
+//		partyVO.setMember_id(member_id);
 				partyVO.setParty_start_time(Party_start_time);
 				partyVO.setParty_end_time(Party_end_time);
 				partyVO.setParty_intro(party_intro);
 				partyVO.setParty_participants_max(party_participants_max);
 				partyVO.setParty_participants_min(party_participants_min);
 //		partyVO.setMember_id(member_id);
-
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("partyVO", partyVO);
 					RequestDispatcher failureView = req.getRequestDispatcher("/party/addparty.jsp");
@@ -142,7 +159,7 @@ public class PartyServlet extends HttpServlet {
 				
 				/*************************** 2.開始新增資料 ****************************************/
 				PartyService partySvc = new PartyService();
-				partyVO = partySvc.addParty( party_title, Party_start_time, Party_end_time, party_intro,
+				partyVO = partySvc.addParty(party_title, Party_start_time, Party_end_time, party_intro,
 						party_participants_max, party_participants_min);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ************/
@@ -221,6 +238,8 @@ public class PartyServlet extends HttpServlet {
 //				} catch (NumberFormatException e) {
 //					errorMsgs.add("請檢查是否已登入");
 //				}
+				
+				
 				Integer party_participants_max = null;
 				try {
 					party_participants_max = new Integer(req.getParameter("party_participants_max").trim());
@@ -236,10 +255,23 @@ public class PartyServlet extends HttpServlet {
 					errorMsgs.add("請填最低人數");
 				}
 				
+				
+				 java.sql.Timestamp Party_start_time = null;
+				    try {
+				    	Party_start_time = java.sql.Timestamp.valueOf(req.getParameter("party_start_time").trim() + ":00");
+				    } catch (IllegalArgumentException e) {
+				     errorMsgs.add("請輸入日期!");
+				    }
+				    
+				    java.sql.Timestamp Party_end_time = null;
+				    try {
+				    	Party_end_time = java.sql.Timestamp.valueOf(req.getParameter("party_end_time").trim() + ":00");
+				    } catch (IllegalArgumentException e) {
+				    	Party_end_time = new java.sql.Timestamp(System.currentTimeMillis());
+				    	errorMsgs.add("請輸入日期!");
+				    }
+				
 
-				Date date = new Date();
-				Timestamp Party_start_time = new Timestamp(date.getTime());
-				Timestamp Party_end_time = new Timestamp(date.getTime());
 				PartyVO partyVO = new PartyVO();
 
 
@@ -256,7 +288,6 @@ public class PartyServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/party/update_party_input.jsp");
 					failureView.forward(req, res);
-					System.out.println("1");
 					return;
 				}
 
@@ -264,20 +295,17 @@ public class PartyServlet extends HttpServlet {
 				PartyService partySvc = new PartyService();
 				partyVO = partySvc.updateParty(party_id, party_title, Party_start_time, Party_end_time, party_intro,
 						party_participants_max, party_participants_min);
-				System.out.println("2");
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("partyVO", partyVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/party/listOneParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
-				System.out.println("6");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
 RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_input.jsp");
 				failureView.forward(req, res);
-				System.out.println("7");
 			}
 		}
 		

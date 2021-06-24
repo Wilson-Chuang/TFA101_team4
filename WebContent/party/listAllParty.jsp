@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.party.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <%
@@ -87,8 +88,10 @@
 		<tr>
 			<td>${partyVO.party_id}</td>
 			<td>${partyVO.party_title}</td>
-			<td>${partyVO.party_start_time}</td> 
-			<td>${partyVO.party_end_time}</td>
+			<td><fmt:formatDate value="${partyVO.party_start_time}"
+						pattern="yyyy-MM-dd hh:mm" /></td> 
+			<td><fmt:formatDate value="${partyVO.party_end_time}"
+						pattern="yyyy-MM-dd hh:mm" /></td>   
 			<td>${partyVO.party_intro}</td>
 			<td>${partyVO.party_participants_max}</td>
 			<td>${partyVO.party_participants_min}</td>
