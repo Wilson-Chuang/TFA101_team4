@@ -12,8 +12,6 @@ public interface Member_FollowerDAO_Interface {
     public List<Member_FollowerVO> getAll();
     public List<Integer> GET_ALL_FOLLOWING(Integer MEMBER_ID_FOLLOWER);
     public List<Integer> GET_ALL_FOLLOWED(Integer MEMBER_ID);
-    public boolean check_follow(Integer MEMBER_ID,Integer MEMBER_ID_FOLLOWER);
-    public Integer count_fans(Integer Member_ID);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map);
 }

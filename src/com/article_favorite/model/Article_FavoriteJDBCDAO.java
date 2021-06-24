@@ -310,11 +310,5 @@ public class Article_FavoriteJDBCDAO implements Article_FavoriteDAO_interface{
 					
 			
 		}
-
-		@Override
-		public List<Article_FavoriteVO> getAllByMember(Integer member_id) {
-			// TODO Auto-generated method stub
-			return null;
-		}
 		
 }

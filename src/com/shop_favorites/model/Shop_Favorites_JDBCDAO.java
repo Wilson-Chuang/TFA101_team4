@@ -248,10 +248,4 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 		return null;
 	}
 
-	@Override
-	public void delete_sf(Shop_FavoritesVO shop_Favorites) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

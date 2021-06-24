@@ -9,14 +9,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <%
-	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
+		int member_id= Integer.valueOf(request.getParameter("member_id"));
+		MemberService memSvc=new MemberService();
+		MemberVO MemberVO= memSvc.GET_ONE_BY_ID(member_id);
+		MemberVO myMemberVO = (MemberVO)(session.getAttribute("login"));
+		
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|活動紀錄</title>
+<title>Giude好食|個人頁面</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -150,14 +154,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="/upload/<%= MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
-                <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
+                <span class="member_name"><%= MemberVO.getMember_name()%></span>
                 <span class="member_status">一般會員</span><br>
                 <span class="comments_count">0則評論</span>
-                <span class="followers_count"><%=((MemberVO) (session.getAttribute("login"))).getMember_fans() %>個粉絲</span>
-                <span class="followers_count">會員ID:<%=((MemberVO) (session.getAttribute("login"))).getMember_id() %></span>
+                <span class="followers_count"><%= MemberVO.getMember_fans()%>個粉絲</span>
+                <span class="followers_count">會員ID:<%= MemberVO.getMember_id()%></span>
             </div>
 
         </div>
@@ -189,50 +193,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
             </div>
             <div class="col-10">
-        <div class="card mb-3" style="max-width: 100%;">
-            <div class="row no-gutters">
-                <div class="col-md-4 ">
-                    <img src="./wilson/1.jpg" class="card-img active_img" alt="...">
-                </div>
-                <div class="col-md-8 active_context">
-                    <p class="card-text">您成功在【文章專欄】發表了「甜點界女王 Lady M x 潮流酒吧 WAT 推出「粉黛荔香瓶裝雞尾酒」
-                        搭配「玫瑰千層」讓今年來點不一樣的母親節下午茶！」這篇文章</p>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-3" style="max-width: 100%;">
-            <div class="row no-gutters">
-                <div class="col-md-4 ">
-                    <img src="./wilson/2.jpg" class="card-img active_img" alt="...">
-                </div>
-                <div class="col-md-8 active_context">
-                    <p class="card-text">有人回應了您在【討論區】發表的「石二鍋好好吃」這篇貼文哦!</p>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-3" style="max-width: 100%;">
-            <div class="row no-gutters">
-                <div class="col-md-4 ">
-                    <img src="./wilson/3.jpg" class="card-img active_img" alt="...">
-                </div>
-                <div class="col-md-8 active_context">
-                    <p class="card-text">有人回應了您在【討論區】發表的「南京復興附近推薦哪間早午餐?」這篇貼文哦!</p>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-3" style="max-width: 100%;">
-            <div class="row no-gutters">
-                <div class="col-md-4 ">
-                    <img src="./wilson/4.jpg" class="card-img active_img" alt="...">
-                </div>
-                <div class="col-md-8 active_context">
-                    <p class="card-text">有人對你在【討論區】發表的「石二鍋好好吃」這篇貼文按讚!</p>
-                </div>
+                <form action="member.html" class="personal_form" method="post"  enctype="multipart/form-data">
+                <table class="table table-striped">
+                <tr><th>信箱:</th><td><%= MemberVO.getMember_email()%></td></tr>
+                <tr><th>性別:</th><td><%if(MemberVO.getMember_gender()==1)%>男<%else%>女</td></tr>
+                <tr><th>生日:</th><td><%= MemberVO.getMember_birth()%></td></tr>
+                <tr><th>年齡:</th><td><%= MemberVO.getMember_age()%></td></tr>
+                <tr><th>地址:</th><td><%= MemberVO.getMember_address()%></td></tr>
+                <tr><th>電話:</th><td><%= MemberVO.getMember_phone()%></td></tr> 
+                <tr><th>註冊日期:</th><td><fmt:formatDate value="<%= MemberVO.getMember_create_time()%>" pattern="yyyy/MM/dd"/></td></tr>
+                <tr><th>更新日期:</th><td><fmt:formatDate value="<%= MemberVO.getMember_update_time()%>" pattern="yyyy/MM/dd"/></td></tr>
+                
+                </table>
+                
+                </form>
+ 				 <form action="member.html"method="post">
+ 				 	<input type=hidden name="member_id" value="<%= MemberVO.getMember_id()%>">
+ 				 	<input type=hidden name="myMember_id" value="<%= myMemberVO.getMember_id()%>">
+ 				    <input type=hidden name="action" value="follow">
+                    <input type="submit" value="追蹤" class="save_btn" style="width:150px">
+ 				 </form>
             </div>
         </div>
     </div>
-</div>
-    </div>
+
 </body>
 <script type="text/javascript">
 		function show(f) {

@@ -15,5 +15,4 @@ public interface ForumPostDAO {
 	public void delete(Integer forum_post_id);
 	public ForumPostVO findByPK(Integer forum_post_id);
 	public List<ForumPostVO> getAll();
-	public List<ForumPostVO> getMyForum(Integer member_id);
 }
