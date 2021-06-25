@@ -687,7 +687,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	background: #ffcd00;
 	text-decoration: none;
 	padding: 0px 5px;
-	color: #444 !important;
+	color: #444!important;
 	margin-left: 5px;
 }
 .map-popup-direction > i.mdi-directions-fork{

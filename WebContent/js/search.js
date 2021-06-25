@@ -1,3 +1,12 @@
+var distanceDiff, marker1, marker2;
+var refine = [];
+var markerGroup = [];
+
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+});
+
 function timeSince(date) {
 	  var seconds = Math.floor((new Date() - date) / 1000);
 	  var interval = seconds / 31536000;
@@ -24,6 +33,7 @@ function timeSince(date) {
 }
 
 function pagelist(data){
+	markerFactory(data);
 	$('.pagination').pagination({
 	    dataSource: data,
 	    showGoInput: true,
