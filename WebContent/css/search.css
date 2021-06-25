@@ -137,11 +137,30 @@
 	text-decoration: none;
 }
 #search-order-now{
-	padding: 8px;
 	border-radius: 3px;
+	margin-right: 8px;
 }
 #search-order-now > i.mdi-sort-variant{
 	margin-right: 3px;
+}
+#search-filter-now{
+	border-radius: 3px;
+	margin-right: 8px;
+}
+#search-filter-now > i.mdi-currency-usd{
+	margin-right: 3px;
+}
+#search-filter-open{
+	padding: 8px;
+}
+#indicator{
+	width: 12px;
+	height: 12px;
+	background-color: #dce0e0;
+	margin-right: 8px;
+}
+#open-title{
+	color: #4a4a4a;
 }
 .result-date{
 	font-size: 14px;

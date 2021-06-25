@@ -23,9 +23,9 @@ function timeSince(date) {
 	  return Math.floor(seconds) + " 秒前";
 }
 
-function pagelist(){
+function pagelist(data){
 	$('.pagination').pagination({
-	    dataSource: refine,
+	    dataSource: data,
 	    showGoInput: true,
 	    showGoButton: true,
 	    pageSize: 15,
@@ -41,14 +41,14 @@ $("#orderbyrate").click(function(e){
 	e.preventDefault();
 	$("#search-order-now > span").text($(this).text());
 	quickSortDesc(refine, 0, refine.length, "shop_rating");
-	pagelist();
+	pagelist(refine);
 });
 
 $("#orderbypopular").click(function(e){
 	e.preventDefault();
 	$("#search-order-now > span").text($(this).text());
 	quickSortDesc(refine, 0, refine.length, "shop_total_view");
-	pagelist();
+	pagelist(refine);
 });
 
 
@@ -56,14 +56,14 @@ $("#orderbycost").click(function(e){
 	e.preventDefault();
 	$("#search-order-now > span").text($(this).text());
 	quickSortAsc(refine, 0, refine.length, "shop_price_level");
-	pagelist();
+	pagelist(refine);
 });
 
 $("#orderbydistance").click(function(e){
 	e.preventDefault();
 	$("#search-order-now > span").text($(this).text());
 	quickSortDistance(refine, 0, refine.length, "shop_latitude", "shop_longitude");
-	pagelist();
+	pagelist(refine);
 });
 
 function quickSortDistance(arr, startIdx, endIdx, prop1, prop2) {
@@ -159,3 +159,111 @@ function quickSortDesc(arr, startIdx, endIdx, prop) {
 	quickSortDesc(arr, startIdx, i, prop)
 	quickSortDesc(arr, i + 1, endIdx, prop)
 }
+
+$("#filterzero").click(function(e){
+	e.preventDefault();
+	$("#search-filter-menu > span").text($(this).text());
+	pagelist(refine);
+});
+
+$("#filterone").click(function(e){
+	e.preventDefault();
+	$("#search-filter-menu > span").text($(this).text());
+	var filtertemp = [];
+	$.each(refine, function(index, shopVO){
+		if(shopVO.shop_price_level == 1){
+			filtertemp.push(shopVO);
+		}
+	});
+	pagelist(filtertemp);
+});
+
+$("#filtertwo").click(function(e){
+	e.preventDefault();
+	$("#search-filter-menu > span").text($(this).text());
+	var filtertemp = [];
+	$.each(refine, function(index, shopVO){
+		if(shopVO.shop_price_level == 2){
+			filtertemp.push(shopVO);
+		}
+	});
+	pagelist(filtertemp);
+});
+
+$("#filterthree").click(function(e){
+	e.preventDefault();
+	$("#search-filter-menu > span").text($(this).text());
+	var filtertemp = [];
+	$.each(refine, function(index, shopVO){
+		if(shopVO.shop_price_level == 3){
+			filtertemp.push(shopVO);
+		}
+	});
+	pagelist(filtertemp);
+});
+
+$("#filterfour").click(function(e){
+	e.preventDefault();
+	$("#search-filter-menu > span").text($(this).text());
+	var filtertemp = [];
+	$.each(refine, function(index, shopVO){
+		if(shopVO.shop_price_level == 4){
+			filtertemp.push(shopVO);
+		}
+	});
+	pagelist(filtertemp);
+});
+
+$("#search-filter-open").click(function(e){
+	e.preventDefault();
+		
+	if($(this).hasClass("active")){
+		$("#indicator").css("background-color", "#dce0e0");
+		$("#open-title").removeClass("fw-bold");
+		$(this).removeClass("active");
+		pagelist(refine);
+	} else {
+		$(this).addClass("active");
+		$("#indicator").css("background-color", "#7ed321");
+		$("#open-title").addClass("fw-bold");		
+		var filtertemp = [];
+		
+		$.each(refine, function(index, shopVO){
+			if(shopVO.shop_opening_time != null){
+				opening_time = shopVO.shop_opening_time;
+				
+				if(opening_time.slice(0, 2) == "[\"") {
+					var week_ch = ['日', '一', '二', '三', '四', '五', '六'];
+					var today = new Date();
+					opening_time = opening_time.replace(/\\u2013|\\u2014/g, "-");
+					opening_time = JSON.parse(opening_time);
+					for (var i = 0; i < opening_time.length; i++) {
+						if(opening_time[i].slice(2, 3) == week_ch[today.getDay()]){
+							opening_time[i] = opening_time[i].slice(5);
+							var isOpen = false;
+							var opening_time_array = opening_time[i].split(", ");
+							for (var j = 0; j < opening_time_array.length; j++) {
+								opening_time_array[j] = opening_time_array[j].split(" - ");								
+								if(opening_time_array[j].length > 1){
+									var start_date = new Date(today.getTime());
+									var end_date = new Date(today.getTime());
+									var start_time = opening_time_array[j][0];
+									var end_time = opening_time_array[j][1];
+									start_date.setHours(start_time.split(":")[0]);
+									start_date.setMinutes(start_time.split(":")[1]);
+									end_date.setHours(end_time.split(":")[0]);
+									end_date.setMinutes(end_time.split(":")[1]);
+									isOpen = start_date < today && end_date > today;
+								}								
+							}
+							if(isOpen) {
+								filtertemp.push(shopVO);
+							}
+						}
+					}					
+				}
+			}
+		});
+		pagelist(filtertemp);
+	}
+});
