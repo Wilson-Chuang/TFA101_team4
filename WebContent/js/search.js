@@ -1,4 +1,3 @@
-var distanceDiff, marker1, marker2;
 var refine = [];
 var markerGroup = [];
 

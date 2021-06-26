@@ -1,52 +1,67 @@
-/* 範圍滑塊 */
-$("#range-slider").wRunner({
-	step: 5,
-
-	// or 'range'
-	type: "single",
-
-	limits: {
-		minLimit: 5,
-		maxLimit: 60,
-	},
-
-	// default value
-	singleValue: 15,
-
-	// root element
-	roots: document.body,
-
-	// the number of divisions
-	scaleDivisionsCount: 0,
-
-	// shows labels
-	valueNoteDisplay: true,
-
-	// theme name
-	theme: "default",
-
-	// or 'vertical'
-	direction: "horizontal",
-});
-
+var searchResult;
 var reachtime = 15;
 var speed = 2;
 var distance = speed * (reachtime / 60) * 1000;
 
-$("#range-slider").on(
-	"DOMSubtreeModified",
-	".wrunner__value-note",
-	function () {
-		reachtime = $(".wrunner__value-note > div")
-			.text()
-			.split("分鐘")
-			.slice(0, -1)
-			.toString();
-		$("#reachtime").html(reachtime);
-		$("#btn-reachtime").attr("value", reachtime);
-		distance = speed * (reachtime / 60) * 1000;
-	}
-);
+if (typeof markerGroup !== 'undefined') {
+		$("#page-checker").html(
+			'<button type="button" id="btn-range" class="btn btn-primary text-nowrap">確定</button>'
+		);		
+	} else {
+		$("#page-checker").html(
+			'<button type="submit" id="btn-range" class="btn btn-primary text-nowrap">確定</button>'
+		);
+		rangeslider(reachtime);
+}
+function rangeslider(value){
+	reachtime = value;
+	distance = speed * (reachtime / 60) * 1000;	
+	/* 範圍滑塊 */
+	$("#range-slider").wRunner({
+		step: 5,
+
+		// or 'range'
+		type: "single",
+
+		limits: {
+			minLimit: 5,
+			maxLimit: 60,
+		},
+
+		// default value
+		singleValue: reachtime,
+
+		// root element
+		roots: document.body,
+
+		// the number of divisions
+		scaleDivisionsCount: 0,
+
+		// shows labels
+		valueNoteDisplay: true,
+
+		// theme name
+		theme: "default",
+
+		// or 'vertical'
+		direction: "horizontal",
+	});
+	
+	$("#range-slider").on(
+			"DOMSubtreeModified",
+			".wrunner__value-note",
+			function () {
+				reachtime = $(".wrunner__value-note > div")
+					.text()
+					.split("分鐘")
+					.slice(0, -1)
+					.toString();
+				$("#reachtime").html(reachtime);
+				$("#btn-reachtime").attr("value", reachtime);
+				distance = speed * (reachtime / 60) * 1000;
+			}
+	);
+}
 
 /* 交通工具標籤 */
 $("#motorbike").on("click", function () {
@@ -455,37 +470,86 @@ $("#popular-key")
 		}
 	});
 
-$(document).ready(function () {
-	$("#btn-submit").prop("disabled", true);
-	$("#place-bar").keyup(function () {
-		$("#btn-submit").prop(
-			"disabled",
-			this.value == "" && $("#shop-keyword-bar").val() == "" ? true : false
-		);
-	});
-	$("#shop-keyword-bar").keyup(function () {
-		$("#btn-submit").prop(
-			"disabled",
-			this.value == "" && $("#place-bar").val() == "" ? true : false
-		);
-	});
-	$("#place-bar").focusout(function () {
-		killDrop();
-	});
-	$("#shop-keyword-bar").focusout(function () {
-		killDrop();
-	});
+$(document).ready(function () {	
+	if(searchResult == null){
+		rangeslider(reachtime);
+	}
 });
 
-if (
-	document.URL.indexOf("search.do") >= 0 ||
-	document.URL.indexOf("search.jsp") >= 0
-) {
-	$("#page-checker").html(
-		'<button type="button" id="btn-range" class="btn btn-primary text-nowrap">確定</button>'
+$("#btn-submit").prop("disabled", true);
+$("#place-bar").keyup(function () {
+	$("#btn-submit").prop(
+		"disabled",
+		this.value == "" && $("#shop-keyword-bar").val() == "" ? true : false
 	);
-} else {
-	$("#page-checker").html(
-		'<button type="submit" id="btn-range" class="btn btn-primary text-nowrap">確定</button>'
+});
+$("#shop-keyword-bar").keyup(function () {
+	$("#btn-submit").prop(
+		"disabled",
+		this.value == "" && $("#place-bar").val() == "" ? true : false
 	);
+});
+$("#place-bar").focusout(function () {
+	killDrop();
+});
+$("#shop-keyword-bar").focusout(function () {
+	killDrop();
+});
+
+
+$(function() {
+	var options = {
+		enableHighAccuracy : true,
+		timeout : 1000,
+		maximumAge : 0
+	};
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(success, error, options);
+	}
+});
+
+var latitude = "25.052244795897003";
+var longitude = "121.54313659210797";
+
+function success(pos) {
+	localStorage.setItem("latitude", pos.coords.latitude);
+	localStorage.setItem("longitude", pos.coords.longitude);
+	if(searchResult == null){
+		latitude = localStorage.getItem("latitude");
+		longitude = localStorage.getItem("longitude");
+		$("#hidden-lat").val(latitude);
+		$("#hidden-lng").val(longitude);
+		if (typeof layerGroup !== 'undefined') {
+			marker1 = L.marker([latitude,longitude]).getLatLng();
+			layerGroup.clearLayers();
+			circle = L.circle([latitude,longitude], {radius: distance}).addTo(map);
+			map.setView(new L.LatLng(latitude, longitude), 15);
+			updateList(latitude,longitude);
+		}		
+	}
+}
+
+function error(err) {
+	localStorage.removeItem("latitude");
+	localStorage.removeItem("longitude");
+	if(searchResult == null){
+		latitude = "25.052244795897003";
+		longitude = "121.54313659210797";
+		if (typeof layerGroup !== 'undefined') {
+			marker1 = L.marker([latitude,longitude]).getLatLng();
+			layerGroup.clearLayers();
+			circle = L.circle([latitude,longitude], {radius: distance}).addTo(map);
+			map.setView(new L.LatLng(latitude, longitude), 15);
+			updateList(latitude,longitude);
+		}
+	}
+}
+
+for(var i = 0; i < 12; i++){
+	$("#tag" + i).click(function(){
+		$("#shop-keyword-bar").val($(this).html());
+		$("#btn-submit").prop("disabled", false);
+		$("#form-submit").submit();
+	});
 }

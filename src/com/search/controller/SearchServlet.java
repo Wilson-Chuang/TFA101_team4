@@ -35,6 +35,7 @@ public class SearchServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json; charset=utf-8");
 		String action = req.getParameter("action");
 		
 		if ("shop_search".equals(action)) {
@@ -44,17 +45,31 @@ public class SearchServlet extends HttpServlet {
 			try {
 				String place = "";
 				String shop = "";
+				String route = req.getParameter("btn-route");
+				String reachtime = req.getParameter("reachtime");
+				Double lat = 0.0;
+				Double lng = 0.0;
 				if (req.getParameter("place-bar") != null) {
 					place = req.getParameter("place-bar").trim();
 				}
 				if (req.getParameter("shop-keyword-bar") != null) {
 					shop = req.getParameter("shop-keyword-bar").trim();
+				}			
+				if (req.getParameter("lat") != null) {			
+					try {
+						lat = Double.parseDouble(req.getParameter("lat").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
 				}
-				if (place == "" && shop == "") {
-					res.sendRedirect(req.getContextPath());
-					return;
+				if (req.getParameter("lng") != null) {
+					try {
+						lng = Double.parseDouble(req.getParameter("lng").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}					
 				}
-				List<ShopVO> list;
+				List<ShopVO> list = null;
 				JSONObject resJSON = new JSONObject();
 				SearchVO searchedShop;
 				SearchVO searchedPlace;				
@@ -92,7 +107,7 @@ public class SearchServlet extends HttpServlet {
 								searchedShop.getSearch_key(),
 								searchedShop.getSearch_count()+1);
 					}
-				} else {
+				} else if (place.length() > 0) {
 					list = shopSvc.findShopPlace(place);
 					searchedPlace = searchSvc.getOneSearch(place);
 					if (searchedPlace == null) {
@@ -104,16 +119,22 @@ public class SearchServlet extends HttpServlet {
 								searchedPlace.getSearch_key(),
 								searchedPlace.getSearch_count()+1);
 					}
+				} else {
+					list = shopSvc.getAllbyLatLng(lat, lng);
 				}
+				
 				if (list.size() == 0) {
 					errorMsgs.add("查無資料");
 				}
+				
 				if (!errorMsgs.isEmpty()) {
 					System.out.println(errorMsgs);
 					res.sendRedirect(req.getContextPath());
 					return;
 				}
 				resJSON.put("list", list);
+				resJSON.put("route", route);
+				resJSON.put("reachtime", reachtime);
 				resJSON.put("status", "OK");
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("searchResult", resJSON);
@@ -191,8 +212,7 @@ public class SearchServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
-		if ("getPartQuery".equals(action)) {
-			res.setContentType("application/json; charset=utf-8");
+		if ("getPartQuery".equals(action)) {			
 			try {
 				/***************************1.接收請求參數****************************************/
 				Double lat = 0.0;

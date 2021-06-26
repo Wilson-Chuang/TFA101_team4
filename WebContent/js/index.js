@@ -45,35 +45,47 @@ function searchedList(){
 		let searched = JSON.parse(localStorage.getItem("searched"));
 		var printsearch = "";
 		let times = 0;
-		for(let key = searched.length - 1; key >= 0; key-- ) {			
+		for(let key = searched.length - 1; key >= 0; key-- ) {
+			var keytag = "#keysave" + key;
 			if(searched[key].keyword != null && searched[key].place != null){
 				printsearch += '<li class="list-group-item d-flex justify-content-between align-items-center">' + 
 				'<div class="col-sm-7">' + 
-				'<a href="search.do?action=shop_search&shop-keyword-bar=' + 
-				searched[key].keyword + '&place-bar=' + searched[key].place + 
-				'" class="fw-bold text-decoration-none">';
+				'<a href="#" id="keysave' + key + '" class="fw-bold text-decoration-none">';
 				printsearch += searched[key].keyword + ', ' + searched[key].place;
+				$("#searched-group").on("click", keytag, function(){
+					$("#shop-keyword-bar").val($(this).html().split(", ")[0]);
+					$("#place-bar").val($(this).html().split(", ")[1]);
+					$("#btn-submit").prop("disabled", false);
+					$("#form-submit").submit();
+				});
 			} else if(searched[key].keyword != null) {
 				printsearch += '<li class="list-group-item d-flex justify-content-between align-items-center">' + 
 				'<div class="col-sm-7">' + 
-				'<a href="search.do?action=shop_search&shop-keyword-bar=' + 
-				searched[key].keyword + '" class="fw-bold text-decoration-none">';
+				'<a href="#" id="keysave' + key + '" class="fw-bold text-decoration-none">';
 				printsearch += searched[key].keyword;
+				$("#searched-group").on("click", keytag, function(){
+					$("#shop-keyword-bar").val($(this).html());
+					$("#btn-submit").prop("disabled", false);
+					$("#form-submit").submit();
+				});
 			} else {
 				printsearch += '<li class="list-group-item d-flex justify-content-between align-items-center">' + 
 				'<div class="col-sm-7">' + 
-				'<a href="search.do?action=shop_search&place-bar=' + 
-				searched[key].place + '" class="fw-bold text-decoration-none">';
+				'<a href="#" id="keysave' + key + '" class="fw-bold text-decoration-none">';
 				printsearch += searched[key].place;
-			}
-			
+				$("#searched-group").on("click", keytag, function(){
+					$("#place-bar").val($(this).html());
+					$("#btn-submit").prop("disabled", false);
+					$("#form-submit").submit();
+				});
+			}			
 			printsearch += '</a></div><label class="text-secondary">' + 
 				timeSince(new Date(searched[key].time)) + '</label>' + 
 				'<a href="#" id="searched-list" data-id="' + key + '"><i class="bi bi-x"></i></a></li>';
 			times++;
-			if(times >= 5){
+			if(times >= 5){				
 				break;
-			}
+			}			
 		}
 		$("#searched-group").html("");
 		$("#searched-group").append(printsearch);
