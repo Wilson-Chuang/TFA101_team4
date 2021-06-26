@@ -643,9 +643,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	border-right-color: #fff;
 	}
 .map-popup-img{
-	width: 100px;
-	height: 100px;
+	width: 75px;
+	height: 75px;
 	border-radius: 12px;
+}
+.map-popup-img-empty{
+	width: 75px;
+	height: 75px;
+	border-radius: 12px;
+	background-color: #f2f2f2;
+	margin: 7px;
+	border: 1px solid #e2e2e2;
+}
+.map-popup-img-empty > i{
+	font-size: 40px;
 }
 .map-popup-info{
 	padding-left: 8px;

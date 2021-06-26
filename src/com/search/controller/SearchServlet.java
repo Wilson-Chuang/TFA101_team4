@@ -55,6 +55,7 @@ public class SearchServlet extends HttpServlet {
 					return;
 				}
 				List<ShopVO> list;
+				JSONObject resJSON = new JSONObject();
 				SearchVO searchedShop;
 				SearchVO searchedPlace;				
 				if (place.length() > 0 && shop.length() > 0) {
@@ -112,8 +113,11 @@ public class SearchServlet extends HttpServlet {
 					res.sendRedirect(req.getContextPath());
 					return;
 				}
-				req.setAttribute("searchResult", list);
-				String url = "/index.jsp";
+				resJSON.put("list", list);
+				resJSON.put("status", "OK");
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("searchResult", resJSON);
+				String url = "/search/search.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
@@ -165,6 +169,8 @@ public class SearchServlet extends HttpServlet {
 				}
 				/***************************2.開始查詢資料****************************************/
 				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
+				JSONObject resJSON = new JSONObject();
+				
 				if (list.size() == 0) {
 					errorMsgs.add("查無資料");
 				}
@@ -173,9 +179,11 @@ public class SearchServlet extends HttpServlet {
 					res.sendRedirect(req.getContextPath());
 					return;
 				}
-				/***************************3.查詢完成,準備轉交(Send the Success view)************/				
-				req.setAttribute("searchResult", list);
-				String url = "/index.jsp";
+				resJSON.put("list",list);
+				resJSON.put("status", "OK");
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("searchResult", resJSON);
+				String url = "/search/search.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				/***************************其他可能的錯誤處理************************************/
