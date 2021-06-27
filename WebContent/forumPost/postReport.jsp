@@ -6,15 +6,11 @@
 
 <%
 	ForumPostVO forumPost = (ForumPostVO) request.getAttribute("forumPost");
+	ForumPostReportVO forumPostReport = (ForumPostReportVO) request.getAttribute("forumPostReport");
 %>
 <html>
 <head>
 <title>Guide好食|檢舉發文</title>
-
-<link rel="stylesheet" type="text/css"
-	href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/report.css">
-
 
 <style>
 table {
@@ -33,6 +29,11 @@ th, td {
 	text-align: center;
 }
 </style>
+
+<!--Bootstrap CSS-->
+<link rel="stylesheet" type="text/css"
+	href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/report.css">
 </head>
 <body>
 	<table id="table-1">
@@ -80,7 +81,12 @@ th, td {
 						
 						<button class="btn btn-primary" type="submit">送出</button>
 						<input type="hidden" name="action" value="post_report">
-						<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+						<c:if test="${forumPost != null}">
+							<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+						</c:if>
+						<c:if test="${forumPostReport != null}">
+							<input type="hidden" name="postid" value="${forumPostReport.forum_post_id}">
+						</c:if>
 					</FORM>
 				</div>
 			</div>

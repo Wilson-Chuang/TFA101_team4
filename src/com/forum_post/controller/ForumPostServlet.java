@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forum_post.model.ForumPostService;
 import com.forum_post.model.ForumPostVO;
+import com.forum_post_like.model.ForumPostLikeService;
 import com.forum_post_report.model.ForumPostReportService;
 import com.forum_post_report.model.ForumPostReportVO;
 import com.forum_reply.model.ForumReplyService;
@@ -270,9 +271,10 @@ public class ForumPostServlet extends HttpServlet {
 				System.out.println(post_content);
 				
 				if(!"此內容已被刪除".equals(post_content)) {
-					Integer postid = new Integer(req.getParameter("postid"));
 					
 					/***************************2.開始查詢資料****************************************/
+					Integer postid = new Integer(req.getParameter("postid"));
+					
 					ForumPostService forumPostSvc = new ForumPostService();
 					ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
 					
@@ -306,9 +308,7 @@ public class ForumPostServlet extends HttpServlet {
 				String reportRadios = req.getParameter("reportRadios");
 				
 				if("其他".equals(reportRadios)) {
-					System.out.println(reportRadios);
 					reportRadios = req.getParameter("report_reason").trim();
-					System.out.println(reportRadios);
 					
 					if(reportRadios == null || reportRadios.trim().length() == 0) {
 						errorMsgs.add("請輸入檢舉原因!");
@@ -337,16 +337,12 @@ public class ForumPostServlet extends HttpServlet {
 					return;
 				}
 				
-				/***************************2.開始修改資料*****************************************/
-				ForumPostService forumPostSvc = new ForumPostService();
-				ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
-				
+				/***************************2.開始新增檢舉資料*****************************************/
 				ForumPostReportService forumPostReportSvc = new ForumPostReportService();
 				forumPostReportSvc.addForumPostReport(postid, report_memberID, reportRadios);
 				
-				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("forumPost", forumPost);
-				String url = "/forumPost/onePost.jsp";
+				/***************************3.新增檢舉完成,準備轉交(Send the Success view)*************/
+				String url = "/forumPost/allPost.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
@@ -356,6 +352,70 @@ public class ForumPostServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if("post_like".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				Integer postid = new Integer(req.getParameter("postid").trim());
+				Integer memberID = new Integer(req.getParameter("memberID").trim());
+				
+				
+				ForumPostService forumPostSvc = new ForumPostService();
+				ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+				req.setAttribute("forumPost", forumPost);
+				
+				ForumPostLikeService forumPostLikeSvc = new ForumPostLikeService();
+				if(forumPostLikeSvc.findOne(postid, memberID)) {
+					forumPostLikeSvc.deleteForumPostLike(postid, memberID);
+				}else {
+					forumPostLikeSvc.addForumPostLike(postid, memberID);
+				}
+				
+				
+				String url = "/forumPost/onePost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch(Exception e) {
+				errorMsgs.add("失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/allPost.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("check_post_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				Integer forum_post_report_id = new Integer(req.getParameter("forum_post_report_id").trim());
+				Integer forum_post_report_status = new Integer(req.getParameter("forum_post_report_status").trim());
+				Integer postid = new Integer(req.getParameter("postid"));
+				
+				ForumPostReportService forumPostReportSvc = new ForumPostReportService();
+				if(forum_post_report_status == 0) {
+					forumPostReportSvc.updateStatusForumPostReport(forum_post_report_status, forum_post_report_id);
+					ForumPostService forumPostSvc = new ForumPostService();
+					forumPostSvc.updateStatusForumPost(forum_post_report_status, postid);
+				}else {
+					forumPostReportSvc.updateStatusForumPostReport(forum_post_report_status, forum_post_report_id);
+				}
+				
+				String url = "/forumPost/allPostReport.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				
+			} catch(Exception e) {
+				errorMsgs.add("處理檢舉失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/allPostReport.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 
 }

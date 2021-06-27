@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_post.model.*"%>
-<%@ page import="com.member.model.*"%>
+<%@include file="../../pages/header.file"%>
 
 <%
     ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");
@@ -15,6 +15,7 @@
 %>
 
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="forumPostLikeSvc" scope="page" class="com.forum_post_like.model.ForumPostLikeService"></jsp:useBean>
 
 <html>
 <head>
@@ -28,20 +29,40 @@ table {
 	margin-bottom: 5px;
 }
 
-table, th, td {
+#table-1 {
 	border: 1px solid #CCCCFF;
 }
 
-th, td {
+tr, td {
 	padding: 5px;
 	text-align: center;
 }
 </style>
+
+<!-- fontawesome -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+<!--Bootstrap CSS-->
+<link rel="stylesheet" type="text/css"
+	href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+<!--dataTables CSS-->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+<!-- Header -->
+<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </head>
 <body>
+	
 	<table id="table-1">
-		<tr>
-			<td><h3>全部文章 ForumPost: allPost.jsp</h3>
+		<tr id="table-1-tr">
+			<td id="table-1-td"><h3>全部文章 ForumPost: allPost.jsp</h3>
 				<h4>( MVC )</h4></td>
 		</tr>
 	</table>
@@ -60,21 +81,24 @@ th, td {
 		<li><a href="addPost.jsp">發起討論</a><br></li>
 	</ul>
 
-	<table>
-		<tr>
-			<th>主題</th>
-			<th>回覆數量</th>
-			<th>用戶名</th>
-			<th>按讚</th>
-			<th>發表時間</th>
-		</tr>
+	<table id="myTable" class="display" style="width:100%">
+		<thead>
+			<tr>
+				<th>主題</th>
+				<th>回覆</th>
+				<th>用戶名</th>
+				<th>按讚</th>
+				<th><i class="far fa-clock"></i></th>
+			</tr>
+		</thead>
+		
 		<c:forEach var="forumPost" items="${list}">
 			<tr>
-				<FORM METHOD="post" ACTION="forumPost.do">
-					<td><input type="submit" value="${forumPost.forum_post_title}"></td>
+				<FORM METHOD="post" ACTION="forumPost.do">				
+					<td><button type="submit" class="btn btn-outline-primary">${forumPost.forum_post_title}</button></td>
 					<td>${forumPost.forum_post_reply_total}</td>
 					<td>${memberSvc.GET_ONE_BY_ID(forumPost.member_id).member_email}</td>
-					<td>${forumPost.forum_post_like}</td>
+					<td>${forumPostLikeSvc.countByPostID(forumPost.forum_post_id)}</td>
 					<td><fmt:formatDate value="${forumPost.forum_post_time}"
 							pattern="yyyy/MM/dd HH:mm" /></td>
 					<input type="hidden" name="action" value="getOne_For_Display"> 
@@ -83,5 +107,17 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
+	
+	
+	<!--載入jquery-->
+    <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
+    <!--Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="vendors/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <!--DataTables JS-->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="js/allPost.js"></script>
 </body>
 </html>

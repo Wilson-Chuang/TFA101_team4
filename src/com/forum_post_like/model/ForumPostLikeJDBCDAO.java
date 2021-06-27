@@ -14,11 +14,12 @@ public class ForumPostLikeJDBCDAO implements ForumPostLikeDAO {
 
 	public static final String INSERT_STMT = "INSERT INTO FORUM_POST_LIKE(FORUM_POST_ID, MEMBER_ID) VALUES(?, ?)";
 	public static final String UPDATE_STMT = "UPDATE FORUM_POST_LIKE SET FORUM_POST_ID = ?, MEMBER_ID = ? WHERE FORUM_POST_LIKE_ID = ?";
-	public static final String DELETE_STMT = "DELETE FROM FORUM_POST_LIKE WHERE FORUM_POST_LIKE_ID = ?";
+	public static final String DELETE_STMT = "DELETE FROM FORUM_POST_LIKE WHERE FORUM_POST_ID = ? AND MEMBER_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM FORUM_POST_LIKE WHERE FORUM_POST_LIKE_ID = ?";
 	public static final String GET_ALL = "SELECT * FROM FORUM_POST_LIKE";
 	public static final String COUNT_BY_POST_ID = "SELECT COUNT(*) FROM FORUM_POST_LIKE WHERE FORUM_POST_ID = ?";
-
+	public static final String FIND_ONE = "SELECT * FROM FORUM_POST_LIKE WHERE FORUM_POST_ID = ? AND MEMBER_ID = ?";
+	
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -100,7 +101,7 @@ public class ForumPostLikeJDBCDAO implements ForumPostLikeDAO {
 	}
 
 	@Override
-	public void delete(Integer forum_post_like_id) {
+	public void delete(Integer forum_post_id, Integer member_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -108,7 +109,8 @@ public class ForumPostLikeJDBCDAO implements ForumPostLikeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE_STMT);
 			
-			pstmt.setInt(1, forum_post_like_id);
+			pstmt.setInt(1, forum_post_id);
+			pstmt.setInt(2, member_id);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
@@ -258,6 +260,32 @@ public class ForumPostLikeJDBCDAO implements ForumPostLikeDAO {
 		}
 		
 		return count;
+	}
+
+	@Override
+	public boolean findOne(Integer forum_post_id, Integer member_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement(FIND_ONE);
+			pstmt.setInt(1, forum_post_id);
+			pstmt.setInt(2, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getInt("FORUM_POST_ID") == forum_post_id && rs.getInt("MEMBER_ID") == member_id) {
+					return true;
+				}
+				
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		return false;
 	}
 
 }

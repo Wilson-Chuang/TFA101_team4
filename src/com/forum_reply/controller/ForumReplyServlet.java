@@ -15,6 +15,8 @@ import com.forum_post.model.ForumPostService;
 import com.forum_post.model.ForumPostVO;
 import com.forum_reply.model.ForumReplyService;
 import com.forum_reply.model.ForumReplyVO;
+import com.forum_reply_report.model.ForumReplyReportService;
+import com.forum_reply_report.model.ForumReplyReportVO;
 
 
 public class ForumReplyServlet extends HttpServlet {
@@ -192,8 +194,10 @@ public class ForumReplyServlet extends HttpServlet {
 				ForumReplyService forumReplySvc = new ForumReplyService();
 				forumReplySvc.deleteForumReply(replyid);
 				
+				
 				ForumPostService forumPostSvc = new ForumPostService();
-				ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+				forumPostSvc.updateReplyMinus(postid);
+				ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);				
 				req.setAttribute("forumPost", forumPost);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
@@ -206,6 +210,97 @@ public class ForumReplyServlet extends HttpServlet {
 			}
 		}
 		
+		if("getOne_Reply_For_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String reply_content = req.getParameter("reply_content");
+				
+				if(!"此內容已被刪除".equals(reply_content)) {
+					
+					/***************************2.開始查詢資料****************************************/
+					Integer replyid = new Integer(req.getParameter("replyid"));
+					
+					ForumReplyService forumReplySvc = new ForumReplyService();
+					ForumReplyVO forumReply = forumReplySvc.getOneForumReply(replyid);
+					
+					/***************************3.查詢完成,準備轉交(Send the Success view)************/
+					req.setAttribute("forumReply", forumReply);
+					String url = "/forumPost/replyReport.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				} else {
+					Integer postid = new Integer(req.getParameter("postid"));
+					ForumPostService forumPostSvc = new ForumPostService();
+					ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+					req.setAttribute("forumPost", forumPost);
+					String url = "/forumPost/onePost.jsp";
+					RequestDispatcher alreadyDeleteView = req.getRequestDispatcher(url);
+					alreadyDeleteView.forward(req, res);
+				}
+			} catch(Exception e) {
+				errorMsgs.add("無法取得要檢舉的資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/onePost.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("reply_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				String reportRadios = req.getParameter("reportRadios");
+				System.out.println(reportRadios);
+				if("其他".equals(reportRadios)) {
+					reportRadios = req.getParameter("report_reason").trim();
+					
+					System.out.println(reportRadios);
+					
+					if(reportRadios == null || reportRadios.trim().length() == 0) {
+						errorMsgs.add("請出入檢舉內容!");
+					}
+				}
+				
+				Integer report_memberID = null;
+				try {
+					report_memberID = new Integer(req.getParameter("report_memberID").trim());
+				} catch(NumberFormatException e) {
+					errorMsgs.add("會員編號格是不正確!");
+				}
+				
+				Integer replyid = new Integer(req.getParameter("replyid").trim());
+				
+				ForumReplyReportVO forumReplyReport = new ForumReplyReportVO();
+				forumReplyReport.setForum_reply_id(replyid);
+				forumReplyReport.setMember_id(report_memberID);
+				forumReplyReport.setForum_reply_report_reason(reportRadios);
+				
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("forumReplyReport", forumReplyReport);
+					RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/replyReport.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.開始新增檢舉資料*****************************************/
+				ForumReplyReportService forumReplyReportSvc = new ForumReplyReportService();
+				forumReplyReportSvc.addForumReplyReport(replyid, report_memberID, reportRadios);
+				
+				/***************************3.新增檢舉完成,準備轉交(Send the Success view)*************/
+				String url = "/forumPost/allPost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch(Exception e) {
+				errorMsgs.add("檢舉失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/replyReport.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 
 }

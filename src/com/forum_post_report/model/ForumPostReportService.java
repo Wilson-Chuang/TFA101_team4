@@ -25,13 +25,7 @@ public class ForumPostReportService {
 	
 	public void updateStatusForumPostReport(Integer forum_post_report_status, 
 			Integer forum_post_report_id) {
-		
-		ForumPostReportVO forumPostReport = new ForumPostReportVO();
-		
-		forumPostReport.setForum_post_report_status(forum_post_report_status);
-		forumPostReport.setForum_post_report_id(forum_post_report_id);
-		
-		dao.updateStatus(forumPostReport);
+		dao.updateStatus(forum_post_report_status, forum_post_report_id);
 	}
 	
 	public void deleteForumPostReport(Integer forum_post_report_id) {

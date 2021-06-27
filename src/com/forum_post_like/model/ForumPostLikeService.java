@@ -35,8 +35,8 @@ public class ForumPostLikeService {
 		return forumPostLike;
 	}
 	
-	public void deleteForumPostLike(Integer forum_post_like_id) {
-		dao.delete(forum_post_like_id);
+	public void deleteForumPostLike(Integer forum_post_id, Integer member_id) {
+		dao.delete(forum_post_id, member_id);
 	}
 	
 	public ForumPostLikeVO getOneForumPostLike(Integer forum_post_like_id) {
@@ -50,5 +50,8 @@ public class ForumPostLikeService {
 	public Integer countByPostID(Integer forum_post_id) {
 		return dao.countByPostID(forum_post_id);
 	}
-
+	
+	public boolean findOne(Integer forum_post_id, Integer member_id) {
+		return dao.findOne(forum_post_id, member_id);
+	}
 }

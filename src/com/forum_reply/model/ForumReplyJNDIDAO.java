@@ -128,7 +128,7 @@ public class ForumReplyJNDIDAO implements ForumReplyDAO{
 	}
 
 	@Override
-	public void updateStatus(ForumReplyVO forumReply) {
+	public void updateStatus(Integer forum_reply_status, Integer forum_reply_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -137,8 +137,8 @@ public class ForumReplyJNDIDAO implements ForumReplyDAO{
 			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(UPDATE_STATUS_STMT);
 
-			pstmt.setInt(1, forumReply.getForum_reply_status());
-			pstmt.setInt(2, forumReply.getForum_reply_id());
+			pstmt.setInt(1, forum_reply_status);
+			pstmt.setInt(2, forum_reply_id);
 
 			pstmt.executeUpdate();
 			con.commit();
@@ -245,6 +245,8 @@ public class ForumReplyJNDIDAO implements ForumReplyDAO{
 			pstmt = con.prepareStatement(DELETE_STMT);
 			
 			pstmt.setInt(1, forum_reply_id);
+			
+			updateStatus(0, forum_reply_id);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException se) {

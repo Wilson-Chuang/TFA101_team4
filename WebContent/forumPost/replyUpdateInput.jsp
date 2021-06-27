@@ -5,6 +5,7 @@
 <%@ page import="com.forum_post.model.*"%>
 <%@ page import="com.forum_reply.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@include file="../../pages/header.file"%>
 
 <%
 	ForumPostVO forumPost = (ForumPostVO) request.getAttribute("forumPost");
@@ -33,6 +34,21 @@ th, td {
 }
 
 </style>
+
+	<!-- ckeditor -->
+	<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/ckeditor.js"></script>
+	<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/config.js"></script>
+	
+	<!-- Header -->
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </head>
 <body>
 	<table id="table-1">
@@ -51,16 +67,25 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-
-	<FORM METHOD="post" ACTION="forumReply.do">
-		<textarea name="content" rows="6" cols="40" >${forumReply.forum_reply_content}</textarea>
-		<br>
-		<input type="hidden" name="action" value="reply_Update">
-		<input type="hidden" name="postid" value="${forumReply.forum_post_id}">
-		<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
-		<input type="hidden" name="memberID" id="memberID" value="${forumReply.member_id}">
-		<input type="submit" value="送出">
-		<input type="reset" value="清除">
-	</FORM>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<FORM METHOD="post" ACTION="forumReply.do">
+		<%-- 		<textarea name="content" rows="6" cols="40" >${forumReply.forum_reply_content}</textarea> --%>
+					<textarea class="ckeditor" id="myContent" name="content">${forumReply.forum_reply_content}</textarea>
+					<br>
+					<input type="hidden" name="action" value="reply_Update">
+					<input type="hidden" name="postid" value="${forumReply.forum_post_id}">
+					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
+					<input type="hidden" name="memberID" id="memberID" value="${forumReply.member_id}">
+					<button type="submit" class="btn btn-primary">送出</button>
+				</FORM>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+	
 
 </body>

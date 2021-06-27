@@ -39,13 +39,7 @@ public class ForumReplyService {
 	
 	public void updateStatusForumReply(Integer forum_reply_status, 
 			Integer forum_reply_id) {
-		
-		ForumReplyVO forumReply = new ForumReplyVO();
-		
-		forumReply.setForum_reply_status(forum_reply_status);
-		forumReply.setForum_reply_id(forum_reply_id);
-		
-		dao.updateStatus(forumReply);
+		dao.updateStatus(forum_reply_status, forum_reply_id);
 	}
 	
 	public void updateLikePlus(Integer forum_reply_id) {

@@ -11,11 +11,14 @@ public class PostLikeDAOTest {
 		
 		public static void main(String[] args) {
 //			新增
-//			Scanner sc = new Scanner(System.in);
-//			System.out.println("請輸入postid");
-//			int forum_post_id = sc.nextInt();
-//			System.out.println("請輸入會員id");
-//			int member_id = sc.nextInt();
+			Scanner sc = new Scanner(System.in);
+			System.out.println("請輸入postid");
+			int forum_post_id = sc.nextInt();
+			System.out.println("請輸入會員id");
+			int member_id = sc.nextInt();
+			
+			ForumPostLikeDAO dao = new ForumPostLikeJDBCDAO();
+			System.out.println(dao.findOne(forum_post_id, member_id));
 //			
 //			// 包裝資料
 //			ForumPostLikeVO forumPostLike = new ForumPostLikeVO();
