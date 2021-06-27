@@ -1,0 +1,268 @@
+.result-main{
+	height: 400px;
+}
+.result-img{
+	width: 100%;
+	height: 137px;
+	border-radius: 3px;
+}
+.empty-img{
+	background-color: #f2f2f2;
+	margin: 7px;
+	height: 137px;
+	border: 1px solid #e2e2e2;
+}
+.empty-img > i{
+	font-size: 60px;
+}
+.empty-img-article{
+	width: 42px;
+	height: 42px;
+	margin-top: 10px;
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	border: 1px solid #e2e2e2;
+}
+.empty-img-article > i{
+	font-size: 28px;
+}
+.result-info{
+	padding-left: 16px;
+	overflow: hidden;
+}
+.result-title{
+	white-space: nowrap;
+	color: #0b5d90;
+}
+.result-info > div > span{
+	margin-right: 8px;
+	color: #12344a78;
+}
+.result-review{
+	display: flex;
+	margin-top: 2px;
+	align-items: center;
+}
+.result-rating{
+	width: 53px;
+	font-size: 13px;
+}
+.result-rating > i.mdi-star{
+	margin-left: 3px;
+}
+.result-comment{
+	font-size: 13px;
+	color: #4a4a4a;
+	margin-left: 8px;
+}
+.result-level{
+	display: inline-block;
+	color: #4a4a4a;
+	font-size: 13px;
+	margin-left: 6px;
+}
+.result-addr{
+	margin-top: 4px;
+	font-size: 14px;
+	color: #4a4a4a;
+	white-space: nowrap;
+}
+.result-sub{
+	display: flex;
+	margin-top: 5px;
+	align-items: baseline;
+	font-size: 14px;
+}
+.result-sub > i.mdi-map-marker-radius{
+	font-size: 14px;
+	margin-right: 3px;
+	color: #5a5554;
+	margin-left: -2px;
+}
+.result-nearby{
+	font-size: 14px;
+}
+.result-phone{
+	background: #ffcd00;
+	text-decoration: none;
+	padding-left: 5px;
+	padding-right: 2px;
+	margin-left: 5px;
+	margin-right: 7px;
+	border-radius: 3px;
+}
+.result-phone > i.mdi-phone{
+	margin-right: 1px;
+}
+#phone-drop{
+	padding: 5px;
+	border: 1px solid #ffcd00;
+	margin-top: -3px!important;
+	margin-bottom: -3px!important;
+}
+#phone-drop > li{
+	font-size: 12px;
+	padding: 3px 5px;
+}
+#phone-drop > li:hover{
+	background-color: #f8f8f8;
+}
+.result-direction{
+	background: #ffcd00;
+	text-decoration: none;
+	padding: 0px 5px;
+	color: #444!important;
+	margin-right: 7px;
+	border-radius: 3px;
+}
+.result-direction > i.mdi-directions-fork{
+	margin-right: 1px;
+}
+.result-website{
+	background: #ffcd00;
+	text-decoration: none;
+	padding: 0px 5px;
+	color: #444!important;
+	margin-right: 7px;
+	border-radius: 3px;
+}
+.result-website > i.mdi-monitor{
+	margin-right: 2px;
+}
+.result-article{
+	margin-top: 10px;
+	background-color: rgba(0,0,0,.03);
+}
+.result-article-1{
+	font-size: 14px;
+	margin-bottom: 2px;
+	position: relative;
+	flex: 1;
+}
+.result-article-icon{
+	width: 46px;
+}
+
+.result-article-content{
+	width: 100%;
+	position: absolute;
+	padding-left: 54px;
+	padding-right: 10px;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+}
+.result-article-2{
+	font-size: 14px;
+	color: #9b9b9b;
+	align-items: center;
+	display: inline-flex;
+}
+.result-article-date{
+	margin-left: 2px;
+	margin-right: 5px;
+}
+.result-article-img{
+	margin-top: 10px;
+	width: 42px;
+	height: 42px;
+	border-radius: 5px;
+}
+.pagination{
+	border-top: 1px solid #d8d8d8;
+	padding: 25px 16px;
+}
+.page-desc{
+	color: #4a4a4a;
+}
+.page-heading{
+	border-bottom: 1px solid #eee;
+	padding: 0 24px;
+}
+.page-heading h2{
+	font-size: 22px;
+	font-weight: 400;
+	line-height: 40px;
+	margin: 2px 0;
+	color: #0b5d90;
+	margin-right: 12px;
+	padding-right: 12px;
+}
+.page-heading h2 span{
+	font-size: 13px;
+	color: #134f6c;
+	padding-left: 10px;
+}
+.page-heading .breads{
+	font-size: 12px;
+	color: #0b5d90;
+	margin-top: 10px;
+}
+.page-heading .breads a{
+	color: #0b5d90;
+	text-decoration: none;
+}
+#search-order-now{
+	border-radius: 3px;
+	margin-right: 8px;
+}
+#search-order-now > i.mdi-sort-variant{
+	margin-right: 3px;
+}
+#search-filter-now{
+	border-radius: 3px;
+	margin-right: 8px;
+}
+#search-filter-now > i.mdi-currency-usd{
+	margin-right: 3px;
+}
+#search-filter-open{
+	padding-left: 8px;
+}
+#indicator{
+	width: 12px;
+	height: 12px;
+	background-color: #dce0e0;
+	margin-right: 8px;
+}
+#open-title{
+	color: #4a4a4a;
+}
+.result-date{
+	font-size: 14px;
+	margin-top: 6px;
+	line-height: 19px;
+	color: #4a4a4a;
+	align-items: center;
+}
+#isOpen{
+	background-color: #89d321;
+	width: 8px;
+	height: 8px;
+	display: inline-block;
+	margin-right: 6px;
+	border-radius: 4px;
+}
+#isNotOpen{
+	background-color: #888;
+	width: 8px;
+	height: 8px;
+	display: inline-block;
+	margin-right: 6px;
+	border-radius: 4px;
+	opacity: .3;
+}
+#loading{
+	top: 63%;
+	left: 24.5%;
+}
+.popover {
+	opacity: 0.9;
+}
+.popover-body {
+	padding: 4px 8px;
+	font-size: 0.625rem;
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	border-radius: 4px;
+}

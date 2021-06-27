@@ -11,6 +11,8 @@ public interface ShopDAO_interface {
 
 	public ShopVO findByPrimaryKey(Integer shop_id);
 	
+	public ShopVO findShop_tax_id(String shop_tax_id);
+	
 	public List<ShopVO> getAll();
 	
 	public List<ShopVO> getAllbyLatLng(Double lat, Double lng);
@@ -21,13 +23,8 @@ public interface ShopDAO_interface {
 
 	public List<ShopVO> findShopBoth(String keyword, String place);	
 	
-	// ¸U¥Î½Æ¦X¬d¸ß(¶Ç¤J°Ñ¼Æ«¬ºAMap)(¦^¶Ç List)
-	// public List<ShopVO> getAll(Map<String, String[]> map); 
-	
-	// ====================²Õªøªºcode======================
+	// ====================çµ„é•·çš„code======================
 	public ShopVO findByMemberId(Integer member_id);
 	public void update_shop(ShopVO shopVO);
-
-
 	
 }

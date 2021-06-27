@@ -1,0 +1,16 @@
+.dropdown-menu {
+	min-width: auto;
+}
+
+body{
+	padding-top: 135px;
+}
+
+@media (max-width: 991px) {	
+	body{
+		padding-top: 0px;
+	}
+	.fixed-top{
+		position: static;
+	}
+}
