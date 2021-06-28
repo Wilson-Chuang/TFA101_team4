@@ -43,7 +43,7 @@ function pagelist(data){
 	    	var html = simpleTemplating(data,pagination);
 	        $('.searchResult').html(html);
 	    }
-	});
+	});	
 }
 
 $("#orderbyrate").click(function(e){
@@ -275,4 +275,12 @@ $("#search-filter-open").click(function(e){
 		});
 		pagelist(filtertemp);
 	}
+});
+
+$('.searchResult').on('click', ".result-direction", function () {
+	$(this).closest('form').submit();
+});
+
+$('body').on('click', ".map-popup-direction", function () {
+	$(this).closest('form').submit();
 });

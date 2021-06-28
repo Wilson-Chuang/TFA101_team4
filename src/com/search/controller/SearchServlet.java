@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.search.model.SearchService;
 import com.search.model.SearchVO;
 import com.shop.model.ShopService;
@@ -143,6 +144,7 @@ public class SearchServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				System.out.println(errorMsgs);
 			}
@@ -210,6 +212,7 @@ public class SearchServlet extends HttpServlet {
 				successView.forward(req, res);
 				/***************************其他可能的錯誤處理************************************/
 			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
 		}
@@ -247,9 +250,38 @@ public class SearchServlet extends HttpServlet {
 
 				/***************************其他可能的錯誤處理************************************/
 			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
 		}
-
+		
+		if ("navi".equals(action)) {			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String shop_tax_id = "";
+				if(req.getParameter("shop_tax_id") != null) {
+					shop_tax_id = req.getParameter("shop_tax_id").trim();
+				}
+				String route = req.getParameter("btn-route");
+				String reachtime = req.getParameter("reachtime");
+				/***************************2.開始查詢資料****************************************/
+				ShopVO shopVO = shopSvc.findShop_tax_id(shop_tax_id);
+				Gson gson = new Gson();
+		        String list = gson.toJson(shopVO);
+				JSONObject resJSON = new JSONObject();
+				resJSON.put("list", list);
+				resJSON.put("status", "OK");
+				resJSON.put("route", route);
+				resJSON.put("reachtime", reachtime);
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+		        req.setAttribute("searchResult", resJSON);
+				String url = "/search/navi.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
+				throw new ServletException(e);
+			}
+		}
 	}
 }

@@ -10,12 +10,11 @@ if (typeof markerGroup !== 'undefined') {
 	} else {
 		$("#page-checker").html(
 			'<button type="submit" id="btn-range" class="btn btn-primary text-nowrap">確定</button>'
-		);
-		rangeslider(reachtime);
+	);
 }
 function rangeslider(value){
 	reachtime = value;
-	distance = speed * (reachtime / 60) * 1000;	
+	distance = speed * (reachtime / 60) * 1000;
 	/* 範圍滑塊 */
 	$("#range-slider").wRunner({
 		step: 5,
@@ -57,7 +56,10 @@ function rangeslider(value){
 					.slice(0, -1)
 					.toString();
 				$("#reachtime").html(reachtime);
-				$("#btn-reachtime").attr("value", reachtime);
+				$("#btn-reachtime").val(reachtime);
+				if ($("input").hasClass("hidden-reachtime")) {
+					$(".hidden-reachtime").val(reachtime);
+				}
 				distance = speed * (reachtime / 60) * 1000;
 			}
 	);
@@ -88,6 +90,12 @@ $("#train").on("click", function () {
 	speed = 15;
 	distance = speed * (reachtime / 60) * 1000;
 	$("#route").html("大眾運輸");
+});
+
+$(".btn-check").click(function(e){
+	if ($("input").hasClass("hidden-route")) {
+		$(".hidden-route").val($(this).val());
+	}
 });
 
 /* 搜尋關鍵字提示 */
@@ -411,6 +419,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				}
 			});
 		});
+	if(searchResult == null || typeof map !== 'undefined'){
+		rangeslider(reachtime);
+	}
 });
 
 function killDrop() {
@@ -469,12 +480,6 @@ $("#popular-key")
 			searchedList();
 		}
 	});
-
-$(document).ready(function () {	
-	if(searchResult == null){
-		rangeslider(reachtime);
-	}
-});
 
 $("#btn-submit").prop("disabled", true);
 $("#place-bar").keyup(function () {
