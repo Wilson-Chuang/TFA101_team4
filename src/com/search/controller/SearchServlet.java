@@ -124,7 +124,9 @@ public class SearchServlet extends HttpServlet {
 				}
 				
 				if (list.size() == 0) {
-					errorMsgs.add("查無資料");
+					resJSON.put("status", "Failed");
+				} else {
+					resJSON.put("status", "OK");
 				}
 				
 				if (!errorMsgs.isEmpty()) {
@@ -135,7 +137,6 @@ public class SearchServlet extends HttpServlet {
 				resJSON.put("list", list);
 				resJSON.put("route", route);
 				resJSON.put("reachtime", reachtime);
-				resJSON.put("status", "OK");
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("searchResult", resJSON);
 				String url = "/search/search.jsp";

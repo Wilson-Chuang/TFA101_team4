@@ -526,7 +526,7 @@ function success(pos) {
 			circle = L.circle([latitude,longitude], {radius: distance}).addTo(map);
 			map.setView(new L.LatLng(latitude, longitude), 15);
 			updateList(latitude,longitude);
-		}		
+		}
 	}
 }
 
@@ -553,3 +553,18 @@ for(var i = 0; i < 12; i++){
 		$("#form-submit").submit();
 	});
 }
+
+$(".navbar-brand").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
+$(".nav-link").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
+$(".nav-item > ul > li").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});

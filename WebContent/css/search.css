@@ -256,6 +256,12 @@
 #loading{
 	top: 63%;
 	left: 24.5%;
+	z-index: 100;
+}
+#redirect{
+	top: 50%;
+	left: 50%;
+	z-index: 100;
 }
 .popover {
 	opacity: 0.9;

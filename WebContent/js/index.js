@@ -157,3 +157,13 @@ function timeSince(date) {
 	  }
 	  return Math.floor(seconds) + " 秒前";
 }
+
+$("body").on("click", "a", function(){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
+$("body").on("click", "button", function(){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
