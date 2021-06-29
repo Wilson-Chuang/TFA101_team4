@@ -1,0 +1,146 @@
+*{
+	
+	margin-top:0px;
+
+margin-left:0px;
+margin-right:0px;	
+}
+
+
+.back-to-top {
+
+display: none; /* 默認是隱藏的，這樣在第一屏才不顯示 */
+
+position: fixed; /* 位置是固定的 */
+
+bottom: 20px; /* 顯示在頁面底部 */
+
+right: 20px; /* 顯示在頁面的右邊 */
+
+z-index: 99; /* 確保不被其他功能覆蓋 */
+
+border: 1px solid gray; /* 顯示邊框 */
+
+outline: none; /* 不顯示外框 */
+
+background-color: #fff; /* 設置背景背景顏色 */
+
+color: gray; /* 設置文本顏色 */
+
+cursor: pointer; /* 滑鼠移到按鈕上顯示手型 */
+
+padding: 10px 15px 15px 15px; /* 增加一些內邊距 */
+
+border-radius: 10px; /* 增加圓角 */
+
+}
+
+.back-to-top:hover {
+color: rgb(255, 85, 85);
+background-color: gray; /* 滑鼠移上去時，反轉顏色 */
+
+color: #fff;
+
+}
+
+div.article_content{
+	width:80%;
+	margin: 0 auto;
+	position:relative;
+/* 	border:1px solid black; */
+/* 	box-shadow: 0px 0px 5px gray; */
+
+}
+
+
+div.maintop_header{
+/*     border: 1px solid black; */
+    width: 20%;
+    height: 70px;
+}
+
+div.category{
+/*     border: 1px solid black; */
+    width: 100%;
+
+    border-top: 8px black solid;
+}
+
+div.category h2{
+	display:block;
+    font-size: 52px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+/* 	position: absolute; */
+/* 	top:-40px; */
+}	
+
+
+.article_header{
+/* 	border:1px solid black; */
+/* 	box-shadow:0px 0px 12px black; */
+	background-image: url(../img/headerBG.jpg);
+	height:40px;
+}
+
+
+table.nav{
+	margin:60px auto 60px;
+	border-top:1px solid black;
+	width:100%;	
+	border-bottom:1px solid black;
+	padding:10px 0;
+}
+
+table.nav a,table.nav a:visited{
+	color:black;
+	text-decoration:none;
+}
+
+table.nav th{
+	border-left:1px solid black;
+	
+}
+
+
+div.author{
+/* 	border:1px solid red; */
+	position:relative;
+	}
+
+div.author p{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size:18px;
+	position:absolute;
+	left:50px;
+	top:10px;
+}
+
+div.author img{
+	height:35px;
+	width:35px;
+	border-radius:999em;
+}
+
+
+div.title{
+	height:90px;
+	font-weight:bold;
+/* 	border:1px solid red; */
+	width:100%;
+	font-size:32px;
+	margin-top:10px;
+}
+
+div.article_info{
+	margin-bottom:50px;
+}
+
+div.article_info span{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	color:gray;
+	margin-right:20px;
+}
+
+.content img{
+	width:100%;
+}

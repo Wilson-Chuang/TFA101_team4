@@ -1,0 +1,105 @@
+*{
+	margin-top:0px;
+}
+div.article_content{
+	width:80%;
+	margin: 0 auto;
+	position:relative;
+/* 	border:1px solid black; */
+/* 	box-shadow: 0px 0px 5px gray; */
+
+}
+
+
+/* ∞º√‰•\Ø‡¶C */
+div.nav_bar{
+/* 	border:1px solid black; */
+	width:40%;
+	height:70px;
+	position:absolute;
+	right:0;
+	top:0px;
+}
+
+div.nav_bar input{
+	background-color:#ef6e51;
+	color:white;
+	border:0;
+	cursor:pointer;
+	box-shadow:0px 0px 3px gray;
+	width:100px;
+	height:35px;
+	margin-top:25px;
+	margin-left:10px;
+	float:right;
+}
+
+div.nav_bar input:hover{
+	filter: opacity(80%);
+}
+
+
+div.maintop_header{
+/*     border: 1px solid black; */
+    width: 25%;
+    height: 70px;
+}
+
+div.category{
+/*     border: 1px solid black; */
+    width: 100%;
+
+    border-top: 8px black solid;
+}
+
+div.category h2{
+	display:block;
+    font-size: 52px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+
+}	
+
+
+
+div.author{
+/* 	border:1px solid red; */
+	margin-top:50px;
+	position:relative;
+	}
+
+div.author p{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size:18px;
+	position:absolute;
+	left:50px;
+	top:-12px;
+}
+
+div.author img{
+	height:35px;
+	width:35px;
+	border-radius:999em;
+}
+
+
+div.title{
+	height:90px;
+	font-weight:bold;
+/* 	border:1px solid red; */
+	width:100%;
+	font-size:32px;
+	margin-top:10px;
+}
+
+div.article_info span{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	color:gray;
+	margin-right:20px;
+}
+.content{
+	margin-top:50px;
+}
+.content img{
+	width:100%;
+}
+

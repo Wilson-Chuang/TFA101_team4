@@ -26,7 +26,14 @@
 					<h1>新增系列</h1>
 				</div>
 				<div class="product_info_form">
-					<div class="form1">名稱</div>
+					<div class="form1">名稱
+					<c:if test="${not empty errorMsgs}">						
+							<c:forEach var="message" items="${errorMsgs}">
+									<span style="color:red; font-size:12px;">${message}</span>
+							</c:forEach>							
+					</c:if>
+					
+					</div>
 					<div class="form2">
 						<input type="TEXT" name="product_category_name" size="40" class="input_css"
 							value="<%=(product_categoryVO == null) ? "" : product_categoryVO.getProduct_category_name()%>" />

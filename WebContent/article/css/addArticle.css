@@ -1,0 +1,273 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    background-color:white;   
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+div.article_content{
+	width:80%;
+	margin: 0 auto;
+	position:relative;
+/* 	border:1px solid black; */
+}
+
+
+div.maintop_header{
+/*     border: 1px solid black; */
+    width: 20%;
+    height: 70px;
+}
+
+div.category{
+    /* border: 1px solid black; */
+    width: 100%;
+    border-top: 8px black solid;
+}
+
+div.category h2{
+    font-size: 52px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.author{
+	height:300px;
+	width:80%;
+/* 	border:1px solid black; */
+}
+
+div.author table{
+	height:100%;
+	width:100%;
+}
+
+div.author th{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 26px;
+	vertical-align:middle;
+	text-align:left;
+/* 	border:1px solid red; */
+}
+
+
+div.author img{
+	height:150px;
+	width:150px;
+	border-radius:999em;
+	
+}
+
+
+.rule{
+	font-size:16px;
+	color:#EF6E51
+}
+
+div.article_title{
+	height:50px;
+/* 	border:1px solid red; */
+	width:57%;
+	margin:10px 0px 20px;
+}
+
+
+div.article_title input, div.article_title input:focus{
+	height:100%;
+	width:100%;
+	border:0;
+	border-bottom:1px solid gray;
+	outline:none;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 26px;
+	letter-spacing:1px;
+	
+}
+
+
+div.article_img_upload{
+	width:300px;
+	height:300px;
+	border:0.5px dashed gray;
+	border-radius:20px;
+	position:absolute;
+	right:50px;
+	top:130px;
+
+}
+
+.add_title{
+	 position: absolute;
+     bottom: -10%;
+     right: -34%;
+     color:gray;
+}
+
+
+div.article_img_upload img{
+	height:100%;
+	width:100%;
+	border-radius:20px;
+}
+
+#img-upload{
+	position:absolute;
+	bottom:0;
+	display:none;
+}
+
+#my-img,#my-img:visited{
+	border:1px solid black;
+	height:35px;
+	width:35px;
+	border-radius:999em;
+	background-color:white;
+	position:absolute;
+	left:120%;
+	bottom:0;
+	cursor:pointer;
+	text-align:center;
+	color:black;
+	
+}
+
+.fa-camera{
+	font-size:20px;
+	margin-top:6px;
+}
+
+div.article_ckeditor{
+/* 	border:1px solid red; */
+	width:100%;
+	height:600px;
+}
+
+div.article_category{
+/* 	border:1px solid red; */
+	width:20%;
+	height:100px;
+	line-height:100px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 18px;
+	letter-spacing:2px;
+}
+
+div.article_category select,div.article_category select:focus{
+/* 	border:1.5px solid black; */
+    font-size: 16px;
+    letter-spacing: 2px;
+/*     border-radius: 4px; */
+    height:30px;
+    padding-left:10px;
+    color:black;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	outline:none;
+	border:0;
+	border-bottom:1px solid gray;
+}
+
+div.pick_restaurant{
+/* 	border:1px solid red; */
+	width:50%;
+	height:100px;
+	line-height:100px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 18px;
+	letter-spacing:2px;
+	position:absolute;
+	top:450px;
+	left:220px;
+}
+
+div.pick_restaurant input{
+	font-size: 16px;
+    letter-spacing: 2px;
+/*     border-radius: 4px; */
+    height:30px;
+    padding-left:10px;
+    color:black;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	outline:none;
+	border:0px;
+	border-bottom:1px solid gray;
+	width:53%;
+}
+
+
+div.input_button{
+/* 	border:1px solid red; */
+	text-align:center;
+	height:100px;
+}
+
+.save{
+	margin:20px auto 20px;
+	cursor:pointer;
+	width:100px;
+	height:40px;
+	background-color:white;
+	border:1px solid black;
+	border-radius: 4px;
+}
+
+.go_verify{
+	margin:20px auto 20px;
+	cursor:pointer;
+	width:100px;
+	height:40px;
+	background-color:black;
+	border:1px solid black;
+	border-radius: 4px;
+	color:white;
+}
+
+div.back, div.back a,div.back a:visited{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size:12px;
+	letter-spacing:2px;
+	margin:20px auto;
+/* 	border:1px solid red; */
+	text-align:center;
+	color:black;
+	text-decoration:none;
+
+}
+

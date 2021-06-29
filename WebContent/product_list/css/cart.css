@@ -113,12 +113,13 @@ div.shopping_cart_detail h4{
     letter-spacing: 1px;
     margin-top: 30px;
     color: black;
+    font-weight:light;
 }
 
 .delete_button, .delete_button:hover{
     position: absolute;
     right: 0%;
-    bottom: 9%;
+    bottom: 0%;
     font-size: 10px;
     background-color: white;
     cursor: pointer;
@@ -155,4 +156,54 @@ div.check_out{
     margin: 15px 25%;
     font-size: 16px;
     letter-spacing: 5px;
+}
+
+
+.discount_coupon{
+	width:100%;
+	height:80px;
+	background-color:#f5f5f5;
+}
+
+.discount_coupon p{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	color:black;
+	line-height:80px;
+	margin-left:70px;
+	float:left;
+}
+
+.discount_coupon input{
+	float:right;
+	margin-right:65px;
+	margin-top:25px;
+	height:24px;
+	width:180px;
+}
+
+
+
+.subtotal{
+	width:100%;
+	height:80px;
+	background-color:#f5f5f5;
+}
+
+
+.subtotal_title{
+	float:left;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	color:black;
+	font-weight:bold;
+	line-height:80px;
+	margin-left:52px;
+}
+
+.subtotal_price{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	color:black;
+	font-weight:bold;
+	float:right;
+	line-height:80px;
+	margin-right:52px;
 }

@@ -61,7 +61,7 @@ div.process_1{
     width: 240px;
     float: left;
     margin: 0 10px;
-    margin-left: 108px;
+    margin-left: 235px;
     background-color: rgb(214, 214, 214);
     text-align: center;
     line-height: 90px;
@@ -146,25 +146,26 @@ div.check_order_title{
     font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
     color: rgb(85, 85, 85); 
     margin: 0 -20px;
+    margin-top:40px;
 }
 
 div.form{
-    /* border: 1px solid black; */
-    margin:20px 0px 0px 100px;
-    font-size: 12px;
+/*     border: 1px solid black; */
+    margin:20px 0px 0px 30px;
+    font-size: 16px;
     letter-spacing: 1px;
     position: relative;
 }
 
 div.form input{
-    margin-left: 40px;
+    margin-left: 10px;
     height: 24px;
 }
 
 div.form textarea{
     position: absolute;
     bottom: -45px;
-    left: 95px;
+    left: 83px;
     height: 60px;
 }
 
@@ -196,3 +197,63 @@ input.next{
     color: rgb(255, 255, 255);
 }
 
+
+
+.getPoint_info{
+	border:1px solid black;
+	border-radius:10px;
+	padding:10px;
+	position:absolute;
+	left:32%;;
+	bottom:180px;
+	width:200px;
+	height:50px;
+	font-size:12px;
+}
+
+.credit_card_info{
+	border-radius:10px;
+	width:560px;
+	height:350px;
+/* 	border:1px solid black; */
+	display:none; 
+	background-color:rgb(226, 226, 226);
+	padding:30px;
+	margin-top:30px;
+}
+
+.credit_card_info div{
+	margin-bottom:15px;
+	letter-spacing:2px;
+}
+
+
+
+.ckbutton{
+	font-size:16px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	padding-top:40px;
+	letter-spacing:2px;
+/* 	border:1px solid red; */
+}
+
+.ckbutton_checkbox{
+  width: 16px;
+  height: 16px;
+}
+
+
+div.check_order a,div.check_order a:visited{
+	color:gray;
+	text-decoration:none;
+}
+
+.invoice_tax_id{
+	margin-top:10px;
+	margin-left:10px;
+	display:none;
+}
+
+.copy_input{
+	display:none;
+}
