@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>管理員管理</title>
+<title>Manager : Select</title>
 
 <style>
   table#table-1 {

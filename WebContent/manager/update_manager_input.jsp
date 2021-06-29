@@ -46,15 +46,13 @@
 </head>
 <body bgcolor='white'>
 
-<!-- 
 <table id="table-1">
 	<tr><td>
 		 <h3>管理員資料修改 - update_manager_input.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/logo.png" width="200" height="64" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
- -->
- 
+
 <h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
@@ -92,7 +90,7 @@
 	</tr>
 	<tr>
 		<td>密碼:</td>
-		<td><input type="password" name="manager_password" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_password()%>" /></td>
+		<td><input type="TEXT" name="manager_password" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_password()%>" /></td>
 	</tr>
 	<tr>
 		<td>電話:</td>

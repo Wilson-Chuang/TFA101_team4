@@ -70,12 +70,12 @@
 	<tr>
 		<td>帳號:</td>
 		<td><input type="TEXT" name="manager_account" size="45" 
-			 value="<%= (managerVO==null)? "請輸入帳號" : managerVO.getManager_account()%>" /></td>
+			 value="<%= (managerVO==null)? "test11" : managerVO.getManager_account()%>" /></td>
 	</tr>
 	<tr>
 		<td>姓名:</td>
 		<td><input type="TEXT" name="manager_name" size="45"
-			 value="<%= (managerVO==null)? "請輸入姓名" : managerVO.getManager_name()%>" /></td>
+			 value="<%= (managerVO==null)? "測試名" : managerVO.getManager_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>大頭貼:</td>
@@ -85,21 +85,17 @@
 	<tr>
 		<td>信箱:</td>
 		<td><input type="TEXT" name="manager_email" size="45"
-			 value="<%= (managerVO==null)? "請輸入信箱" : managerVO.getManager_email()%>" /></td>
+			 value="<%= (managerVO==null)? "testemail@gmail.com" : managerVO.getManager_email()%>" /></td>
 	</tr>
-	
-<!--  
 	<tr>
 		<td>密碼:</td>
-		<td><input type="password" name="manager_password" size="45"
-			 value="<%= (managerVO==null)? "請輸入密碼" : managerVO.getManager_password()%>" /></td>
+		<td><input type="TEXT" name="manager_password" size="45"
+			 value="<%= (managerVO==null)? "123456" : managerVO.getManager_password()%>" /></td>
 	</tr>
--->
-
 	<tr>
 		<td>電話:</td>
 		<td><input type="TEXT" name="manager_phone" size="45"
-			 value="<%= (managerVO==null)? "請輸入電話" : managerVO.getManager_phone()%>" /></td>
+			 value="<%= (managerVO==null)? "0900111222" : managerVO.getManager_phone()%>" /></td>
 	</tr>
 
 </table>
