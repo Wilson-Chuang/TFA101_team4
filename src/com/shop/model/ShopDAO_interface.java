@@ -24,10 +24,7 @@ public interface ShopDAO_interface {
 	public List<ShopVO> findShopBoth(String keyword, String place);	
 	
 	// ====================組長的code======================
-	public void insert_shop(ShopVO shopVO);
-	public void update_rating(ShopVO shopVO);
 	public ShopVO findByMemberId(Integer member_id);
 	public void update_shop(ShopVO shopVO);
-	public void add_total_view(Integer shop_id);
 	
 }
