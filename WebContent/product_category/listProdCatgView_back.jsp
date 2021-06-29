@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product_category.model.*"%>
 <%@ page import="com.product.model.*"%>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+<%-- æ­¤é ç·´ç¿’æ¡ç”¨ EL çš„å¯«æ³•å–å€¼ --%>
 
 <%
 	Set set = new LinkedHashSet();
@@ -22,7 +22,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>°Ó«~ºŞ²z(«á¥x)</title>
+<title>å•†å“ç®¡ç†(å¾Œå°)</title>
 <script src="https://kit.fontawesome.com/d210246855.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/product_category/css/listProdCatgView_back.css">
 <script src="${pageContext.request.contextPath}/product_category/vendors/jquery/jquery-3.6.0.min.js"></script>
@@ -34,24 +34,24 @@
 		<div class="listProd_content">
 			<div class="product_title">
 		
-				<h1>${product_categoryVO.product_category_name} ¨t¦C</h1>
+				<h1>${product_categoryVO.product_category_name} ç³»åˆ—</h1>
 
 			</div>
 			<div class="product_navbar">
 				<a href='listProdCatg_back.jsp'>
 					<button style="letter-spacing:5px; font-size:16px;">
-						¤W¤@­¶
+						ä¸Šä¸€é 
 					</button>
 				</a>
-				<div class="datacount">¦@¦³<font color=red> ${count}</font> µ§°Ó«~</div>
+				<div class="datacount">å…±æœ‰<font color=red> ${count}</font> ç­†å•†å“</div>
 			</div>
 			<table>
 				<tr>		
 					<th width="120px"></th>
-					<th width="320px">¦WºÙ</th>
-					<th width="100px">»ù®æ</th>
-					<th width="100px">®w¦s</th>
-					<th>ª¬ºA</th>
+					<th width="320px">åç¨±</th>
+					<th width="100px">åƒ¹æ ¼</th>
+					<th width="100px">åº«å­˜</th>
+					<th>ç‹€æ…‹</th>
 				</tr>
 				<c:forEach var="productVO" items="${set}">
 					<tr>
@@ -59,7 +59,7 @@
 						<td>${productVO.product_name}</td>
 						<td>${productVO.product_point}</td>
 						<td>${productVO.product_stock_quantity}</td>		
-						<td>${productVO.product_status eq 1?"¤W¬[":"¤U¬["}</td>
+						<td>${productVO.product_status eq 1?"ä¸Šæ¶":"ä¸‹æ¶"}</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -68,6 +68,7 @@
 		</div>
 	</div>
 	<script src="${pageContext.request.contextPath}/product_category/js/listProdCatgView_back.js"></script>
+
 </body>
 
 </html>

@@ -1,0 +1,656 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    background-color:white;
+    height: 100%;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+/*上面是版面預設重置的語法*/
+
+/*首頁幻燈片*/
+.slideshow-container {
+    max-width: 100%;
+    position: relative;
+    /* border: solid 10px black; */
+}
+
+.mySlides img{
+    width: 100%;
+    filter: opacity(80%);
+}
+
+/* 下一張 & 上一張 按鈕 */
+.prev1, .next1 {
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    width: auto;
+    /* margin-top: 10px; */
+    padding: 16px;
+    color: white;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    background-color: rgba(182, 182, 182, 0.8);
+}
+   
+/* 定位 "下一張" 按鈕靠右 */
+.next1 {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+   
+/* 按鈕背景動畫 */
+.prev1:hover, .next:hover {
+    background-color: rgba(252, 252, 252, 0.8);
+}
+
+/* 淡出動畫 */
+.fade {
+    -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+ 
+/*第一張投影片設計*/
+
+div.slider_info2{
+    position: absolute;
+    /* border: 1px black solid; */
+    height: 210px;
+    width: 500px;
+    bottom: 26%;
+    right: 10%;
+    color: gray;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+div.slider_info2 h1{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+div.slider_info2 h2{
+    font-size: 80px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+div.slider_info2 h3{
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+/*第二張投影片設計*/
+
+div.slider_info3{
+    position: absolute;
+    /* border: 1px black solid; */
+    height: 210px;
+    width: 800px;
+    top:29%;
+    left: 10%;
+    color: gray;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+div.slider_info3 h1{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+div.slider_info3 h2{
+    font-size: 50px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+
+
+/*新品推出*/
+
+div.title{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    letter-spacing: 5px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 80px;
+    margin: 100px auto;
+    height: 80px;
+    width: 750px;
+    background-size: cover;
+    background-position: center;
+    color: black;
+}
+
+div.new_arrival{
+/*     border: black 1px solid;  */
+    height: 840px;
+   
+}
+div.new_arrival a:link,div.new_arrival a:visited{
+    color: initial;
+    text-decoration: none;
+}
+
+div.new_arrival a:hover{
+    filter: opacity(60%);
+    color: gray;
+}
+
+div.new_arrival_product{
+/*     border: black 1px solid; */
+    height: 350px;
+    width: 18%;
+    float: left;
+    margin-left: 69PX;
+    position: relative;
+    margin-top: 60px;
+}
+
+div.new_arrival_product img{
+    width: 100%;
+    /* border: black 5px solid; */
+}
+
+div.new_arrival_desc{
+    height: 150px;
+    width: 90%;
+/*     border: black 3px solid; */
+    /* margin-left: 40px; */
+    position:absolute;
+    bottom: 1%;
+    left:10%;
+    background-color: white;
+
+    
+}
+
+
+div.new_arrival_desc p{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 10px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    padding: 15px 20px 0px 20px;
+}
+
+div.new_arrival_desc h2{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 16px;
+    padding: 15px 20px 0px 20px;
+    letter-spacing: 1px;
+}
+
+/* div.new_arrival_content{ */
+/*     margin-top: 30px; */
+/*     height: 60px; */
+/*     border: 1px solid red; */
+/*     clear: both; */
+/*     position:absolute; */
+
+/*     bottom:0px; */
+/* } */
+
+div.new_arrival_content p{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 18px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    /* border: 1px black solid; */
+    width: 65%;
+    float: left;
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+  	
+}
+
+
+/*看更多*/
+div.see_more{
+    width:200px; 
+    margin: 120px auto 0px;
+    /* border-top: solid 1px black; */
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 25px;
+    text-align: center;
+    /* background-color: gray; */
+    line-height: 40px;
+    /* font-weight: bold; */
+}
+
+div.see_more a:link, div.see_more a:visited{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-bottom: 1px solid black;
+}
+
+div.see_more a:hover{
+   color: gray;
+   border-bottom: 1px solid gray;
+}
+
+
+
+/*限時特賣*/
+div.timecounter{
+    /* border: 1px black solid; */
+    height: 400px;
+     background-color: rgb(233, 233, 233);
+    /* background-color: #9dc8ff; */
+    padding-top: 40px;
+    margin-top: 100px;
+    margin-bottom: 150px;
+}
+
+div.timecounter_title{
+    /* border: 1px blue solid; */
+    margin-top: 10px;
+    height: 160px;
+    position: relative;
+    clear: both;
+}
+
+div.timecounter_title h1{
+    font-size: 80px;
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    /* border: 1px solid black; */
+    width: 600px;
+    float: left;
+    position: absolute;
+    left: 26%;
+}
+
+div.timecounter_more{
+    /* border: 1px solid black; */
+    font-size: 100px;
+    /* color: #4166F8; */
+    font-weight: bold;
+    width: 100px;
+    float:right;
+    position: absolute;
+    right: 25%;
+    bottom: 13%;
+}
+
+div.timecounter_more a:link,div.timecounter_more a:visited{
+    color: gray;
+    /* color: #4166F8; */
+    text-decoration: none;
+}
+
+div.timecounter_more a:hover{
+    color: white;
+}
+
+
+
+/*hot_sales*/
+
+div.hot_sales_product{
+    /* border: black 1px solid; */
+    /* height: 100%; */
+    width: 200px;
+    float: left;
+}
+
+div.hot_sales_product img{
+    height: 200px;
+    width: 200px;
+    /* border: black 5px solid; */
+}
+
+div.hot_sales_product_info{
+
+/*     border: black 3px solid; */
+    /* margin-left: 40px; */
+   	height:150px;
+    background-color: white;
+	position: relative;
+    
+}
+
+
+div.hot_sales_product_info p{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 20px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+/*     border:1px solid black; */
+
+    
+}
+
+div.hot_sales_product_info h2{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 16px;
+    padding: 15px 20px 0px 20px;
+    letter-spacing: 1px;
+}
+
+
+div.hot_sales_content p{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+    font-size: 16px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+/*     border: 1px black solid; */
+    width: 65%;
+    float: left;
+    position: absolute;
+    left: -5%;
+    bottom: 24%;
+}
+
+
+.slider_body{
+    /* border: black 10px solid; */
+    position: relative;
+    margin-top: 150px;
+    }
+
+    .slider{
+    /* padding:20px 0 20px;  */
+    width: 80%;
+    height:400px; 
+    overflow:hidden; 
+    position:relative; 
+    /* border: 1px red solid; */
+    margin: 0 auto;
+    }
+
+    .slider ul{ 
+    overflow:hidden; 
+    width:4000px; 
+    position:absolute;
+    left: 0;
+    /* border: 1px blue solid; */
+   
+    }
+
+.slider li{ 
+    float:left;     
+    text-align:center; 
+    margin: 20px 20px;
+    letter-spacing: 1px; 
+    height: 350px; 
+/*     font-weight: bold; */
+    /* border: 1px black solid; */
+    position:relative;
+    }
+
+ .slider a{ 
+        display:inline-block;
+        overflow:hidden; 
+        } 
+    
+.slider a:hover{
+    transform: scale(1.05);
+    transition:all 0.5s ease 0s;
+    filter:opacity(70%);
+}
+
+.dIcon{
+    position:absolute; 
+    display:block;  
+    background:url(../img/all1.png) no-repeat;
+    top:150px;
+    width: 100px;
+    height: 100px;
+    /* border: 1px solid black; */
+    }
+    .next{ 
+    right:0%;
+    background-position:-44px -2px;
+    }
+
+    .prev{ 
+    left: 0%;
+    background-position:64px -2px;
+    }
+
+    /*看更多*/
+    div.see_more2{
+        width:200px; 
+        margin: 50px auto;
+        /* border-top: solid 1px black; */
+        font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+        font-size: 25px;
+        text-align: center;
+        /* background-color: gray; */
+        line-height: 40px;
+        /* font-weight: bold; */
+        
+    }
+
+    div.see_more2 a:link, div.see_more2 a:visited{
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        border-bottom: 1px solid black;
+    }
+    
+    div.see_more2 a:hover{
+        color: gray;
+        border-bottom: 1px solid gray;
+     }
+
+
+
+     div.Best_Picks{
+        margin-top: 200px;
+/*         background-color: rgb(233, 233, 233); */
+        height: 1px;
+        border-bottom: 1px dashed gray;
+    } 
+
+     div.title1{
+        font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+        letter-spacing: 5px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 30px;
+        margin: 100px auto 0px;
+        height: 30px;
+        /* width: 750px; */
+        /* background-image: url(../img/titleBG.png); */
+        background-size: cover;
+        background-position: center;
+        color: rgb(109, 109, 109);
+        /* background-color: rgb(185, 185, 185); */
+        
+       
+    }
+
+     div.title2{
+        font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+        letter-spacing: 5px;
+        text-align: center;
+        font-size: 40px;
+        line-height: 80px;
+        margin: 0px auto 60px;
+        height: 80px;
+        color: black;
+        /* background-color: rgb(185, 185, 185); */
+    }
+    
+
+    div.category{
+        width: 80%;
+        height: 600px;
+        border: 1px solid;
+        margin: 0 auto;
+        padding: 50px;
+        font-size: 40px;
+        color: white;
+        text-align: center;
+        font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+        line-height: 200px;
+    }
+    
+    div.category a,div.category a:visited{
+    	color:white;
+    	text-decoration:none;
+    }
+
+    div.category1{
+        width: 60%;
+        height: 200px;
+        background-image: url(../img/category_food.jpg);
+        background-size: cover;
+        background-position: center;
+        float: left;
+        margin-bottom: 40px;
+    }
+
+    div.category2{
+        width: 35%;
+        height: 200px;
+        background-image: url(../img/category_hotel.jpg);
+        background-size: cover;
+        background-position: center;
+        float: right;
+        margin-bottom: 40px;
+    }
+
+    div.category3{
+        width: 35%;
+        height: 200px;
+        background-image: url(../img/category_life.jpg);
+        background-size: cover;
+        background-position: center;
+        float: left;
+        margin-bottom: 40px;
+    }
+
+    div.category4{
+        width: 60%;
+        height: 200px;
+        background-image: url(../img/category_hotspring.jpg);
+        background-size: cover;
+        background-position: center;
+        float: right;
+        margin-bottom: 40px;
+    }
+    
+    
+.cart_submit{
+	height: 30px;
+	position: absolute;
+	right:3px;
+	bottom:-4%;
+	cursor: pointer;
+	z-index:1;
+	color:black;
+	background-color:white;
+	border-radius:4px;
+	border:1px solid black;
+}
+
+.cart_submit:hover{
+	background-color:rgb(179, 179, 179);
+	color:white;
+	border:0px;
+}
+
+.cart_submit2{
+	height: 30px;
+	position: absolute;
+	right:3px;
+	bottom:19%;
+	cursor: pointer;
+	z-index:1;
+	color:black;
+	background-color:white;
+	border-radius:4px;
+	border:1px solid black;
+}
+
+.cart_submit:hover2{
+	background-color:rgb(179, 179, 179);
+	color:white;
+	border:0px;
+}
+
+
+.product_info1{
+	width:200px;
+	height:200px;
+	position:absolute;
+	top:0;
+	left:0;
+	cursor: pointer;
+	opacity:0%;	
+}
+
+.product_info2{
+	width:225px;
+	height:260px;
+	position:absolute;
+	top:0;
+	left:0;
+	cursor: pointer;
+	opacity:0%;	
+	z-index:99;
+}

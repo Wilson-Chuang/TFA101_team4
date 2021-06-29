@@ -13,9 +13,6 @@
 	OrdersService ordersSvc = new OrdersService();
 	List<OrdersVO> list = ordersSvc.getAll();
 	pageContext.setAttribute("list", list);
-	
-	OrdersVO ordersVO2 = ordersSvc.getOneOrders(list.size());
-	pageContext.setAttribute("ordersVO2", ordersVO2);
 %>
 
 <html>
@@ -100,10 +97,8 @@
 					onclick="location.href='<%=request.getContextPath()%>/product_list/Checkout2.jsp'">
 					
 			<input type="submit" value="確定付款" class="next" style="background-color:black; color:white;">		
-			<input type="hidden" name="orders_no"  value="40">
-			<input type="hidden" name="action"  value="CHECKOUT4">
 			
-	
+			<input type="hidden" name="action"  value="CHECKOUT4">
 		</div>
 
 

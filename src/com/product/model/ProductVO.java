@@ -11,9 +11,50 @@ public class ProductVO implements java.io.Serializable{
 	private Integer product_status;
 	private Integer product_category_no;
 	private String product_img_name;
+	private Integer product_discount_no;
+	private Integer product_discount_detail_rate;
+	private String product_discount_detail_coupon;
+	private Integer product_discount_detail_minus;
+	private Integer product_discount_detail_buy_count;
+	private Integer product_discount_detail_get_count;
 	
 	
-	
+	public Integer getProduct_discount_detail_rate() {
+		return product_discount_detail_rate;
+	}
+	public void setProduct_discount_detail_rate(Integer product_discount_detail_rate) {
+		this.product_discount_detail_rate = product_discount_detail_rate;
+	}
+	public String getProduct_discount_detail_coupon() {
+		return product_discount_detail_coupon;
+	}
+	public void setProduct_discount_detail_coupon(String product_discount_detail_coupon) {
+		this.product_discount_detail_coupon = product_discount_detail_coupon;
+	}
+	public Integer getProduct_discount_detail_minus() {
+		return product_discount_detail_minus;
+	}
+	public void setProduct_discount_detail_minus(Integer product_discount_detail_minus) {
+		this.product_discount_detail_minus = product_discount_detail_minus;
+	}
+	public Integer getProduct_discount_detail_buy_count() {
+		return product_discount_detail_buy_count;
+	}
+	public void setProduct_discount_detail_buy_count(Integer product_discount_detail_buy_count) {
+		this.product_discount_detail_buy_count = product_discount_detail_buy_count;
+	}
+	public Integer getProduct_discount_detail_get_count() {
+		return product_discount_detail_get_count;
+	}
+	public void setProduct_discount_detail_get_count(Integer product_discount_detail_get_count) {
+		this.product_discount_detail_get_count = product_discount_detail_get_count;
+	}
+	public Integer getProduct_discount_no() {
+		return product_discount_no;
+	}
+	public void setProduct_discount_no(Integer product_discount_no) {
+		this.product_discount_no = product_discount_no;
+	}
 	public Integer getProduct_no() {
 		return product_no;
 	}

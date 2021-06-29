@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>�ӫ~����</title>
+<title>商品首頁</title>
 
 <style>
   table#table-1 {
@@ -30,16 +30,16 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>�ӫ~����</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>商品首頁</h3><h4>( MVC )</h4></td></tr>
 </table>
 
 <p>This is the Home page for Product: Home</p>
 
-<h3>��Ƭd��:</h3>
+<h3>資料查詢:</h3>
 	
-<%-- ���~���C --%>
+<%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">�Эץ��H�U���~:</font>
+	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -53,10 +53,10 @@
   
   <li>
     <FORM METHOD="post" ACTION="product.do" >
-        <b>��J�ӫ~�s��:</b>
+        <b>輸入商品編號:</b>
         <input type="text" name="product_no">
         <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="�e�X">
+        <input type="submit" value="送出">
     </FORM>
   </li>
 
@@ -64,33 +64,33 @@
    
   <li>
      <FORM METHOD="post" ACTION="product.do" >
-       <b>��ܰӫ~�s��:</b>
+       <b>選擇商品編號:</b>
        <select size="1" name="product_no">
          <c:forEach var="productVO" items="${productSvc.all}" > 
           <option value="${productVO.product_no}">${productVO.product_no}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="�e�X">
+       <input type="submit" value="送出">
     </FORM>
   </li>
   
   <li>
      <FORM METHOD="post" ACTION="product.do" >
-       <b>��ܰӫ~�W��:</b>
+       <b>選擇商品名稱:</b>
        <select size="1" name="product_no">
          <c:forEach var="productVO" items="${productSvc.all}" > 
           <option value="${productVO.product_no}">${productVO.product_name}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="�e�X">
+       <input type="submit" value="送出">
      </FORM>
   </li>
 </ul>
 
 
-<h3>�ӫ~�޲z</h3>
+<h3>商品管理</h3>
 
 <ul>
   <li><a href='addProduct.jsp'>Add</a> a new Product.</li>

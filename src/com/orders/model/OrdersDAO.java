@@ -33,16 +33,16 @@ public class OrdersDAO implements OrdersDAO_interface{
 	}
 	
 		private static final String INSERT_STMT = 
-			"INSERT INTO ORDERS (MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO ORDERS (MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE,PAYMENT_ID,INVOICE_ID,ORDERS_INVOICE_TAX_NUMBER) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		private static final String GET_ALL_STMT = 
-			"SELECT ORDERS_ID,MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE FROM ORDERS ORDER BY ORDERS_ID";
+			"SELECT * FROM ORDERS ORDER BY ORDERS_ID DESC";
 		
 		private static final String GET_ONE_STMT = 
-			"SELECT ORDERS_ID,MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE FROM ORDERS WHERE ORDERS_ID = ?";
+			"SELECT * FROM ORDERS WHERE ORDERS_ID = ?";
 		
 		private static final String GET_Order_Item_ByOrders_STMT = 
-			"SELECT PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT FROM ORDER_ITEM WHERE ORDERS_ID = ?";
+			"SELECT ORDER_ITEM_ID,PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT,PRODUCT_ID FROM ORDER_ITEM WHERE ORDERS_ID = ? ORDER BY ORDER_ITEM_ID";
 		
 		private static final String DELETE_ORDERS = 
 			"DELETE FROM ORDERS WHERE ORDERS_ID= ?";
@@ -51,7 +51,7 @@ public class OrdersDAO implements OrdersDAO_interface{
 			"DELETE FROM ORDER_ITEM WHERE ORDERS_ID = ?";
 	
 		private static final String UPDATE = 
-			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ZIP=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=? WHERE ORDERS_ID = ?";
+			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ZIP=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=?, PAYMENT_ID=?, INVOICE_ID=?,ORDERS_INVOICE_TAX_NUMBER=? WHERE ORDERS_ID = ?";
 	
 		
 		@Override
@@ -72,6 +72,10 @@ public class OrdersDAO implements OrdersDAO_interface{
 				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
 				pstmt.setString(7, ordersVO.getOrders_shipping_address());
 				pstmt.setString(8, ordersVO.getOrders_note());
+				pstmt.setInt(9, ordersVO.getPayment_no());
+				pstmt.setInt(10, ordersVO.getInvoice_no());
+				pstmt.setInt(11, ordersVO.getOrders_invoice_tax_number());
+				
 				
 				pstmt.executeUpdate("set auto_increment_offset=1;");
 				pstmt.executeUpdate("set auto_increment_increment=1;");
@@ -125,7 +129,11 @@ public class OrdersDAO implements OrdersDAO_interface{
 				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
 				pstmt.setString(7, ordersVO.getOrders_shipping_address());
 				pstmt.setString(8, ordersVO.getOrders_note());
-				pstmt.setInt(9, ordersVO.getOrders_no());
+				pstmt.setInt(9, ordersVO.getPayment_no());
+				pstmt.setInt(10, ordersVO.getInvoice_no());
+				pstmt.setInt(11, ordersVO.getOrders_invoice_tax_number());
+				pstmt.setInt(12, ordersVO.getOrders_no());
+
 				
 
 				pstmt.executeUpdate();
@@ -179,8 +187,8 @@ public class OrdersDAO implements OrdersDAO_interface{
 				// 2●設定於 pstm.executeUpdate()之後
 				con.commit();
 				con.setAutoCommit(true);
-				System.out.println("刪除訂單編號" + orders_no + "時,共有明細" + updateCount_Order_Item
-						+ "條同時被刪除");
+//				System.out.println("刪除訂單編號" + orders_no + "時,共有明細" + updateCount_Order_Item
+//						+ "條同時被刪除");
 
 				// Handle any driver errors
 			} catch (SQLException se) {
@@ -246,6 +254,9 @@ public class OrdersDAO implements OrdersDAO_interface{
 					ordersVO.setOrders_shipping_zip(rs.getInt("orders_shipping_zip"));
 					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
 					ordersVO.setOrders_note(rs.getString("orders_note"));
+					ordersVO.setPayment_no(rs.getInt("payment_id"));
+					ordersVO.setInvoice_no(rs.getInt("invoice_id"));
+					ordersVO.setOrders_invoice_tax_number(rs.getInt("orders_invoice_tax_number"));
 				
 				}
 
@@ -308,6 +319,9 @@ public class OrdersDAO implements OrdersDAO_interface{
 					ordersVO.setOrders_shipping_zip(rs.getInt("orders_shipping_zip"));
 					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
 					ordersVO.setOrders_note(rs.getString("orders_note"));
+					ordersVO.setPayment_no(rs.getInt("payment_id"));
+					ordersVO.setInvoice_no(rs.getInt("invoice_id"));
+					ordersVO.setOrders_invoice_tax_number(rs.getInt("orders_invoice_tax_number"));
 					
 					list.add(ordersVO); // Store the row in the list
 				}
@@ -358,6 +372,7 @@ public class OrdersDAO implements OrdersDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_Order_Item_ByOrders_STMT);
 				pstmt.setInt(1, orders_no);
+				
 				rs = pstmt.executeQuery();
 		
 				while (rs.next()) {
@@ -367,6 +382,7 @@ public class OrdersDAO implements OrdersDAO_interface{
 					Order_itemVO.setOrders_no(rs.getInt("orders_id"));
 					Order_itemVO.setOrder_item_amount(rs.getInt("order_item_amount"));
 					Order_itemVO.setOrder_item_point(rs.getInt("order_item_point"));
+					Order_itemVO.setProduct_no(rs.getInt("product_id"));
 					set.add(Order_itemVO); // Store the row in the vector
 				}
 		
@@ -398,16 +414,17 @@ public class OrdersDAO implements OrdersDAO_interface{
 				}
 			}
 			return set;
+			
 		}
 
 		@Override
 		public void insertWithOrder_item(OrdersVO ordersVO , List<Order_itemVO> list) {
-			System.out.println("有進來");
+		
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
 			try {
-
+			
 				con = ds.getConnection();
 				
 				// 1●設定於 pstm.executeUpdate()之前
@@ -424,36 +441,40 @@ public class OrdersDAO implements OrdersDAO_interface{
 				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
 				pstmt.setString(7, ordersVO.getOrders_shipping_address());
 				pstmt.setString(8, ordersVO.getOrders_note());
-				System.out.println("orders有SET成功");
+				pstmt.setInt(9, ordersVO.getPayment_no());
+				pstmt.setInt(10, ordersVO.getInvoice_no());
+				pstmt.setInt(11, ordersVO.getOrders_invoice_tax_number());
+				
 				
 				Statement stmt=	con.createStatement();
 				stmt.executeUpdate("set auto_increment_offset=1;");    //自增主鍵-初始值
 				stmt.executeUpdate("set auto_increment_increment=1;"); //自增主鍵-遞增
 				pstmt.executeUpdate();
 				//掘取對應的自增主鍵值
-				String next_orders_no = null;
+				Integer next_orders_no = null;
 				ResultSet rs = pstmt.getGeneratedKeys();
 				if (rs.next()) {
-					next_orders_no = rs.getString(1);
-					System.out.println("自增主鍵值= " + next_orders_no +"(剛新增成功的訂單編號)");
+					next_orders_no = rs.getInt(1);
+					ordersVO.setOrders_no(next_orders_no);
+//					System.out.println("自增主鍵值= " + next_orders_no +"(剛新增成功的訂單編號)");
 				} else {
-					System.out.println("未取得自增主鍵值");
+//					System.out.println("未取得自增主鍵值");
 				}
 				rs.close();
 				// 再同時新增明細
 				Order_itemDAO dao = new Order_itemDAO();
-				System.out.println("list.size()-A="+list.size());
+			
 				for (Order_itemVO aOrder_item : list) {
 					aOrder_item.setOrders_no(new Integer(next_orders_no)) ;
 					dao.insert2(aOrder_item,con);
 				}
-				System.out.println("失敗囉");
+				
 				// 2●設定於 pstm.executeUpdate()之後
 				con.commit();
 				con.setAutoCommit(true);
-				System.out.println("list.size()-B="+list.size());
-				System.out.println("新增訂單編號" + next_orders_no + "時,共有明細" + list.size()
-						+ "條同時被新增");
+				
+//				System.out.println("新增訂單編號" + next_orders_no + "時,共有明細" + list.size()
+//						+ "條同時被新增");
 				
 				// Handle any driver errors
 			} catch (SQLException se) {

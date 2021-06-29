@@ -21,7 +21,6 @@
 	set.add(request.getAttribute("set"));
 %>
 
-
 <jsp:useBean id="product_categorySvc" scope="page" class="com.product_category.model.Product_categoryService" />
 
 <!DOCTYPE html>
@@ -32,7 +31,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>商城列表</title>
+    <title>Guide好食積分商城</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/product_list/css/product_list.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/product_list/css/sidebar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/product_list/css/header.css">
@@ -53,7 +52,7 @@
                 <h6><a href="">BACK TO GUIDE FOOD</a></h6>
             </div>
             <div class="header_bottom">
-                <div class="logo"><a href="">
+                <div class="logo"><a href="${pageContext.request.contextPath}/product_list/product_homePage.jsp">
                         <h1>GF.SHOP</h1>
                     </a></div>
                 <div class="search">
@@ -77,12 +76,14 @@
         <div class="main">
             <div class="side_nav">
                 <ul>
-                	<li>
-                		<a href="<%=request.getContextPath()%>/product_list/product_list.jsp">全部商品</a>
-                	</li>
                 <c:forEach var="product_categoryVO" items="${list}">
                     <li>
-							<a href="<%=request.getContextPath()%>/product_list/product_list${product_categoryVO.product_category_no}.jsp">${product_categoryVO.product_category_name}</a>
+                    		<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product_category/product_category.do">
+									<input type="submit" value="檢視">
+									<input type="hidden" name="product_category_no" value="${product_categoryVO.product_category_no}"> 
+									<input type="hidden" name="action" value="see_category_product">
+							</FORM>
+							<a href="#">${product_categoryVO.product_category_name}</a>
 					</li>
                 </c:forEach>
                 </ul>                
@@ -92,36 +93,42 @@
 		
             <div class="product_list">
                   
-            <c:forEach var="productVO" items="${list2}">
-            <form name="shoppingForm" action="<%=request.getContextPath()%>/product_list/shopping.html" 
-            			method="POST" target="nm_iframe">
+            <c:forEach var="productVO" items="${set}">
+         
                 <div class="product">
-                    <a href=""><img src="/upload/${productVO.product_img_name}"></a>
+                    <a href="">
+                    
+                    <img src="/upload/${productVO.product_img_name}">
+                    
+                    </a>
+                    
+                     	<form METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do">                      
+                        <input type="submit" value="連結到商品資訊" class="product_info1">
+                        <input type="hidden" name="product_no" value="${productVO.product_no}">
+                        <input type="hidden" name="action" value="getOne_For_Display"> 
+                        </form>
+                        
                     <div class="product_info">
-                        <p>
-                        	<c:forEach var="product_categoryVO" items="${product_categorySvc.all}">
-                    			<c:if test="${productVO.product_category_no==product_categoryVO.product_category_no}">
-	                   			${product_categoryVO.product_category_name}
-                    			</c:if>
-                			</c:forEach>
-                             
-                        </p>
+                        <p>${product_categoryVO.product_category_name}</p>
                         <a href="">
                             <h2>${productVO.product_name}</h2>
                         </a>
                         <div class="product_price">
                             <p>${productVO.product_point} GP</p>
-<!--                             <button class="cart2"><i class="fas fa-shopping-cart"></i></button> -->
+  							<form name="shoppingForm" action="<%=request.getContextPath()%>/product_list/shopping.html" 
+            									method="POST" target="nm_iframe">
                             <input type="submit" value="加入購物車" class="cart_submit">
                             <input type="hidden" name="img_name" value="${productVO.product_img_name}">
                             <input type="hidden" name="name" value="${productVO.product_name}">
                             <input type="hidden" name="price" value="${productVO.product_point}">
+                            <input type="hidden" name="product_no" value="${productVO.product_no}">
                             <input type="hidden" name="quantity" value="1">
                             <input type="hidden" name="action" value="ADD">
+                          	</form>
                         </div>
                     </div>
                 </div>
-               </form>
+              
                </c:forEach>
             </div>
                    <iframe id="nm_iframe" name="nm_iframe" style="display:none;" ></iframe>
