@@ -283,5 +283,6 @@ public class SearchServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
+		res.sendRedirect(req.getContextPath());
 	}
 }
