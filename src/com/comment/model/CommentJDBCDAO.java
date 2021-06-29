@@ -258,6 +258,30 @@ public class CommentJDBCDAO implements CommentDAO_Interface{
 		
 		return list;
 	}
+
+	@Override
+	public List<CommentVO> getAllByShop(Integer Shop_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer countByMember(Integer Member_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer countByShop(Integer Shop_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer countRating(Integer Shop_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

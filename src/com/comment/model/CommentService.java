@@ -50,4 +50,10 @@ public class CommentService {
     public Integer countByShop(Integer Shop_ID) {
     	return dao.countByShop(Shop_ID);
     }
+    public Double countRatings(Integer Shop_ID) {
+    	double rating_count=dao.countByShop(Shop_ID);
+    	double rating_total=dao.countRating(Shop_ID);
+    	double rating=rating_total/rating_count;
+    	return rating;
+    }
 }
