@@ -19,8 +19,7 @@ public class Member_FollowerJDBCDAO implements Member_FollowerDAO_Interface{
 			"DELETE FROM member_follower where member_follower_id = ?";
 		private static final String UPDATE = 
 			"UPDATE member_follower set member_id=?,member_id_follower=? where member_follower_id=?" ;
-		private static final String CHECK_FOLLOWED = 
-				"SELECT* FROM member_follower where member_id=? and member_id_follower=?";
+		
 		
 		@Override
 		public void insert(Member_FollowerVO Member_FollowerVO) {
@@ -250,59 +249,4 @@ public class Member_FollowerJDBCDAO implements Member_FollowerDAO_Interface{
 			// TODO Auto-generated method stub
 			return null;
 		}
-		@Override
-		public boolean check_follow(Integer MEMBER_ID, Integer MEMBER_ID_FOLLOWER) {
-			
-			Member_FollowerVO mem_fol=null;
-			
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			try {
-				Class.forName(driver);
-				con = DriverManager.getConnection(url,userid,passwd);
-			
-				pstmt = con.prepareStatement(CHECK_FOLLOWED);
-				pstmt.setInt(1, MEMBER_ID);
-				pstmt.setInt(2, MEMBER_ID_FOLLOWER);
-				rs = pstmt.executeQuery();
-				
-				
-			} catch (SQLException se) {
-				return false;
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-			}
-			
-			return true	;
-		}
-		@Override
-		public Integer count_fans(Integer Member_ID) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
 }

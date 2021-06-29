@@ -12,6 +12,5 @@ public interface Article_FavoriteDAO_interface {
 	public Article_FavoriteVO findByPrimaryKey(Integer article_favorite_no);
 
 	public List<Article_FavoriteVO> getAll();
-	public List<Article_FavoriteVO> getAllByMember(Integer member_id);
 
 }
