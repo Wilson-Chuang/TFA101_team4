@@ -16,8 +16,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>發表文章</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/article/css/addArticle.css">
-<script src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script><!-- ckeditor -->
-<script src="<%=request.getContextPath()%>/resources/ckeditor/config.js"></script><!-- ckeditor -->
+<script src="<%=request.getContextPath()%>/ckeditor4_hank_for_article/ckeditor/ckeditor.js"></script><!-- ckeditor -->
+<script src="<%=request.getContextPath()%>/ckeditor4_hank_for_article/ckeditor/config.js"></script><!-- ckeditor -->
 
 <script src="${pageContext.request.contextPath}/article/vendors/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/d210246855.js" crossorigin="anonymous"></script>

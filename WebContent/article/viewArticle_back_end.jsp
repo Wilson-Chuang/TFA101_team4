@@ -29,7 +29,7 @@
     <div class="maintop_header">
         <div class="category">
             <h2>
-               	預覽模式
+               	文章管理
             </h2>
         </div>
     </div>

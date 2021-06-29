@@ -59,23 +59,13 @@
 					<tr>
 						<td width="100px;">
 							<div class="img">
-								<c:if test="${articleVO.article_status==0}">
-									<a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=view_back_end"><img src="/upload/${articleVO.article_img_name}"></a>
-								</c:if>
-								<c:if test="${articleVO.article_status==1}">
-									<a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=see_article"><img src="/upload/${articleVO.article_img_name}"></a>
-								</c:if>
+									<a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=view_back_end"><img src="/upload/${articleVO.article_img_name}"></a>					
 							</div>
 						</td>
 						<td width="350px;">
 						
-								<c:if test="${articleVO.article_status==0}">
-									<a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=view_back_end">${articleVO.article_title}</a>
-								</c:if>
-								<c:if test="${articleVO.article_status==1}">
-									<a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=see_article">${articleVO.article_title}</a>
-								</c:if>
-	
+							<a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=view_back_end">${articleVO.article_title}</a>
+					
 						</td>
 						<td width="80px;">
 						
