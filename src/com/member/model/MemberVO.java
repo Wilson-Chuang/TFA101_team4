@@ -2,6 +2,8 @@ package com.member.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+
+
 public class MemberVO implements java.io.Serializable{
 	private Integer member_id;
 	private String member_email;

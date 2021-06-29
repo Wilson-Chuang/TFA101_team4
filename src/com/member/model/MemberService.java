@@ -138,4 +138,6 @@ public class MemberService {
 			return dao_article_fav.getAllByMember(member_id);
 		}
 	
+	 
+	 
 }
