@@ -10,7 +10,7 @@ public class Order_itemService {
 		dao = new Order_itemDAO();
 	}
 
-	public Order_itemVO addOrder_item(String product_name, Integer orders_no, Integer order_item_amount, Integer order_item_point) {
+	public Order_itemVO addOrder_item(String product_name, Integer orders_no, Integer order_item_amount, Integer order_item_point, Integer product_no) {
 
 		Order_itemVO order_itemVO = new Order_itemVO();
 		
@@ -18,13 +18,14 @@ public class Order_itemService {
 		order_itemVO.setOrders_no(orders_no);
 		order_itemVO.setOrder_item_amount(order_item_amount);
 		order_itemVO.setOrder_item_point(order_item_point);
+		order_itemVO.setProduct_no(product_no);
 
 		dao.insert(order_itemVO);
 
 		return order_itemVO;
 	}
 
-	public Order_itemVO updateOrder_item(Integer order_item_no, String product_name, Integer orders_no, Integer order_item_amount, Integer order_item_point) {
+	public Order_itemVO updateOrder_item(Integer order_item_no, String product_name, Integer orders_no, Integer order_item_amount, Integer order_item_point, Integer product_no) {
 
 		Order_itemVO order_itemVO = new Order_itemVO();
 		
@@ -34,6 +35,7 @@ public class Order_itemService {
 		order_itemVO.setOrders_no(orders_no);
 		order_itemVO.setOrder_item_amount(order_item_amount);
 		order_itemVO.setOrder_item_point(order_item_point);
+		order_itemVO.setProduct_no(product_no);
 		
 		dao.update(order_itemVO);
 

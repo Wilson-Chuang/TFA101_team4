@@ -1,7 +1,6 @@
 package com.product_category.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +32,7 @@ public class Product_categoryDAO implements Product_categoryDAO_interface{
 		private static final String INSERT_STMT = "INSERT INTO PRODUCT_CATEGORY (PRODUCT_CATEGORY_NAME) VALUES (?)";
 		private static final String GET_ALL_STMT = "SELECT PRODUCT_CATEGORY_ID,PRODUCT_CATEGORY_NAME FROM PRODUCT_CATEGORY";
 		private static final String GET_ONE_STMT = "SELECT PRODUCT_CATEGORY_ID,PRODUCT_CATEGORY_NAME FROM PRODUCT_CATEGORY WHERE PRODUCT_CATEGORY_ID = ?";
-		private static final String GET_Products_ByProduct_category_no_STMT = "SELECT PRODUCT_ID,PRODUCT_NAME,PRODUCT_INTRO,PRODUCT_POINT,PRODUCT_STOCK_QUANTITY,PRODUCT_IMG,PRODUCT_STATUS,PRODUCT_CATEGORY_ID,PRODUCT_IMG_NAME FROM PRODUCT WHERE PRODUCT_CATEGORY_ID = ? ORDER BY PRODUCT_ID";
+		private static final String GET_Products_ByProduct_category_no_STMT = "SELECT * FROM PRODUCT WHERE PRODUCT_CATEGORY_ID = ? ORDER BY PRODUCT_ID DESC";
 
 		private static final String DELETE_PRODUCTs = "DELETE FROM PRODUCT WHERE PRODUCT_CATEGORY_ID = ?";
 		private static final String DELETE_PRODUCT_CATEGORY = "DELETE FROM PRODUCT_CATEGORY WHERE PRODUCT_CATEGORY_ID = ?";
@@ -306,6 +305,13 @@ public class Product_categoryDAO implements Product_categoryDAO_interface{
 					productVO.setProduct_status(rs.getInt("product_status"));
 					productVO.setProduct_category_no(rs.getInt("product_category_id"));
 					productVO.setProduct_img_name(rs.getString("product_img_name"));
+					productVO.setProduct_discount_no(rs.getInt("product_discount_id"));
+					productVO.setProduct_discount_detail_rate(rs.getInt("product_discount_detail_rate"));
+					productVO.setProduct_discount_detail_coupon(rs.getString("product_discount_detail_coupon"));
+					productVO.setProduct_discount_detail_minus(rs.getInt("product_discount_detail_minus"));
+					productVO.setProduct_discount_detail_buy_count(rs.getInt("product_discount_detail_buy_count"));
+					productVO.setProduct_discount_detail_get_count(rs.getInt("product_discount_detail_get_count"));
+					
 					set.add(productVO); // Store the row in the vector
 				}
 				// Handle any driver errors

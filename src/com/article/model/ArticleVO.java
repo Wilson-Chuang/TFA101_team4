@@ -5,12 +5,14 @@ import java.sql.Timestamp;
 	public class ArticleVO implements java.io.Serializable{
 		
 		private Integer article_no;
-		private String title;
-		private String content;
-		private Timestamp create_time;
-		private Integer collection;
-		private Integer verify_status;
+		private String article_title;
+		private String article_content;
+		private Timestamp article_create_time;
+		private Integer article_collection;
+		private Integer article_verify_status;
 		private Integer article_status;
+		private byte[] article_img;
+		private String article_img_name;
 		private Integer member_no;
 		private Integer shop_no;
 		private Integer category_no;
@@ -22,41 +24,53 @@ import java.sql.Timestamp;
 		public void setArticle_no(Integer article_no) {
 			this.article_no = article_no;
 		}
-		public String getTitle() {
-			return title;
+		public String getArticle_title() {
+			return article_title;
 		}
-		public void setTitle(String title) {
-			this.title = title;
+		public void setArticle_title(String article_title) {
+			this.article_title = article_title;
 		}
-		public String getContent() {
-			return content;
+		public String getArticle_content() {
+			return article_content;
 		}
-		public void setContent(String content) {
-			this.content = content;
+		public void setArticle_content(String article_content) {
+			this.article_content = article_content;
 		}
-		public Timestamp getCreate_time() {
-			return create_time;
+		public Timestamp getArticle_create_time() {
+			return article_create_time;
 		}
-		public void setCreate_time(Timestamp create_time) {
-			this.create_time = create_time;
+		public void setArticle_create_time(Timestamp article_create_time) {
+			this.article_create_time = article_create_time;
 		}
-		public Integer getCollection() {
-			return collection;
+		public Integer getArticle_collection() {
+			return article_collection;
 		}
-		public void setCollection(Integer collection) {
-			this.collection = collection;
+		public void setArticle_collection(Integer article_collection) {
+			this.article_collection = article_collection;
 		}
-		public Integer getVerify_status() {
-			return verify_status;
+		public Integer getArticle_verify_status() {
+			return article_verify_status;
 		}
-		public void setVerify_status(Integer verify_status) {
-			this.verify_status = verify_status;
+		public void setArticle_verify_status(Integer article_verify_status) {
+			this.article_verify_status = article_verify_status;
 		}
 		public Integer getArticle_status() {
 			return article_status;
 		}
 		public void setArticle_status(Integer article_status) {
 			this.article_status = article_status;
+		}
+		public byte[] getArticle_img() {
+			return article_img;
+		}
+		public void setArticle_img(byte[] article_img) {
+			this.article_img = article_img;
+		}
+		public String getArticle_img_name() {
+			return article_img_name;
+		}
+		public void setArticle_img_name(String article_img_name) {
+			this.article_img_name = article_img_name;
 		}
 		public Integer getMember_no() {
 			return member_no;
@@ -76,6 +90,9 @@ import java.sql.Timestamp;
 		public void setCategory_no(Integer category_no) {
 			this.category_no = category_no;
 		}
+		
+		
+		
 		
 	}
 

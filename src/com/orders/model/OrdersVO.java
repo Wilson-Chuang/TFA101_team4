@@ -14,6 +14,9 @@ public class OrdersVO implements java.io.Serializable{
 	private Integer orders_shipping_zip;
 	private String orders_shipping_address;
 	private String orders_note;
+	private Integer payment_no;
+	private Integer invoice_no;
+	private Integer orders_invoice_tax_number;
 	
 	
 	public Integer getOrders_no() {
@@ -69,6 +72,24 @@ public class OrdersVO implements java.io.Serializable{
 	}
 	public void setOrders_note(String orders_note) {
 		this.orders_note = orders_note;
+	}
+	public Integer getPayment_no() {
+		return payment_no;
+	}
+	public void setPayment_no(Integer payment_no) {
+		this.payment_no = payment_no;
+	}
+	public Integer getInvoice_no() {
+		return invoice_no;
+	}
+	public void setInvoice_no(Integer invoice_no) {
+		this.invoice_no = invoice_no;
+	}
+	public Integer getOrders_invoice_tax_number() {
+		return orders_invoice_tax_number;
+	}
+	public void setOrders_invoice_tax_number(Integer orders_invoice_tax_number) {
+		this.orders_invoice_tax_number = orders_invoice_tax_number;
 	}
 	
 	

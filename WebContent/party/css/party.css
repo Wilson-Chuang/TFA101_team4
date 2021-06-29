@@ -1,0 +1,27 @@
+* {
+	margin: 0;
+	background-color: white;
+}
+
+partyhome_top {
+	background-image: url(./image/´ª¹Î«Ê­±.jpg);
+	width: 100%;
+	height: 800px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+Party_middle {
+	width: 100%;
+	height: 200px;
+	border: 1px solid black;
+}
+
+Party_btm {
+	background-image: url(./image/´ª¹Î­I´º2.jpg);
+	width: 100%;
+	height: 800px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: #f1f1f1;
+}

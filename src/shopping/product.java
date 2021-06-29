@@ -15,7 +15,42 @@ public class product implements java.io.Serializable {
 	private Integer quantity;
 	private String img_name;
 	private Integer product_no;
+	private Integer product_discount_no;
+	private Integer product_discount_detail_buy_count;
+	private Integer product_discount_detail_get_count;
+	private Double product_discount_detail_buy_times_get;
+	private String product_discount_detail_coupon;
 
+	public String getProduct_discount_detail_coupon() {
+		return product_discount_detail_coupon;
+	}
+	public void setProduct_discount_detail_coupon(String product_discount_detail_coupon) {
+		this.product_discount_detail_coupon = product_discount_detail_coupon;
+	}
+	public Integer getProduct_discount_no() {
+		return product_discount_no;
+	}
+	public void setProduct_discount_no(Integer product_discount_no) {
+		this.product_discount_no = product_discount_no;
+	}
+	public Double getProduct_discount_detail_buy_times_get() {
+		return product_discount_detail_buy_times_get;
+	}
+	public void setProduct_discount_detail_buy_times_get(Double product_discount_detail_buy_times_get) {
+		this.product_discount_detail_buy_times_get = product_discount_detail_buy_times_get;
+	}
+	public Integer getProduct_discount_detail_buy_count() {
+		return product_discount_detail_buy_count;
+	}
+	public void setProduct_discount_detail_buy_count(Integer product_discount_detail_buy_count) {
+		this.product_discount_detail_buy_count = product_discount_detail_buy_count;
+	}
+	public Integer getProduct_discount_detail_get_count() {
+		return product_discount_detail_get_count;
+	}
+	public void setProduct_discount_detail_get_count(Integer product_discount_detail_get_count) {
+		this.product_discount_detail_get_count = product_discount_detail_get_count;
+	}
 	public Integer getProduct_no() {
 		return product_no;
 	}
@@ -52,7 +87,8 @@ public class product implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "product [name=" + name + ", price=" + price + ", quantity=" + quantity + ", img_name=" + img_name + ", product_no" + product_no + " ]";
+		return "product [name=" + name + ", price=" + price + ", quantity=" + quantity + ","
+				+ " img_name=" + img_name + ", product_no" + product_no + "]";
 	}
 
 	@Override

@@ -4,6 +4,7 @@ public class Order_itemVO implements java.io.Serializable{
 	
 	
 	private Integer order_item_no;
+	private Integer product_no;
 	private String product_name;
 	private Integer orders_no;
 	private Integer order_item_amount;
@@ -14,6 +15,12 @@ public class Order_itemVO implements java.io.Serializable{
 	}
 	public void setOrder_item_no(Integer order_item_no) {
 		this.order_item_no = order_item_no;
+	}
+	public Integer getProduct_no() {
+		return product_no;
+	}
+	public void setProduct_no(Integer product_no) {
+		this.product_no = product_no;
 	}
 	public String getProduct_name() {
 		return product_name;

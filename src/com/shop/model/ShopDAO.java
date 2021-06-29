@@ -480,7 +480,6 @@ public class ShopDAO implements ShopDAO_interface {
 			 } else {
 				 lat = new BigDecimal(String.valueOf(lat)).setScale(1, RoundingMode.CEILING).doubleValue();
 			 }
-			
 			 if (lng > 0) {
 				 lng = new BigDecimal(String.valueOf(lng)).setScale(1, RoundingMode.FLOOR).doubleValue();
 			 } else {

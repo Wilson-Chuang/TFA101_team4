@@ -25,6 +25,9 @@
     color: blue;
     display: inline;
   }
+  img {
+  width: 100%
+  }
 </style>
 
 <style>
@@ -68,7 +71,7 @@
 		<td><%=managerVO.getManager_id()%></td>
 		<td><%=managerVO.getManager_account()%></td>
 		<td><%=managerVO.getManager_name()%></td>
-		<td><%=managerVO.getManager_pic()%></td>
+		<td><img src="/uploadpic/${managerVO.manager_picname}"></td>
 		<td><%=managerVO.getManager_email()%></td>
 		<td><%=managerVO.getManager_password()%></td>
 		<td><%=managerVO.getManager_phone()%></td>

@@ -103,10 +103,10 @@
 			</table>
 		
 		<div class="finish_button">
-			<input type="submit" value="完成" class="back" 
-					onclick="location.href='<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=1&action=see_category_product'">
-			<input type="submit" value="擷取螢幕" class="back" 
-					onclick="location.href='<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=1&action=see_category_product'">
+			<input type="button" value="完成" class="back" 
+					onclick="location.href='<%=request.getContextPath()%>/product_list/product_homePage.jsp'">
+			<input type="button" value="擷取螢幕" class="back" 
+					onclick="location.href='<%=request.getContextPath()%>/product_list/product_homePage.jsp'">
 		</div>
 		</div>					
 </div>

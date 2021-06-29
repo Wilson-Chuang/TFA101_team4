@@ -15,7 +15,8 @@ public class OrdersService {
 	}
 	
 	public OrdersVO addOrders(Integer member_no, Timestamp orders_date, Integer orders_total_point, String orders_shipping_name,
-			String orders_shipping_phone, Integer orders_shipping_zip, String orders_shipping_address, String orders_note) {
+			String orders_shipping_phone, Integer orders_shipping_zip, String orders_shipping_address, String orders_note, Integer payment_no
+			,Integer invoice_no, Integer orders_invoice_tax_number) {
 
 		OrdersVO ordersVO = new OrdersVO();
 		
@@ -27,6 +28,9 @@ public class OrdersService {
 		ordersVO.setOrders_shipping_zip(orders_shipping_zip);
 		ordersVO.setOrders_shipping_address(orders_shipping_address);
 		ordersVO.setOrders_note(orders_note);
+		ordersVO.setPayment_no(payment_no);
+		ordersVO.setInvoice_no(invoice_no);
+		ordersVO.setOrders_invoice_tax_number(orders_invoice_tax_number);
 
 		dao.insert(ordersVO);
 
@@ -34,8 +38,9 @@ public class OrdersService {
 	}
 
 	public OrdersVO updateOrders(Integer orders_no, Integer member_no, Timestamp orders_date, Integer orders_total_point, String orders_shipping_name,
-			String orders_shipping_phone, Integer orders_shipping_zip, String orders_shipping_address, String orders_note) {
-		
+			String orders_shipping_phone, Integer orders_shipping_zip, String orders_shipping_address, String orders_note, Integer payment_no
+			,Integer invoice_no, Integer orders_invoice_tax_number) {
+
 		OrdersVO ordersVO = new OrdersVO();
 		
 
@@ -48,6 +53,9 @@ public class OrdersService {
 		ordersVO.setOrders_shipping_zip(orders_shipping_zip);
 		ordersVO.setOrders_shipping_address(orders_shipping_address);
 		ordersVO.setOrders_note(orders_note);
+		ordersVO.setPayment_no(payment_no);
+		ordersVO.setInvoice_no(invoice_no);
+		ordersVO.setOrders_invoice_tax_number(orders_invoice_tax_number);
 		
 		dao.update(ordersVO);
 

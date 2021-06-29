@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.search.model.SearchService;
 import com.search.model.SearchVO;
 import com.shop.model.ShopService;
@@ -35,6 +36,7 @@ public class SearchServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json; charset=utf-8");
 		String action = req.getParameter("action");
 		
 		if ("shop_search".equals(action)) {
@@ -44,17 +46,32 @@ public class SearchServlet extends HttpServlet {
 			try {
 				String place = "";
 				String shop = "";
+				String route = req.getParameter("btn-route");
+				String reachtime = req.getParameter("reachtime");
+				Double lat = 0.0;
+				Double lng = 0.0;
 				if (req.getParameter("place-bar") != null) {
 					place = req.getParameter("place-bar").trim();
 				}
 				if (req.getParameter("shop-keyword-bar") != null) {
 					shop = req.getParameter("shop-keyword-bar").trim();
+				}			
+				if (req.getParameter("lat") != null) {			
+					try {
+						lat = Double.parseDouble(req.getParameter("lat").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
 				}
-				if (place == "" && shop == "") {
-					res.sendRedirect(req.getContextPath());
-					return;
+				if (req.getParameter("lng") != null) {
+					try {
+						lng = Double.parseDouble(req.getParameter("lng").trim());
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}					
 				}
-				List<ShopVO> list;
+				List<ShopVO> list = null;
+				JSONObject resJSON = new JSONObject();
 				SearchVO searchedShop;
 				SearchVO searchedPlace;				
 				if (place.length() > 0 && shop.length() > 0) {
@@ -91,7 +108,7 @@ public class SearchServlet extends HttpServlet {
 								searchedShop.getSearch_key(),
 								searchedShop.getSearch_count()+1);
 					}
-				} else {
+				} else if (place.length() > 0) {
 					list = shopSvc.findShopPlace(place);
 					searchedPlace = searchSvc.getOneSearch(place);
 					if (searchedPlace == null) {
@@ -103,20 +120,31 @@ public class SearchServlet extends HttpServlet {
 								searchedPlace.getSearch_key(),
 								searchedPlace.getSearch_count()+1);
 					}
+				} else {
+					list = shopSvc.getAllbyLatLng(lat, lng);
 				}
+				
 				if (list.size() == 0) {
-					errorMsgs.add("查無資料");
+					resJSON.put("status", "Failed");
+				} else {
+					resJSON.put("status", "OK");
 				}
+				
 				if (!errorMsgs.isEmpty()) {
 					System.out.println(errorMsgs);
 					res.sendRedirect(req.getContextPath());
 					return;
 				}
-				req.setAttribute("searchResult", list);
-				String url = "/index.jsp";
+				resJSON.put("list", list);
+				resJSON.put("route", route);
+				resJSON.put("reachtime", reachtime);
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("searchResult", resJSON);
+				String url = "/search/search.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				System.out.println(errorMsgs);
 			}
@@ -165,6 +193,8 @@ public class SearchServlet extends HttpServlet {
 				}
 				/***************************2.開始查詢資料****************************************/
 				List<ShopVO> list =	shopSvc.getAllbyLatLng(lat, lng);
+				JSONObject resJSON = new JSONObject();
+				
 				if (list.size() == 0) {
 					errorMsgs.add("查無資料");
 				}
@@ -173,18 +203,20 @@ public class SearchServlet extends HttpServlet {
 					res.sendRedirect(req.getContextPath());
 					return;
 				}
-				/***************************3.查詢完成,準備轉交(Send the Success view)************/				
-				req.setAttribute("searchResult", list);
-				String url = "/index.jsp";
+				resJSON.put("list",list);
+				resJSON.put("status", "OK");
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("searchResult", resJSON);
+				String url = "/search/search.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				/***************************其他可能的錯誤處理************************************/
 			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
 		}
-		if ("getPartQuery".equals(action)) {
-			res.setContentType("application/json; charset=utf-8");
+		if ("getPartQuery".equals(action)) {			
 			try {
 				/***************************1.接收請求參數****************************************/
 				Double lat = 0.0;
@@ -218,9 +250,38 @@ public class SearchServlet extends HttpServlet {
 
 				/***************************其他可能的錯誤處理************************************/
 			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
 		}
-
+		
+		if ("navi".equals(action)) {			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String shop_tax_id = "";
+				if(req.getParameter("shop_tax_id") != null) {
+					shop_tax_id = req.getParameter("shop_tax_id").trim();
+				}
+				String route = req.getParameter("btn-route");
+				String reachtime = req.getParameter("reachtime");
+				/***************************2.開始查詢資料****************************************/
+				ShopVO shopVO = shopSvc.findShop_tax_id(shop_tax_id);
+				Gson gson = new Gson();
+		        String list = gson.toJson(shopVO);
+				JSONObject resJSON = new JSONObject();
+				resJSON.put("list", list);
+				resJSON.put("status", "OK");
+				resJSON.put("route", route);
+				resJSON.put("reachtime", reachtime);
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+		        req.setAttribute("searchResult", resJSON);
+				String url = "/search/navi.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			} catch (Exception e) {
+				res.sendRedirect(req.getContextPath());
+				throw new ServletException(e);
+			}
+		}
 	}
 }

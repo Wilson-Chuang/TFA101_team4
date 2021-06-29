@@ -14,8 +14,12 @@
 
 <html>
 <head>
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
 <title>管理員資料 - listAllManager.jsp</title>
 
+<!--
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -32,33 +36,57 @@
     display: inline;
   }
 </style>
+ -->
 
 <style>
+  ul {
+    list-style: none;
+  }
+  div{
+	height: 30px;	
+  }
+  a{
+	text-decoration: none; 
+  }
   table {
-	width: 800px;
+	width: 900px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
   th, td {
+  	border: 0;
+    border-bottom: 1px solid gray;
     padding: 5px;
     text-align: center;
+    height: 50px;
+  }
+  tr{
+   align: center;
+   }
+  img {
+  width: 80%;
+  }
+  button{
+  	border: none;
+  	background-color: none;	
   }
 </style>
 
 </head>
 <body bgcolor='white'>
 
+<!-- 
 <h4>此頁練習採用 EL 的寫法取值:</h4>
+
 <table id="table-1">
 	<tr><td>
 		 <h3>管理員資料 - listAllManager.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/logo.png" width="200" height="62" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
+ -->
+
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -70,14 +98,20 @@
 	</ul>
 </c:if>
 
+
+
+<div>
+	<button><a href='addManager.jsp'>新增管理員</a></button>
+</div>
+
 <table>
 	<tr>
 		<th>編號</th>
 		<th>帳號</th>
 		<th>姓名</th>
-		<th>大頭貼</th>
+		<th width="100px">大頭貼</th>
 		<th>信箱</th>
-		<th>密碼</th>
+	<!-- 	<th>密碼</th>  -->
 		<th>電話</th>
 		<th>修改</th>
 		<th>刪除</th>
@@ -91,26 +125,33 @@
 			<td>${managerVO.manager_id}</td>
 			<td>${managerVO.manager_account}</td>
 			<td>${managerVO.manager_name}</td>
-			<td>${managerVO.manager_pic}</td>
+			<td><img src="/uploadpic/${managerVO.manager_picname}"></td>
 			<td>${managerVO.manager_email}</td>
-			<td>${managerVO.manager_password}</td> 
+		<!--	<td>${managerVO.manager_password}</td> -->
 			<td>${managerVO.manager_phone}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/manager/manager.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <button type="submit"><i class="fas fa-edit"></i></button>
 			     <input type="hidden" name="manager_id"  value="${managerVO.manager_id}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="action"	value="getOne_For_Update">
+			  </FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/manager/manager.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <button type="submit"><i class="fas fa-trash-alt"></i></button>
 			     <input type="hidden" name="manager_id"  value="${managerVO.manager_id}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="action" value="delete">
+			  </FORM>
 			</td>
 		</tr>
 	</c:forEach>
+	
 </table>
+<br>
 <%@ include file="page2.file" %>
+
+<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 
 </body>
 </html>

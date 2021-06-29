@@ -25,9 +25,8 @@
                     <div class="shopping_cart_detail">
                         <h2><%=order.getName()%></h2>
                         <h3><%=order.getPrice()%>  GP</h3>
-                        <h4>數量:<%=order.getQuantity()%></h4>
+                        <h4>數量:&nbsp;<%=order.getQuantity()%></h4>
 
-<!-- 						<input type="number" min="1" max="100"> -->
                      
                         <form name="deleteForm" action="<%=request.getContextPath()%>/product_list/shopping.html" 
                         			method="POST" target="nm_iframe3">

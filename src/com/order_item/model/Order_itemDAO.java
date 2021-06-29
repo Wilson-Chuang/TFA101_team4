@@ -27,15 +27,15 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO ORDER_ITEM (PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT) VALUES (?, ?, ?, ?)";
+			"INSERT INTO ORDER_ITEM (PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT,PRODUCT_ID) VALUES (?, ?, ?, ?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT ORDER_ITEM_ID,PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT FROM ORDER_ITEM ORDER BY ORDER_ITEM_ID";
+			"SELECT ORDER_ITEM_ID,PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT,PRODUCT_ID FROM ORDER_ITEM ORDER BY ORDER_ITEM_ID";
 		private static final String GET_ONE_STMT = 
-			"SELECT ORDER_ITEM_ID,PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT FROM ORDER_ITEM WHERE ORDER_ITEM_ID = ?";
+			"SELECT ORDER_ITEM_ID,PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT,PRODUCT_ID FROM ORDER_ITEM WHERE ORDER_ITEM_ID = ?";
 		private static final String DELETE = 
 			"DELETE FROM ORDER_ITEM WHERE ORDER_ITEM_ID= ?";
 		private static final String UPDATE = 
-			"UPDATE ORDER_ITEM SET PRODUCT_NAME=?, ORDERS_ID=?, ORDER_ITEM_AMOUNT=?, ORDER_ITEM_POINT=? WHERE ORDER_ITEM_ID = ?";
+			"UPDATE ORDER_ITEM SET PRODUCT_NAME=?, ORDERS_ID=?, ORDER_ITEM_AMOUNT=?, ORDER_ITEM_POINT=?, PRODUCT_ID WHERE ORDER_ITEM_ID = ?";
 
 		
 		@Override
@@ -52,6 +52,7 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 				pstmt.setInt(2, order_itemVO.getOrders_no());
 				pstmt.setInt(3,order_itemVO.getOrder_item_amount());
 				pstmt.setInt(4, order_itemVO.getOrder_item_point());
+				pstmt.setInt(5, order_itemVO.getProduct_no());
 				
 				pstmt.executeUpdate();
 				
@@ -96,7 +97,7 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 				pstmt.setInt(3, order_itemVO.getOrder_item_amount());
 				pstmt.setInt(4, order_itemVO.getOrder_item_point());
 				pstmt.setInt(5, order_itemVO.getOrder_item_no());
-				
+				pstmt.setInt(6, order_itemVO.getProduct_no());
 
 				pstmt.executeUpdate();
 				
@@ -180,13 +181,14 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-				
+					
 					order_itemVO = new Order_itemVO();
 					order_itemVO.setOrder_item_no(rs.getInt("order_item_id"));
-					order_itemVO.setProduct_name(rs.getString("product_id"));
+					order_itemVO.setProduct_name(rs.getString("product_name"));
 					order_itemVO.setOrders_no(rs.getInt("orders_id"));
 					order_itemVO.setOrder_item_amount(rs.getInt("order_item_amount"));
 					order_itemVO.setOrder_item_point(rs.getInt("order_item_point"));
+					order_itemVO.setProduct_no(rs.getInt("product_id"));
 				
 				}
 
@@ -245,6 +247,7 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 					order_itemVO.setOrders_no(rs.getInt("orders_id"));
 					order_itemVO.setOrder_item_amount(rs.getInt("order_item_amount"));
 					order_itemVO.setOrder_item_point(rs.getInt("order_item_point"));
+					order_itemVO.setProduct_no(rs.getInt("product_id"));
 					
 					list.add(order_itemVO); // Store the row in the list
 				}
@@ -285,7 +288,7 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 		public void insert2 (Order_itemVO order_itemVO , Connection con) {
 
 			PreparedStatement pstmt = null;
-
+//			System.out.println("進來insert2");
 			try {
 //				con = ds.getConnection();
 	     		pstmt = con.prepareStatement(INSERT_STMT);
@@ -294,6 +297,8 @@ public class Order_itemDAO implements Order_itemDAO_interface{
 				pstmt.setInt(2, order_itemVO.getOrders_no());
 				pstmt.setInt(3,order_itemVO.getOrder_item_amount());
 				pstmt.setInt(4, order_itemVO.getOrder_item_point());
+				pstmt.setInt(5, order_itemVO.getProduct_no());
+//				System.out.println("訂購的產品編號"+order_itemVO.getProduct_no());
 
 				Statement stmt=	con.createStatement();
 				stmt.executeUpdate("set auto_increment_increment=1;"); 

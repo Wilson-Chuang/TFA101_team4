@@ -50,6 +50,8 @@
 						<input type="TEXT" name="product_stock_quantity" size="15"
 							value="<%=(productVO == null) ? "" : productVO.getProduct_stock_quantity()%>" />
 					</div>
+					
+					
 					<div class="form1">商品介紹</div>
 					<div class="form2">
 						<textarea name="product_intro" rows="15" cols="80" class="ckeditor"></textarea>

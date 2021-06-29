@@ -1,6 +1,6 @@
 package com.article_category.model;
 
-public class Article_CategoryVO implements java.io.Serializable{
+public class Article_categoryVO implements java.io.Serializable{
 	
 	private Integer article_category_no;
 	
