@@ -8,7 +8,6 @@
 <%
 	PartyVO partyVO = (PartyVO) request.getAttribute("partyVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
-<%=partyVO == null%>--${partyVO.party_id}--
 
 <!DOCTYPE html>
 <html>
@@ -17,56 +16,12 @@
 <title>揪團資料修改</title>
 
 
-<style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
-table {
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
-
-th, td {
-	padding: 1px;
-}
-</style>
-
-<script src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
+<script src="<%=request.getContextPath()%>/party/ckeditor/ckeditor.js"></script>
 
 </head>
 <body bgcolor='white'>
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>揪團資料修改</h3>
-				<h4>
-					<a href="party_select_page.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
 
 	<h3>資料修改:</h3>
 
@@ -152,7 +107,7 @@ th, td {
 
 $.datetimepicker.setLocale('zh');
 $('#party_start_time').datetimepicker({
-   theme: 'dark',              //theme: 'dark',
+   theme: 'white',              //theme: 'dark',
    timepicker:true,        //timepicker:true,
    step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
@@ -165,7 +120,7 @@ $('#party_start_time').datetimepicker({
 
 $.datetimepicker.setLocale('zh');
 $('#party_end_time').datetimepicker({
-   theme: 'dark',              //theme: 'dark',
+   theme: 'white',              //theme: 'dark',
    timepicker:true,        //timepicker:true,
    step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',

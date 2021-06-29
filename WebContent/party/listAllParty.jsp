@@ -78,10 +78,12 @@
 		<th>揪團標題</th>
 		<th>揪團開始時間</th>
 		<th>揪團結束時間</th>
-		<th>揪團介紹</th>
+		<th>揪團簡介</th>
 		<th>成團人數最多限制</th>
 		<th>成團人數最少限制</th>
 	</tr>
+	
+	
 	<%@ include file="page1.file" %> 
 	<c:forEach var="partyVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		

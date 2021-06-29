@@ -8,52 +8,50 @@
 <%
 	PartyVO partyVO = (PartyVO) request.getAttribute("PartyVO");
 %>
-<%= partyVO==null %>--${partyVO.party_id}--
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>揪團發起</title>
 
 
+
+
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
+ li {list-style-type:none;}
 </style>
-<script src="<%=request.getContextPath()%>/resources/ckeditor/ckeditor.js"></script>
+
+
+<style>
+
+ 	input[type="submit"]{padding:10px 25px; background:#4166F8; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	color: white;
+	float:right;
+	margin: 20px 20px;
+	}
+
+</style>
+
+
+
+<script src="<%=request.getContextPath()%>/party/ckeditor/ckeditor.js"></script>
 
 </head>
 <body>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>揪團發起</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="party_select_page.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+	
+	<div class="party_home">
+	
+      <ul>
+         <li><a href='partyhome.jsp'><img src="./image/logo.png"  width="400px" height="200px"></a></li>
+      </ul>
+	
+    </div>
 
-	<h3>資料新增:</h3>
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -106,7 +104,7 @@ h4 {
 		</table>
 		<br> 
 		<input type="hidden" name="action" value="insert">
-		<input type="submit" value="送出新增">
+		<input type="submit" value="建立">
 	</FORM>
 
 
@@ -143,7 +141,7 @@ try {
 
 $.datetimepicker.setLocale('zh');
 $('#party_start_time').datetimepicker({
-   theme: '',              //theme: 'dark',
+   theme: 'white',              //theme: 'dark',
    timepicker:false,       //timepicker:true,
    step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    format:'Y-m-d',         //format:'Y-m-d H:i:s',
@@ -167,7 +165,7 @@ try {
 
 $.datetimepicker.setLocale('zh');
 $('#party_end_time').datetimepicker({
-   theme: '',              //theme: 'dark',
+   theme: 'white',              //theme: 'dark',
    timepicker:false,       //timepicker:true,
    step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    format:'Y-m-d',         //format:'Y-m-d H:i:s',

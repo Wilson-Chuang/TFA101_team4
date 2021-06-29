@@ -69,7 +69,7 @@ public class PartyServlet extends HttpServlet {
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("partyVO", partyVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("partyVO", partyVO); // 資料庫取出的partyVO物件,存入req
 				String url = "/party/listOneParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -81,6 +81,69 @@ public class PartyServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		
+		
+		if ("getOne_For_party".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String str = req.getParameter("party_id");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入編號");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				Integer party_id = null;
+				try {
+					party_id = new Integer(str);
+				} catch (Exception e) {
+					errorMsgs.add("編號格式不正確");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				PartyService partySvc = new PartyService();
+				PartyVO partyVO = partySvc.getOneParty(party_id);
+				if (partyVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("partyVO", partyVO); // 資料庫取出的partyVO物件,存入req
+				String url = "/party/partyNews.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 
 		if ("insert".equals(action)) { // 來自listAllEmp.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
@@ -178,6 +241,9 @@ public class PartyServlet extends HttpServlet {
 		
 		
 		
+		
+		
+		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -207,7 +273,6 @@ public class PartyServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
 		
 		
 		

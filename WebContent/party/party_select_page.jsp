@@ -34,9 +34,12 @@
 
 
 
-<table id="table-1">
-   <tr><td><h3>PARTY</h3><h4>( MVC )</h4></td></tr>
-</table>
+<div class="party_home">
+      <ul>
+         <li><a href='partyhome.jsp'><img src="./image/logo.png"  width="400px" height="200px"></a></li>
+      </ul>
+	
+    </div>
 
 
 <h3>揪團查詢:</h3>
@@ -62,7 +65,7 @@
      <FORM METHOD="post" ACTION="party.do" >
        <b>揪團編號:</b>
        <select size="1" name="party_id">
-         <c:forEach var="partyVO" items="${partySvc.all}" > 
+         <c:forEach var="partyVO" items="${partySvc.all}"> 
           <option value="${partyVO.party_id}">${partyVO.party_id}
          </c:forEach>   
        </select>

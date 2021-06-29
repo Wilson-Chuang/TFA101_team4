@@ -21,7 +21,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.image_previewText=' ';
 	
     config.toolbarGroups = [
-		{ name: 'insert', groups: [ 'base64image', 'insert' ] },
 		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
