@@ -148,23 +148,19 @@ public class SearchServlet extends HttpServlet {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				System.out.println(errorMsgs);
 			}
-		}
-		if ("article_search".equals(action)) {
+		} else if ("article_search".equals(action)) {
 			String article = req.getParameter("article-keyword-bar");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-		}
-		if ("product_search".equals(action)) {
+		} else if ("product_search".equals(action)) {
 			String product = req.getParameter("product-keyword-bar");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-		}
-		if ("party_search".equals(action)) {
+		} else if ("party_search".equals(action)) {
 			String party = req.getParameter("party-keyword-bar");
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-		}
-		if ("part_search".equals(action)) {
+		} else if ("part_search".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {				
@@ -215,8 +211,7 @@ public class SearchServlet extends HttpServlet {
 				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
-		}
-		if ("getPartQuery".equals(action)) {			
+		} else if ("getPartQuery".equals(action)) {			
 			try {
 				/***************************1.接收請求參數****************************************/
 				Double lat = 0.0;
@@ -253,9 +248,7 @@ public class SearchServlet extends HttpServlet {
 				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
-		}
-		
-		if ("navi".equals(action)) {			
+		} else if ("navi".equals(action)) {			
 			try {
 				/***************************1.接收請求參數****************************************/
 				String shop_tax_id = "";
@@ -282,7 +275,8 @@ public class SearchServlet extends HttpServlet {
 				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
+		} else {
+			res.sendRedirect(req.getContextPath());
 		}
-		res.sendRedirect(req.getContextPath());
 	}
 }
