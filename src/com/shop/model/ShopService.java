@@ -53,38 +53,6 @@ public class ShopService {
 
 		return shopVO;
 	}
-	public ShopVO insertShop(Integer member_id, String shop_tax_id, 
-			String shop_name, String shop_zip_code, String shop_city, 
-			String shop_address, Double shop_latitude, Double shop_longitude, 
-			String shop_description, String shop_tag,  
-			String shop_email, String shop_phone, Integer shop_price_level, 
-			String shop_opening_time, String shop_website, 
-			String shop_main_img, String shop_gallery,Integer shop_reserv_status) {
-		
-		ShopVO shopVO = new ShopVO();
-		
-		shopVO.setMember_id(member_id);
-		shopVO.setShop_tax_id(shop_tax_id);
-		shopVO.setShop_name(shop_name);
-		shopVO.setShop_zip_code(shop_zip_code);
-		shopVO.setShop_city(shop_city);
-		shopVO.setShop_address(shop_address);
-		shopVO.setShop_latitude(shop_latitude);
-		shopVO.setShop_longitude(shop_longitude);
-		shopVO.setShop_description(shop_description);
-		shopVO.setShop_tag(shop_tag);
-		shopVO.setShop_email(shop_email);
-		shopVO.setShop_phone(shop_phone);
-		shopVO.setShop_price_level(shop_price_level);
-		shopVO.setShop_opening_time(shop_opening_time);
-		shopVO.setShop_website(shop_website);
-		shopVO.setShop_main_img(shop_main_img);
-		shopVO.setShop_gallery(shop_gallery);
-		shopVO.setShop_reserv_status(shop_reserv_status);
-		dao.insert_shop(shopVO);
-		
-		return shopVO;
-	}
 
 	public ShopVO updateShop(Integer shop_id, Integer member_id, String shop_tax_id, 
 			String shop_name, String shop_zip_code, String shop_city, 
@@ -126,7 +94,68 @@ public class ShopService {
 
 		return shopVO;
 	}
+
+	public void deleteShop(Integer shop_id) {
+		dao.delete(shop_id);
+	}
+
+	public ShopVO getOneShop(Integer shop_id) {
+		return dao.findByPrimaryKey(shop_id);
+	}
 	
+	public ShopVO findShop_tax_id(String shop_tax_id) {
+		return dao.findShop_tax_id(shop_tax_id);
+	}
+	
+	public List<ShopVO> getAll() {
+		return dao.getAll();
+	}
+	
+	public List<ShopVO> getAllbyLatLng(Double lat, Double lng) {
+		return dao.getAllbyLatLng(lat, lng);
+	}
+	
+	public List<ShopVO> findShopPlace(String place) {
+		return dao.findShopPlace(place);
+	}
+	public List<ShopVO> findShopKeyword(String keyword) {
+		return dao.findShopKeyword(keyword);
+	}
+	public List<ShopVO> findShopBoth(String keyword, String place) {
+		return dao.findShopBoth(keyword, place);
+	}
+	public ShopVO insertShop(Integer member_id, String shop_tax_id, 
+			String shop_name, String shop_zip_code, String shop_city, 
+			String shop_address, Double shop_latitude, Double shop_longitude, 
+			String shop_description, String shop_tag,  
+			String shop_email, String shop_phone, Integer shop_price_level, 
+			String shop_opening_time, String shop_website, 
+			String shop_main_img, String shop_gallery,Integer shop_reserv_status) {
+		
+		ShopVO shopVO = new ShopVO();
+		
+		shopVO.setMember_id(member_id);
+		shopVO.setShop_tax_id(shop_tax_id);
+		shopVO.setShop_name(shop_name);
+		shopVO.setShop_zip_code(shop_zip_code);
+		shopVO.setShop_city(shop_city);
+		shopVO.setShop_address(shop_address);
+		shopVO.setShop_latitude(shop_latitude);
+		shopVO.setShop_longitude(shop_longitude);
+		shopVO.setShop_description(shop_description);
+		shopVO.setShop_tag(shop_tag);
+		shopVO.setShop_email(shop_email);
+		shopVO.setShop_phone(shop_phone);
+		shopVO.setShop_price_level(shop_price_level);
+		shopVO.setShop_opening_time(shop_opening_time);
+		shopVO.setShop_website(shop_website);
+		shopVO.setShop_main_img(shop_main_img);
+		shopVO.setShop_gallery(shop_gallery);
+		shopVO.setShop_reserv_status(shop_reserv_status);
+		dao.insert_shop(shopVO);
+		
+		return shopVO;
+	}
 	public ShopVO updateShopRaing(Integer shop_id,Double shop_rating) {
 		
 		ShopVO shopVO = new ShopVO();
@@ -137,19 +166,8 @@ public class ShopService {
 		
 		return shopVO;
 	}
-
 	public void add_total_view(Integer shop_id) {
 		dao.add_total_view(shop_id);
 	}
-	public void deleteShop(Integer shop_id) {
-		dao.delete(shop_id);
-	}
-
-	public ShopVO getOneShop(Integer shop_id) {
-		return dao.findByPrimaryKey(shop_id);
-	}
-
-	public List<ShopVO> getAll() {
-		return dao.getAll();
-	}
+	
 }

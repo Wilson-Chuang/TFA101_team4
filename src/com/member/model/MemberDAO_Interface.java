@@ -11,6 +11,7 @@ public interface MemberDAO_Interface {
     public MemberVO GET_ONE_BY_ID(Integer MEMBER_ID);
     public List<MemberVO> getAll();
     public List<String> accountCheck();
+    public void point_update(MemberVO memberVO);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
  

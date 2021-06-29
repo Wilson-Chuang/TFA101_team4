@@ -545,7 +545,7 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+			System.out.println("fuck");
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 						
@@ -604,7 +604,7 @@ public class MemberServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
-				
+				System.out.println("fuck");
 				String location=(String) session.getAttribute("location");
 				if(location==null) {
 				String url ="/member/PersonalFile.jsp";

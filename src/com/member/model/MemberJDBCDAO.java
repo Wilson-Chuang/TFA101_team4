@@ -325,4 +325,9 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 			// TODO Auto-generated method stub
 			return null;
 		}
+		@Override
+		public void point_update(MemberVO memberVO) {
+			// TODO Auto-generated method stub
+			
+		}
 }

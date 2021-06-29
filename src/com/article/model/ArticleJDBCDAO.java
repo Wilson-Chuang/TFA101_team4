@@ -718,4 +718,16 @@ public class ArticleJDBCDAO implements ArticleDAO_interface{
 //				System.out.println();
 //			}
 		}
+
+		@Override
+		public ArticleVO getArticleFollowed(Integer article_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<ArticleVO> getMyArticle(Integer member_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

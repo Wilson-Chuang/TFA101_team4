@@ -1,49 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%
-	SearchService searchSvc = new SearchService();
-	List<SearchVO> searchlist = searchSvc.getAll();
-	pageContext.setAttribute("searchlist",searchlist);
-	
-	Set<String> shop_tags = new HashSet<String>();
-	for(int i = 0; i < searchlist.size(); i++){
-		if(searchlist.get(i).getSearch_type() == 2){
-			 shop_tags.add(searchlist.get(i).getSearch_key());
-		}
-	}
-	pageContext.setAttribute("shop_tags",shop_tags);
-		
-	Set<String> place_tags = new HashSet<String>();
-	for(int i = 0; i < searchlist.size(); i++){
-		if(searchlist.get(i).getSearch_type() == 1){
-			place_tags.add(searchlist.get(i).getSearch_key());
-		}
-	}
-	pageContext.setAttribute("place_tags",place_tags);
-%>
-
-<script>
-	var shopsrc = [
-		<c:forEach items="${shop_tags}" var="value" varStatus="status">
-			{"label": "${value}"}
-			<c:if test="${!status.last}">,</c:if>
-		</c:forEach>];
-	
-	var placesrc = [
-		<c:forEach items="${place_tags}" var="value" varStatus="status">
-			{"label": "${value}"}
-			<c:if test="${!status.last}">,</c:if>
-		</c:forEach>];
-</script>
 <nav class="fixed-top bg-body">
 		<div class="container-fluid">
 			<div class="row g-0">
 				<div class="col-lg-2 d-flex justify-content-center align-items-center">
-					<a class="navbar-brand" href="<%=request.getContextPath()%>">
+					<a class="navbar-brand" href="#">
 						<img style="min-height:70px;min-width:150px;max-height:70px" src="<%=request.getContextPath()%>/img/header/logo.png" />
 					</a>
 				</div>
-				<form class="col-lg-6" id="form-submit" method="post" action="<%=request.getContextPath()%>/search.do">
+				<form class="col-lg-6" method="post" action="">
 					<div class="row">
 						<div class="col-md-5 pt-2">
 							<div class="row g-0 d-flex justify-content-center">
@@ -77,9 +42,9 @@
 										<div id="range-slider"></div>
 										<input type="hidden" name="reachtime" id="btn-reachtime" value="5" />
 									</div>
-									<div class="col-sm-3" id="page-checker"></div>
-									<input type="hidden" name="lat" id="hidden-lat" value="25.052244795897003" />
-									<input type="hidden" name="lng" id="hidden-lng" value="121.54313659210797" />
+									<div class="col-sm-3">
+										<button type="button" id="btn-range" class="btn btn-primary text-nowrap">確定</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -91,26 +56,23 @@
 									<option value="product">商品</option>
 									<option value="party">揪團</option>
 								</select>
-								<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" value="<%= 
-									(request.getParameter("place-bar") == null) ? "" : request.getParameter("place-bar")%>"/>
-								<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" value="<%=
-									(request.getParameter("shop-keyword-bar") == null) ? "" : request.getParameter("shop-keyword-bar")%>"/>
-								<button type="submit" class="btn btn-primary btn-sm" id="btn-submit"><i class="bi bi-search" aria-hidden="true"></i></button>
-								<input type="hidden" name="action" class="search-bar" value="shop_search">
+								<input type="text" name="place-bar" id="place-bar" class="form-control w-25 search-bar" placeholder="地點" />
+								<input type="text" name="shop-keyword-bar" id="shop-keyword-bar" class="form-control w-25 search-bar" placeholder="關鍵字" />
+								<button type="button" class="btn btn-primary btn-sm" id="btn-submit"><i class="bi bi-search" aria-hidden="true"></i></button>
 							</div>
 							<div class="row g-2 d-flex justify-content-evenly align-items-center pt-4" id="popular-key">
-								<a href="#" id="tag0" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">火鍋</a>
-								<a href="#" id="tag1" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">早午餐</a>
-								<a href="#" id="tag2" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">約會餐廳</a>
-								<a href="#" id="tag3" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">牛排</a>
-								<a href="#" id="tag4" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">居酒屋</a>
-								<a href="#" id="tag5" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">餐酒館</a>								
-								<a href="#" id="tag6" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">日式料理</a>
-								<a href="#" id="tag7" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">吃到飽</a>
-								<a href="#" id="tag8" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">甜點</a>
-								<a href="#" id="tag9" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">燒肉</a>
-								<a href="#" id="tag10" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">拉麵</a>
-								<a href="#" id="tag11" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">小吃</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">火鍋</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">早午餐</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">約會餐廳</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">牛排</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">居酒屋</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">餐酒館</a>								
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">日式料理</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">吃到飽</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">甜點</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">燒肉</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">拉麵</a>
+								<a href="#" class="badge bg-primary link-light col-sm-auto text-decoration-none mx-1">小吃</a>
 							</div>
 						</div>
 					</div>
@@ -126,7 +88,7 @@
 					<nav class="navbar-expand-lg pt-4">
 						<ul class="nav justify-content-evenly">
 							<li class="nav-item">
-								<a class="nav-link h5" href="<%=request.getContextPath()%>">首頁</a>
+								<a class="nav-link h5" href="#">首頁</a>
 							</li>
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle h5" href="#" data-bs-toggle="dropdown">專欄</a>

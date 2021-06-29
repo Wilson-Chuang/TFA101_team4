@@ -14,4 +14,6 @@ public interface ArticleDAO_interface {
 		  public ArticleVO findByPrimaryKey(Integer article_no);
 		  public List<ArticleVO> getAll();
 		  public Set<ArticleVO> getArticle_ByMember_no(Integer member_no);
+		  public List<ArticleVO> getMyArticle(Integer member_id);
+		  public ArticleVO getArticleFollowed(Integer article_id);
 }

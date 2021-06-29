@@ -128,16 +128,25 @@ public class MemberService {
 		 return dao.accountCheck();
 		 
 	 }
-//	 public List<ArticleVO> getMyArticle(Integer member_id){
-//		 return dao_article.getMyArticle(member_id);
-//	 }
-//	 public ArticleVO getArticleFollowed(Integer article_no){
-//		 return dao_article.getArticleFollowed(article_no);
-//	 }
+	 public List<ArticleVO> getMyArticle(Integer member_id){
+		 return dao_article.getMyArticle(member_id);
+	 }
+	 public ArticleVO getArticleFollowed(Integer article_no){
+		 return dao_article.getArticleFollowed(article_no);
+	 }
 	 public List<Article_FavoriteVO> getAllArticleFavByMem(Integer member_id) {
 			return dao_article_fav.getAllByMember(member_id);
 		}
 	
-	 
+	 public MemberVO point_update(Integer member_id,Integer member_point) {
+		 
+		  MemberVO memberVO=new MemberVO();
+		  
+		  memberVO.setMember_id(member_id);
+		  memberVO.setMember_point(member_point);
+		  dao.point_update(memberVO);
+		  return memberVO;
+		  
+		 }
 	 
 }

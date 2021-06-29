@@ -31,6 +31,8 @@ public class MemberDAO implements MemberDAO_Interface {
 	private static final String GET_ONE_BY_ID = "SELECT * FROM member where member_id = ?";
 	private static final String DELETE = "DELETE FROM member where member_email = ?";
 	private static final String UPDATE = "UPDATE member set member_name=?,member_gender=?,member_birth=?,member_phone=?,member_address=?,member_pic=?,member_update_time=?,member_age=? where member_email=?";
+	private static final String POINT_UPDATE = 
+			"UPDATE member set member_point=? where member_id = ?";
 	@Override
 	public void insert(MemberVO MemberVO) {
 		Connection con = null;
@@ -366,4 +368,40 @@ public class MemberDAO implements MemberDAO_Interface {
 			
 			return list;
 	}
+	@Override
+	 public void point_update(MemberVO memberVO) {
+	  
+	  Connection con = null;
+	  PreparedStatement pstmt = null;
+	  try {
+	   con = ds.getConnection();
+	   pstmt = con.prepareStatement(POINT_UPDATE);
+	   
+	   
+	   pstmt.setInt(1,memberVO.getMember_point());
+
+	   pstmt.setInt(2,memberVO.getMember_id());
+	   
+	  
+	   pstmt.executeUpdate();
+	  } catch (SQLException se) {
+	    throw new RuntimeException("A database error occured. "
+	      + se.getMessage());
+	  }finally {
+	   if (pstmt != null) {
+	    try {
+	     pstmt.close();
+	    } catch (SQLException se) {
+	     se.printStackTrace(System.err);
+	    }
+	   }
+	   if (con != null) {
+	    try {
+	     con.close();
+	    } catch (Exception e) {
+	     e.printStackTrace(System.err);
+	    }
+	   }
+	  }
+	 }
 }

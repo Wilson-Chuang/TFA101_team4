@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<img src="/upload/<%=article.getArticle_img_name() %>" class="card-img" alt="...">
 								</div>
 								<div class="col-md-8">
-									<p class="card-text"><%=MemberVO.getMember_name() %>發表了「<%=article.getTitle() %>」這篇文章!</p>
+									<p class="card-text"><%=MemberVO.getMember_name() %>發表了「<%=article.getArticle_title() %>」這篇文章!</p>
 								</div>
 							</div></a>
 						</div>
