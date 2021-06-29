@@ -54,8 +54,12 @@ public class ManagerService {
 	public ManagerVO getOneManager(Integer manager_id) {
 		return dao.findByPrimaryKey(manager_id);
 	}
-
+	
 	public List<ManagerVO> getAll() {
 		return dao.getAll();
+	}
+
+	public int GETID(String manager_email) {
+		return dao.getId(manager_email);
 	}
 }
