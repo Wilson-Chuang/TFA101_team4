@@ -479,6 +479,8 @@ $("#popular-key")
 		if (typeof searchedList !== "undefined") {
 			searchedList();
 		}
+		$('#redirect').removeClass("d-none");
+		$('.row').fadeTo("fast", 0.5);
 	});
 
 $("#btn-submit").prop("disabled", true);
