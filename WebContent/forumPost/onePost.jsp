@@ -1,12 +1,13 @@
-<%@page import="java.util.List"%>
+<%@ page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.forum_post.model.*"%>
 <%@ page import="com.forum_reply.model.*"%>
 <%@ page import="com.member.model.*"%>
-<%@include file="../../pages/header.file"%>
-
+<%@ page import="com.search.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<%-- <%@include file="../../pages/header.file"%> --%>
 <%-- <%=(request.getAttribute("forumPost") == null)%> --%>
 
 <%
@@ -91,6 +92,8 @@ div.like_block{
 	<link rel="stylesheet" href="css/onePost.css">
 </head>
 <body>
+
+	
 <!-- 	<table id="table-1"> -->
 <!-- 		<tr> -->
 <!-- 			<td><h3>文章 ForumPost: onePost.jsp</h3> -->

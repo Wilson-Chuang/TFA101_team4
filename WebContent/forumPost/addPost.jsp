@@ -2,7 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_post.model.*" %>
-<%@include file="../../pages/header.file"%>
+<%@ page import="com.search.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<%-- <%@include file="../../pages/header.file"%> --%>
 
 <%
 	ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");
@@ -53,6 +55,7 @@ th, td {
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
 </head>
 <body>
+
 	<table id="table-1">
 		<tr>
 			<td><h3>ForumPost: addPost.jsp</h3>

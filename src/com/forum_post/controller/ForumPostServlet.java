@@ -410,7 +410,7 @@ public class ForumPostServlet extends HttpServlet {
 				
 				
 			} catch(Exception e) {
-				errorMsgs.add("處理檢舉失敗" + e.getMessage());
+				errorMsgs.add("處理發文檢舉失敗" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/allPostReport.jsp");
 				failureView.forward(req, res);
 			}

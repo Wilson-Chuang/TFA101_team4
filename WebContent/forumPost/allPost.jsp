@@ -3,7 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_post.model.*"%>
-<%@include file="../../pages/header.file"%>
+<%@ page import="com.search.model.*"%>
+<%@ page import="com.shop.model.*"%>
+
+<%-- <%@include file="../../pages/header.file"%> --%>
+
 
 <%
     ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forum_post.model.ForumPostService;
 import com.forum_post.model.ForumPostVO;
+import com.forum_post_report.model.ForumPostReportService;
 import com.forum_reply.model.ForumReplyService;
 import com.forum_reply.model.ForumReplyVO;
 import com.forum_reply_report.model.ForumReplyReportService;
@@ -298,6 +299,37 @@ public class ForumReplyServlet extends HttpServlet {
 			} catch(Exception e) {
 				errorMsgs.add("檢舉失敗" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/replyReport.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		if("check_reply_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				Integer forum_reply_report_id = new Integer(req.getParameter("forum_reply_report_id").trim());
+				Integer forum_reply_report_status = new Integer(req.getParameter("forum_reply_report_status").trim());
+				Integer replyid = new Integer(req.getParameter("replyid").trim());
+				
+				ForumReplyReportService forumReplyReportSvc = new ForumReplyReportService();
+				if(forum_reply_report_status == 0) {
+					forumReplyReportSvc.updateStatusForumReplyReport(forum_reply_report_status, forum_reply_report_id);
+					ForumReplyService forumReplySvc = new ForumReplyService();
+					forumReplySvc.updateStatusForumReply(forum_reply_report_status, replyid);
+				}else {
+					forumReplyReportSvc.updateStatusForumReplyReport(forum_reply_report_status, forum_reply_report_id);
+				}
+				
+				String url = "/forumPost/allReplyReport.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				
+			} catch(Exception e) {
+				errorMsgs.add("處理回覆檢舉失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/allReplyReport.jsp");
 				failureView.forward(req, res);
 			}
 		}
