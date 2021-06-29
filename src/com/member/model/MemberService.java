@@ -128,12 +128,12 @@ public class MemberService {
 		 return dao.accountCheck();
 		 
 	 }
-	 public List<ArticleVO> getMyArticle(Integer member_id){
-		 return dao_article.getMyArticle(member_id);
-	 }
-	 public ArticleVO getArticleFollowed(Integer article_no){
-		 return dao_article.getArticleFollowed(article_no);
-	 }
+//	 public List<ArticleVO> getMyArticle(Integer member_id){
+//		 return dao_article.getMyArticle(member_id);
+//	 }
+//	 public ArticleVO getArticleFollowed(Integer article_no){
+//		 return dao_article.getArticleFollowed(article_no);
+//	 }
 	 public List<Article_FavoriteVO> getAllArticleFavByMem(Integer member_id) {
 			return dao_article_fav.getAllByMember(member_id);
 		}
