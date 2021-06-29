@@ -24,7 +24,7 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 body {
-    background-color: #f5f5f5;
+    background-color: white;
     line-height: 1;
 }
 ol, ul {
@@ -93,7 +93,7 @@ div.datacount{
     letter-spacing:2px;
 }
 
-div.product_navbar button{
+.add_product{
     background-color: #3899ec;
     color: white;
     position: absolute;
@@ -158,7 +158,7 @@ div.listProd_content img{
 /* 	max-height: 100%;	 */
 }
 
-div.listProd_content input{
+.edit,.delete{
 	background-color: white;
 	border: 0;
 	cursor: pointer;
@@ -169,6 +169,21 @@ div.listProd_content input{
 	top:43%;
 	left:0;
 	border:1px solid black;
+	opacity:0;
+}
+.view{
+	background-color: red;
+	border: 0;
+	cursor: pointer;
+	font-size: 16px;
+	letter-spacing: 1.5px;
+	position:absolute;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	top:0;
+	right:20px;
+	border:1px solid black;
+	height:100%;
+	width:630px;
 	opacity:0;
 }
 
@@ -192,3 +207,62 @@ div.include_file{
 	color:gray;
 }
 
+.search_button{
+    background-color: white;
+    color: gray;
+    position: absolute;
+/*     border: 1px solid gray; */
+    border:0;
+    right: 320px;
+    bottom: 33%;
+    border-radius: 999em;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+
+.search_bar{
+	position:absolute;
+	right:40%;
+	bottom: 30%;
+	height:35px;
+	border-radius:40px;
+	border:1px solid gray;
+	padding-left:10px;
+	width:300px;
+}
+
+.search_bar:focus{
+	outline:none;
+}
+
+.search_submit{
+	position:absolute;
+	right:45px;
+	bottom: 30px;
+	width:20px;
+	z-index:99;
+	cursor:pointer;
+	opacity:0;
+}
+
+.button1{
+/*     background-color: #3899ec; */
+	background-color: #3899ec;
+    color: white;
+    position: absolute;
+    border: 0;
+    right: 23%;
+    top: 60px;
+    border-radius: 40px;
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+.fa-search{
+	
+}

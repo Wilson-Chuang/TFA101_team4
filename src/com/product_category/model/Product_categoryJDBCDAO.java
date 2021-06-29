@@ -10,8 +10,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.article_category.model.Article_CategoryJDBCDAO;
-import com.article_category.model.Article_CategoryVO;
+import com.article_category.model.Article_categoryJDBCDAO;
+import com.article_category.model.Article_categoryVO;
 import com.product.model.ProductVO;
 
 public class Product_categoryJDBCDAO implements Product_categoryDAO_interface {
@@ -291,9 +291,9 @@ public class Product_categoryJDBCDAO implements Product_categoryDAO_interface {
 
 	@Override
 	public Set<ProductVO> getProductsByproduct_category_no(Integer product_category_no) {
+		
 		Set<ProductVO> set = new LinkedHashSet<ProductVO>();
 		ProductVO productVO = null;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

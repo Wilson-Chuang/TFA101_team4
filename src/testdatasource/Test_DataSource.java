@@ -40,7 +40,7 @@ public class Test_DataSource extends HttpServlet {
 				if (conn != null) {
 					out.println("Got Connection: " + conn.toString());
 					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("select * from product");
+					ResultSet rs = stmt.executeQuery("select * from member");
 					while (rs.next()) {
 						out.println("productNo = " + rs.getString(1) + "    productName = " + rs.getString(2));
 					}

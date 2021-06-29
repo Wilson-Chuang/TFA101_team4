@@ -21,6 +21,7 @@
 	set.add(request.getAttribute("set"));
 %>
 
+
 <jsp:useBean id="product_categorySvc" scope="page" class="com.product_category.model.Product_categoryService" />
 
 <!DOCTYPE html>
@@ -76,14 +77,12 @@
         <div class="main">
             <div class="side_nav">
                 <ul>
+                	<li>
+                		<a href="<%=request.getContextPath()%>/product_list/product_list.jsp">全部商品</a>
+                	</li>
                 <c:forEach var="product_categoryVO" items="${list}">
                     <li>
-                    		<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product_category/product_category.do">
-									<input type="submit" value="檢視">
-									<input type="hidden" name="product_category_no" value="${product_categoryVO.product_category_no}"> 
-									<input type="hidden" name="action" value="see_category_product">
-							</FORM>
-							<a href="#">${product_categoryVO.product_category_name}</a>
+							<a href="<%=request.getContextPath()%>/product_list/product_list${product_categoryVO.product_category_no}.jsp">${product_categoryVO.product_category_name}</a>
 					</li>
                 </c:forEach>
                 </ul>                
@@ -93,13 +92,20 @@
 		
             <div class="product_list">
                   
-            <c:forEach var="productVO" items="${set}">
+            <c:forEach var="productVO" items="${list2}">
             <form name="shoppingForm" action="<%=request.getContextPath()%>/product_list/shopping.html" 
             			method="POST" target="nm_iframe">
                 <div class="product">
                     <a href=""><img src="/upload/${productVO.product_img_name}"></a>
                     <div class="product_info">
-                        <p>${product_categoryVO.product_category_name}</p>
+                        <p>
+                        	<c:forEach var="product_categoryVO" items="${product_categorySvc.all}">
+                    			<c:if test="${productVO.product_category_no==product_categoryVO.product_category_no}">
+	                   			${product_categoryVO.product_category_name}
+                    			</c:if>
+                			</c:forEach>
+                             
+                        </p>
                         <a href="">
                             <h2>${productVO.product_name}</h2>
                         </a>

@@ -9,77 +9,76 @@
 
 <html>
 <head>
-<title>商品資料</title>
-<h4><a href="select_page.jsp">回首頁</a></h4>
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
-
+ <title>${productVO.product_name}</title>
+ <script src="${pageContext.request.contextPath}/product_list/vendors/jquery/jquery-3.6.0.min.js"></script>
+ <script src="${pageContext.request.contextPath}/product_list/js/popup.js"></script>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/product_list/css/popup.css">
+ <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/product_list/css/sidebar.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/product_list/css/cart.css">
+ <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+ <script src="https://kit.fontawesome.com/d210246855.js" crossorigin="anonymous"></script>
+ 
 </head>
-<body bgcolor='white'>
+<body>
+ <button id="sidebar-btn" class="sidebar-btn"><i class="fas fa-shopping-cart"></i></button>
+    <section id="sidebar" class="sidebar">
+	<jsp:include page="/product_list/Cart.jsp" flush="true" />
+    </section>
+    
+    
+    <form name="shoppingForm" action="<%=request.getContextPath()%>/product_list/shopping.html" 
+            			method="POST" target="nm_iframe">
+    <div id="content" class="content" style="background-color:white">
+        <div class="product_detail_img">
+            <img src="/upload/${productVO.product_img_name}" alt="">
+        </div>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>商品資料 - ListOneProduct.jsp</h3>
-<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
-	</td></tr>
-</table>
+        <div class="product_detail_info">
+            <div class="pd_title">${productVO.product_name}</div>
+            <div class="pd_info">${productVO.product_intro}</div>
+            <div class="pd_price">${productVO.product_point}</div>
+            <div class="pd_QTY">
 
-<table>
-	<tr>
-		<th>商品編號</th>
-		<th>商品名稱</th>
-		<th>商品介紹</th>
-		<th>商品價格</th>
-		<th>庫存數量</th>
-		<th>商品圖片</th>
-		<th>上架狀態</th>
-		<th>商品類別</th>
-	</tr>
-	<tr>
-		<td>${productVO.product_no}</td>
-		<td>${productVO.product_name}</td>
-		<td>${productVO.product_intro}</td>
-		<td>${productVO.product_point}</td>
-		<td>${productVO.product_stock_quantity}</td>
-		<td>${productVO.product_img}</td>
-		<td>${productVO.product_status eq 1?"上架":"下架"}</td> 
-		<c:if test="${productVO.product_category_no == 1}"><td>生活</td></c:if>
-		<c:if test="${productVO.product_category_no == 2}"><td>飯店住宿</td></c:if>
-		<c:if test="${productVO.product_category_no == 3}"><td>泡湯</td></c:if>
-		<c:if test="${productVO.product_category_no == 4}"><td>獨享食光</td></c:if>
-	</tr>
-</table>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="${productVO.product_stock_quantity}">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
 
+            </div>
+            <div class="pd_cart">
+                <input type="submit" value="加入購物車" class="pd_cart_button">
+                <input type="hidden" name="img_name" value="${productVO.product_img_name}">
+                <input type="hidden" name="name" value="${productVO.product_name}">
+                <input type="hidden" name="price" value="${productVO.product_point}">
+                <input type="hidden" name="quantity" value="${productVO.product_point}">
+                <input type="hidden" name="action" value="ADD">        
+            </div>
+        </div>
+    
+</div>
+</form>
+<iframe id="nm_iframe" name="nm_iframe" style="display:none;" ></iframe>
+
+
+<script>
+      window.onload = function() {
+      	  document.getElementById("nm_iframe").onload = function() {
+       		  setTimeout(function(){
+      		  	location.reload(true);  
+       		  },500);
+      	  }
+      };
+ </script>
+ <script src="${pageContext.request.contextPath}/product_list/vendors/jquery/sidebar.js"></script>
 </body>
 </html>
