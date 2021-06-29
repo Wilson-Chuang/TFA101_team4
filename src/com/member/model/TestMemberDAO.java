@@ -1,7 +1,5 @@
 package com.member.model;
 
-import java.util.List;
-
 public class TestMemberDAO {
 	public static void main(String[] args) {
 		MemberJDBCDAO dao = new MemberJDBCDAO();

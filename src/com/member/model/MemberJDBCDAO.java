@@ -5,7 +5,7 @@ import java.util.*;
 
 public class MemberJDBCDAO implements MemberDAO_Interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/new_schema?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/Team4DB?serverTimezone=Asia/Taipei";
 	String userid = "David";
 	String passwd = "123456";
 	private static final String INSERT_STMT = "INSERT INTO member (member_email,member_password) VALUES (?, ?)";
@@ -13,6 +13,7 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 	private static final String GET_ONE_STMT = "SELECT * FROM member where member_email = ?";
 	private static final String DELETE = "DELETE FROM member where member_email = ?";
 	private static final String UPDATE = "UPDATE member set member_name=?,member_gender=?,member_birth=?,member_phone=?,member_address=?,member_update_time=? where member_email=?";
+	private static final String GET_ONE_BY_ID = "SELECT * FROM member where member_id = ?";
 		@Override
 		public void insert(MemberVO MemberVO) {
 			Connection con = null;
@@ -253,8 +254,71 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 		}
 		@Override
 		public MemberVO GET_ONE_BY_ID(Integer MEMBER_ID) {
-			// TODO Auto-generated method stub
-			return null;
+			
+			MemberVO MemberVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+				Class.forName(driver);
+				con = DriverManager.getConnection(url,userid,passwd);
+				pstmt = con.prepareStatement(GET_ONE_BY_ID);
+				
+				pstmt.setInt(1, MEMBER_ID);
+				
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					MemberVO = new MemberVO();
+					MemberVO.setMember_id(rs.getInt("MEMBER_ID"));
+					MemberVO.setMember_email(rs.getString("MEMBER_EMAIL"));
+					MemberVO.setMember_password(rs.getString("MEMBER_PASSWORD"));
+					MemberVO.setMember_pic(rs.getString("MEMBER_PIC"));
+					MemberVO.setMember_name(rs.getString("MEMBER_NAME"));
+					MemberVO.setMember_gender(rs.getInt("MEMBER_gender"));
+					MemberVO.setMember_fans(rs.getInt("MEMBER_FANS"));
+					MemberVO.setMember_age(rs.getInt("MEMBER_AGE"));
+					MemberVO.setMember_birth(rs.getDate("MEMBER_BIRTH"));
+					MemberVO.setMember_phone(rs.getString("MEMBER_PHONE"));
+					MemberVO.setMember_address(rs.getString("MEMBER_ADDRESS"));
+					MemberVO.setMember_point(rs.getInt("MEMBER_POINT"));
+					MemberVO.setMember_create_time(rs.getTimestamp("MEMBER_CREATE_TIME"));
+					MemberVO.setMember_update_time(rs.getTimestamp("MEMBER_UPDATE_TIME"));
+					MemberVO.setMember_status(rs.getInt("MEMBER_STATUS"));
+				}
+				
+			} catch (SQLException se) {
+				se.printStackTrace();
+				// Clean up JDBC resources
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			
+			return MemberVO;
+			
 		}
 		@Override
 		public List<String> accountCheck() {

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Member_FollowerJDBCDAO implements Member_FollowerDAO_Interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/new_schema?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/Team4DB?serverTimezone=Asia/Taipei";
 	String userid = "David";
 	String passwd = "123456";
 	private static final String INSERT_STMT = 

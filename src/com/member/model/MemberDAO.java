@@ -17,14 +17,13 @@ public class MemberDAO implements MemberDAO_Interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	private static final String INSERT_STMT = "INSERT INTO member (member_email,member_password) VALUES (?, ?)";
-	private static final String GET_ALL_STMT = "SELECT MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MAMBER_FANS, MEMBER_AGE, MEMBER_BIRTH, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_ADDRESS,"
-			+ "MEMBER_POINT, MEMBER_CREATE_TIME, MEMBER_UPDATE_TIME, MEMBER_STATUS FROM MEMBER order by MEMBER_id";
+	private static final String GET_ALL_STMT = "SELECT * FROM member order by member_id";
 	private static final String ACCOUNT_CHECK = "SELECT MEMBER_EMAIL FROM member order by member_id";
 	private static final String GET_ONE_STMT = "SELECT * FROM member where member_email = ?";
 	private static final String GET_ONE_BY_ID = "SELECT * FROM member where member_id = ?";
@@ -263,7 +262,7 @@ public class MemberDAO implements MemberDAO_Interface {
 	public List<MemberVO> getAll() {
 		List<MemberVO> list= new ArrayList<MemberVO>();
 		MemberVO mem=null;
-		System.out.println("我進來member getall");
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -273,15 +272,14 @@ public class MemberDAO implements MemberDAO_Interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				System.out.println("進來迴圈");
 				mem = new MemberVO();
 				mem.setMember_id(rs.getInt("MEMBER_ID"));
+				mem.setMember_email(rs.getString("MEMBER_EMAIL"));
 				mem.setMember_password(rs.getString("MEMBER_PASSWORD"));
 				mem.setMember_name(rs.getString("MEMBER_NAME"));
 				mem.setMember_fans(rs.getInt("MEMBER_FANS"));
 				mem.setMember_age(rs.getInt("MEMBER_AGE"));
 				mem.setMember_birth(rs.getDate("MEMBER_BIRTH"));
-				mem.setMember_email(rs.getString("MEMBER_EMAIL"));
 				mem.setMember_phone(rs.getString("MEMBER_PHONE"));
 				mem.setMember_address(rs.getString("MEMBER_ADDRESS"));
 				mem.setMember_point(rs.getInt("MEMBER_POINT"));
@@ -290,7 +288,6 @@ public class MemberDAO implements MemberDAO_Interface {
 				mem.setMember_status(rs.getInt("MEMBER_STATUS"));
 				list.add(mem);
 			}
-			System.out.println("mem");
 
 		} catch (SQLException se) {
 			se.printStackTrace();
