@@ -1,3 +1,19 @@
+.head-prev{
+	line-height: 46px;	
+	background-color: #f8f8f8;
+	text-align: center;
+	padding-right: 10px;
+}
+.head-prev > i{
+	display: inline-block;
+	width: 34px;
+}
+#head-name{
+	padding: 0 10px;
+}
+.page-heading{
+	border-bottom: 1px solid #eee;
+}
 .result-main{
 	height: 400px;
 	padding: 0px 20px;
@@ -40,40 +56,6 @@
 }
 #phone-drop > li:hover{
 	background-color: #f8f8f8;
-}
-.pagination{
-	border-top: 1px solid #d8d8d8;
-	padding: 25px 16px;
-}
-.page-desc{
-	color: #4a4a4a;
-}
-.page-heading{
-	border-bottom: 1px solid #eee;
-	padding: 0 24px;
-}
-.page-heading h2{
-	font-size: 22px;
-	font-weight: 400;
-	line-height: 40px;
-	margin: 2px 0;
-	color: #0b5d90;
-	margin-right: 12px;
-	padding-right: 12px;
-}
-.page-heading h2 span{
-	font-size: 13px;
-	color: #134f6c;
-	padding-left: 10px;
-}
-.page-heading .breads{
-	font-size: 12px;
-	color: #0b5d90;
-	margin-top: 10px;
-}
-.page-heading .breads a{
-	color: #0b5d90;
-	text-decoration: none;
 }
 #loading{
 	top: 63%;
