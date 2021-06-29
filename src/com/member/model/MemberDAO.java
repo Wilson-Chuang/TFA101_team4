@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+
+
 public class MemberDAO implements MemberDAO_Interface {
 	private static DataSource ds = null;
 	static {
