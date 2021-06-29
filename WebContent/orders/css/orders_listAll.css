@@ -96,7 +96,7 @@ div.datacount{
 }
 
 .search_button{
-    background-color: white;
+    background-color:transparent;
     color: gray;
     position: absolute;
 /*     border: 1px solid gray; */
@@ -237,6 +237,7 @@ div.include_file{
 	z-index:99;
 	cursor:pointer;
 	opacity:0;
+	
 }
 
 .button1{

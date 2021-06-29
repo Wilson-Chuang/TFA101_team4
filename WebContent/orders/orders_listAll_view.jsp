@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.orders.model.*"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	Set set = new LinkedHashSet();
 	set.add(request.getAttribute("set"));
 %>
 
+<jsp:useBean id="paymentSvc" scope="page" class="com.payment.model.PaymentService" />
+<jsp:useBean id="invoiceSvc" scope="page" class="com.invoice.model.InvoiceService" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
 <html lang="en">
@@ -51,15 +53,48 @@
 						<th width="120px;" style="background-color:white;">訂單編號</th>
 						<th width="120px" style="background-color:white;">訂單總金額</th>				
 						<th width="250px;" style="background-color:white;">下單時間</th>
-						<th width="" style="background-color:white;">備註</th>
+						<th width="120px" style="background-color:white;">付款方式</th>
 					</tr>
 							
 					<tr>
 						<td width="30px;"></td>
 						<td width="120px;">${ordersVO.orders_no}</td>					
 						<td width="120px">${ordersVO.orders_total_point} GP</td>
-						<td width="250px;">${ordersVO.orders_date}</td>
+						<td width="250px;">
+							<fmt:formatDate value="${ordersVO.orders_date}" pattern="yyyy/MM/dd hh:mm:ss"/>
+						</td>
+						
+						<td width="120px">
+							<c:forEach var="paymentVO" items="${paymentSvc.all}">
+	                    		<c:if test="${ordersVO.payment_no==paymentVO.payment_no}">
+		                   			${paymentVO.payment_name}
+	                    		</c:if>
+	                		</c:forEach>   
+						</td>				
+					</tr>
+					
+					<tr>
+						<th width="30px;" style="background-color:white;"></th>
+						
+						<th width="150px" style="background-color:white;">發票類型</th>				
+						<th width="200px;" style="background-color:white;">統一編號</th>
+						<th width="" style="background-color:white;">備註</th>
+						
+					</tr>
+					
+					<tr>
+						<td width="30px;"></td>
+										
+						<td width="150px">
+							<c:forEach var="invoiceVO" items="${invoiceSvc.all}">
+	                    		<c:if test="${ordersVO.invoice_no==invoiceVO.invoice_no}">
+		                   			${invoiceVO.invoice_name}
+	                    		</c:if>
+	                		</c:forEach>   
+						</td>
+						<td width="200px;">${ordersVO.orders_invoice_tax_number}</td>
 						<td width="">${ordersVO.orders_note}</td>		
+						
 					</tr>
 			</table>
 			<table>
@@ -86,7 +121,7 @@
 				
 							<td width="375px;">${order_itemVO.product_name}</td>
 							<td width="80px;">${order_itemVO.order_item_amount}</td>
-							<td width="">${order_itemVO.order_item_point} GP</td>
+							<td width="">$ ${order_itemVO.order_item_point}</td>
 						</tr>
 					</c:forEach>
 			</table>

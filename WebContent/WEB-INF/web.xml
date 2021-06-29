@@ -132,4 +132,26 @@
 			<dispatcher>ERROR</dispatcher>
 			<dispatcher>ASYNC</dispatcher>
 		</filter-mapping>
+	
+	<!-- orders的servlet -->
+	<servlet>
+		<servlet-name>OrdersServlet</servlet-name>
+		<servlet-class>com.orders.controller.OrdersServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>OrdersServlet</servlet-name>
+		<url-pattern>/orders/orders.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Article的servlet -->
+	<servlet>
+		<servlet-name>ArticleServlet</servlet-name>
+		<servlet-class>com.article.controller.ArticleServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ArticleServlet</servlet-name>
+		<url-pattern>/article/article.do</url-pattern>
+	</servlet-mapping>
 </web-app>

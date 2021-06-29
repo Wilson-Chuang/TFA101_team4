@@ -60,6 +60,7 @@
 					<td width="200px"><img src="/upload/<%=img_name%>"></td>
 					<td width="520px"><%=name%></td>
 					<td width="80px"><%=quantity%></td>
+<%-- 					<td width="80px"><%=(quantity-quantity%order.getProduct_discount_detail_buy_count())*order.getProduct_discount_detail_buy_times_get()%></td> --%>
 					<td width="150px"><%=price%></td>
 					<td width="150px"><%=subtotal%></td>
 					<td>
@@ -83,7 +84,7 @@
 			<p>小計金額(共<%=subQuantity%>件)</p>
 
 	
-			<div class="total_cost_box">GP  <%=amount%></div>
+			<div class="total_cost_box">$  <%=amount%></div>
 		</div>
 	</div>
 		<div class="finish_button">

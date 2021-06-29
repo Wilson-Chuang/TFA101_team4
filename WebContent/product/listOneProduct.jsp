@@ -23,7 +23,7 @@
 <body>
  <button id="sidebar-btn" class="sidebar-btn"><i class="fas fa-shopping-cart"></i></button>
     <section id="sidebar" class="sidebar">
-	<jsp:include page="/product_list/Cart.jsp" flush="true" />
+	<jsp:include page="/product_list/Cart2.jsp" flush="true" />
     </section>
     
     
