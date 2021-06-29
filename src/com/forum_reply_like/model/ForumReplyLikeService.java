@@ -50,5 +50,9 @@ public class ForumReplyLikeService {
 	public Integer countByForumRelyID(Integer forum_reply_id) {
 		return dao.countByForumRelyID(forum_reply_id);
 	}
+	
+	public boolean findOne(Integer forum_reply_id, Integer member_id) {
+		return dao.findOne(forum_reply_id, member_id);
+	}
 
 }

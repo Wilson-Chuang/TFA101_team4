@@ -63,7 +63,7 @@ public class ForumPostReportJDBCDAO implements ForumPostReportDAO {
 	}
 
 	@Override
-	public void updateStatus(ForumPostReportVO forumPostReport) {
+	public void updateStatus(Integer forum_post_report_status, Integer forum_post_report_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -71,8 +71,8 @@ public class ForumPostReportJDBCDAO implements ForumPostReportDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_STATUS_STMT);
 
-			pstmt.setInt(1, forumPostReport.getForum_post_report_status());
-			pstmt.setInt(2, forumPostReport.getForum_post_report_id());
+			pstmt.setInt(1, forum_post_report_status);
+			pstmt.setInt(2, forum_post_report_id);
 
 			pstmt.executeUpdate();
 		} catch (SQLException se) {

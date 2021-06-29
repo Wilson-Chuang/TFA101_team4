@@ -19,18 +19,14 @@ public class ForumReplyReportService {
 		forumReplyReport.setMember_id(member_id);
 		forumReplyReport.setForum_reply_report_reason(forum_reply_report_reason);
 		
+		dao.add(forumReplyReport);
+		
 		return forumReplyReport;
 	}
 	
-	public ForumReplyReportVO updateStatusForumReplyReport(Integer forum_reply_report_status, 
-			Integer forum_reply_report_id) {
-		
-		ForumReplyReportVO forumReplyReport = new ForumReplyReportVO();
-		
-		forumReplyReport.setForum_reply_report_status(forum_reply_report_status);
-		forumReplyReport.setForum_reply_report_id(forum_reply_report_id);
-		
-		return forumReplyReport;
+	public void updateStatusForumReplyReport(Integer forum_reply_report_status, 
+			Integer forum_reply_report_id) {		
+		dao.updateStatus(forum_reply_report_status, forum_reply_report_id);
 	}
 	
 	public void deleteForumReplyReport(Integer forum_reply_report_id) {

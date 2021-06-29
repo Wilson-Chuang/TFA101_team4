@@ -7,7 +7,8 @@ import com.forum_reply.model.ForumReplyVO;
 public interface ForumPostDAO {
 	public void add(ForumPostVO forumPost);
 	public void update(ForumPostVO forumPost);
-	public void updateStatus(ForumPostVO forumPost);
+//	public void updateStatus(ForumPostVO forumPost);
+	public void updateStatus(Integer forum_post_status, Integer forum_post_id);
 	public void updateLikePlus(Integer forum_post_id);
 	public void updateLikeMinus(Integer forum_post_id);
 	public void updateReplyPlus(Integer forum_post_id);

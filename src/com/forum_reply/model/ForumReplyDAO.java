@@ -5,7 +5,8 @@ import java.util.List;
 public interface ForumReplyDAO {
 	public void add(ForumReplyVO forumReply);
 	public void update(ForumReplyVO forumReply);
-	public void updateStatus(ForumReplyVO forumReply);
+//	public void updateStatus(ForumReplyVO forumReply);
+	public void updateStatus(Integer forum_reply_status, Integer forum_reply_id);
 	public void updateLikePlus(Integer forum_reply_id);
 	public void updateLikeMinus(Integer forum_reply_id);
 	public void delete(Integer forum_reply_id);

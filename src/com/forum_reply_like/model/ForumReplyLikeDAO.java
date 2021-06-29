@@ -9,4 +9,5 @@ public interface ForumReplyLikeDAO {
 	public ForumReplyLikeVO findByPK(Integer forum_reply_like_id);
 	public List<ForumReplyLikeVO> getAll();
 	public Integer countByForumRelyID(Integer forum_reply_id);
+	public boolean findOne(Integer forum_reply_id, Integer member_id);
 }

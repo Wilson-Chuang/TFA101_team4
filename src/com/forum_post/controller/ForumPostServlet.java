@@ -12,6 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forum_post.model.ForumPostService;
 import com.forum_post.model.ForumPostVO;
+import com.forum_post_like.model.ForumPostLikeService;
+import com.forum_post_report.model.ForumPostReportService;
+import com.forum_post_report.model.ForumPostReportVO;
+import com.forum_reply.model.ForumReplyService;
+import com.forum_reply.model.ForumReplyVO;
+
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 
 
 public class ForumPostServlet extends HttpServlet {
@@ -25,6 +32,7 @@ public class ForumPostServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		System.out.println(action);
 		
 		if("getOne_For_Display".equals(action)) { // 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -75,7 +83,7 @@ public class ForumPostServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			} catch(Exception e) {
 				errorMsgs.add("無法取得資料" + e.getMessage());
-				RequestDispatcher sucessView = req.getRequestDispatcher("/forum/allPost.jsp");
+				RequestDispatcher sucessView = req.getRequestDispatcher("/forumPost/allPost.jsp");
 				sucessView.forward(req, res);
 			}
 			
@@ -100,7 +108,7 @@ public class ForumPostServlet extends HttpServlet {
 				Integer memberID = null;
 				try {
 					memberID = new Integer(req.getParameter("memberID"));
-				} catch(NumberFormatException e){
+				} catch(NumberFormatException e) {
 					errorMsgs.add("請檢查是否已登入!");
 				}
 				
@@ -128,11 +136,286 @@ public class ForumPostServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理*************************************/
 			} catch(Exception e) {
-				errorMsgs.add(e.getMessage());
+				errorMsgs.add("無法取得資料" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/addPost.jsp");
 				failureView.forward(req, res);
 			}
 		}
+		
+		if("getOne_Post_For_update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String post_content = req.getParameter("post_content");
+				if(!"此內容已被刪除".equals(post_content)) {
+					Integer postid = new Integer(req.getParameter("postid"));
+					
+					/***************************2.開始查詢資料****************************************/
+					ForumPostService forumPostSvc = new ForumPostService();
+					ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+					
+					/***************************3.查詢完成,準備轉交(Send the Success view)************/
+					req.setAttribute("forumPost", forumPost);
+					String url = "/forumPost/postUpdateInput.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				} else {
+					Integer postid = new Integer(req.getParameter("postid"));
+					ForumPostService forumPostSvc = new ForumPostService();
+					ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+					req.setAttribute("forumPost", forumPost);
+					String url = "/forumPost/onePost.jsp";
+					RequestDispatcher alreadyDeleteView = req.getRequestDispatcher(url);
+					alreadyDeleteView.forward(req, res);
+				}
+				
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/onePost.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("post_Update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				Integer postid = new Integer(req.getParameter("postid").trim());
+				
+				String title = req.getParameter("title").trim();
+				if(title == null || title.trim().length() == 0) {
+					errorMsgs.add("請輸入標題!");
+				}
+				
+				String content = req.getParameter("content").trim();
+				if(content == null || content.trim().length() == 0) {
+					errorMsgs.add("請輸入內容!");
+				}
+				
+				System.out.println(postid);
+				System.out.println(title);
+				System.out.println(content);
+				
+				ForumPostVO forumPost = new ForumPostVO();
+				forumPost.setForum_post_id(postid);
+				forumPost.setForum_post_title(title);
+				forumPost.setForum_post_content(content);
+				
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("forumPost", forumPost);
+					RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/postUpdateInput.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.開始修改資料*****************************************/
+				ForumPostService forumPostSvc = new ForumPostService();
+				forumPost = forumPostSvc.updateForumPost(title, content, postid);
+				forumPost = forumPostSvc.getOneForumPost(postid);
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("forumPost", forumPost);
+				String url = "/forumPost/onePost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch(Exception e) {
+				errorMsgs.add("資料修改失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/postUpdateInput.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}
+		
+		
+		if("post_delete".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				
+				/***************************1.接收請求參數***************************************/
+				Integer postid = new Integer(req.getParameter("postid"));
+				
+				/***************************2.開始刪除資料***************************************/
+				ForumPostService forumPostSvc = new ForumPostService();
+				forumPostSvc.delete(postid);
+				ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+				req.setAttribute("forumPost", forumPost);
+				req.setAttribute("postid", postid);
+
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+				String url = "/forumPost/onePost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch(Exception e) {
+				errorMsgs.add("無法取得資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/onePost.jsp");
+			}
+		}
+		
+		if("getOne_Post_For_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數****************************************/
+				String post_content = req.getParameter("post_content");
+				System.out.println(post_content);
+				
+				if(!"此內容已被刪除".equals(post_content)) {
+					
+					/***************************2.開始查詢資料****************************************/
+					Integer postid = new Integer(req.getParameter("postid"));
+					
+					ForumPostService forumPostSvc = new ForumPostService();
+					ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+					
+					/***************************3.查詢完成,準備轉交(Send the Success view)************/
+					req.setAttribute("forumPost", forumPost);
+					String url = "/forumPost/postReport.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				} else {
+					Integer postid = new Integer(req.getParameter("postid"));
+					ForumPostService forumPostSvc = new ForumPostService();
+					ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+					req.setAttribute("forumPost", forumPost);
+					String url = "/forumPost/onePost.jsp";
+					RequestDispatcher alreadyDeleteView = req.getRequestDispatcher(url);
+					alreadyDeleteView.forward(req, res);
+				}
+			} catch(Exception e) {
+				errorMsgs.add("無法取得要檢舉的資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/onePost.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("post_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+				String reportRadios = req.getParameter("reportRadios");
+				
+				if("其他".equals(reportRadios)) {
+					reportRadios = req.getParameter("report_reason").trim();
+					
+					if(reportRadios == null || reportRadios.trim().length() == 0) {
+						errorMsgs.add("請輸入檢舉原因!");
+					}
+				}
+				
+				Integer report_memberID = null;
+				try {
+					report_memberID = new Integer(req.getParameter("report_memberID").trim());
+					System.out.println(report_memberID);
+				} catch(NumberFormatException e){
+					errorMsgs.add("會員編號格是不正確!");
+				}
+				
+				Integer postid = new Integer(req.getParameter("postid").trim());
+				
+				ForumPostReportVO forumPostReport = new ForumPostReportVO();
+				forumPostReport.setForum_post_id(postid);
+				forumPostReport.setForum_post_report_reason(reportRadios);
+				forumPostReport.setMember_id(report_memberID);
+				
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("forumPostReport", forumPostReport);
+					RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/postReport.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.開始新增檢舉資料*****************************************/
+				ForumPostReportService forumPostReportSvc = new ForumPostReportService();
+				forumPostReportSvc.addForumPostReport(postid, report_memberID, reportRadios);
+				
+				/***************************3.新增檢舉完成,準備轉交(Send the Success view)*************/
+				String url = "/forumPost/allPost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch(Exception e) {
+				errorMsgs.add("檢舉失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/postReport.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("post_like".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				Integer postid = new Integer(req.getParameter("postid").trim());
+				Integer memberID = new Integer(req.getParameter("memberID").trim());
+				
+				
+				ForumPostService forumPostSvc = new ForumPostService();
+				ForumPostVO forumPost = forumPostSvc.getOneForumPost(postid);
+				req.setAttribute("forumPost", forumPost);
+				
+				ForumPostLikeService forumPostLikeSvc = new ForumPostLikeService();
+				if(forumPostLikeSvc.findOne(postid, memberID)) {
+					forumPostLikeSvc.deleteForumPostLike(postid, memberID);
+				}else {
+					forumPostLikeSvc.addForumPostLike(postid, memberID);
+				}
+				
+				
+				String url = "/forumPost/onePost.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+			} catch(Exception e) {
+				errorMsgs.add("失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/allPost.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("check_post_report".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				Integer forum_post_report_id = new Integer(req.getParameter("forum_post_report_id").trim());
+				Integer forum_post_report_status = new Integer(req.getParameter("forum_post_report_status").trim());
+				Integer postid = new Integer(req.getParameter("postid"));
+				
+				ForumPostReportService forumPostReportSvc = new ForumPostReportService();
+				if(forum_post_report_status == 0) {
+					forumPostReportSvc.updateStatusForumPostReport(forum_post_report_status, forum_post_report_id);
+					ForumPostService forumPostSvc = new ForumPostService();
+					forumPostSvc.updateStatusForumPost(forum_post_report_status, postid);
+				}else {
+					forumPostReportSvc.updateStatusForumPostReport(forum_post_report_status, forum_post_report_id);
+				}
+				
+				String url = "/forumPost/allPostReport.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				
+			} catch(Exception e) {
+				errorMsgs.add("處理發文檢舉失敗" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forumPost/allPostReport.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 
 }
