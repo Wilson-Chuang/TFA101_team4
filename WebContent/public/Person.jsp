@@ -69,7 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <%if(!(myMemberVO==null)){ %>
                     <li class="sidebar">
 									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
-									<input type=hidden name="userName" value=<%=MemberVO.getMember_name() %>  > 
+<%-- 									<input type=hidden name="userName" value=<%=myMemberVO.getMember_name() %>  >  --%>
+									<input type=hidden name="recieverName" value=<%=MemberVO.getMember_id()+":"+MemberVO.getMember_name() %>> 
 									<input type="submit" value="聊天室" class="save_btn"
 								style="width: 150px; background: none; color: black">
 									</form>
@@ -104,15 +105,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	  <span class="followers_count"><%=count_fans%>個粉絲|</span>
                 <span class="followers_count">會員ID:<%= MemberVO.getMember_id()%></span><br>
                 <%
-                if(!(myMemberVO==null)){
-                boolean followed =memfolSvc.check_follow(member_id, myMemberVO.getMember_id());
+                if(!(myMemberVO==null)){%>
+                	<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
+                	<%-- <input type=hidden name="userName" value=<%=myMemberVO.getMember_name() %>  >  --%>
+                		 <input type=hidden name="recieverName" value=<%=MemberVO.getMember_id()+":"+MemberVO.getMember_name() %>> 
+                		 <input type="submit" value="聊天" class="save_btn" style="width: 150px;">
+                	</form>
+               <% boolean followed =memfolSvc.check_follow(member_id, myMemberVO.getMember_id());
                 if(followed){%>
                 	<form action="member.html" method="post">
 									<input type=hidden name= "MEMBER_ID_FOL" value="<%=MemberVO.getMember_id()%>">
 									<input type=hidden name= "MEMBER_ID" value="<%= myMemberVO.getMember_id()%>">
 									<input type=hidden name="action" value="delete_fol">
 									<input type="submit" value="取消追蹤" class="save_btn" style="width:150px">
-								</form>
+					</form>
                 <%	
                 }else{
                 %>
@@ -120,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  				 <form action="member.html"method="post">
  				 	<input type=hidden name="member_id" value="<%= MemberVO.getMember_id()%>">
  				 	<input type=hidden name="myMember_id" value="<%= myMemberVO.getMember_id()%>">
+
  				    <input type=hidden name="action" value="follow">
                     <input type="submit" value="追蹤" class="save_btn" style="width:150px">
  				 </form>
@@ -129,9 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
 				<ul class="nav nav-tabs">
 					<li class="favorite_page_li"><a class="favorite_page"
-						href="#myArticle" rel="external nofollow" data-toggle="tab">我的文章</a></li>
+						href="#myArticle" rel="external nofollow" data-toggle="tab"><%=MemberVO.getMember_name() %>的文章</a></li>
 					<li class="favorite_page_li"><a class="favorite_page"
-						href="#myforum" rel="external nofollow" data-toggle="tab">我的討論</a></li>
+						href="#myforum" rel="external nofollow" data-toggle="tab"><%=MemberVO.getMember_name() %>的討論</a></li>
 				</ul>
 <div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade in active" id="myArticle">
@@ -144,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<img src="/upload/<%=article.getArticle_img_name() %>" class="card-img" alt="...">
 								</div>
 								<div class="col-md-8">
-									<p class="card-text">您成功發表了「<%=article.getTitle() %>」這篇文章!</p>
+									<p class="card-text"><%=MemberVO.getMember_name() %>發表了「<%=article.getTitle() %>」這篇文章!</p>
 								</div>
 							</div></a>
 						</div>
@@ -162,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 							<ul class="list-group list-group-flush">
   						<%for (ForumPostVO post : list_myForum) {%>  
-								<li class="list-group-item"><a href=#>您成功發表了「<%=post.getForum_post_title() %>」這則討論!</a></li>
+								<li class="list-group-item"><a href=#><%=MemberVO.getMember_name() %>發表了「<%=post.getForum_post_title() %>」這則討論!</a></li>
 					<%}%>
 							</ul>
  					<%}else{%> 

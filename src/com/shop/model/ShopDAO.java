@@ -50,6 +50,14 @@ public class ShopDAO implements ShopDAO_interface {
 			+ "shop_website,shop_main_img,shop_gallery,shop_create_time,"
 			+ "shop_update_time,shop_total_view,shop_reserv_status"
 			+ " FROM shop where shop_id = ?";
+	private static final String GET_ONE_BY_MEMBER = "SELECT shop_id,member_id,shop_tax_id,"
+			+ "shop_name,shop_zip_code,shop_city,shop_address,"
+			+ "shop_latitude,shop_longitude,shop_description,"
+			+ "shop_tag,shop_rating,shop_rating_count,shop_rating_total,"
+			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
+			+ "shop_website,shop_main_img,shop_gallery,shop_create_time,"
+			+ "shop_update_time,shop_total_view,shop_reserv_status"
+			+ " FROM shop where member_id = ?";
 	private static final String DELETE = "DELETE FROM shop where shop_id = ?";
 	private static final String UPDATE = "UPDATE shop set member_id=?, shop_tax_id=?, "
 			+ "shop_name=?, shop_zip_code=?, shop_city=?, shop_address=?, "
@@ -338,7 +346,7 @@ public class ShopDAO implements ShopDAO_interface {
 
 			// Handle any driver errors
 		} catch (SQLException se) {
-			throw new RuntimeException("��Ʈw�o�Ϳ��~! �T����: " + se.getMessage());
+			throw new RuntimeException("A database error occured.: " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -574,7 +582,7 @@ public class ShopDAO implements ShopDAO_interface {
 		try {
 			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt = con.prepareStatement(GET_ONE_BY_MEMBER);
 			
 			pstmt.setInt(1, member_id);
 			

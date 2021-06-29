@@ -52,12 +52,14 @@ public class Member_FollowerService {
 		
 		return dao.GET_ALL_FOLLOWED(MEMBER_ID);
 	}
-public boolean check_follow(Integer MEMBER_ID, Integer MEMBER_ID_FOLLOWER) {
+	public boolean check_follow(Integer MEMBER_ID, Integer MEMBER_ID_FOLLOWER) {
 		
 		return dao.check_follow(MEMBER_ID, MEMBER_ID_FOLLOWER);
 	}
-public Integer count_fans(Integer Member_ID) {
+	public Integer count_fans(Integer Member_ID) {
+		
 	return dao.count_fans(Member_ID);
-}
+	
+	}
 
 }

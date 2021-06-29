@@ -21,8 +21,9 @@ public class NameServlet extends HttpServlet {
 		String userName = ((MemberVO)(session.getAttribute("login"))).getMember_name();
 		Integer userID =((MemberVO)(session.getAttribute("login"))).getMember_id();
 		String name = userID+":"+userName;
+		String reciever=req.getParameter("recieverName");
 		req.setAttribute("userName", name);
-		
+		req.setAttribute("recieverName", reciever);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/chat.jsp");
 		dispatcher.forward(req, res);
 	}

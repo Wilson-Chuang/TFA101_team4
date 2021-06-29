@@ -2,17 +2,6 @@
 <%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
-<%
-// 		MemberService memSvc=new MemberService();
-// // 		System.out.println(request.getParameter("userID"));
-// // 		Integer Member_id=Integer.parseInt(String.valueOf(request.getAttribute("userID")));
-// // 		Integer Member_id=new Integer(request.getParameter("userID"));
-// // 		System.out.println(Member_id);
-// 		MemberVO MemberVO= memSvc.GET_ONE_BY_ID(1);
-// 		String name=MemberVO.getMember_name();
-		%>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +15,7 @@
 <title>線上會員即時聊天室</title>
 </head>
 <body onload="connect();" onunload="disconnect();">
-	<h3 id="statusOutput" class="statusOutput"></h3>
+	<h3 id="statusOutput" class="statusOutput">'${recieverName}'</h3>
 	<div id="row"></div>
 	<div id="messagesArea" class="panel message-area" ></div>
 	<div class="panel input-area">
@@ -37,15 +26,16 @@
 	</div>
 </body>
 <script>
-	var MyPoint = "/FriendWS/${userName}";
+	var MyPoint = "/FriendWS/${userName}/${recieverName}";
 	var host = window.location.host;
 	var path = window.location.pathname;
 	var webCtx = path.substring(0, path.indexOf('/', 1));
 	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 
-	var statusOutput = document.getElementById("statusOutput");
+	var statusOutput ='${recieverName}';
 	var messagesArea = document.getElementById("messagesArea");
 	var self = '${userName}';
+	var friend = '${recieverName}';
 	var webSocket;
 
 	function connect() {
@@ -58,12 +48,13 @@
 			document.getElementById('sendMessage').disabled = false;
 			document.getElementById('connect').disabled = true;
 			document.getElementById('disconnect').disabled = false;
+			addListener();
 		};
 
 		webSocket.onmessage = function(event) {
+			
 			var jsonObj = JSON.parse(event.data);
 			if ("open" === jsonObj.type) {
-				refreshFriendList(jsonObj);
 			} else if ("history" === jsonObj.type) {
 				messagesArea.innerHTML = '';
 				var ul = document.createElement('ul');
@@ -89,19 +80,18 @@
 				document.getElementById("area").appendChild(li);
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			} else if ("close" === jsonObj.type) {
-				refreshFriendList(jsonObj);
 			}
-			
+			addListener()
 		};
 
 		webSocket.onclose = function(event) {
+			
 			console.log("Disconnected!");
 		};
 	}
 	
 	function sendMessage() {
 		var inputMessage = document.getElementById("message");
-		var friend = statusOutput.textContent;
 		var message = inputMessage.value.trim();
 
 		if (message === "") {
@@ -119,34 +109,28 @@
 			webSocket.send(JSON.stringify(jsonObj));
 			inputMessage.value = "";
 			inputMessage.focus();
+			
 		}
+		webSocket.onmessage;
 	}
 	
-	// 有好友上線或離線就更新列表
-	function refreshFriendList(jsonObj) {
-		var friends = jsonObj.users;
-		var row = document.getElementById("row");
-		row.innerHTML = '';
-		for (var i = 0; i < friends.length; i++) {
-			if (friends[i] === self) { continue; }
-			row.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h2>' + friends[i] + '</h2></div>';
-		}
-		addListener();
-	}
 	// 註冊列表點擊事件並抓取好友名字以取得歷史訊息
 	function addListener() {
-		var container = document.getElementById("row");
-		container.addEventListener("click", function(e) {
-			var friend = e.srcElement.textContent;
-			updateFriendName(friend);
+// 		var container = document.getElementById("row");
+// 		container.addEventListener("click", function(e) {
+// 			var friend = e.srcElement.textContent;
+// 			updateFriendName(friend);
 			var jsonObj = {
 					"type" : "history",
 					"sender" : self,
 					"receiver" : friend,
 					"message" : ""
 				};
+			
 			webSocket.send(JSON.stringify(jsonObj));
-		});
+			
+// 		}
+// 		);
 	}
 	
 	function disconnect() {
@@ -154,11 +138,12 @@
 		document.getElementById('sendMessage').disabled = true;
 		document.getElementById('connect').disabled = false;
 		document.getElementById('disconnect').disabled = true;
+		
 	}
 	
-	function updateFriendName(name) {
+// 	function updateFriendName(name) {
 		
-		statusOutput.innerHTML = name;
-	}
+// 		statusOutput.innerHTML = name;
+// 	}
 </script>
 </html>

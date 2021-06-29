@@ -28,7 +28,7 @@ public class JedisHandleMessage {
 		jedis.auth("123456");
 		jedis.rpush(senderKey, message);
 		jedis.rpush(receiverKey, message);
-
+		
 		jedis.close();
 	}
 

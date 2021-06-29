@@ -254,4 +254,10 @@ public class Shop_Favorites_JDBCDAO implements Shop_FavoritesDAO_Interface{
 		
 	}
 
+	@Override
+	public boolean check_track(Integer MEMBER_ID, Integer SHOP_ID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

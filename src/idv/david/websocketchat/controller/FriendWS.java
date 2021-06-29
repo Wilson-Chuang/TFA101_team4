@@ -22,15 +22,17 @@ import idv.david.websocketchat.jedis.JedisHandleMessage;
 import idv.david.websocketchat.model.ChatMessage;
 import idv.david.websocketchat.model.State;
 
-@ServerEndpoint("/FriendWS/{userName}")
+@ServerEndpoint("/FriendWS/{userName}/{recieverName}")
 public class FriendWS {
 	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
 	Gson gson = new Gson();
 
 	@OnOpen
-	public void onOpen(@PathParam("userName") String userName, Session userSession) throws IOException {
+	public void onOpen(@PathParam("userName") String userName,@PathParam("recieverName") String recieverName, Session userSession) throws IOException {
 		/* save the new user in the map */
 		sessionsMap.put(userName, userSession);
+//		sessionsMap.put(recieverName, userSession);
+		
 		/* Sends all the connected users to the new user */
 		Set<String> userNames = sessionsMap.keySet();
 		State stateMessage = new State("open", userName, userNames);
@@ -41,10 +43,10 @@ public class FriendWS {
 				session.getAsyncRemote().sendText(stateMessageJson);
 			}
 		}
-
+		
 		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
 				userName, userNames);
-		System.out.println(userSession);
+		System.out.println(text);
 	}
 
 	@OnMessage
@@ -52,15 +54,14 @@ public class FriendWS {
 		ChatMessage chatMessage = gson.fromJson(message, ChatMessage.class);
 		String sender = chatMessage.getSender();
 		String receiver = chatMessage.getReceiver();
-		
 		if ("history".equals(chatMessage.getType())) {
 			List<String> historyData = JedisHandleMessage.getHistoryMsg(sender, receiver);
 			String historyMsg = gson.toJson(historyData);
 			ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg);
 			if (userSession != null && userSession.isOpen()) {
 				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
-				System.out.println("history = " + gson.toJson(cmHistory));
-				return;
+//				System.out.println("history = " + gson.toJson(cmHistory));
+				return; 
 			}
 		}
 		
@@ -69,8 +70,10 @@ public class FriendWS {
 		if (receiverSession != null && receiverSession.isOpen()) {
 			receiverSession.getAsyncRemote().sendText(message);
 			userSession.getAsyncRemote().sendText(message);
-			JedisHandleMessage.saveChatMessage(sender, receiver, message);
+		}else {
+			
 		}
+		JedisHandleMessage.saveChatMessage(sender, receiver, message);
 		System.out.println("Message received: " + message);
 	}
 

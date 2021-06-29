@@ -93,12 +93,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
             </div>
                     <div class="col-10">
-            <%if(ShopVO == null){%>
+            <%if(ShopVO==null){%>
           		  <a href="<%=request.getContextPath()+"/member/join.jsp" %>">
 	   				<img src="/upload/joinus.jpg" style="width:80%;"></a>
 	
 			<%}else{ 
 			double shopRating=comSvc.countRatings(ShopVO.getShop_id());
+			if(Double.isNaN(shopRating)){
+				shopRating =0.0;
+			}
 			int countByShop = comSvc.countByShop(ShopVO.getShop_id());%>
                 <div class="row">
                     <div class="col-md-4">
@@ -131,21 +134,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="row">
 					<%
 					String pre_gallery=ShopVO.getShop_gallery();
+					
+					if(pre_gallery.length()==0){%>
+						<div class="shop_pic">
+                        <img src="/upload/noimage.jpg" class="shop_img" style="width:150px;height:150px;">
+                    </div>	
+					<%}else{
 					String gallery=pre_gallery.substring(1,pre_gallery.length()-1);
 					String[] shop_gallery;
 					shop_gallery=gallery.split(", ");
-					String shop_id=(ShopVO.getShop_id()).toString();
+					String shop_name=(ShopVO.getShop_name()).toString();
 					
 					
 					for(int i =0;i<shop_gallery.length;i++){
-						String filepath=shop_id+"gallery/"+shop_gallery[i];
-						System.out.println(filepath);
+						String filepath=shop_name+"gallery/"+shop_gallery[i];
 					%>
 					
                     <div class="shop_pic">
                         <img src="/upload/<%=filepath %>" class="shop_img" style="width:150px;height:150px;">
                     </div>
-					<%} %>
+					<%}} %>
 
                 </div>
          

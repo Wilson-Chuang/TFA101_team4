@@ -11,6 +11,7 @@ public interface Shop_FavoritesDAO_Interface {
     public Shop_FavoritesVO getOneStmt(Integer Shop_Favorites_ID);
     public List<Shop_FavoritesVO> getAll();
     public List<Shop_FavoritesVO> getAllByMember(Integer Member_ID);
+    public boolean check_track(Integer MEMBER_ID, Integer SHOP_ID);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
 }

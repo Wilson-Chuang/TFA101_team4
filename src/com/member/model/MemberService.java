@@ -84,7 +84,6 @@ public class MemberService {
 		ShopVO.setShop_gallery(shop_gallery);
 		ShopVO.setShop_id(id);
 		dao_shop.update_shop(ShopVO);
-		System.out.println("update_shop in svc");
 		return ShopVO;
 	}
 
@@ -95,13 +94,14 @@ public class MemberService {
 		dao_fol.delete(Member_FollowerVO);
 	}
 	
-public void delete_sf(int member_ID, int shop_ID) {
+	public void delete_sf(int member_ID, int shop_ID) {
 		Shop_FavoritesVO Shop_Favorites=new Shop_FavoritesVO();
 		Shop_Favorites.setMEMBER_ID(member_ID);
 		Shop_Favorites.setSHOP_ID(shop_ID);
 		dao_shop_fav.delete_sf(Shop_Favorites);
 		
 	}
+
 	public void delete(String MEMBER_EMAIL) {
 		dao.delete(MEMBER_EMAIL);
 	}

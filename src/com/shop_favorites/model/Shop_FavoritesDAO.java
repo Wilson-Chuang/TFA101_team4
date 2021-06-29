@@ -1,7 +1,6 @@
 package com.shop_favorites.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.member_follower.model.Member_FollowerVO;
 
 public class Shop_FavoritesDAO implements Shop_FavoritesDAO_Interface{
 	private static DataSource ds = null;
@@ -39,6 +37,8 @@ public class Shop_FavoritesDAO implements Shop_FavoritesDAO_Interface{
 			"DELETE FROM shop_favorites where member_id = ? and shop_id=?";
 		private static final String UPDATE = 
 			"UPDATE shop_favorites set member_id=?,shop_id=? where shop_favorites_id=?" ;
+		private static final String CHECK_TRACK = 
+				"SELECT* FROM shop_favorites where member_id=? and shop_id=?";
 		
 		
 	@Override
@@ -328,6 +328,60 @@ public class Shop_FavoritesDAO implements Shop_FavoritesDAO_Interface{
 		return list;
 	}
 
+	@Override
+	public boolean check_track(Integer MEMBER_ID, Integer SHOP_ID) {
+		
+		Shop_FavoritesVO sf = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(CHECK_TRACK);
+			pstmt.setInt(1, MEMBER_ID);
+			pstmt.setInt(2, SHOP_ID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				sf = new Shop_FavoritesVO();
+				sf.setSHOP_FAVORITES_ID(rs.getInt("SHOP_FAVORITES_ID"));
+				sf.setMEMBER_ID(rs.getInt("MEMBER_ID"));
+				sf.setSHOP_ID(rs.getInt("SHOP_ID"));
+				return true;
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return false;
+	}
+	
+	
 
 
 

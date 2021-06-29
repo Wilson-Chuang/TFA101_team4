@@ -15,7 +15,7 @@ public class Shop_FavoritesService {
 		Shop_FavoritesVO.setMEMBER_ID(MEMBER_ID);
 		Shop_FavoritesVO.setSHOP_ID(SHOP_ID);
 
-		dao.update(Shop_FavoritesVO);
+		dao.insert(Shop_FavoritesVO);
 
 		return Shop_FavoritesVO;
 	}
@@ -48,5 +48,11 @@ public class Shop_FavoritesService {
 
 		return dao.getAllByMember(Member_ID);
 	}
+	
+	public boolean check_track(Integer MEMBER_ID, Integer SHOP_ID) {
+		
+		return dao.check_track(MEMBER_ID,SHOP_ID);
+		
+		}
 
 }

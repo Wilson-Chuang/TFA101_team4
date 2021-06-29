@@ -2,7 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.shop.model.*"%>
+<%@ page import="com.shop_favorites.model.*"%>
 <%@ page import="com.comment.model.*"%>
+<%@ page import="com.comment_report.model.*"%>
 <%@ page import="com.member_follower.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -14,10 +16,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <%
-	int shop_id= Integer.valueOf(request.getParameter("shop_id"));
 	
 	MemberVO myMemberVO = (MemberVO) session.getAttribute("login");
-	
+	int shop_id= Integer.valueOf(request.getParameter("shop_id"));
 	ShopService shopSvc=new ShopService();
 	shopSvc.add_total_view(shop_id);
 	ShopVO ShopVO= shopSvc.getOneShop(shop_id);
@@ -99,6 +100,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span class="address">地址:<%=ShopVO.getShop_address() %></span><br>
                         <span class="webs"><a>粉絲專頁:<%=ShopVO.getShop_website() %></a></span><br>
                         <span class="phone">連絡電話:<%=ShopVO.getShop_phone() %></span><br>
+                   
+                   
+                   <%if(!(myMemberVO==null)){ 
+                   		Shop_FavoritesService sfSvc=new Shop_FavoritesService();
+                   		boolean track=sfSvc.check_track(myMemberVO.getMember_id(), shop_id);
+                   	if(track){
+                   %>
+                   
+                   <form action="member.html" method="post">
+						<input type=hidden name= "MEMBER_ID" value="<%=myMemberVO.getMember_id()%>">
+						<input type=hidden name= "SHOP_ID" value="<%=ShopVO.getShop_id()%>">
+						<input type=hidden name="action" value="delete_sf">
+						<input type="submit" value="取消追蹤" class="save_btn" style="width:150px"></input>
+				  	</form>
+                   <%}else{ %>
+                   
+                   <form action="member.html" method="post">
+						<input type=hidden name= "MEMBER_ID" value="<%=myMemberVO.getMember_id()%>">
+						<input type=hidden name= "SHOP_ID" value="<%=ShopVO.getShop_id()%>">
+						<input type=hidden name="action" value="insert_sf">
+						<input type="submit" value="追蹤商家" class="save_btn" style="width:150px"></input>
+				  	</form>
+                   
+                   
+                   <%}}%>
+                   
+                   
                     </div>
                 </div>
                 <h1>餐廳照片</h1>
@@ -114,11 +142,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					String gallery=pre_gallery.substring(1,pre_gallery.length()-1);
 					String[] shop_gallery;
 					shop_gallery=gallery.split(", ");
-					
+					String shop_name=ShopVO.getShop_name();
 					
 					for(int i =0;i<shop_gallery.length;i++){
-						String filepath=shop_id+"gallery/"+shop_gallery[i];
-						System.out.println(filepath);
+						String filepath=shop_name+"gallery/"+shop_gallery[i];
 					%>
 					
                     <div class="shop_pic">
@@ -172,7 +199,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <p><%=com.getCOMMENT_TIME() %></p>
                         <span class="ratins"><%=com.getCOMMENT_RATING()%><i class="fas fa-star"></i></span><br>
                         <p><%=com.getCOMMENT_CONTENT() %></p>
-                            <img src="/upload/<%=com.getCOMMENT_PIC()%>" alt="" style="width:25%">
+                            <img src="/upload/<%=com.getCOMMENT_PIC()%>" alt="" style="width:25%"><br>
+                             <%
+                 			if(!(myMemberVO==null)){
+                 			Comment_ReportService cmSvc=new Comment_ReportService();
+                 			if(!cmSvc.reported(com.getCOMMENT_ID(),myMemberVO.getMember_id())){
+                 				
+
+                 			%>
+                            <form action="member.html" method="post">
+							<input type=hidden name= "MEMBER_ID" value="<%=myMemberVO.getMember_id()%>">
+							<input type=hidden name= "COMMENT_ID" value="<%=com.getCOMMENT_ID()%>">
+							<input type=hidden name= "shop_id" value="<%=shop_id%>">
+							<input type=hidden name="action" value="comment_report">
+							<input type=text name= "REASON" placeholder="檢舉原因">
+							<input type="submit"  value="檢舉該評論" class="save_btn" style="width:150px"></input>
+				  			</form>
+				  			<%}
+                 			%>
+                 				
+                 				
+                 				
+                 			<%
+                 			} %>
                             <hr>
                     </div>
                     <%
@@ -195,5 +244,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				var value = document.getElementById('range').value ;
   				document.getElementById('value').innerHTML = value;
 			}
+			
 		</script>
 </html>
