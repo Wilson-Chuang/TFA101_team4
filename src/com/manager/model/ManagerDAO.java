@@ -21,16 +21,21 @@ public class ManagerDAO implements ManagerDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO manager(manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO manager(manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone FROM manager ORDER BY manager_id";
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname FROM manager ORDER BY manager_id";
 	private static final String GET_ONE_STMT = 
-			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone FROM manager WHERE manager_id = ?";
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_email,manager_password,manager_phone,manager_picname FROM manager WHERE manager_id = ?";
 	private static final String DELETE = 
 			"DELETE FROM manager WHERE manager_id = ?";
 	private static final String UPDATE = 
-			"UPDATE manager SET manager_account=?, manager_name=?, manager_pic=?, manager_email=?, manager_password=?, manager_phone=? WHERE manager_id = ?";
+			"UPDATE manager SET manager_account=?, manager_name=?, manager_pic=?, manager_email=?, manager_password=?, manager_phone=?, manager_picname=? WHERE manager_id = ?";
 	
+	private static final String GETID =
+			"SELECT manager_id FROM manager WHERE manager_email=?";
+	
+	private static final String GETFROMEMAIL =
+			"SELECT manager_id,manager_account,manager_name,manager_pic,manager_password,manager_phone,manager_picname FROM manager WHERE manager_email=? ORDER BY manager_id";
 	
 	@Override
 	public void insert(ManagerVO managerVO) {
@@ -49,6 +54,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 			pstmt.setString(4, managerVO.getManager_email());
 			pstmt.setString(5, managerVO.getManager_password());
 			pstmt.setString(6, managerVO.getManager_phone());
+			pstmt.setString(7, managerVO.getManager_picname());
 
 			pstmt.executeUpdate();
 
@@ -93,7 +99,8 @@ public class ManagerDAO implements ManagerDAO_interface {
 			pstmt.setString(4, managerVO.getManager_email());
 			pstmt.setString(5, managerVO.getManager_password());
 			pstmt.setString(6, managerVO.getManager_phone());
-			pstmt.setInt(7, managerVO.getManager_id());
+			pstmt.setString(7, managerVO.getManager_picname());
+			pstmt.setInt(8, managerVO.getManager_id());
 
 			pstmt.executeUpdate();
 
@@ -186,6 +193,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 				managerVO.setManager_email(rs.getString("manager_email"));
 				managerVO.setManager_password(rs.getString("manager_password"));
 				managerVO.setManager_phone(rs.getString("manager_phone"));
+				managerVO.setManager_picname(rs.getString("manager_picname"));
 				managerVO.setManager_id(rs.getInt("manager_id"));
 			}
 
@@ -246,6 +254,7 @@ public class ManagerDAO implements ManagerDAO_interface {
 				managerVO.setManager_email(rs.getString("manager_email"));
 				managerVO.setManager_password(rs.getString("manager_password"));
 				managerVO.setManager_phone(rs.getString("manager_phone"));
+				managerVO.setManager_picname(rs.getString("manager_picname"));
 				managerVO.setManager_id(rs.getInt("manager_id"));
 				list.add(managerVO); // Store the row in the list
 			}
@@ -279,5 +288,61 @@ public class ManagerDAO implements ManagerDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+	
+	
+
+	@Override
+	public int getId(String manager_email) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int manager_id = 0;
+		
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GETID);
+
+			pstmt.setString(1, manager_email);	//1個問號
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				// managerVO 也稱為 Domain objects
+				manager_id = rs.getInt("manager_id");
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return manager_id;
 	}
 }

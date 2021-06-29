@@ -11,7 +11,8 @@ public class ManagerVO implements java.io.Serializable{
 	private String manager_email;
 	private String manager_password;
 	private String manager_phone;
-	
+	private String manager_picname;
+
 	
 	public Integer getManager_id() {
 		return manager_id;
@@ -54,6 +55,12 @@ public class ManagerVO implements java.io.Serializable{
 	}
 	public void setManager_phone(String manager_phone) {
 		this.manager_phone = manager_phone;
+	}
+	public String getManager_picname() {
+		return manager_picname;
+	}
+	public void setManager_picname(String manager_picname) {
+		this.manager_picname = manager_picname;
 	}
 	
 	

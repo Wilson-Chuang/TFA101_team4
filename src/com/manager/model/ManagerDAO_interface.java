@@ -8,6 +8,7 @@ public interface ManagerDAO_interface {
 	public void delete(Integer manager_id);
 	public ManagerVO findByPrimaryKey(Integer manager_id);
 	public List<ManagerVO> getAll();
+	public int getId(String manager_email);
 	
 	 //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<ManagerVO> getAll(Map<String, String[]> map); 

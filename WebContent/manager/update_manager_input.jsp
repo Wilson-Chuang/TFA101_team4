@@ -46,13 +46,15 @@
 </head>
 <body bgcolor='white'>
 
+<!-- 
 <table id="table-1">
 	<tr><td>
 		 <h3>管理員資料修改 - update_manager_input.jsp</h3>
 		 <h4><a href="select_page.jsp"><img src="images/logo.png" width="200" height="64" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
-
+ -->
+ 
 <h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
@@ -65,41 +67,42 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="manager.do" name="form1">
+<FORM METHOD="post" ACTION="manager.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
 		<td>編號:<font color=red><b>*</b></font></td>
-		<td><%=managerVO.getManager_id()%></td>
+		<td><%=(managerVO==null)?"":managerVO.getManager_id()%></td>
 	</tr>
 	<tr>
 		<td>帳號:</td>
-		<td><input type="TEXT" name="Manager_account" size="45" value="<%=managerVO.getManager_account()%>" /></td>
+		<td><input type="TEXT" name="manager_account" size="45" 
+		value="<%=(managerVO==null)?"":managerVO.getManager_account()%>" /></td>
 	</tr>
 	<tr>
 		<td>姓名:</td>
-		<td><input type="TEXT" name="Manager_name" size="45" value="<%=managerVO.getManager_name()%>" /></td>
+		<td><input type="TEXT" name="manager_name" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_name()%>" /></td>
 	</tr>
 	<tr>
 		<td>大頭貼:</td>
-		<td><input type="file" name="Manager_pic()" value="<%=managerVO.getManager_pic()%>" /></td>
+		<td><input type="file" name="manager_pic" value="<%=(managerVO==null)?"":managerVO.getManager_pic()%>" /></td>
 	</tr>
 	<tr>
 		<td>信箱:</td>
-		<td><input type="TEXT" name="Manager_email" size="45" value="<%=managerVO.getManager_email()%>" /></td>
+		<td><input type="TEXT" name="manager_email" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_email()%>" /></td>
 	</tr>
 	<tr>
 		<td>密碼:</td>
-		<td><input type="TEXT" name="Manager_password" size="45" value="<%=managerVO.getManager_password()%>" /></td>
+		<td><input type="password" name="manager_password" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_password()%>" /></td>
 	</tr>
 	<tr>
 		<td>電話:</td>
-		<td><input type="TEXT" name="Manager_phone" size="45" value="<%=managerVO.getManager_phone()%>" /></td>
+		<td><input type="TEXT" name="manager_phone" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_phone()%>" /></td>
 	</tr>
 
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="manager" value="<%=managerVO.getManager_id()%>">
+<input type="hidden" name="manager_id" value="<%=(managerVO==null)?"":managerVO.getManager_id()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 
