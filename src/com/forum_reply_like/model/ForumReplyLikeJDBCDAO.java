@@ -18,7 +18,8 @@ public class ForumReplyLikeJDBCDAO implements ForumReplyLikeDAO {
 	public static final String FIND_BY_PK = "SELECT * FROM FORUM_REPLY_LIKE WHERE FORUM_REPLY_LIKE_ID = ?";
 	public static final String GET_ALL = "SELECT * FROM FORUM_REPLY_LIKE";
 	public static final String COUNT_BY_FORUM_REPLY_ID = "SELECT COUNT(*) FROM FORUM_REPLY_LIKE WHERE FORUM_REPLY_ID = ?";
-
+	public static final String FIND_ONE = "SELECT * FROM FORUM_REPLY_LIKE WHERE FORUM_REPLY_ID = ? AND MEMBER_ID = ?";
+	
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -256,6 +257,32 @@ public class ForumReplyLikeJDBCDAO implements ForumReplyLikeDAO {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	@Override
+	public boolean findOne(Integer forum_reply_id, Integer member_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement(FIND_ONE);
+			pstmt.setInt(1, forum_reply_id);
+			pstmt.setInt(2, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getInt("FORUM_REPLY_ID") == forum_reply_id && rs.getInt("MEMBER_ID") == member_id) {
+					return true;
+				}
+				
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		return false;
 	}
 
 }

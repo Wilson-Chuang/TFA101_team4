@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+.report {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.title {
+    border: 1px solid black;
+    width: 400px;
+    height: 40px;
+    text-align: center;
+    background-color: #21427A;
+    color: white;
+    line-height: 40px;
+}
+
+.selects {
+    border: 1px solid black;
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
+.form-check {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #21427A;
+
+}
+.container{
+    margin-top: 50px;
+}

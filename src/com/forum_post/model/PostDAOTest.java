@@ -10,6 +10,12 @@ public class PostDAOTest {
 		ForumPostVO forumPost = new ForumPostVO();
 		ForumPostDAO dao = new ForumPostJDBCDAO();
 		
+		System.out.println("postid");
+		int forum_post_id = sc.nextInt();
+		System.out.println("狀態");
+		int forum_post_status = sc.nextInt();
+		dao.updateStatus(forum_post_status, forum_post_id);
+		
 //		新增	
 //		System.out.println("輸入會員編號");
 //		int member_id = sc.nextInt();
@@ -50,10 +56,10 @@ public class PostDAOTest {
 //		dao.updateStatus(forumPost);
 
 //		刪除
-		System.out.println("輸入發文編號");
-		int forum_post_id = sc.nextInt();
-		
-		dao.delete(forum_post_id);
+//		System.out.println("輸入發文編號");
+//		int forum_post_id = sc.nextInt();
+//		
+//		dao.delete(forum_post_id);
 
 //		查全部
 //		List<ForumPostVO> forumlist = dao.getAll();

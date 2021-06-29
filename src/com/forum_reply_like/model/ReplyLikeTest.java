@@ -21,7 +21,7 @@ public class ReplyLikeTest {
 		forumReplyLike.setForum_reply_id(forum_reply_id);
 		forumReplyLike.setMember_id(member_id);
 		
-		dao.add(forumReplyLike);
+		System.out.println(dao.findOne(forum_reply_id, member_id));
 		
 //		修改
 //		System.out.println("請輸入replyLikeID");

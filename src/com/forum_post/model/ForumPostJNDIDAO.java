@@ -131,17 +131,18 @@ public class ForumPostJNDIDAO implements ForumPostDAO {
 	}
 
 	@Override
-	public void updateStatus(ForumPostVO forumPost) {
+	public void updateStatus(Integer forum_post_status, Integer forum_post_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			con.setAutoCommit(false);
+			
 			pstmt = con.prepareStatement(UPDATE_STATUS_STMT);
-
-			pstmt.setInt(1, forumPost.getForum_post_status());
-			pstmt.setInt(2, forumPost.getForum_post_id());
+			
+			pstmt.setInt(1, forum_post_status);
+			pstmt.setInt(2, forum_post_id);
 
 			pstmt.executeUpdate();
 			con.commit();
@@ -315,6 +316,8 @@ public class ForumPostJNDIDAO implements ForumPostDAO {
 			pstmt = con.prepareStatement(DELETE_STMT);
 			
 			pstmt.setInt(1, forum_post_id);
+			
+			updateStatus(0, forum_post_id);
 			
 			pstmt.executeUpdate();
 			

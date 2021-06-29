@@ -19,15 +19,6 @@
 		<servlet-name>logCheckServlet</servlet-name>
 		<url-pattern>/logCheckServlet</url-pattern>
 	</servlet-mapping>
-  <servlet>
-  	<servlet-name>MemberServlet</servlet-name>
-  	<servlet-class>com.member.controller.MemberServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>MemberServlet</servlet-name>
-  	<url-pattern>/member.html</url-pattern>
-  </servlet-mapping>
-  
    <servlet>
     <servlet-name>PartyServlet</servlet-name>
     <servlet-class>com.party.controller.PartyServlet</servlet-class>
@@ -54,4 +45,80 @@
     <load-on-startup>10</load-on-startup>
   </servlet>
   
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ShopServlet</servlet-name>
+		<servlet-class>com.shop.controller.ShopServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShopServlet</servlet-name>
+		<url-pattern>/shop/shop.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SearchServlet</servlet-name>
+		<servlet-class>com.search.controller.SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/search.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/product/product.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Product_categoryServlet</servlet-name>
+		<servlet-class>com.product_category.controller.Product_categoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Product_categoryServlet</servlet-name>
+		<url-pattern>/product_category/product_category.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<servlet-class>shoppingServlet.ShoppingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<url-pattern>/product_list/shopping.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ManagerServlet</servlet-name>
+		<servlet-class>com.manager.controller.ManagerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManagerServlet</servlet-name>
+		<url-pattern>/manager/manager.do</url-pattern>
+	</servlet-mapping>
+	 <servlet>
+		<servlet-name>ForumPostServlet</servlet-name>
+		<servlet-class>com.forum_post.controller.ForumPostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ForumPostServlet</servlet-name>
+		<url-pattern>/forumPost/forumPost.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ForumReplyServlet</servlet-name>
+		<servlet-class>com.forum_reply.controller.ForumReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ForumReplyServlet</servlet-name>
+		<url-pattern>/forumPost/forumReply.do</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -7,7 +7,7 @@ public class ForumPostService {
 	private ForumPostDAO dao;
 
 	public ForumPostService() {
-		dao = new ForumPostJNDIDAO();
+		dao = new ForumPostJDBCDAO();
 	}
 	
 	public ForumPostVO addForumPost(Integer member_id, String forum_post_title, 
@@ -40,13 +40,7 @@ public class ForumPostService {
 	
 	public void updateStatusForumPost(Integer forum_post_status, 
 			Integer forum_post_id) {
-		
-		ForumPostVO forumPost = new ForumPostVO();
-		
-		forumPost.setForum_post_status(forum_post_status);
-		forumPost.setForum_post_id(forum_post_id);
-		
-		dao.updateStatus(forumPost);	
+		dao.updateStatus(forum_post_status, forum_post_id);	
 	}
 	
 	public void updateLikePlus(Integer forum_post_id) {
