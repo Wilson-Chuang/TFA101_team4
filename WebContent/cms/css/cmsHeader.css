@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 微軟正黑體, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+header.header {
+    background-color: #333333;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+    position: fixed; 
+    /* top: 0px; */
+    /* z-index: 2; */
+    display: flex;
+    flex-direction: row;
+    box-shadow: 7px 4px 10px hsla(240, 24%, 88%, 0.6);
+    margin-bottom: 10px;
+}
+
+
+.logo {
+    height: 80px;
+    flex: 1;
+    background-color: none;
+    margin: 5px 30px 0 0;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.logo img{
+    height: 70px;
+    width: auto;
+}
+
+.Breadcrumbs {
+    flex: 1;
+    height: 80px;
+    background-color: none;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.user {
+    flex: 1;
+    height: 80px;
+    background-color: none;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(26, 26, 26);
+    font-size: 20px;
+}
+
+.user li{
+    margin-right: 30px;
+}
+
+.user a{
+    text-decoration: none;
+    color: rgb(255, 251, 251);
+    padding: 5px 5px;
+}
+
+.user img{
+    display: block;
+    border: 0;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+
+header form button {
+    /* 圓角 */
+    border-radius: 10px;
+    border: 0;
+
+    /* 輸入文字色彩設定 */
+    color: white;
+    padding: 5px 5px;
+    background-color: #333333;
+    font-size: 20px;
+}
+
+header form button:focus {
+    outline: none;
+}
+
+div.box {
+    background-color: none;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    border: none; 
+}

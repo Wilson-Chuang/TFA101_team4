@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.manager.model.ManagerService;
+import com.manager.model.ManagerVO;
 
-
-@WebServlet("/manager/login.do")
+@WebServlet("/cms/login.do")
 public class CMSLoginServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -39,29 +40,30 @@ public class CMSLoginServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
-				String manager_email = req.getParameter("manager_email");
-				String manager_password = req.getParameter("manager_password");
+				String email = req.getParameter("manager_email");
+				String password = req.getParameter("manager_password");
 
-				if (manager_email == null || manager_email.trim().length() == 0) {
+				if (email == null || email.trim().length() == 0) {
 					errorMsgs.add("管理員信箱: 請勿空白");
 				}
 
-				if (manager_password == null || manager_password.trim().length() == 0) {
+				if (password == null || password.trim().length() == 0) {
 					errorMsgs.add("管理員密碼: 請勿空白");
 				}
 
-				System.out.println(manager_email);
-				System.out.println(manager_password);
+				System.out.println(email);
+				System.out.println(password);
 				System.out.println("帳密非空白");
 
 				// 取資料庫取值比對
 				ManagerService managerSvc = new ManagerService();
-//				List<ManagerVO> checklist = managerSvc.getAll();
 
-				int manager_id = managerSvc.GETID(manager_email);
+				int manager_id = managerSvc.GETID(email);
+				ManagerVO managerVO = managerSvc.getOneManager(manager_id);
+				
 				System.out.println(manager_id);
 
-				if (manager_email.trim().length() != 0) {
+				if (email.trim().length() != 0) {
 					if (manager_id == 0) {
 						errorMsgs.add("信箱有誤，請重新輸入");
 					}
@@ -74,25 +76,27 @@ public class CMSLoginServlet extends HttpServlet {
 				System.out.println(checkEmail);
 				System.out.println(checkPsw);
 
-				if (!(manager_password.equals(checkPsw))) {
+				if (!(password.equals(checkPsw))) {
 					errorMsgs.add("密碼有誤，請重新輸入");
 				}
 
 				// Send the use back, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/cms/login.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/cms/cmsLogin.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
 
 				// 成功登入後
-				if ((manager_email.equals(checkEmail)) && (manager_password.equals(checkPsw))) {
+				if ((email.equals(checkEmail)) && (password.equals(checkPsw))) {
 
 					/*********************** 登入成功，帳密有效，才做以下動作 ************************************/
 
 					HttpSession session = req.getSession();
-					session.setAttribute("manager_email", manager_email); // *工作1: 才在session內做已經登入過的標識
-
+					session.setAttribute("manager_id", manager_id); // *工作1: 才在session內做已經登入過的標識
+					
+					req.setAttribute("managerVO", managerVO); // 資料庫取出的managerVO物件,存入req
+					
 					try {
 						String location = (String) session.getAttribute("location");
 						if (location != null) {
@@ -103,10 +107,10 @@ public class CMSLoginServlet extends HttpServlet {
 					} catch (Exception ignored) {
 					}
 
-//						res.sendRedirect(req.getContextPath() + "/cms/protected/index.jsp"); // *工作3:
+//						res.sendRedirect(req.getContextPath() + "/cms/protected/cmsIndex.jsp"); // *工作3:
 
 //					      	準備轉交(Send the Success view)
-					String url = "/cms/protected/index.jsp";
+					String url = "/cms/protected/cmsIndex.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交index.jsp
 					successView.forward(req, res);
 //						
@@ -115,9 +119,33 @@ public class CMSLoginServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/cms/login.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/cms/cmsLogin.jsp");
 				failureView.forward(req, res);
 			}
+		}
+
+		if ("logout".equals(action)) {
+			
+			HttpSession session = req.getSession(false);//如果當前沒有Session就為null，不要建立新session
+			
+			if(session == null){
+				
+				String url = "/cms/cmsLogin.jsp";
+				RequestDispatcher protectView = req.getRequestDispatcher(url);
+				protectView.forward(req, res);
+//				res.sendRedirect("/cms/cmsLogin.jsp");
+				return;	
+				
+			} else {
+				session.removeAttribute("manager_id");
+//				res.sendRedirect("/cms/cmsLogin.jsp");
+				
+				String url = "/cms/cmsLogin.jsp";
+				RequestDispatcher logoutView = req.getRequestDispatcher(url); // 新增成功後轉交index.jsp
+				logoutView.forward(req, res);
+				
+				return;	
+			}			
 		}
 
 	}

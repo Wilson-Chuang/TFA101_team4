@@ -29,12 +29,6 @@
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-   <tr><td><h3>Manager : Select</h3><h4>( MVC )</h4></td></tr>
-</table>
-
-<p>This is the page for Manager : Select</p>
-
 <h3>資料查詢:</h3>
 	
 <%-- 錯誤表列 --%>
@@ -89,12 +83,6 @@
   </li>
 </ul>
 
-
-<h3>員工管理</h3>
-
-<ul>
-  <li><a href='addManager.jsp'>Add</a> a new Manager.</li>
-</ul>
 
 </body>
 </html>

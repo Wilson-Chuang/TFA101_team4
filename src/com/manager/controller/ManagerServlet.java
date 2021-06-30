@@ -175,22 +175,50 @@ if("update".equals(action))
 				errorMsgs.add("管理員電話有誤，請再次確認");
 			}
 
-			// 圖片，用getpart()
-
-			Part file = req.getPart("manager_pic");
-			String fileName = file.getSubmittedFileName();
-
-			String path = "C:/uploadpic/" + fileName;
-
-			FileOutputStream fos = new FileOutputStream(path);
-			InputStream is = file.getInputStream();
-
-			byte[] manager_pic = new byte[is.available()];
-			is.read(manager_pic);
-			fos.write(manager_pic);
-			fos.close();
-
+//			圖片，用getpic
+						
+			byte[] manager_pic = null;
+			InputStream is = null;
+			Part file = req.getPart("manager_pic"); //讀取新圖
 			String manager_picname = file.getSubmittedFileName();
+			
+			try {
+				is = file.getInputStream();
+				
+				manager_pic = new byte[is.available()];
+				is.read(manager_pic);
+				
+				if(manager_pic.length == 0) { 	//未修改圖片則存取原圖
+					ManagerService managerSvc = new ManagerService();
+					ManagerVO originalVO = managerSvc.getOneManager(manager_id);
+					manager_pic = originalVO.getManager_pic();
+					
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("圖片存取錯誤");
+				
+			} finally {
+				is.close();
+			}
+			
+			
+			// 圖片，用getpart()
+//			Part file = req.getPart("manager_pic");
+//			String fileName = file.getSubmittedFileName();
+//
+//			String path = "C:/uploadpic/" + fileName;
+//
+//			FileOutputStream fos = new FileOutputStream(path);
+//			InputStream is = file.getInputStream();
+//
+//			byte[] manager_pic = new byte[is.available()];
+//			is.read(manager_pic);
+//			fos.write(manager_pic);
+//			fos.close();
+//
+//			String manager_picname = file.getSubmittedFileName();
 
 			ManagerVO managerVO = new ManagerVO();
 			managerVO.setManager_id(manager_id);
@@ -266,7 +294,7 @@ if("insert".equals(action))
 			int j;
 		    StringBuilder sb = new StringBuilder();
 		    int i;
-		    for (i = 0; i < 8; i++) {
+		    for (i = 0; i < 6; i++) {
 		      j = (int)((Math.random() * 3) + 1);
 		 
 		      if (j == 1) { // 放數字,unicdoe 48~57
@@ -296,22 +324,42 @@ if("insert".equals(action))
 			} else if (!manager_phone.trim().matches(manager_phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("管理員電話有誤，請再次確認");
 			}
-
-			// 圖片，用getpart()
-			Part file = req.getPart("manager_pic");
-			String fileName = file.getSubmittedFileName();
-
-			String path = "C:/uploadpic/" + fileName;
-
-			FileOutputStream fos = new FileOutputStream(path);
-			InputStream is = file.getInputStream();
-
-			byte[] manager_pic = new byte[is.available()];
-			is.read(manager_pic);
-			fos.write(manager_pic);
-			fos.close();
-
+			
+			
+			byte[] manager_pic = null;
+			InputStream is = null;
+			Part file = req.getPart("manager_pic"); //讀取新圖
 			String manager_picname = file.getSubmittedFileName();
+			
+			try {
+				is = file.getInputStream();
+				
+				manager_pic = new byte[is.available()];
+				is.read(manager_pic);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("圖片存取錯誤");
+				
+			} finally {
+				is.close();
+			}
+			
+//			// 圖片，用getpart()
+//			Part file = req.getPart("manager_pic");
+//			String fileName = file.getSubmittedFileName();
+//
+//			String path = "C:/uploadpic/" + fileName;
+//
+//			FileOutputStream fos = new FileOutputStream(path);
+//			InputStream is = file.getInputStream();
+//
+//			byte[] manager_pic = new byte[is.available()];
+//			is.read(manager_pic);
+//			fos.write(manager_pic);
+//			fos.close();
+//
+//			String manager_picname = file.getSubmittedFileName();
 
 			ManagerVO managerVO = new ManagerVO();
 			managerVO.setManager_account(manager_account);
@@ -337,10 +385,8 @@ if("insert".equals(action))
 			System.out.println("新增完成");
 			
 
-			
-
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/cms/protected/manager_listAll_include.jsp";
+			String url = "/manager/listAllManager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllManager.jsp
 			successView.forward(req, res);
 			
@@ -381,7 +427,7 @@ if("insert".equals(action))
 			managerSvc.deleteManager(manager_id);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/cms/protected/manager_listAll_include.jsp";
+			String url = "/manager/listAllmanager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 

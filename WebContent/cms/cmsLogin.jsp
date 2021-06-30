@@ -12,7 +12,7 @@
 <title>Guide好食 |後台登入</title>
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/manager/css/login.css">
+	href="${pageContext.request.contextPath}/cms/css/cmsLogin.css">
 
 </head>
 <body>
@@ -27,7 +27,7 @@
 			<h3>後台管理系統登入</h3>
 			
 			
-			<form action="<%=request.getContextPath()%>/manager/login.do" method="post" >
+			<form action="<%=request.getContextPath()%>/cms/login.do" method="post" >
 				<p>管理員信箱</p>
 				<input type="text" name="manager_email" placeholder="請輸入信箱" /><br>
 				<p>管理員密碼</p>

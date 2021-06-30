@@ -11,22 +11,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>資料新增 - addManager.jsp</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
 <style>
   table {
@@ -46,12 +30,6 @@
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>資料新增 - addManager.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/logo.png" width="200" height="64" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
 <h3>資料新增:</h3>
 
