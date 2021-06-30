@@ -74,15 +74,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <li class="sidebar">
-									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
-									<input type=hidden name="userName" value=<%=MemberVO.getMember_name() %>  > 
-									<input type="submit" value="聊天室" class="save_btn"
-								style="width: 150px; background: none; color: black">
-<!-- 									<label><i class="fas fa-comments">聊天室</i><input type="submit" style="display:none"></label> -->
-									</form>
-								</li>
-					<hr>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">
 							<input type=hidden name="action" value="toShop"> <input

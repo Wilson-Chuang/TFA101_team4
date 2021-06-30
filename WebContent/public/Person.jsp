@@ -21,8 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		MemberVO myMemberVO = (MemberVO)(session.getAttribute("login"));
 		Member_FollowerService memfolSvc=new Member_FollowerService();
 		List<ArticleVO> list_myArticle=memSvc.getMyArticle(member_id);
-		ForumPostService forSvc=new ForumPostService();
-		List<ForumPostVO> list_myForum=forSvc.getMyForum(member_id);
+		List<ForumPostVO> list_myForum=memSvc.getMyForum(member_id);
 		
 
 		
@@ -66,16 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <%if(!(myMemberVO==null)){ %>
-                    <li class="sidebar">
-									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
-<%-- 									<input type=hidden name="userName" value=<%=myMemberVO.getMember_name() %>  >  --%>
-									<input type=hidden name="recieverName" value=<%=MemberVO.getMember_id()+":"+MemberVO.getMember_name() %>> 
-									<input type="submit" value="聊天室" class="save_btn"
-								style="width: 150px; background: none; color: black">
-									</form>
-								</li>
-					<hr><%} %>
+					<hr>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">
 							<input type=hidden name="action" value="toShop"> <input
@@ -109,6 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
                 	<%-- <input type=hidden name="userName" value=<%=myMemberVO.getMember_name() %>  >  --%>
                 		 <input type=hidden name="recieverName" value=<%=MemberVO.getMember_id()+":"+MemberVO.getMember_name() %>> 
+                		 <input type=hidden name="action" value="chat">
                 		 <input type="submit" value="聊天" class="save_btn" style="width: 150px;">
                 	</form>
                <% boolean followed =memfolSvc.check_follow(member_id, myMemberVO.getMember_id());

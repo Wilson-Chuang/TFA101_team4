@@ -34,6 +34,8 @@ public class Comment_ReportDAO  implements Comment_ReportDAO_Interface{
 			"UPDATE comment_report set comment_id=?,member_id=?,comment_report_reason=?,comment_report_time=?,comment_report_status=? where comment_report_id=?";
 		private static final String REPORTED=
 				"SELECT * FROM COMMENT_REPORT where comment_id=? and member_id=?";
+		private static final String UPDATE_STATUS = 
+				"UPDATE COMMENT_REPORT set COMMENT_REPORT_STATUS=? where COMMENT_REPORT_ID=?";
 		
 	@Override
 	public void insert(Comment_ReportVO Comment_ReportVO) {
@@ -100,7 +102,36 @@ public class Comment_ReportDAO  implements Comment_ReportDAO_Interface{
 			}
 		}
 	}
-
+	@Override
+	public void update_status(Integer Comment_report_status,Integer Comment_report_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			pstmt.setInt(1,Comment_report_status);
+			pstmt.setInt(2,Comment_report_id);
+			pstmt.execute();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 	@Override
 	public void delete(Integer Comment_Report_ID) {

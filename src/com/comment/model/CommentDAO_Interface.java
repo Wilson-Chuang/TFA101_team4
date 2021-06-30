@@ -14,6 +14,7 @@ public interface CommentDAO_Interface {
     public Integer countByMember(Integer Member_ID);
     public Integer countByShop(Integer Shop_ID);
     public Integer countRating(Integer Shop_ID);
+    public void update_status(Integer Comment_ststus,Integer Comment_ID);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
 

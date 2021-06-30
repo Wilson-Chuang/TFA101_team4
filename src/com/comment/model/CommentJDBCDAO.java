@@ -282,6 +282,13 @@ public class CommentJDBCDAO implements CommentDAO_Interface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void update_status(Integer Comment_ststus, Integer Comment_ID) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

@@ -56,6 +56,16 @@ public class ShopDAO implements ShopDAO_interface {
 			+ "shop_website=?, shop_main_img=?, shop_gallery=?, "
 			+ "shop_update_time=?, shop_total_view=?, shop_reserv_status=?"
 			+ " where shop_id = ?";
+	private static final String UPDATE_RATING = 
+			"UPDATE shop set shop_rating=? where shop_id = ?";
+	private static final String ADD_TOTAL_VIEW = 
+			"UPDATE shop set shop_total_view=shop_total_view+1 where shop_id = ?";
+	private static final String INSERT_SHOP = "INSERT INTO shop (member_id,"
+			+ "shop_tax_id,shop_name,shop_zip_code,shop_city,shop_address,"
+			+ "shop_latitude,shop_longitude,shop_description,shop_tag,"
+			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
+			+ "shop_website,shop_main_img,shop_gallery,shop_reserv_status)"
+			+ " VALUES (?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )";
 
 	@Override
 	public void insert(ShopVO shopVO) {
@@ -988,4 +998,135 @@ public class ShopDAO implements ShopDAO_interface {
 		}
 		return shopVO;
 	}
+	@Override
+	public void update_rating(ShopVO shopVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_RATING);
+			
+			pstmt.setDouble(1, shopVO.getShop_rating());
+			pstmt.setInt(2, shopVO.getShop_id());
+			
+			pstmt.executeUpdate();
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	@Override
+	public void add_total_view(Integer shop_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ADD_TOTAL_VIEW);
+			
+			pstmt.setInt(1, shop_id);
+			
+			pstmt.executeUpdate();
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	@Override
+	public void insert_shop(ShopVO shopVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_SHOP);
+			
+			pstmt.setInt(1, shopVO.getMember_id());
+			pstmt.setString(2, shopVO.getShop_tax_id());
+			pstmt.setString(3, shopVO.getShop_name());
+			pstmt.setString(4, shopVO.getShop_zip_code());
+			pstmt.setString(5, shopVO.getShop_city());
+			pstmt.setString(6, shopVO.getShop_address());
+			pstmt.setDouble(7, shopVO.getShop_latitude());
+			pstmt.setDouble(8, shopVO.getShop_longitude());
+			pstmt.setString(9, shopVO.getShop_description());
+			pstmt.setString(10, shopVO.getShop_tag());
+			pstmt.setString(11, shopVO.getShop_email());
+			pstmt.setString(12, shopVO.getShop_phone());
+			pstmt.setInt(13, shopVO.getShop_price_level());
+			pstmt.setString(14, shopVO.getShop_opening_time());
+			pstmt.setString(15, shopVO.getShop_website());
+			pstmt.setString(16, shopVO.getShop_main_img());
+			pstmt.setString(17, shopVO.getShop_gallery());
+			pstmt.setInt(18,shopVO.getShop_reserv_status());
+			
+			pstmt.executeUpdate();
+			
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+
 }

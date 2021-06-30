@@ -35,6 +35,8 @@ public class CommentDAO  implements CommentDAO_Interface{
 			"DELETE FROM comment where comment_id = ?";
 		private static final String UPDATE = 
 			"UPDATE comment set member_id=?,shop_id=?,comment_content=?,comment_reting=?,comment_pic=? where comment_id=?";
+		private static final String UPDATE_STATUS = 
+				"UPDATE comment set comment_status=? where comment_id=?";
 		private static final String COUNT_BY_MEMBER = 
 			"SELECT count(*) FROM comment where member_id =?";
 		private static final String COUNT_BY_SHOP = 
@@ -94,6 +96,36 @@ public class CommentDAO  implements CommentDAO_Interface{
 		} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	@Override
+	public void update_status(Integer Comment_ststus,Integer Comment_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			pstmt.setInt(1,Comment_ststus);
+			pstmt.setInt(2,Comment_id);
+			pstmt.execute();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
 		}finally {
 			if (pstmt != null) {
 				try {

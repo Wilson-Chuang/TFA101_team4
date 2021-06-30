@@ -30,6 +30,9 @@ public class CommentService {
 		dao.insert(CommentVO);
 		return CommentVO;
     };
+    public void update_status(Integer Comment_ststus,Integer comment_id) {
+    	dao.update_status(Comment_ststus,comment_id);
+    };
     public void delete(Integer comment_id) {
     	dao.delete(comment_id);
     };

@@ -44,8 +44,8 @@
 						 <input type="text"	name="MEMBER_EMAIL" class="sign_form"placeholder="name@address.com"> 
 						 <label for=""class="ps_zone">PASSWORD <a href="#">忘記密碼?</a></label> 
 						 <input	type="password" name="MEMBER_PASSWORD" class="sign_form"placeholder="Password">
-						  <input type="hidden"name="action" value="signin"> <input type="submit"
-							value="會員登入">
+						  <input type="hidden"name="action" value="signin"> 
+						  <input type="submit" value="會員登入">
 					</form>
 				</div>
 				<div class="sign_in_other">

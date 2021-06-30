@@ -9,7 +9,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
-<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -49,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
 
         <div class="row">
-
+<span style="color:black;font-size:30px;padding:0;width:120px">意見回饋</span><span style="color:gray;font-size:30px;margin:0px;padding:0;width:135px;">/評論檢舉</span>
            <div >
                 
                 <div class="row">
@@ -61,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</ul>
 					</c:if>
                 <h1>檢舉清單</h1>
-                    
+                    <hr>
                     <%
                 		Comment_ReportService cmSvc=new Comment_ReportService();
                 		List<Comment_ReportVO> rtList=cmSvc.getAll();
@@ -80,18 +79,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="comment_zone">
                    	 <h3 class="user">檢舉者:<%=member_name%>，檢舉原因:<%=reason %></h3>
                         <p>檢舉時間<%=rt.getCOMMENT_REPORT_TIME() %></p>
+                        <hr>
                        	<p>檢舉評論:</p>
                         <h3 class="user"><%=MemberVO.getMember_name() %></h3>
                         <p><%=CommentVO.getCOMMENT_TIME() %></p>
                         <span class="ratins"><%=CommentVO.getCOMMENT_RATING()%><i class="fas fa-star"></i></span><br>
                         <p><%=CommentVO.getCOMMENT_CONTENT() %></p>
                             <img src="/upload/<%=CommentVO.getCOMMENT_PIC()%>" alt="" style="width:25%"><br>
+                            
+                            
+                            
+                            
+                         <%if(rt.getCOMMENT_REPORT_STATUS()==0){ %>
                         <form action="member.html" method="post">
                          <input type="hidden" name="comment_id" value="<%=comment_id %>">
-                         <input type="hidden" name="comment_report_id" value="<%=rt.getCOMMENT_ID() %>">
+                         <input type="hidden" name="comment_status" value="1">
+                         <input type="hidden" name="comment_report_id" value="<%=rt.getCOMMENT_REPORT_ID() %>">
+                         <input type="hidden" name="comment_report_status" value="1">
                          <input type=hidden name="action" value="delete_comment_rt">
-                         <input type="submit" value="刪除該評論" class="save_btn" style="width:150px">
+                         <input type="submit" value="遮蔽該評論" class="save_btn" style="width:150px">
                          </form>
+                        <form action="member.html" method="post">
+                         <input type="hidden" name="comment_id" value="<%=comment_id %>">
+                         <input type="hidden" name="comment_status" value="0">
+                         <input type="hidden" name="comment_report_id" value="<%=rt.getCOMMENT_REPORT_ID() %>">
+                         <input type="hidden" name="comment_report_status" value="1">
+                         <input type=hidden name="action" value="delete_comment_rt">
+                         <input type="submit" value="通過該評論" class="save_btn" style="width:150px">
+                         </form>
+                         <%}else{ %>
+                        <h3>已處理此檢舉</h3>
+                         <%} %>
                             <hr>
                     </div>
                     <%

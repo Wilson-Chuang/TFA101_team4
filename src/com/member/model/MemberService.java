@@ -10,6 +10,9 @@ import com.article.model.ArticleVO;
 import com.article_favorite.model.Article_FavoriteDAO;
 import com.article_favorite.model.Article_FavoriteDAO_interface;
 import com.article_favorite.model.Article_FavoriteVO;
+import com.forum_post.model.ForumPostDAO;
+import com.forum_post.model.ForumPostJNDIDAO;
+import com.forum_post.model.ForumPostVO;
 import com.member_follower.model.Member_FollowerDAO;
 import com.member_follower.model.Member_FollowerDAO_Interface;
 import com.member_follower.model.Member_FollowerVO;
@@ -29,6 +32,7 @@ public class MemberService {
 	private Shop_FavoritesDAO_Interface dao_shop_fav;
 	private ArticleDAO_interface dao_article;
 	private Article_FavoriteDAO_interface dao_article_fav;
+	private ForumPostDAO dao_fp;
 	
 	public MemberService() {
 		dao= new MemberDAO();
@@ -37,6 +41,7 @@ public class MemberService {
 		dao_shop_fav=new Shop_FavoritesDAO();
 		dao_article=new ArticleDAO();
 		dao_article_fav=new Article_FavoriteDAO();
+		dao_fp=new ForumPostJNDIDAO();
 	}
 	public MemberVO insert(String Member_email,String Member_password){
 		MemberVO memberVO=new MemberVO();
@@ -148,5 +153,8 @@ public class MemberService {
 		  return memberVO;
 		  
 		 }
+		public List<ForumPostVO> getMyForum(Integer member_id){
+			return dao_fp.getMyForum(member_id);
+		}
 	 
 }

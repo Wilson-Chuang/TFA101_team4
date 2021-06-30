@@ -69,15 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <%if(!(myMemberVO==null)){ %>
-                    <li class="sidebar">
-									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
-									<input type=hidden name="userName" value=<%=myMemberVO.getMember_name() %>  > 
-									<input type="submit" value="聊天室" class="save_btn"
-								style="width: 150px; background: none; color: black">
-									</form>
-								</li>
-					<hr><%} %>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">
 							<input type=hidden name="action" value="toShop"> <input
@@ -192,6 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  							for (CommentVO com : list_Com) {
  							MemberService memSvc = new MemberService();
  							MemberVO MemberVO=memSvc.GET_ONE_BY_ID(com.getMEMBER_ID());
+ 							if(com.getCOMMENT_STATUS()==0){
  						%>
                     
                     <div class="comment_zone">
@@ -221,7 +213,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  				
                  				
                  			<%
-                 			} %>
+                 			} }else{%>
+                 			<p>某評論已被遮蔽</p>
+                 			<%} %>
                             <hr>
                     </div>
                     <%

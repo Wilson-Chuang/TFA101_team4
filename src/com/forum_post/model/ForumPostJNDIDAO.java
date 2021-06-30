@@ -21,7 +21,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/David");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

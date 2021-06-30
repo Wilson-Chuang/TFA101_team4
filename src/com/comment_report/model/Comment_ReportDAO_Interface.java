@@ -7,6 +7,7 @@ import java.util.List;
 public interface Comment_ReportDAO_Interface {
 	public void insert(Comment_ReportVO MemberVO);
     public void update(Comment_ReportVO MemberVO);
+    public void update_status(Integer Comment_report_status,Integer Comment_report_id);
     public void delete(Integer Comment_ID);
     public Comment_ReportVO getOneStmt(Integer Comment_ID);
     public List<Comment_ReportVO> getAll();

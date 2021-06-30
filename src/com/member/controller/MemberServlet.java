@@ -52,7 +52,6 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		
-		
 		if ("insert".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -545,7 +544,7 @@ public class MemberServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("fuck");
+			
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 						
@@ -604,7 +603,6 @@ public class MemberServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
-				System.out.println("fuck");
 				String location=(String) session.getAttribute("location");
 				if(location==null) {
 				String url ="/member/PersonalFile.jsp";
@@ -864,7 +862,6 @@ public class MemberServlet extends HttpServlet {
 						return;//程式中斷
 					}
 				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				
 				String password = MemberVO.getMember_password();
 				if(!login_pswd.equals(password) ) {
 					errorMsgs.add("密碼錯誤");
@@ -1205,11 +1202,8 @@ public class MemberServlet extends HttpServlet {
 				String price_level_s = req.getParameter("SHOP_PRICE_LEVEL");
 				int price_level=Integer.valueOf(price_level_s);
 				String opening_time = req.getParameter("SHOP_OPENING_TIME");
-				String city = req.getParameter("city");
-				 String county = req.getParameter("county");
-				 String add =req.getParameter("address");
-				 
-				String address = city+ county+add;
+				String city = req.getParameter("SHOP_CITY");
+				String address = req.getParameter("address");
 				String web = req.getParameter("SHOP_WEBSITE");
 				String phone = req.getParameter("SHOP_PHONE");
 				String email = req.getParameter("SHOP_EMAIL");
@@ -1383,51 +1377,14 @@ public class MemberServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				int comment_ID= Integer.parseInt(req.getParameter("comment_id"));
+				int comment_status= Integer.parseInt(req.getParameter("comment_status"));
+				int comment_report_status= Integer.parseInt(req.getParameter("comment_report_status"));
 				int comment_report_ID= Integer.parseInt(req.getParameter("comment_report_id"));
-				
 				/*************************** 2.開始查詢資料 *****************************************/
 				Comment_ReportService rtSvc=new Comment_ReportService();
-				rtSvc.delete(comment_report_ID);
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher(url);
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("comment_ID", comment_ID); // 資料庫取出的empVO物件,存入req
-				
-				url = "/public/comment_delete_comfirm.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				successView.forward(req, res);
-				
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher(url);
-				failureView.forward(req, res);
-			}
-		}
-		if ("delete_comment".equals(action)) { // 來自select_page.jsp的請求
-			
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			String url = "/public/comment_report_list.jsp";
-			
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				int comment_ID= Integer.parseInt(req.getParameter("comment_id"));
-				
-				/*************************** 2.開始查詢資料 *****************************************/
+				rtSvc.update_status(comment_report_status,comment_report_ID);
 				CommentService comSvc = new CommentService();
-				comSvc.delete(comment_ID);
-				
+				comSvc.update_status(comment_status,comment_ID);
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -1435,6 +1392,7 @@ public class MemberServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
+				
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("comment_ID", comment_ID); // 資料庫取出的empVO物件,存入req
@@ -1449,6 +1407,7 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
 		if ("delete_sf".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();

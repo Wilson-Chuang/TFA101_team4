@@ -19,8 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	MemberService memSvc=new MemberService();
 	int Member_id=MemberVO.getMember_id();
 	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
-	ForumPostService forSvc=new ForumPostService();
-	List<ForumPostVO> list_myForum=forSvc.getMyForum(Member_id);
+	List<ForumPostVO> list_myForum=memSvc.getMyForum(Member_id);
 %>
 <!DOCTYPE html>
 <html>
@@ -76,14 +75,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-                    <li class="sidebar">
-									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
-									<input type=hidden name="userName" value=<%=MemberVO.getMember_name() %>  > 
-									<input type="submit" value="聊天室" class="save_btn"
-								style="width: 150px; background: none; color: black">
-									</form>
-								</li>
-					<hr>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">
 							<input type=hidden name="action" value="toShop"> <input
@@ -126,7 +117,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="tab-pane fade" id="myforum">
 					
 					
-					<%if(!list_myForum.isEmpty()){%>
+					<%
+					
+					if(!list_myForum.isEmpty()){%>
 						
 							<ul class="list-group list-group-flush">
   						<%for (ForumPostVO post : list_myForum) {%>  

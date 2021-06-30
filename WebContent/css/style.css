@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
-    color:#2e2e2e;
 }
 
 .dropdown-menu {
@@ -189,14 +188,13 @@ html{
     height: 100%;
 }
 .sign_right{
-    background-image: url("./wilson/loginBg.jpg");
+    background-image: url("/upload/loginBg.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: right;
     background-size:contain;
 }
 .sign_bk{
-    /* background-image: url(/wilson/bki.png); */
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position:center;

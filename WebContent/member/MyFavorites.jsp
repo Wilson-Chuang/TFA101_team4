@@ -52,10 +52,8 @@
 	            list_fans.add(Member_folVO);
 	           
 	        }
-	Shop_FavoritesService shopfavSvc= new Shop_FavoritesService();
-	
-	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
 	List<Article_FavoriteVO> list_article_fol=memSvc.getAllArticleFavByMem(Member_id);
+// 	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
 	
 %>
 <!DOCTYPE html>
@@ -125,15 +123,6 @@
 								type="submit" value="活動紀錄" class="save_btn"
 								style="width: 150px; background: none; color: black">
 						</form></li>
-						<hr>
-							<li class="sidebar">
-									<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
-									<input type=hidden name="userName" value=<%=MemberVO.getMember_name() %>  > 
-									<input type=hidden name="userID" value=<%=MemberVO.getMember_id() %>  > 
-									<input type="submit" value="聊天室" class="save_btn"
-								style="width: 150px; background: none; color: black">
-									</form>
-								</li>
 					<hr>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">

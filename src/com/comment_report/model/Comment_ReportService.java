@@ -31,6 +31,9 @@ public class Comment_ReportService {
 		dao.insert(Comment_ReportVO);
 		return Comment_ReportVO;
     };
+    public void update_status(Integer Comment_report_status,Integer comment_report_id) {
+    	dao.update_status(Comment_report_status,comment_report_id);
+    }
     public void delete(Integer comment_report_id) {
     	dao.delete(comment_report_id);
     };
