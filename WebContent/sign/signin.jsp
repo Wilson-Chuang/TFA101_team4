@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ include file="/pages/header.file" %>

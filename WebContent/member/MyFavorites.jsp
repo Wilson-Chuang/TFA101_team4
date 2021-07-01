@@ -8,6 +8,7 @@
 <%@ page import="com.article.model.*"%>
 <%@ page import="com.article_favorite.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.search.model.*"%>
 <%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>

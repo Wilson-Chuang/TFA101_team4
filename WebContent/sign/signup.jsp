@@ -3,6 +3,7 @@
 <%@ page import="com.member.model.*"%>
 <%@ include file="/pages/header.file" %>
 <%@ page import="java.util.*"%>
+<%@ page import="com.search.model.*"%>
 <%
 	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
 %>

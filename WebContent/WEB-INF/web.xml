@@ -45,7 +45,15 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MemberServlet</servlet-name>
-		<url-pattern>/member/member.html</url-pattern>
+		<url-pattern>/member.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>signMemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>signMemberServlet</servlet-name>
+		<url-pattern>/sign/member.html</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ShopServlet</servlet-name>
