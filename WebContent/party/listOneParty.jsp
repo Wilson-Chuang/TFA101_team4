@@ -61,6 +61,7 @@
 		<th>揪團介紹</th>
 		<th>成團人數最多限制</th>
 		<th>成團人數最少限制</th>
+		<th>備註</th>
 	</tr>
 	<tr>
 		<td><%=partyVO.getParty_id()%></td>
@@ -70,6 +71,7 @@
 		<td><%=partyVO.getParty_intro()%></td>
 		<td><%=partyVO.getParty_participants_max()%></td>
 		<td><%=partyVO.getParty_participants_min()%></td>
+		<td><%=partyVO.getParty_remarks()%></td>
 	</tr>
 </table>
 

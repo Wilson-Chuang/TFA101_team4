@@ -132,6 +132,7 @@ p.p1{
 						pattern="yyyy-MM-dd hh:mm" /></p>
 			<p>最高人數: ${partyVO.party_participants_max}</p>
 			<p>最低人數: ${partyVO.party_participants_min}</p>
+			<p>備註: ${partyVO.party_remarks}</p>
 			
 			<input type="hidden" name="action" value="insert">
 		    <input type="submit" value="加入揪團">
