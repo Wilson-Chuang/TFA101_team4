@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
 <%-- <%@ include file="/pages/header.file" %> --%>
 
@@ -23,6 +24,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	Member_FollowerService folSvc=new Member_FollowerService(); 
 	int count_fans = folSvc.count_fans(MemberVO.getMember_id());
+	String imgPath = request.getContextPath()+ File.separator+
+			"uploads" + File.separator + "shop"+ File.separator +  ShopVO.getShop_tax_id()+ 
+			File.separator +"images"+ File.separator ;
+	String galleryPath = request.getContextPath()+ File.separator  + 
+			"uploads" + File.separator + "shop"+ File.separator +  
+			ShopVO.getShop_tax_id()+ File.separator +"gallery"+ File.separator;
 %>
 <!DOCTYPE html>
 <html>
@@ -102,7 +109,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="col-md-4">
                     
                         <a href="<%=request.getContextPath()+"/public/Shop.jsp?shop_id="+ShopVO.getShop_id() %>">
-                        <img src="/upload/<%=ShopVO.getShop_main_img() %>" class="card-img" alt="..."></a>
+                        <%String main_img=imgPath+ShopVO.getShop_main_img();%>
+                        <img src="<%=main_img %>" class="card-img" alt="..."></a>
                     </div>
                     <div class="col-md-8 shop_zone">
                         <h1 class="shop_title"><%=ShopVO.getShop_name() %></h1>
@@ -142,11 +150,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					
 					for(int i =0;i<shop_gallery.length;i++){
-						String filepath=shop_name+"gallery/"+shop_gallery[i];
+						String gallery_img=galleryPath+shop_gallery[i];
 					%>
 					
                     <div class="shop_pic">
-                        <img src="/upload/<%=filepath %>" class="shop_img" style="width:150px;height:150px;">
+                        <img src="<%=gallery_img %>" class="shop_img" style="width:150px;height:150px;">
                     </div>
 					<%}} %>
 

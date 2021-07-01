@@ -43,14 +43,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="col-10">
                 <form action="member.html" class="personal_form" method="post"  enctype="multipart/form-data">
-                    <label for="">名稱<br><input type="text" name="MEMBER_NAME" value="<%=MemberVO.getMember_name() %>"></label>
+                    <label for="">名稱<br><input type="text" name="MEMBER_NAME" value="<%=MemberVO.getMember_name()==null?"":MemberVO.getMember_name() %>"></label>
                     <label for="">性別<br><select name="MEMBER_GENDER">
                             <%if(MemberVO.getMember_gender()==1){%><option selected=selected >男</option><option >女</option><%}else{%><option>男</option><option selected=selected>女</option><%}%>
                    </select></label><br>
                     <label for="">生日<br><input type="date"  name="MEMBER_BIRTH"  value="<%=birth %>"></label><br>
                     <%
                     String address=MemberVO.getMember_address();
-                    System.out.println(address);
                    	String[] add;
                    
                     if(address==null){
@@ -60,11 +59,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     }
                     %>
                     <label for="">地址<br>
-                    <select id="city-list" name="city" onchange="changeCity(this.selectedIndex)"></select>
-                    <select id="county-list" name="county" ></select>
-                    <input type="text" name="address" value="<%= add[2]%>"></label><br>
+                    <select id="city-list" name="city" onchange="changeCity(this.selectedIndex)">
+                    <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
+                    </select>
+                    <select id="county-list" name="county" >
+                    <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
+                    </select>
+                    <input type="text" name="address" value="<%=MemberVO.getMember_address()==null?"":add[2]%>"></label><br>
                     
-                    <label for="">電話<br><input type="text" name="MEMBER_PHONE" value="<%=MemberVO.getMember_phone() %>" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')"></label><br><br>
+                    <label for="">電話<br><input type="text" name="MEMBER_PHONE" value="<%=MemberVO.getMember_phone()==null?"":MemberVO.getMember_phone() %>" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')"></label><br><br>
 					<label style="border:1px solid black;border-radius:5px;">上傳頭貼<input style="display:none" type="file" name="MEMBER_PIC" value="/upload/<%=MemberVO.getMember_pic() %>"></label><br>                
                     <input type="hidden" name="action" value="update">
                     <input type="submit" value="儲存" class="save_btn" style="width:150px">

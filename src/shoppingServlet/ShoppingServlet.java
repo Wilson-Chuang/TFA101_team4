@@ -50,7 +50,7 @@ public class ShoppingServlet extends HttpServlet {
 //		int discount_minus = (int)session.getAttribute("discount_minus");
 		String action = req.getParameter("action");
 		
-		
+	    
 		
 
 		// 刪除購物車中的書籍

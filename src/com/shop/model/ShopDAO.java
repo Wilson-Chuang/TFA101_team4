@@ -876,7 +876,7 @@ public class ShopDAO implements ShopDAO_interface {
 	
 	// ====================組長的code======================
 	private static final String UPDATE_SHOP = "UPDATE shop set shop_name=?, shop_price_level=?, shop_opening_time=?,shop_address=?, "
-			+ "shop_website=?,  shop_phone=?,shop_update_time=? ,shop_main_img=? where shop_id = ?";
+			+ "shop_city=?,shop_website=?,shop_phone=?,shop_email=?,shop_description=?,shop_tag=?,shop_update_time=? ,shop_main_img=?,shop_gallery=? where shop_id = ?";
 
 	
 	@Override
@@ -893,11 +893,17 @@ public class ShopDAO implements ShopDAO_interface {
 			pstmt.setInt(2, shopVO.getShop_price_level());
 			pstmt.setString(3, shopVO.getShop_opening_time());
 			pstmt.setString(4, shopVO.getShop_address());
-			pstmt.setString(5, shopVO.getShop_website());
-			pstmt.setString(6, shopVO.getShop_phone());
-			pstmt.setTimestamp(7, shopVO.getShop_update_time());
-			pstmt.setString(8, shopVO.getShop_main_img());
-			pstmt.setInt(9, shopVO.getShop_id());
+			pstmt.setString(5, shopVO.getShop_city());
+			pstmt.setString(6, shopVO.getShop_website());
+			pstmt.setString(7, shopVO.getShop_phone());
+			pstmt.setString(8, shopVO.getShop_email());
+			pstmt.setString(9, shopVO.getShop_description());
+			pstmt.setString(10, shopVO.getShop_tag());
+			pstmt.setTimestamp(11, shopVO.getShop_update_time());
+			pstmt.setString(12, shopVO.getShop_main_img());
+			pstmt.setString(13, shopVO.getShop_gallery());
+			pstmt.setInt(14, shopVO.getShop_id());
+
 
 			pstmt.executeUpdate();
 
@@ -943,11 +949,13 @@ public class ShopDAO implements ShopDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_BY_MEMBER);
-			
-			
+			System.out.println(4);
+			pstmt.setInt(1, member_id);
 			rs = pstmt.executeQuery();
+			System.out.println(5);
 			
 			while (rs.next()) {
+				System.out.println(6);
 				shopVO = new ShopVO();
 				shopVO.setShop_id(rs.getInt("shop_id"));
 				shopVO.setMember_id(rs.getInt("member_id"));

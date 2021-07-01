@@ -66,7 +66,7 @@
 <!-- 						<span>OR</span> -->
 <!-- 					</h3> -->
 					<span class="sign_up">還沒有帳號?<a
-						href="http://localhost:8081/TFA101_team4/sign/signup.jsp">點我註冊</a></span>
+						href="${pageContext.request.contextPath}/sign/signup.jsp">點我註冊</a></span>
 				</div>
 			</div>
 			<div class="col-8 "></div>

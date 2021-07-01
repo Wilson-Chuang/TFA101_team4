@@ -12,6 +12,7 @@
 <%@ page import="javax.servlet.http.HttpServletRequest"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.io.*"%>
 <%-- <%@ include file="/pages/header.file" %> --%>
 
 <%
@@ -55,7 +56,7 @@
 	        }
 	List<Article_FavoriteVO> list_article_fol=memSvc.getAllArticleFavByMem(Member_id);
 // 	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
-	
+			String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
 %>
 <!DOCTYPE html>
 <html>
@@ -183,7 +184,12 @@
 							
 						<div class="card shop_card" style="width: 18rem;">
 							<a href="<%=request.getContextPath()+"/public/Shop.jsp?shop_id="+shop.getShop_id() %>">
-							<img class="card-img-top" src="/upload/<%=shop.getShop_main_img() %>" alt="商家封面圖"style="width:18rem;height:18rem;">
+							<%String imgPath = request.getContextPath()+ File.separator+
+									"uploads" + File.separator + "shop"+ File.separator +  shop.getShop_tax_id()+ 
+									File.separator +"images"+ File.separator ;
+												String main_img=imgPath+shop.getShop_main_img();
+												%>
+							<img class="card-img-top" src="<%=main_img%>" alt="商家封面圖"style="width:18rem;height:18rem;">
 							</a>
 							<div class="card-body">
 							
@@ -210,7 +216,7 @@
 						%>
 						<div class="card follow_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fans.getMember_id() %>">
-							<img class="card-img-top" src="/upload/<%=fans.getMember_pic()%>"
+							<img class="card-img-top" src="<%=picpath+fans.getMember_pic()%>"
 								alt="Card image cap" style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fans.getMember_name()%></h5>
@@ -231,7 +237,7 @@
 						<div class="card fans_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fing.getMember_id() %>">
 							<img class="card-img-top"
-								src="/upload/<%=fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
+								src="<%=picpath+fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fing.getMember_name()%></h5>
 							</div>
