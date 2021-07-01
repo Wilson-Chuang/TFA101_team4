@@ -28,6 +28,10 @@
 	pageContext.setAttribute("memberVO", memberVO);
 %>
 
+<%
+	
+%>
+
 
 <jsp:useBean id="product_categorySvc" scope="page" class="com.product_category.model.Product_categoryService" />
 
