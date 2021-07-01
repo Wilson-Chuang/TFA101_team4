@@ -10,6 +10,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
 import com.member.model.MemberService;
 import com.shop.model.*;
 
@@ -629,6 +632,17 @@ public class ShopServlet extends HttpServlet {
 						.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
+		}
+		if("fromShopid".equals(action)) {
+			res.setContentType("application/json; charset=utf-8");
+			ShopVO shopVO = shopSvc.getOneShop(shop_id);			
+			Gson gson = new Gson();
+	        String list = gson.toJson(shopVO);
+			JSONObject resJSON = new JSONObject();
+			resJSON.put("list", list);
+			resJSON.put("status", "OK");
+	        PrintWriter out = res.getWriter();				 
+	        out.println(resJSON);
 		}
 	}
 }
