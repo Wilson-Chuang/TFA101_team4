@@ -4,6 +4,12 @@
 <%@ page import="com.member.model.*"%>
 
 <%
+	response.setHeader( "Pragma", "no-cache" );
+	response.addHeader( "Cache-Control", "must-revalidate" );
+	response.addHeader( "Cache-Control", "no-cache" );
+	response.addHeader( "Cache-Control", "no-store" );
+	response.setDateHeader("Expires", 0);
+	
 	SearchService searchSvc = new SearchService();
 	List<SearchVO> searchlist = searchSvc.getAll();
 	pageContext.setAttribute("searchlist",searchlist);
@@ -123,7 +129,7 @@
 				</form>
 				<div class="col-lg-4 pt-2">
 					<div class="text-end" id="topnav">
-						<a href="#" class="text-decoration-none text-nowrap fw-bold badge bg-warning link-dark fs-5 align-middle me-4" id="shop-join">
+						<a href="<%=request.getContextPath()%>/member/join.jsp" class="text-decoration-none text-nowrap fw-bold badge bg-warning link-dark fs-5 align-middle me-4" id="shop-join">
 							<i class="bi bi-shop pe-2" aria-hidden="true"></i>商家加入
 						</a>
 						<c:choose>
