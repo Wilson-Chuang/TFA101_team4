@@ -24,9 +24,7 @@
 	}
 	pageContext.setAttribute("place_tags",place_tags);
 	
-	if((MemberVO)session.getAttribute("login") != null){
-		MemberVO memberVO = (MemberVO) session.getAttribute("login");
-	}
+	MemberVO memberVO = (MemberVO) session.getAttribute("login");
 	
 %>
 
@@ -138,6 +136,7 @@
 									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member.html?action=toWallet">我的錢包</a></li>
 									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member.html?action=toFavorites">我的收藏</a></li>
 									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member.html?action=toActive">活動紀錄</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member.html?action=toShop">商家專區</a></li>
 									<li><hr class="dropdown-divider"></li>
 									<li>
 										<form id="form-logout" action="member.html">
@@ -159,11 +158,15 @@
 								<a class="nav-link h6 fw-bold" href="<%=request.getContextPath()%>/">首頁</a>
 							</li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle h6 fw-bold" href="#" data-bs-toggle="dropdown">專欄</a>
+								<a class="nav-link dropdown-toggle h6 fw-bold" href="<%=request.getContextPath()%>/article/article_homepage.jsp" data-bs-toggle="dropdown">專欄</a>
 								<ul class="dropdown-menu text-center">
-									<li><a class="dropdown-item" href="#">專欄 item 1</a></li>
-									<li><a class="dropdown-item" href="#">專欄 item 2</a></li>
-									<li><a class="dropdown-item" href="#">專欄 item 3</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/article/article_homepage.jsp">專欄首頁</a></li>
+									<c:choose>
+						    			<c:when test="${sessionScope.login != null}">
+											<li><a class="dropdown-item" href="<%=request.getContextPath()%>/article/article.do?member_no=<%=memberVO.getMember_id()%>&action=post">發表文章</a></li>
+										</c:when>
+									</c:choose>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/article/article_list1.jsp">系列專欄</a></li>
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
@@ -183,11 +186,14 @@
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle h6 fw-bold" href="#" data-bs-toggle="dropdown">商城</a>
-								<ul class="dropdown-menu text-center">
-									<li><a class="dropdown-item" href="#">商城 item 1</a></li>
-									<li><a class="dropdown-item" href="#">商城 item 2</a></li>
-									<li><a class="dropdown-item" href="#">商城 item 3</a></li>
+								<a class="nav-link dropdown-toggle h6 fw-bold" href="<%=request.getContextPath()%>/product_list/product_homePage.jsp" data-bs-toggle="dropdown">商城</a>
+								<ul class="dropdown-menu text-center drop-right">
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/product_list/product_homePage.jsp">商城首頁</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=2&action=see_category_product">熱銷商品</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=3&action=see_category_product">美食餐劵</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=4&action=see_category_product">泡湯溫泉</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=5&action=see_category_product">旅遊住宿</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/product_category/product_category.do?product_category_no=6&action=see_category_product">居家生活</a></li>
 								</ul>
 							</li>
 						</ul>
