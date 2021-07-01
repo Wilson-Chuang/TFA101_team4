@@ -9,6 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
 <%-- <%@ include file="/pages/header.file" %> --%>
 
@@ -30,7 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	int countByShop = comSvc.countByShop(ShopVO.getShop_id());
 	List<CommentVO> list_Com =(List<CommentVO>)comSvc.getAllByShop(shop_id);
-	
+	String imgPath = request.getContextPath()+ File.separator+
+			"uploads" + File.separator + "shop"+ File.separator +  ShopVO.getShop_tax_id()+ 
+			File.separator +"images"+ File.separator+ShopVO.getShop_main_img() ;
 	
 %>
 <!DOCTYPE html>
@@ -82,13 +85,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="col-10">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="/upload/<%=ShopVO.getShop_main_img() %>" class="card-img" alt="...">
+                        <img src="<%=imgPath %>" class="card-img" alt="...">
                     </div>
                     <div class="col-md-8 shop_zone">
                         <h1 class="shop_title"><%=ShopVO.getShop_name() %></h1>
                         <span class="ratins"><%=shopRating %><i class="fas fa-star"></i></span><span class="coms"><%=countByShop %>則評論</span>
                         <span class="avg_prices">均消$<%=ShopVO.getShop_price_level() %></span> <span class="tags"><%=ShopVO.getShop_tag() %></span><br>
-                        <span class="open_time">營業時間:<%=ShopVO.getShop_opening_time() %></span><br>
+                        <%String opening_time=ShopVO.getShop_opening_time().replaceAll("[(\\[\")(\"\\])]","").replaceAll("\\\\u2013","-");
+                        String[] week=opening_time.split(",");
+                        for(int i = 0;i<week.length;i++){                      
+                        %>
+                        <span class="open_time">營業時間:<%=week[i] %></span><br>
+                        <%} %>
                         <span class="address">地址:<%=ShopVO.getShop_address() %></span><br>
                         <span class="webs"><a>粉絲專頁:<%=ShopVO.getShop_website() %></a></span><br>
                         <span class="phone">連絡電話:<%=ShopVO.getShop_phone() %></span><br>
@@ -131,17 +139,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <img src="/upload/noimage.jpg" class="shop_img" style="width:150px;height:150px;">
                     </div>	
                     <%}else{
+                    String galleryPath = request.getContextPath()+ File.separator  + 
+                    			"uploads" + File.separator + "shop"+ File.separator +  
+                    			ShopVO.getShop_tax_id()+ File.separator +"gallery"+ File.separator;
 					String gallery=pre_gallery.substring(1,pre_gallery.length()-1);
 					String[] shop_gallery;
 					shop_gallery=gallery.split(", ");
 					String shop_name=ShopVO.getShop_name();
 					
 					for(int i =0;i<shop_gallery.length;i++){
-						String filepath=shop_name+"gallery/"+shop_gallery[i];
+						String gallery_img=galleryPath+shop_gallery[i];
 					%>
 					
                     <div class="shop_pic">
-                        <img src="/upload/<%=filepath %>" class="shop_img" style="width:150px;height:150px;">
+                        <img src="<%=gallery_img %>" class="shop_img" style="width:150px;height:150px;">
                     </div>
 					<%}} %>
                 </div>

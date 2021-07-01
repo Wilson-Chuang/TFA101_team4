@@ -155,14 +155,16 @@ public class MemberServlet extends HttpServlet {
 				if(!((req.getPart("SHOP_MAIN_IMG")).getSize()==0)) {
 					Part part = req.getPart("SHOP_MAIN_IMG");
 					shop_main_img = getFileNameFromPart(part);
-					String path = "C:/upload/"+shop_main_img;
-					FileOutputStream fos = new FileOutputStream(path);
-					InputStream in = part.getInputStream();
-					byte[] data = new byte[in.available()];
-					in.read(data);
-					fos.write(data);
-					fos.close();
-					}
+					String appPath = req.getServletContext().getRealPath("");
+					String uploadFilePath = appPath  + 
+							"uploads" + File.separator + "shop"+ File.separator +  shop_tax_id+ 
+							File.separator +"images";
+					File fileSaveDir = new File(uploadFilePath);
+					if (!fileSaveDir.exists()) {
+				        fileSaveDir.mkdirs();
+				      }
+						part.write(uploadFilePath+File.separator +shop_main_img);
+				}
 				
 				// 圖片庫
 				List<Part> fileParts = req.getParts().stream().filter(part -> 
@@ -170,7 +172,10 @@ public class MemberServlet extends HttpServlet {
 				&& part.getSize() > 0).collect(Collectors.toList());
 				String shop_gallery ="";
 				 if(!fileParts.isEmpty()) {
-				String uploadFilePath = "C:/upload/" + shop_name  + "gallery";
+						String appPath = req.getServletContext().getRealPath("");
+						String uploadFilePath = appPath  + 
+								"uploads" + File.separator + "shop"+ File.separator +  
+								shop_tax_id+ File.separator +"gallery";
 				File fileSaveDir = new File(uploadFilePath);
 		        if (!fileSaveDir.exists()) {
 		            fileSaveDir.mkdirs();
@@ -475,13 +480,14 @@ public class MemberServlet extends HttpServlet {
 				if(!((req.getPart("MEMBER_PIC")).getSize()==0)) {
 				Part part = req.getPart("MEMBER_PIC");
 				filename = getFileNameFromPart(part);
-				String path = "C:/upload/"+filename;
-				FileOutputStream fos = new FileOutputStream(path);
-				InputStream in = part.getInputStream();
-				byte[] data = new byte[in.available()];
-				in.read(data);
-				fos.write(data);
-				fos.close();
+				String appPath = req.getServletContext().getRealPath("");
+				String uploadFilePath = appPath  + 
+						"UPLOAD" + File.separator + "member"+ File.separator + "pic";
+				File fileSaveDir = new File(uploadFilePath);
+				if (!fileSaveDir.exists()) {
+		            fileSaveDir.mkdirs();
+		        }
+				part.write(uploadFilePath+File.separator +filename);
 				}
 				/*************************** 2.開始查詢資料 *****************************************/
 				MemberService memSvc= new MemberService();
@@ -659,6 +665,9 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				
 				HttpSession session=req.getSession();
+				String appPath = req.getServletContext().getRealPath("");
+				String uploadFilePath = appPath  + 
+						"UPLOAD" + File.separator + "member"+ File.separator + "pic";
 				String login_email;
 				String login_pswd;
 				if((session.getAttribute("login"))==null) {
@@ -697,6 +706,7 @@ public class MemberServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
+				
 				MemberVO MemberVO =memSvc.getOneMem(login_email);
 				session.setAttribute("login",MemberVO);
 				String password = MemberVO.getMember_password();
@@ -713,6 +723,7 @@ public class MemberServlet extends HttpServlet {
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("uploadFilePath", uploadFilePath); // 資料庫取出的empVO物件,存入req
 				String url = "/member/PersonalFile.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -1210,15 +1221,19 @@ public class MemberServlet extends HttpServlet {
 				int id = Integer.valueOf(id_s);
 				String filename=req.getParameter("filename");
 				if(!((req.getPart("SHOP_MAIN_IMG")).getSize()==0)) {
-				Part imgpart = req.getPart("SHOP_MAIN_IMG");
-				filename = getFileNameFromPart(imgpart);
-				String path = "C:/upload/"+filename;
-				FileOutputStream fos = new FileOutputStream(path);
-				InputStream in = imgpart.getInputStream();
-				byte[] data = new byte[in.available()];
-				in.read(data);	
-				fos.write(data);
-				fos.close();
+					Part part = req.getPart("SHOP_MAIN_IMG");
+					filename = getFileNameFromPart(part);
+					ShopService memSvc = new ShopService();
+					ShopVO ShopVO = memSvc.getOneShop(new Integer(req.getParameter("SHOP_ID")));
+					String appPath = req.getServletContext().getRealPath("");
+					String uploadFilePath = appPath  + 
+							"uploads" + File.separator + "shop"+ File.separator +  ShopVO.getShop_tax_id()+ 
+							File.separator +"images";
+					File fileSaveDir = new File(uploadFilePath);
+					if (!fileSaveDir.exists()) {
+				        fileSaveDir.mkdirs();
+				      }
+						part.write(uploadFilePath+File.separator +filename);
 				}
 				
 				
@@ -1228,7 +1243,12 @@ public class MemberServlet extends HttpServlet {
 				&& part.getSize() > 0).collect(Collectors.toList());
 				String shop_gallery ="";
 				 if(!fileParts.isEmpty()) {
-				String uploadFilePath = "C:/upload/" + name  + "gallery";
+					 ShopService memSvc = new ShopService();
+						ShopVO ShopVO = memSvc.getOneShop(new Integer(req.getParameter("SHOP_ID")));
+						String appPath = req.getServletContext().getRealPath("");
+						String uploadFilePath = appPath  + 
+								"uploads" + File.separator + "shop"+ File.separator +  
+								ShopVO.getShop_tax_id()+ File.separator +"gallery";
 				File fileSaveDir = new File(uploadFilePath);
 		        if (!fileSaveDir.exists()) {
 		            fileSaveDir.mkdirs();
@@ -1252,7 +1272,6 @@ public class MemberServlet extends HttpServlet {
 				String Member_email= req.getParameter("MEMBER_EMAIL"); 
 				MemberService memSvc= new MemberService();
 				MemberVO MemberVO = memSvc.getOneMem(Member_email);
-//				ShopVO ShopVO=memSvc.GET_ONE_BY_MEMBER(MemberVO.getMember_id());
 				ShopVO ShopVO=new ShopVO();
 				ShopVO.setShop_name(name);
 				ShopVO.setShop_price_level(price_level);

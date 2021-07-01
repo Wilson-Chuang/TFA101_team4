@@ -9,6 +9,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <%@ include file="/pages/header.file" %> --%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
 
 <%String path =request.getContextPath();
@@ -23,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Member_FollowerService memfolSvc=new Member_FollowerService();
 		List<ArticleVO> list_myArticle=memSvc.getMyArticle(member_id);
 		List<ForumPostVO> list_myForum=memSvc.getMyForum(member_id);
-		
+		String pic=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator +MemberVO.getMember_pic();
 
 		
 %>
@@ -66,7 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
                         </li>
                     <hr>
-					<hr>
 					<li class="sidebar  lock"><form action="member.html"
 							class="personal_form">
 							<input type=hidden name="action" value="toShop"> <input
@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-10">
             <div class="row">
             <div class="col-2">
-                <img src="/upload/<%= MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=pic%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%= MemberVO.getMember_name()%></span>

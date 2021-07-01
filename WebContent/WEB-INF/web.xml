@@ -119,6 +119,14 @@
 		<servlet-name>ForumReplyServlet</servlet-name>
 		<url-pattern>/forumPost/forumReply.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>NameServlet</servlet-name>
+		<servlet-class>idv.david.websocketchat.controller.NameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NameServlet</servlet-name>
+		<url-pattern>/chat.do</url-pattern>
+	</servlet-mapping>
 	<filter>
 		<filter-name>loginFilter</filter-name>
 		<filter-class>filters.loginFilters</filter-class>

@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
 <%-- <%@ include file="/pages/header.file" %> --%>
 
@@ -17,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	String email = ((MemberVO) session.getAttribute("login")).getMember_email();
 	MemberService memSvc=new MemberService();
 	MemberVO MemberVO = memSvc.getOneMem(email);
-	
+	String pic=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator +MemberVO.getMember_pic();
 %>
 <!DOCTYPE html>
 <html>
@@ -37,10 +38,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
         <div class="row">
             <div class="col-2">
-                <img src="/upload/<%=MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=pic%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
-                <span class="member_name"><%=MemberVO.getMember_name()%></span>
+                <span class="member_name"><%=MemberVO.getMember_name()==null?"":MemberVO.getMember_name()%></span>
                 <span class="member_status">一般會員</span><br>
                 <%CommentService comSvc= new CommentService(); 
                 	int countByMember = comSvc.countByMember(MemberVO.getMember_id());
@@ -88,10 +89,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <table class="table table-striped">
                 <tr><th>信箱:</th><td><%=MemberVO.getMember_email()%></td></tr>
                 <tr><th>性別:</th><td><%if(MemberVO.getMember_gender()==1)%>男<%else%>女</td></tr>
-                <tr><th>生日:</th><td><%=MemberVO.getMember_birth()%></td></tr>
-                <tr><th>年齡:</th><td><%=MemberVO.getMember_age()%></td></tr>
-                <tr><th>地址:</th><td><%=MemberVO.getMember_address()%></td></tr>
-                <tr><th>電話:</th><td><%=MemberVO.getMember_phone()%></td></tr>
+                <tr><th>生日:</th><td><%=MemberVO.getMember_birth()==null?"":MemberVO.getMember_birth()%></td></tr>
+                <tr><th>年齡:</th><td><%=MemberVO.getMember_age()==0?"":MemberVO.getMember_age()%></td></tr>
+                <tr><th>地址:</th><td><%=MemberVO.getMember_address()==null?"":MemberVO.getMember_address()%></td></tr>
+                <tr><th>電話:</th><td><%=MemberVO.getMember_phone()==null?"":MemberVO.getMember_phone()%></td></tr>
                 <tr><th>註冊日期:</th><td><fmt:formatDate value="<%=MemberVO.getMember_create_time()%>" pattern="yyyy/MM/dd"/></td></tr>
                 <tr><th>更新日期:</th><td><fmt:formatDate value="<%=MemberVO.getMember_update_time()%>" pattern="yyyy/MM/dd"/></td></tr>
                 
