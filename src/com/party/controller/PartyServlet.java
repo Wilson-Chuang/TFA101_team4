@@ -93,42 +93,12 @@ public class PartyServlet extends HttpServlet {
 			
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String str = req.getParameter("party_id");
-				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入編號");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
-
-				Integer party_id = null;
-				try {
-					party_id = new Integer(str);
-				} catch (Exception e) {
-					errorMsgs.add("編號格式不正確");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
+				Integer party_id = new Integer(req.getParameter("party_id").trim());
 
 				/*************************** 2.開始查詢資料 *****************************************/
 				PartyService partySvc = new PartyService();
 				PartyVO partyVO = partySvc.getOneParty(party_id);
-				if (partyVO == null) {
-					errorMsgs.add("查無資料");
-				}
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/party/party_select_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("partyVO", partyVO); // 資料庫取出的partyVO物件,存入req
@@ -161,6 +131,7 @@ public class PartyServlet extends HttpServlet {
 				if (party_intro == null || party_intro.trim().length() == 0) {
 					errorMsgs.add("內容請勿空白");
 				}
+				
 //				Integer member_id = null;
 //				try {
 //					member_id = new Integer(req.getParameter("memberID"));
@@ -200,6 +171,13 @@ public class PartyServlet extends HttpServlet {
 				    	Party_end_time = new java.sql.Timestamp(System.currentTimeMillis());
 				    	errorMsgs.add("請輸入日期!");
 				    }
+				    
+				    String party_remarks = req.getParameter("party_remarks").trim();
+					if (party_remarks == null || party_remarks.trim().length() == 0) {
+						errorMsgs.add("請勿空白");
+					}
+				    
+				    
 				
 //				Date date = new Date();
 //				Timestamp Party_start_time = new Timestamp(date.getTime());
@@ -212,6 +190,7 @@ public class PartyServlet extends HttpServlet {
 				partyVO.setParty_intro(party_intro);
 				partyVO.setParty_participants_max(party_participants_max);
 				partyVO.setParty_participants_min(party_participants_min);
+				partyVO.setParty_remarks(party_remarks);
 //		partyVO.setMember_id(member_id);
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("partyVO", partyVO);
@@ -223,7 +202,7 @@ public class PartyServlet extends HttpServlet {
 				/*************************** 2.開始新增資料 ****************************************/
 				PartyService partySvc = new PartyService();
 				partyVO = partySvc.addParty(party_title, Party_start_time, Party_end_time, party_intro,
-						party_participants_max, party_participants_min);
+						party_participants_max, party_participants_min, party_remarks);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ************/
 				String url = "/party/listAllParty.jsp";
@@ -335,6 +314,12 @@ public class PartyServlet extends HttpServlet {
 				    	Party_end_time = new java.sql.Timestamp(System.currentTimeMillis());
 				    	errorMsgs.add("請輸入日期!");
 				    }
+				    
+				    String party_remarks = req.getParameter("party_remarks").trim();
+					if (party_remarks == null || party_remarks.trim().length() == 0) {
+						errorMsgs.add("請勿空白");
+					}
+				    
 				
 
 				PartyVO partyVO = new PartyVO();
@@ -346,7 +331,7 @@ public class PartyServlet extends HttpServlet {
 				partyVO.setParty_end_time(Party_end_time);
 				partyVO.setParty_intro(party_intro);
 				partyVO.setParty_participants_max(party_participants_max);
-				partyVO.setParty_participants_min(party_participants_min);
+				partyVO.setParty_remarks(party_remarks);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("partyVO", partyVO);
@@ -359,7 +344,7 @@ public class PartyServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				PartyService partySvc = new PartyService();
 				partyVO = partySvc.updateParty(party_id, party_title, Party_start_time, Party_end_time, party_intro,
-						party_participants_max, party_participants_min);
+						party_participants_max, party_participants_min, party_remarks);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("partyVO", partyVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/party/listOneParty.jsp";

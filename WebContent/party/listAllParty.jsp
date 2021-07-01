@@ -60,8 +60,6 @@
 	</td></tr>
 </table>
 
-
-
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -81,6 +79,7 @@
 		<th>揪團簡介</th>
 		<th>成團人數最多限制</th>
 		<th>成團人數最少限制</th>
+		<th>備註</th>
 	</tr>
 	
 	
@@ -97,6 +96,7 @@
 			<td>${partyVO.party_intro}</td>
 			<td>${partyVO.party_participants_max}</td>
 			<td>${partyVO.party_participants_min}</td>
+			<td>${partyVO.party_remarks}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -113,19 +113,6 @@
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

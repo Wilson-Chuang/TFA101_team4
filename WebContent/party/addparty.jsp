@@ -43,6 +43,9 @@
 
 </head>
 <body>
+
+
+
 	
 	<div class="party_home">
 	
@@ -86,19 +89,33 @@
 
 			<tr>
 				<td>最高人數:</td>
-				<td><input type="TEXT" name="party_participants_max" size="45"
-							value="<%= (partyVO == null) ? "4" : partyVO.getParty_participants_max()%>" /></td>
+				<td><input type="number" min="1" max="15" name="party_participants_max" size="45"
+							value="<%= (partyVO == null) ? "1": partyVO.getParty_participants_max()%>" /></td>
 			</tr>
 			<tr>
 				<td>最低人數:</td>
-				<td><input type="TEXT" name="party_participants_min" size="45"
+				<td><input type="number" min="1" max="15" name="party_participants_min" size="45"
 							value="<%=(partyVO == null) ? "1" : partyVO.getParty_participants_min()%>" /></td>
 			</tr>
+			
+			<tr>
+				<td>備註:</td>
+				<td>		<select name="party_remarks" style="width: 160">
+		                    <option value="<%=(partyVO == null) ? "無菸環境，不喝酒" : partyVO.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>無菸環境，不喝酒</option>
+		                    <option value="<%=(partyVO == null) ? "無菸環境，喝酒" : partyVO.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>無菸環境，喝酒</option>
+		                    <option value="<%=(partyVO == null) ? "抽菸環境，不喝酒" : partyVO.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>抽菸環境，不喝酒</option>
+		                    <option value="<%=(partyVO == null) ? "抽菸環境，喝酒" : partyVO.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>抽菸環境，喝酒</option>
+	                        </select>
+				
+					      </td>
+			</tr>
+			
 			<tr>
 				<td>揪團介紹:</td>
 				<td>
 					 <textarea class="ckeditor" id="mContent" name="party_intro" ></textarea></td>
 			</tr>
+			
 
 
 		</table>

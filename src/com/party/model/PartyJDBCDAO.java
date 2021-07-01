@@ -6,14 +6,14 @@ import java.sql.*;
 
 public class PartyJDBCDAO implements PartyDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/party?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/Team4DB?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 
-	private static final String INSERT_STMT = "INSERT INTO party (party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min FROM party order by party_id";
-	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min FROM party where party_id = ?";
-	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=? where party_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO party (party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks FROM party order by party_id";
+	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks FROM party where party_id = ?";
+	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=?, party_remarks=? where party_id = ?";
 	private static final String DELETE = "DELETE FROM party where party_id = ?";
 	@Override
 	public void insert(PartyVO partyVO) {
@@ -35,6 +35,7 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 			pstmt.setString(5, partyVO.getParty_intro());
 			pstmt.setInt(6, partyVO.getParty_participants_max());
 			pstmt.setInt(7, partyVO.getParty_participants_min());
+			pstmt.setString(8, partyVO.getParty_remarks());
 
 			pstmt.executeUpdate();
 
@@ -82,7 +83,8 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 			pstmt.setString(4, partyVO.getParty_intro());
 			pstmt.setInt(5, partyVO.getParty_participants_max());
 			pstmt.setInt(6, partyVO.getParty_participants_min());
-			pstmt.setInt(7, partyVO.getParty_id());
+			pstmt.setString(7, partyVO.getParty_remarks());
+			pstmt.setInt(8, partyVO.getParty_id());
 
 			pstmt.executeUpdate();
 
@@ -184,6 +186,7 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 				partyVO.setParty_intro(rs.getString("party_intro"));
 				partyVO.setParty_participants_max(rs.getInt("party_participants_max"));
 				partyVO.setParty_participants_min(rs.getInt("party_participants_min"));
+				partyVO.setParty_remarks(rs.getString("party_remarks"));
 			}
 
 			// Handle any driver errors
@@ -245,6 +248,7 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 				partyVO.setParty_intro(rs.getString("party_intro"));
 				partyVO.setParty_participants_max(rs.getInt("party_participants_max"));
 				partyVO.setParty_participants_min(rs.getInt("party_participants_min"));
+				partyVO.setParty_remarks(rs.getString("party_remarks"));
 				list.add(partyVO); // Store the row in the list
 			}
 
@@ -287,10 +291,8 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 
 		// 新增
 		PartyVO partyVO1 = new PartyVO();
-		partyVO1.setParty_id(8);
+		partyVO1.setParty_id(3);
 		System.out.println("1");
-		partyVO1.setMember_id(5);
-		System.out.println("2");
 		partyVO1.setParty_title("揪團標題測試");
 		System.out.println("3");
 		partyVO1.setParty_intro("揪團介紹測試");
@@ -303,12 +305,14 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 		System.out.println("7");
 		partyVO1.setParty_end_time(Timestamp.valueOf("2021-06-14 00:00:00"));
 		System.out.println("8");
+		partyVO1.setParty_remarks("備註");
+		System.out.println("9");
 		dao.insert(partyVO1);
 	}
 //
-		// 修改
+//		 修改
 //		PartyVO partyVO2 = new PartyVO();
-//		partyVO2.setParty_id(10);
+//		partyVO2.setParty_id(1);
 //		System.out.println("111111");
 //		
 //		partyVO2.setParty_title("修改測試123");
@@ -328,6 +332,9 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 //		
 //		partyVO2.setParty_end_time(Timestamp.valueOf("2021-04-25 02:02:02"));
 //		System.out.println("111111");
+//		
+//		partyVO2.setParty_remarks("備註11");
+////		System.out.println("9");
 //		
 //		dao.update(partyVO2);
 //	}
@@ -349,15 +356,16 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 //		System.out.println("---------------------");
 //
 //		// 查詢
-//		List<EmpVO> list = dao.getAll();
-//		for (EmpVO aEmp : list) {
-//			System.out.print(aEmp.getEmpno() + ",");
-//			System.out.print(aEmp.getEname() + ",");
-//			System.out.print(aEmp.getJob() + ",");
-//			System.out.print(aEmp.getHiredate() + ",");
-//			System.out.print(aEmp.getSal() + ",");
-//			System.out.print(aEmp.getComm() + ",");
-//			System.out.print(aEmp.getDeptno());
+//		List<PartyVO> list = dao.getAll();
+//		for (PartyVO aEmp : list) {
+//			System.out.print(aEmp.getParty_id() + ",");
+//			System.out.print(aEmp.getParty_title() + ",");
+//			System.out.print(aEmp.getParty_start_time() + ",");
+//			System.out.print(aEmp.getParty_end_time() + ",");
+//			System.out.print(aEmp.getParty_intro() + ",");
+//			System.out.print(aEmp.getParty_participants_max() + ",");
+//			System.out.print(aEmp.getParty_participants_min() + ",");
+//			System.out.print(aEmp.getParty_remarks() + ",");
 //			System.out.println();
 //		}
 //	}
