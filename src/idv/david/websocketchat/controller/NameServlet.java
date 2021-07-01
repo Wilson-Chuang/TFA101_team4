@@ -33,37 +33,4 @@ public class NameServlet extends HttpServlet {
 		req.setAttribute("recieverName", reciever);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/chat.jsp");
 		dispatcher.forward(req, res);}
-	
-	if("record".equals(action)){
-		
-		String userName = ((MemberVO)(session.getAttribute("login"))).getMember_name();
-		Integer userID =((MemberVO)(session.getAttribute("login"))).getMember_id();
-		String name = userID+":"+userName;
-		req.setAttribute("userName", name);
-		
-		pool = JedisUtil.getJedisPool();
-		Jedis jedis = pool.getResource();
-		jedis.auth("123456");
-		Set<String> keys = jedis.keys("*"); 
-        Iterator<String> it=keys.iterator() ;   
-        StringBuffer keynames=new StringBuffer();
-        while(it.hasNext()){   
-            String key = it.next();   
-            if(key.contains(userName+":")) {
-            int strlong=name.length()+1;
-            String friend=key.substring(strlong);
-            keynames.append(friend).append(',');
-            }
-            
-        }
-        System.out.println(keynames); 
-		jedis.close();
-		JedisUtil.shutdownJedisPool();
-		req.setAttribute("friends", keynames);
-		
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/chatrecord.jsp");
-		dispatcher.forward(req, res);}
-	}
-	
-}
+	}}
