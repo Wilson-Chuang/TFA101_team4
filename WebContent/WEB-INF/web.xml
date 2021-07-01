@@ -37,15 +37,7 @@
 	</servlet-mapping>
 
 
-	<servlet>
-		<servlet-name>loadOnStartupServlet</servlet-name>
-		<servlet-class>base64Encoder.initialize.loadOnStartupServlet</servlet-class>
-		<init-param>
-			<param-name>noData</param-name>
-			<param-value>/resources/NoData/nopic.jpg</param-value>
-		</init-param>
-		<load-on-startup>10</load-on-startup>
-	</servlet>
+	
 
 	<servlet>
 		<servlet-name>MemberServlet</servlet-name>

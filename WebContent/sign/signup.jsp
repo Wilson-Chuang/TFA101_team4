@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <%@ include file="/pages/header.file" %>
-
+<%@ page import="java.util.*"%>
 <%
 	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
 %>
