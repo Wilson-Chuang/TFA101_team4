@@ -24,13 +24,13 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 	
 
 		private static final String INSERT_STMT = 
-			"INSERT INTO ORDERS (MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO ORDERS (MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
 		private static final String GET_ALL_STMT = 
-			"SELECT ORDERS_ID,MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE FROM ORDERS ORDER BY ORDERS_ID";
+			"SELECT ORDERS_ID,MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE FROM ORDERS ORDER BY ORDERS_ID";
 		
 		private static final String GET_ONE_STMT = 
-			"SELECT ORDERS_ID,MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE FROM ORDERS WHERE ORDERS_ID = ?";
+			"SELECT ORDERS_ID,MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE FROM ORDERS WHERE ORDERS_ID = ?";
 		
 		private static final String GET_Order_Item_ByOrders_STMT = 
 			"SELECT PRODUCT_NAME,ORDERS_ID,ORDER_ITEM_AMOUNT,ORDER_ITEM_POINT FROM ORDER_ITEM WHERE ORDERS_ID = ?";
@@ -42,7 +42,7 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 			"DELETE FROM ORDER_ITEM WHERE ORDERS_ID = ?";
 	
 		private static final String UPDATE = 
-			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ZIP=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=? WHERE ORDERS_ID = ?";
+			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=? WHERE ORDERS_ID = ?";
 
 		
 		@Override
@@ -61,9 +61,8 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 				pstmt.setInt(3, ordersVO.getOrders_total_point());
 				pstmt.setString(4, ordersVO.getOrders_shipping_name());
 				pstmt.setString(5, ordersVO.getOrders_shipping_phone());
-				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
-				pstmt.setString(7, ordersVO.getOrders_shipping_address());
-				pstmt.setString(8, ordersVO.getOrders_note());
+				pstmt.setString(6, ordersVO.getOrders_shipping_address());
+				pstmt.setString(7, ordersVO.getOrders_note());
 				
 				pstmt.executeUpdate("set auto_increment_offset=1;");
 				pstmt.executeUpdate("set auto_increment_increment=1;");
@@ -119,10 +118,9 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 				pstmt.setInt(3, ordersVO.getOrders_total_point());
 				pstmt.setString(4, ordersVO.getOrders_shipping_name());
 				pstmt.setString(5, ordersVO.getOrders_shipping_phone());
-				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
-				pstmt.setString(7, ordersVO.getOrders_shipping_address());
-				pstmt.setString(8, ordersVO.getOrders_note());
-				pstmt.setInt(9, ordersVO.getOrders_no());
+				pstmt.setString(6, ordersVO.getOrders_shipping_address());
+				pstmt.setString(7, ordersVO.getOrders_note());
+				pstmt.setInt(8, ordersVO.getOrders_no());
 				
 
 				pstmt.executeUpdate();
@@ -250,7 +248,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 					ordersVO.setOrders_total_point(rs.getInt("orders_total_point"));
 					ordersVO.setOrders_shipping_name(rs.getString("orders_shipping_name"));
 					ordersVO.setOrders_shipping_phone(rs.getString("orders_shipping_phone"));
-					ordersVO.setOrders_shipping_zip(rs.getInt("orders_shipping_zip"));
 					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
 					ordersVO.setOrders_note(rs.getString("orders_note"));
 				
@@ -317,7 +314,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 					ordersVO.setOrders_total_point(rs.getInt("orders_total_point"));
 					ordersVO.setOrders_shipping_name(rs.getString("orders_shipping_name"));
 					ordersVO.setOrders_shipping_phone(rs.getString("orders_shipping_phone"));
-					ordersVO.setOrders_shipping_zip(rs.getInt("orders_shipping_zip"));
 					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
 					ordersVO.setOrders_note(rs.getString("orders_note"));
 					
@@ -443,7 +439,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 				pstmt.setInt(3, ordersVO.getOrders_total_point());
 				pstmt.setString(4, ordersVO.getOrders_shipping_name());
 				pstmt.setString(5, ordersVO.getOrders_shipping_phone());
-				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
 				pstmt.setString(7, ordersVO.getOrders_shipping_address());
 				pstmt.setString(8, ordersVO.getOrders_note());
 				
@@ -527,7 +522,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 			ordersVO.setOrders_total_point(2000);
 			ordersVO.setOrders_shipping_name("Hank");
 			ordersVO.setOrders_shipping_phone("0975123973");
-			ordersVO.setOrders_shipping_zip(200);
 			ordersVO.setOrders_shipping_address("台北市中正區延平南路252號");
 			ordersVO.setOrders_note("沒有備註");
 			System.out.println(ordersVO);
@@ -557,7 +551,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 //			ordersVO1.setOrders_total_point(new Integer(50000));
 //			ordersVO1.setOrders_shipping_name("hank");
 //			ordersVO1.setOrders_shipping_phone("0975123973");
-//			ordersVO1.setOrders_shipping_zip(new Integer(200));
 //			ordersVO1.setOrders_shipping_address("台北市中正區延平南路252號1樓");
 //			ordersVO1.setOrders_note("不用統編");
 //			
@@ -571,7 +564,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 //			ordersVO2.setOrders_total_point(new Integer(25000));
 //			ordersVO2.setOrders_shipping_name("lucy");
 //			ordersVO2.setOrders_shipping_phone("0912000099");
-//			ordersVO2.setOrders_shipping_zip(new Integer(123));
 //			ordersVO2.setOrders_shipping_address("台北市南京復興東路1段1號");
 //			ordersVO2.setOrders_note("不用統編");
 //			dao.update(ordersVO2);
@@ -601,7 +593,6 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 				System.out.print(aOrders.getOrders_total_point() + ",");
 				System.out.print(aOrders.getOrders_shipping_name() + ",");
 				System.out.print(aOrders.getOrders_shipping_phone() + ",");
-				System.out.print(aOrders.getOrders_shipping_zip() + ",");
 				System.out.print(aOrders.getOrders_shipping_address() + ",");
 				System.out.print(aOrders.getOrders_note());
 				System.out.println();

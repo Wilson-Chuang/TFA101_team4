@@ -733,7 +733,7 @@ public class ArticleServlet extends HttpServlet {
         	
         	Long author_no = new Long(req.getParameter("author_no"));
  	
-        	vote(author_no,174L); //記得改用登入會員編號
+        	vote(author_no,213L); //記得改用登入會員編號
         	
         	rank();      
         	     	

@@ -185,10 +185,6 @@ public class ShoppingServlet extends HttpServlet {
 			
 			req.setAttribute("phone_errorMsgs", phone_errorMsgs);
 			
-			List<String> zip_errorMsgs = new LinkedList<String>();
-			
-			req.setAttribute("zip_errorMsgs", zip_errorMsgs);
-			
 			List<String> address_errorMsgs = new LinkedList<String>();
 			
 			req.setAttribute("address_errorMsgs", address_errorMsgs);
@@ -234,14 +230,6 @@ public class ShoppingServlet extends HttpServlet {
 				if (orders_shipping_phone == null || orders_shipping_phone.trim().length() == 0) {
 					phone_errorMsgs.add("* 手機號碼請勿空白");
 				}	
-		
-				Integer orders_shipping_zip = 0;
-				try {
-					orders_shipping_zip = new Integer(req.getParameter("orders_shipping_zip").trim());
-				} catch (NumberFormatException e) {
-					orders_shipping_zip = 0;
-					zip_errorMsgs.add("* 請填正確郵遞區號");
-				}
 			
 				String orders_shipping_address = 
 						req.getParameter("city") + req.getParameter("county") + req.getParameter("address");
@@ -367,7 +355,6 @@ public class ShoppingServlet extends HttpServlet {
 				ordersVO.setOrders_total_point(amount2);
 				ordersVO.setOrders_shipping_name(orders_shipping_name);
 				ordersVO.setOrders_shipping_phone(orders_shipping_phone);
-				ordersVO.setOrders_shipping_zip(orders_shipping_zip);
 				ordersVO.setOrders_shipping_address(orders_shipping_address);
 				ordersVO.setOrders_note(orders_note);
 				ordersVO.setPayment_no(payment_no);
@@ -406,13 +393,6 @@ public class ShoppingServlet extends HttpServlet {
 				}
 				
 				if (!phone_errorMsgs.isEmpty()) {
-					req.setAttribute("ordersVO", ordersVO); 
-					RequestDispatcher failureView = req.getRequestDispatcher("/product_list/Checkout3.jsp");
-					failureView.forward(req, res);
-					return;
-				}
-				
-				if (!zip_errorMsgs.isEmpty()) {
 					req.setAttribute("ordersVO", ordersVO); 
 					RequestDispatcher failureView = req.getRequestDispatcher("/product_list/Checkout3.jsp");
 					failureView.forward(req, res);

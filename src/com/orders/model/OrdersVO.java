@@ -11,7 +11,6 @@ public class OrdersVO implements java.io.Serializable{
 	private Integer orders_total_point;
 	private String orders_shipping_name;
 	private String orders_shipping_phone;
-	private Integer orders_shipping_zip;
 	private String orders_shipping_address;
 	private String orders_note;
 	private Integer payment_no;
@@ -54,12 +53,6 @@ public class OrdersVO implements java.io.Serializable{
 	}
 	public void setOrders_shipping_phone(String orders_shipping_phone) {
 		this.orders_shipping_phone = orders_shipping_phone;
-	}
-	public Integer getOrders_shipping_zip() {
-		return orders_shipping_zip;
-	}
-	public void setOrders_shipping_zip(Integer orders_shipping_zip) {
-		this.orders_shipping_zip = orders_shipping_zip;
 	}
 	public String getOrders_shipping_address() {
 		return orders_shipping_address;
