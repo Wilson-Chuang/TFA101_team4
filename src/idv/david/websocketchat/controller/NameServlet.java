@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.member.model.MemberVO;
 
-import RedisTest.JedisUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
