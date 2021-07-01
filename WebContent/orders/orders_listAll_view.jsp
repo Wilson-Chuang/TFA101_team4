@@ -59,7 +59,7 @@
 					<tr>
 						<td width="30px;"></td>
 						<td width="120px;">${ordersVO.orders_no}</td>					
-						<td width="120px">${ordersVO.orders_total_point} GP</td>
+						<td width="120px">$ ${ordersVO.orders_total_point}</td>
 						<td width="250px;">
 							<fmt:formatDate value="${ordersVO.orders_date}" pattern="yyyy/MM/dd hh:mm:ss"/>
 						</td>
@@ -171,15 +171,13 @@
 					<tr>
 						<th width="30px;" style="background-color:white;"></th>
 						<th width="120px;" style="background-color:white;">收件人姓名</th>
-						<th width="120px;" style="background-color:white;">收件人電話</th>
-						<th width="150px;" style="background-color:white;">地區</th>
+						<th width="120px;" style="background-color:white;">收件人電話</th>	
 						<th width="" style="background-color:white;">收件地址</th>
 					</tr>		
 					<tr>
 						<td width="30px;"></td>
 						<td width="120px;">${ordersVO.orders_shipping_name}</td>
 						<td width="120px;">${ordersVO.orders_shipping_phone}</td>
-						<td width="150px;">${ordersVO.orders_shipping_zip}</td>
 						<td width="">${ordersVO.orders_shipping_address}</td>
 						
 					</tr>
