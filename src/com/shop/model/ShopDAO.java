@@ -923,6 +923,14 @@ public class ShopDAO implements ShopDAO_interface {
 		}
 		
 	}
+	private static final String GET_ONE_BY_MEMBER = "SELECT shop_id,member_id,shop_tax_id,"
+			+ "shop_name,shop_zip_code,shop_city,shop_address,"
+			+ "shop_latitude,shop_longitude,shop_description,"
+			+ "shop_tag,shop_rating,shop_rating_count,shop_rating_total,"
+			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
+			+ "shop_website,shop_main_img,shop_gallery,shop_create_time,"
+			+ "shop_update_time,shop_total_view,shop_reserv_status"
+			+ " FROM shop where member_id = ?";
 	@Override
 	public ShopVO findByMemberId(Integer member_id) {
 		
@@ -934,9 +942,8 @@ public class ShopDAO implements ShopDAO_interface {
 		try {
 			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt = con.prepareStatement(GET_ONE_BY_MEMBER);
 			
-			pstmt.setInt(1, member_id);
 			
 			rs = pstmt.executeQuery();
 			
@@ -1102,7 +1109,6 @@ public class ShopDAO implements ShopDAO_interface {
 			pstmt.setString(16, shopVO.getShop_main_img());
 			pstmt.setString(17, shopVO.getShop_gallery());
 			pstmt.setInt(18,shopVO.getShop_reserv_status());
-			
 			pstmt.executeUpdate();
 			
 			// Handle any SQL errors

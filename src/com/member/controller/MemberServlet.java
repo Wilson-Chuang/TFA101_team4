@@ -127,7 +127,6 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		if ("insert_shop".equals(action)) { // 來自select_page.jsp的請求
-
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -141,10 +140,8 @@ public class MemberServlet extends HttpServlet {
 				String shop_name = req.getParameter("Shop_name");
 				String shop_tax_id = req.getParameter("Shop_tax_id");
 				String shop_zip_code =req.getParameter("Shop_zip_code");
-				String city=req.getParameter("city");
-				String county=req.getParameter("county");
-				String address=req.getParameter("address");
-				String shop_address=city+county+address;
+				String city=req.getParameter("SHOP_CITY");
+				String shop_address=req.getParameter("address");
 				Double shop_latitude = new Double(req.getParameter("Shop_latitude"));
 				Double shop_longitude = new Double(req.getParameter("Shop_longitude"));
 				String shop_phone=req.getParameter("Shop_phone");

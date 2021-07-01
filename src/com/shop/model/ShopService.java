@@ -131,7 +131,6 @@ public class ShopService {
 			String shop_email, String shop_phone, Integer shop_price_level, 
 			String shop_opening_time, String shop_website, 
 			String shop_main_img, String shop_gallery,Integer shop_reserv_status) {
-		
 		ShopVO shopVO = new ShopVO();
 		
 		shopVO.setMember_id(member_id);

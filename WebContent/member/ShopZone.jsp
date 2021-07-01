@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <%
-	MemberVO MemberVO = (MemberVO) session.getAttribute("login");
+	MemberVO MemberVO = (MemberVO)session.getAttribute("login");
 	MemberService memSvc=new MemberService();
 	ShopVO ShopVO= memSvc.GET_ONE_BY_MEMBER(MemberVO.getMember_id());
 	CommentService comSvc= new CommentService();
@@ -86,7 +86,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
             </div>
                     <div class="col-10">
-            <%if(ShopVO==null){%>
+            <%if(ShopVO==null){
+            
+            %>
           		  <a href="<%=request.getContextPath()+"/member/join.jsp" %>">
 	   				<img src="/upload/joinus.jpg" style="width:80%;"></a>
 	

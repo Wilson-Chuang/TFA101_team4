@@ -43,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label for="">商家名稱:	<input type="text" name="Shop_name" required></label><br><br>
                     <label for="">統一編號:	<input type="text" name="Shop_tax_id" maxlength="8" minlength="8" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
                     <label for="">郵遞區號:	<input type="text" name="Shop_zip_code" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
-                    <label for="">地址:		<input type="text" name="address" required></label><br>
-                    <label for="">縣市:		<input type="text" name="SHOP_CITY" ></label><br>
+                    <label for="">地址:		<input type="text" name="address" required></label><br><br>
+                    <label for="">縣市:		<input type="text" name="SHOP_CITY" ></label><br><br>
                     <label for="">商家所在地-經度:	<input type="text" name="Shop_latitude" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'.')" required></label><br><br>
                     <label for="">商家所在地-緯度:	<input type="text" name="Shop_longitude" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'.')" required></label><br><br>
                     <label for="">商家電話:	<input type="text" name="Shop_phone" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
