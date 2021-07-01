@@ -108,6 +108,7 @@ public class ForumPostServlet extends HttpServlet {
 				Integer memberID = null;
 				try {
 					memberID = new Integer(req.getParameter("memberID"));
+					System.out.println(memberID);
 				} catch(NumberFormatException e) {
 					errorMsgs.add("請檢查是否已登入!");
 				}

@@ -92,7 +92,7 @@
 			<input type="hidden" name="action" value="post">
     	</FORM>	
      <p><a href="${pageContext.request.contextPath}/article/article_list1.jsp">系列專欄</a></p>
-     <p><a href="">活動投票</a></p>
+     <p><a href="${pageContext.request.contextPath}/article/article.do?action=vote&author_no=11">活動投票</a></p>
      <p><a href="${pageContext.request.contextPath}/product_list/product_homePage.jsp">積分商城</a></p>
  </div>
 
@@ -366,9 +366,9 @@
         </div>
 	  
     </div>
-    
-    <div class="see_more"><a href="">Vote Now!</a></div>
-    
+    <FORM METHOD="GET" ACTION="article.do" name="form1">
+    <div class="see_more"><a href="${pageContext.request.contextPath}/article/article.do?action=vote&author_no=8">Vote Now!</a></div>
+    </FORM>
     <div class="banner2"></div>
 
 <!-- 商城 title-->

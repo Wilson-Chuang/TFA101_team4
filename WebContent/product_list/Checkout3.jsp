@@ -206,15 +206,6 @@
 					<input class="copy_input" type="TEXT" id="copy_shipping_phone" value="<%=memberVO.getMember_phone() %>">
 			</div>
 
-			<div class="form">
-				郵遞區號:<input type="TEXT" name="orders_shipping_zip" size="6"
-							value="<%=(ordersVO == null) ? "" : ordersVO.getOrders_shipping_zip()%>" />
-					<c:if test="${not empty zip_errorMsgs}">						
-							<c:forEach var="message" items="${zip_errorMsgs}">
-									<span style="color:red; font-size:12px;">${message}</span>
-							</c:forEach>							
-					</c:if>
-			</div>
 
 			<div class="form">
 						<%	String address=memberVO.getMember_address();

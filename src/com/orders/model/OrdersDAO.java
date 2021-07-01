@@ -33,7 +33,8 @@ public class OrdersDAO implements OrdersDAO_interface{
 	}
 	
 		private static final String INSERT_STMT = 
-			"INSERT INTO ORDERS (MEMBER_ID,ORDERS_DATE,ORDERS_TOTAL_POINT,ORDERS_SHIPPING_NAME,ORDERS_SHIPPING_PHONE,ORDERS_SHIPPING_ZIP,ORDERS_SHIPPING_ADDRESS,ORDERS_NOTE,PAYMENT_ID,INVOICE_ID,ORDERS_INVOICE_TAX_NUMBER) VALUES (?,?,?,?, ?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO ORDERS (MEMBER_ID, ORDERS_DATE, ORDERS_TOTAL_POINT, ORDERS_SHIPPING_NAME, ORDERS_SHIPPING_PHONE,"
+			+ "ORDERS_SHIPPING_ADDRESS, ORDERS_NOTE, PAYMENT_ID, INVOICE_ID, ORDERS_INVOICE_TAX_NUMBER) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		private static final String GET_ALL_STMT = 
 			"SELECT * FROM ORDERS ORDER BY ORDERS_ID DESC";
@@ -51,7 +52,7 @@ public class OrdersDAO implements OrdersDAO_interface{
 			"DELETE FROM ORDER_ITEM WHERE ORDERS_ID = ?";
 	
 		private static final String UPDATE = 
-			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ZIP=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=?, PAYMENT_ID=?, INVOICE_ID=?,ORDERS_INVOICE_TAX_NUMBER=? WHERE ORDERS_ID = ?";
+			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=?, PAYMENT_ID=?, INVOICE_ID=?,ORDERS_INVOICE_TAX_NUMBER=? WHERE ORDERS_ID = ?";
 	
 		
 		@Override
@@ -69,12 +70,11 @@ public class OrdersDAO implements OrdersDAO_interface{
 				pstmt.setInt(3, ordersVO.getOrders_total_point());
 				pstmt.setString(4, ordersVO.getOrders_shipping_name());
 				pstmt.setString(5, ordersVO.getOrders_shipping_phone());
-				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
-				pstmt.setString(7, ordersVO.getOrders_shipping_address());
-				pstmt.setString(8, ordersVO.getOrders_note());
-				pstmt.setInt(9, ordersVO.getPayment_no());
-				pstmt.setInt(10, ordersVO.getInvoice_no());
-				pstmt.setInt(11, ordersVO.getOrders_invoice_tax_number());
+				pstmt.setString(6, ordersVO.getOrders_shipping_address());
+				pstmt.setString(7, ordersVO.getOrders_note());
+				pstmt.setInt(8, ordersVO.getPayment_no());
+				pstmt.setInt(9, ordersVO.getInvoice_no());
+				pstmt.setInt(10, ordersVO.getOrders_invoice_tax_number());
 				
 				
 				pstmt.executeUpdate("set auto_increment_offset=1;");
@@ -126,13 +126,12 @@ public class OrdersDAO implements OrdersDAO_interface{
 				pstmt.setInt(3, ordersVO.getOrders_total_point());
 				pstmt.setString(4, ordersVO.getOrders_shipping_name());
 				pstmt.setString(5, ordersVO.getOrders_shipping_phone());
-				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
-				pstmt.setString(7, ordersVO.getOrders_shipping_address());
-				pstmt.setString(8, ordersVO.getOrders_note());
-				pstmt.setInt(9, ordersVO.getPayment_no());
-				pstmt.setInt(10, ordersVO.getInvoice_no());
-				pstmt.setInt(11, ordersVO.getOrders_invoice_tax_number());
-				pstmt.setInt(12, ordersVO.getOrders_no());
+				pstmt.setString(6, ordersVO.getOrders_shipping_address());
+				pstmt.setString(7, ordersVO.getOrders_note());
+				pstmt.setInt(8, ordersVO.getPayment_no());
+				pstmt.setInt(9, ordersVO.getInvoice_no());
+				pstmt.setInt(10, ordersVO.getOrders_invoice_tax_number());
+				pstmt.setInt(11, ordersVO.getOrders_no());
 
 				
 
@@ -251,7 +250,6 @@ public class OrdersDAO implements OrdersDAO_interface{
 					ordersVO.setOrders_total_point(rs.getInt("orders_total_point"));
 					ordersVO.setOrders_shipping_name(rs.getString("orders_shipping_name"));
 					ordersVO.setOrders_shipping_phone(rs.getString("orders_shipping_phone"));
-					ordersVO.setOrders_shipping_zip(rs.getInt("orders_shipping_zip"));
 					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
 					ordersVO.setOrders_note(rs.getString("orders_note"));
 					ordersVO.setPayment_no(rs.getInt("payment_id"));
@@ -316,7 +314,6 @@ public class OrdersDAO implements OrdersDAO_interface{
 					ordersVO.setOrders_total_point(rs.getInt("orders_total_point"));
 					ordersVO.setOrders_shipping_name(rs.getString("orders_shipping_name"));
 					ordersVO.setOrders_shipping_phone(rs.getString("orders_shipping_phone"));
-					ordersVO.setOrders_shipping_zip(rs.getInt("orders_shipping_zip"));
 					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
 					ordersVO.setOrders_note(rs.getString("orders_note"));
 					ordersVO.setPayment_no(rs.getInt("payment_id"));
@@ -438,12 +435,11 @@ public class OrdersDAO implements OrdersDAO_interface{
 				pstmt.setInt(3, ordersVO.getOrders_total_point());
 				pstmt.setString(4, ordersVO.getOrders_shipping_name());
 				pstmt.setString(5, ordersVO.getOrders_shipping_phone());
-				pstmt.setInt(6, ordersVO.getOrders_shipping_zip());
-				pstmt.setString(7, ordersVO.getOrders_shipping_address());
-				pstmt.setString(8, ordersVO.getOrders_note());
-				pstmt.setInt(9, ordersVO.getPayment_no());
-				pstmt.setInt(10, ordersVO.getInvoice_no());
-				pstmt.setInt(11, ordersVO.getOrders_invoice_tax_number());
+				pstmt.setString(6, ordersVO.getOrders_shipping_address());
+				pstmt.setString(7, ordersVO.getOrders_note());
+				pstmt.setInt(8, ordersVO.getPayment_no());
+				pstmt.setInt(9, ordersVO.getInvoice_no());
+				pstmt.setInt(10, ordersVO.getOrders_invoice_tax_number());
 				
 				
 				Statement stmt=	con.createStatement();

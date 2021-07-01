@@ -5,9 +5,15 @@
 <%@ page import="com.forum_post.model.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
+<%@ page import="com.member.model.*"%>
 
-<%-- <%@include file="../../pages/header.file"%> --%>
+<%@include file="../../pages/header.file"%>
+<%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+%>
 
+<%-- <%=member.getMember_id()%> --%>
+<%-- <%=member.getMember_email()%> --%>
 
 <%
     ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");
@@ -56,7 +62,7 @@ tr, td {
 <link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>

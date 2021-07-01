@@ -9,3 +9,28 @@
 	left: 92%;
 	z-index: 100;
 }
+.result-phone{
+	background: #ffcd00;
+	text-decoration: none;
+	padding-left: 5px;
+	padding-right: 2px;
+	margin-left: 5px;
+	margin-right: 7px;
+	border-radius: 3px;
+}
+.result-phone > i.mdi-phone{
+	margin-right: 1px;
+}
+#phone-drop{
+	padding: 5px;
+	border: 1px solid #ffcd00;
+	margin-top: -3px!important;
+	margin-bottom: -3px!important;
+}
+#phone-drop > li{
+	font-size: 12px;
+	padding: 3px 5px;
+}
+#phone-drop > li:hover{
+	background-color: #f8f8f8;
+}

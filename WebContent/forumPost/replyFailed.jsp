@@ -1,16 +1,24 @@
-<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.forum_post.model.*"%>
 <%@ page import="com.forum_reply.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.search.model.*"%>
+<%@ page import="com.shop.model.*"%>
 
+<%@include file="../../pages/header.file"%>
 
 
 <%
 	Integer forum_post_id = (Integer) request.getAttribute("postid");
 
+%>
+
+<%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	pageContext.setAttribute("member", member);
 %>
 
 <%=forum_post_id %>
@@ -43,6 +51,22 @@ div#post, #reply {
 	border: solid 1px black;
 }
 </style>
+
+	<!-- ckeditor -->
+	<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/ckeditor.js"></script>
+	<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/config.js"></script>
+	
+	<!-- Header -->
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
+
 </head>
 <body>
 	<table id="table-1">
@@ -62,18 +86,26 @@ div#post, #reply {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="forumReply.do">
-		<label for="memberID">會員ID</label> 
-		<br> 
-		<input type="text" name="memberID"> 
-		<br> 
-		<label for="reply">回覆</label> 
-		<br>
-		<textarea name="reply" rows="6" cols="40"></textarea>
-		<br> <input type="hidden" name="action" value="reply"> 
-		<input type="hidden" name="postid" value="<%=forum_post_id %>">
-		<input type="submit" value="送出"> 
-		<input type="reset" value="清除">
-	</FORM>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<FORM METHOD="post" ACTION="forumReply.do">
+    				<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1">會員</span>
+						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+  						<input type="hidden" class="form-control" name="memberID" value="${member.member_id}" aria-label="Username" aria-describedby="basic-addon1">
+					</div> 
+        			<textarea class="ckeditor" id="myContent" name="reply"></textarea>
+        			<br> 
+        			<input type="hidden" name="action" value="reply"> 
+        			<input type="hidden" name="postid" value="<%=forum_post_id %>">
+        			<button class="btn btn-primary" type="submit">送出</button> 
+    			</FORM>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+	
+	
 </body>
