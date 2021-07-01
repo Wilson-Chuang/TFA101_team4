@@ -20,11 +20,11 @@ public class PartyDAO implements PartyDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO party (party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min FROM party order by party_id";
-	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min FROM party where party_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO party (party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks FROM party order by party_id";
+	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks FROM party where party_id = ?";
 	private static final String DELETE = "DELETE FROM party where party_id = ?";
-	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=? where party_id = ?";
+	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=?, party_remarks=? where party_id = ?";
 
 	@Override
 	public void insert(PartyVO partyVO) {
@@ -43,6 +43,7 @@ public class PartyDAO implements PartyDAO_interface {
 			pstmt.setString(4, partyVO.getParty_intro());
 			pstmt.setInt(5, partyVO.getParty_participants_max());
 			pstmt.setInt(6, partyVO.getParty_participants_min());
+			pstmt.setString(7, partyVO.getParty_remarks());
 
 			pstmt.executeUpdate();
 
@@ -86,7 +87,8 @@ public class PartyDAO implements PartyDAO_interface {
 			pstmt.setString(4, partyVO.getParty_intro());
 			pstmt.setInt(5, partyVO.getParty_participants_max());
 			pstmt.setInt(6, partyVO.getParty_participants_min());
-			pstmt.setInt(7, partyVO.getParty_id());
+			pstmt.setString(7, partyVO.getParty_remarks());
+			pstmt.setInt(8, partyVO.getParty_id());
 
 			pstmt.executeUpdate();
 
@@ -178,6 +180,7 @@ public class PartyDAO implements PartyDAO_interface {
 				partyVO.setParty_intro(rs.getString("party_intro"));
 				partyVO.setParty_participants_max(rs.getInt("party_participants_max"));
 				partyVO.setParty_participants_min(rs.getInt("party_participants_min"));
+				partyVO.setParty_remarks(rs.getString("party_remarks"));
 			}
 
 			// Handle any driver errors
@@ -235,6 +238,7 @@ public class PartyDAO implements PartyDAO_interface {
 				partyVO.setParty_intro(rs.getString("party_intro"));
 				partyVO.setParty_participants_max(rs.getInt("party_participants_max"));
 				partyVO.setParty_participants_min(rs.getInt("party_participants_min"));
+				partyVO.setParty_remarks(rs.getString("party_remarks"));
 				list.add(partyVO); // Store the row in the list
 			}
 

@@ -150,27 +150,20 @@ div.button{
 						pattern="yyyy-MM-dd hh:mm" /></div>
 		<div>最高人數: ${partyVO.party_participants_max}</div>
 		<div>最低人數: ${partyVO.party_participants_min}</div>
-		
+	      
 	<div class="button">
 	
 	
-	<jsp:useBean id="partysvc" scope="page" class="com.party.model.PartyService" />
 	
 	<FORM METHOD="post" ACTION="party.do" >
-       <select size="1" name="party_id">
-         <c:forEach var="partyVO" items="${partysvc.all}"> 
-          <option value="${partyVO.party_id}">${partyVO.party_id}
-         </c:forEach>   
-       </select>
+       
        <input type="hidden" name="action" value="getOne_For_party">
-       <input type="submit" value="送出">
+       <input type="hidden" name="party_id" value="${partyVO.party_id}">
+       <input type="submit" value="查看">
     </FORM>
 	</div>
 	
 	</div>
-		
-	
-	
 	</c:forEach>
 	</div>
 <%@ include file="page4.file" %>
