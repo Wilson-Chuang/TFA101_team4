@@ -3,7 +3,7 @@
 <%@ page import="com.member.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/pages/header.file" %>
+<%-- <%@ include file="/pages/header.file" %> --%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.search.model.*"%>
 
