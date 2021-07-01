@@ -153,14 +153,16 @@ public class ShoppingServlet extends HttpServlet {
 				total += (price * quantity);
 				subquantity += (quantity+(order.getQuantity()-order.getQuantity()%order.getProduct_discount_detail_buy_count())*order.getProduct_discount_detail_buy_times_get());
 			}
-					
+					System.out.println(subquantity);
 			String subQuantity2 = String.valueOf(subquantity);
 			String amount2 = String.valueOf(total);
 			
 			
 			req.setAttribute("minus", discount_minus);
 			req.setAttribute("subQuantity2", subQuantity2);
+			System.out.println(subQuantity2);
 			req.setAttribute("amount2", amount2);
+			System.out.println(amount2);
 			String url2 = "/product_list/Checkout3.jsp";
 			RequestDispatcher rd2 = req.getRequestDispatcher(url2);
 			rd2.forward(req, res);
@@ -486,7 +488,7 @@ public class ShoppingServlet extends HttpServlet {
 				Set<Order_itemVO> set = ordersSvc.getOrder_Item_ByOrders_no(orders_no);	
 				
 //				訂單完成寄信
-				String to = memberVO.getMember_email();
+				String to = "guidefooood@gmail.com";
 			      
 			    String subject = "Guide 好食 - 訂單確認";
 			      

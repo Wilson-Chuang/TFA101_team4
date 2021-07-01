@@ -27,12 +27,12 @@
 	<div class="main">
 		<div class="listProd_content">
 			<div class="product_title">
-				<h1>產品管理</h1>
+				<a href="${pageContext.request.contextPath}/product/listProd_back.jsp"><h1>產品管理</h1></a>
 			</div>
 			<div class="product_navbar">
 			
 				<div class="search">
-                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product.do" id="form">
+                <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do" id="form">
                     <input class="search_bar" type="text" name="product_name" id="search" placeholder="商品名稱..">
                     <input type="hidden" name="action" value="search">
         			<input type="submit" value="送出" class="search_submit">
@@ -45,36 +45,73 @@
 					<i class="fas fa-plus"></i>&nbsp;&nbsp;新產品
 				</button>
 				</a>
+				<a href='${pageContext.request.contextPath}/product/listProd_back.jsp'>
+				<button class="add_product" style="right:150px; background-color:white; border:1px solid gray; color:gray;">
+					返回
+				</button>
+				</a>
 				<div class="datacount">
 				
 				</div>
 			</div>
 			<table>
 				<tr>
+			<tr>
 					<th width="100px;"></th>
 					<th width="200px;">名稱</th>
 					<th width="80px;">價格</th>
 					<th width="80px;">庫存</th>
-					<th width="80px;">狀態</th>
-					<th></th>
-					<th></th>
+					<th width="120px;" style="text-align:center;">狀態</th>
 					<th></th>
 				</tr>
+				</tr>
 				<c:forEach var="productVO" items="${set}">
-					<tr>
-						<td width="100px;"><div class="img"><img src="/upload/${productVO.product_img_name}"></div></td>
-						<td width="200px;">${productVO.product_name}</td>
+				<tr>
+						<td width="100px;">
+							<div class="img">
+								<a href="${pageContext.request.contextPath}/product/product.do?product_no=${productVO.product_no}&action=view">								
+									<img src="/upload/${productVO.product_img_name}">
+								</a>
+							</div>
+						</td>
+						
+						<td width="200px;">
+							<a href="${pageContext.request.contextPath}/product/product.do?product_no=${productVO.product_no}&action=view">
+								${productVO.product_name}
+							</a>
+						</td>
 						<td width="80px;">${productVO.product_point}</td>
 						<td width="80px;">${productVO.product_stock_quantity}</td>
-						<td width="80px;">${productVO.product_status eq 1?"上架":"下架"}</td>				
-						<td>									
-						<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do">
-								<input type="submit" value="查詢" class="view">
-								<input type="hidden" name="product_no" value="${productVO.product_no}">
-								<input type="hidden" name="action" value="view">
-						</FORM>					
-						</td>	
-						<td>
+
+						<td width="120px;" style="text-align:center;">
+						<c:if test="${productVO.product_status == 1}">
+							<i class="far fa-circle" style="color:greenyellow; font-size:26px;"></i>					
+						</c:if>
+						
+						<c:if test="${productVO.product_status == 0}">
+							<i class="fas fa-times" style="color:red; font-size:26px;"></i>				
+						</c:if>
+						
+					            
+					            <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do">
+					                <input class="input_off" type="submit" id="radio-one" name="switch-one" value="上架"/>
+					                <input type="hidden" name="product_no" value="${productVO.product_no}">
+					                <input type="hidden" name="action" value="update_on_status">
+					                
+					            </FORM>
+					       
+					            
+					            <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do" >
+					                <input class="input_on" type="submit" id="radio-two" name="switch-one" value="下架"/>
+					                <input type="hidden" name="product_no" value="${productVO.product_no}">
+					                <input type="hidden" name="action" value="update_off_status">					         
+					            </FORM>
+					   
+					
+       						
+						</td>					
+
+						<td style="text-align:center;">
 							<i class="far fa-edit"></i>
 							<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do">
 									<input type="submit" value="邊" class="edit">
@@ -82,18 +119,11 @@
 									<input type="hidden" name="action" value="getOne_For_Update">
 							</FORM>						
 						</td>
-						<td>
-							<i class="far fa-trash-alt"></i>
-			  				<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/product/product.do" style="margin-bottom: 0px;">
-			    					<input type="submit" value="移" class="delete" onclick="javascript:return del();">
-			     					<input type="hidden" name="product_no"  value="${productVO.product_no}">
-			     					<input type="hidden" name="action" value="delete">
-			     			</FORM>
-						</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<div class="include_file">
+			
 			</div>
 		</div>
 	</div>

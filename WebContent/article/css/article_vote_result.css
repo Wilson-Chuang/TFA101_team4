@@ -1,0 +1,295 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    background-color:white;   
+    line-height: 1;
+    border:1pxl solid red;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+div.vote_header{
+/* 	border:1px solid red; */
+	position:relative;
+}
+
+div.header_bg{
+	background-image: url(../img/votebg.jpg);
+	background-size: cover;
+    background-position:center;
+	height:600px;
+}
+
+
+div.header_title {
+	padding-top:220px;
+/* 	border:1px solid white; */
+}
+
+div.header_title h1{
+	text-align:center;
+	font-size:58px;
+	fot-weight:bold;
+	color:white;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	letter-spacing:2px;
+	background-color:gray;
+	opacity:80%;
+	padding:10px;
+	width:80%;
+	margin:0 auto;
+}
+
+div.header_subtitle h2{
+	text-align:center;
+	font-size:38px;
+	color:white;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	letter-spacing:2px;
+	background-color:red;
+	opacity:80%;
+	padding:10px;
+}
+
+
+div.vote_navbar{
+	height:100px;
+	background-color:gray;
+	position:relative;
+}
+
+div.clock{
+/* 	border-radius:999em; */
+	width:90px;
+	height:90px;
+	position:absolute;
+	left:350px;
+	top:10px;
+	font-size:40px;
+/* 	border:1px solid white; */
+	text-align:center;
+	color:white;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	letter-spacing:1px;
+	
+}
+div.clock p{
+	font-size:16px;
+	position:absolute;
+	bottom:20px;
+	left:2px
+}
+
+div.vote_number{
+	width:90px;
+	height:90px;
+	position:absolute;
+	right:350px;
+	top:10px;
+	font-size:40px;
+/* 	border:1px solid white; */
+	text-align:center;
+	color:white;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	letter-spacing:1px;
+}
+
+div.vote_number p{
+	font-size:16px;
+	position:absolute;
+	bottom:20px;
+	left:16px
+}
+
+div.vote_number a, div.vote_number a:visited{
+	font-size:16px;
+	position:absolute;
+	bottom:20px;
+	left:20px;
+	text-decoration:none;
+	color:white;
+}
+
+
+
+div.rank{
+/* 	border:1px solid red; */
+	height:280px;
+	text-align:center;
+	padding-top:50px;
+	margin:50px 0 150px;
+	position:relative;
+}
+
+#medal1{
+	position:absolute;
+	left:25%;
+	bottom:-110px;
+	height:70px;
+	width:70px;
+}
+
+#medal2{
+	position:absolute;
+	left:47.5%;
+	bottom:-110px;
+	height:70px;
+	width:70px;
+}
+
+#medal3{
+	position:absolute;
+	right:24.2%;
+	bottom:-110px;
+	height:70px;
+	width:70px;
+}
+
+
+
+
+.rank_img{
+	margin: 0 40px;
+	height:200px;
+	width:200px;
+	border-radius:999em;
+	box-shadow: 0px 0px 12px gray;
+}
+
+div.rank_now{
+/* 	border:1px solid red; */
+	margin-bottom:100px;
+	font-size:46px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	letter-spacing:10px;
+}
+
+div.rank_name{
+	float:left;
+/* 	border:1px solid red; */
+	font-size:26px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	letter-spacing:10px;
+	margin: 0 54px;
+	text-align:center;
+	width:180px;
+}
+
+div.adjust{
+	float:left;
+	border:1px solid white;
+	width:205px;
+	margin-bottom:100px;
+}
+
+
+/* §@®a */
+
+div.author_content{
+      height: 1300px;
+/*       border: 1px black solid; */
+      clear: both;
+      margin-bottom: 100px;
+      margin:0 5%;
+  }
+
+div.author_intro{
+    margin: 60px 40px;
+    width: 200px;
+    height: 320px;
+/*       border: 1px black solid; */
+    float: left;
+}
+
+div.author_intro img{
+	  width:200px;
+	  height:200px;
+
+}
+
+div.author_intro_text{
+  font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+  font-size: 16px;
+  text-align: center;
+  line-height: 60px;
+  background-color: rgb(240, 240, 240);
+  font-weight: lighter;
+  letter-spacing: 2px;
+  
+}
+
+div.author_intro_text a:link,  div.author_intro_text a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+div.author_intro a:hover{
+    color: gray;
+    filter: opacity(70%);
+}
+
+
+div.author_intro_text input{
+	width:100%;
+/* 	background-color:rgb(255, 159, 183); */
+	border:1px solid rgb(255, 159, 183);
+	background-color:white;
+	font-size:14px;
+	text-align:center;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	cursor:pointer;
+	font-weight:lighter;
+	height:40px;
+/* 	border:0; */
+	letter-spacing:10px;
+	color:black;
+}
+
+div.vote_count{
+	background-color:rgb(255, 159, 183);
+	height:50px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size:14px;
+	text-align:center;
+	line-height:50px;
+/* 	border:1px solid rgb(255, 159, 183); */
+/* 	background-color:rgb(255, 159, 183); */
+	color:white;
+	letter-spacing:5px;
+}

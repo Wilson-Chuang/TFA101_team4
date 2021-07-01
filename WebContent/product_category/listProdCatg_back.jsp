@@ -32,7 +32,7 @@
 	<div class="main">
 		<div class="listProd_content">
 			<div class="product_title">
-				<h1>系列</h1>
+				<h1>系列管理</h1>
 			</div>
 			<div class="product_navbar">
 				<a href='addProduct_category.jsp'>

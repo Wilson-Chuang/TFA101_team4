@@ -1,0 +1,74 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 微軟正黑體, Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+/* =======設定側邊欄位====== */
+
+
+div.aside-menu {
+    width: 20%;
+    padding: 20px 0 0;
+    float: left;
+
+    /* 消除卷軸 */
+    box-sizing: border-box;
+    background-color: white;
+    display: flex;
+
+    /* 設定成直排 */
+    flex-direction: column;
+
+    /* 設定側邊欄陰影 */
+    /* box-shadow: 7px 0px 10px hsla(240, 24%, 88%, 0.6); */
+    /* hsla: H 為 hue(色相)、S 為 saturation(飽合度)、L 為 lightness(亮度)、A 為不透明度*/
+	}
+
+
+ul.menu-name a {
+    display: block;
+    padding: 10px 30px;
+    color: #818181;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* 處理側邊欄底線 */
+ul.menu-name li+li a::before {
+    content: '';
+    /* 絕對定位，因為有padding */
+    position: absolute;
+    border-top: 1px solid #a6c7ff;
+    left: 10px;
+    right: 10px;
+    top: 0;
+}
+
+/* 只要把任何標籤的class設定成hide，就會套用隱藏css */
+.hide {
+    display: none;
+}
+
+/* 側邊欄點擊才會呈現的欄位 */
+ul.hide a {
+    padding: 10px 60px;
+    font-size: 15px
+}
+
+/* div.main_content {
+    width: 100%;
+    float: left;
+} */

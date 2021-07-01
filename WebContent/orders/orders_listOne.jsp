@@ -41,7 +41,7 @@
 			</div>
 			<div class="product_navbar">
                 <div class="search">
-                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" id="form">
+                <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/orders/orders.do" id="form">
                     <input class="search_bar" type="text" name="orders_no" id="search" placeholder="訂單編號..">
                     <input type="hidden" name="action" value="getOne_For_Display">
         			<input type="submit" value="送出" class="search_submit">

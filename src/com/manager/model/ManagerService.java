@@ -12,7 +12,6 @@ public class ManagerService {
 	
 	public ManagerVO addManager(String manager_account, String manager_name, byte[] manager_pic,
 			String manager_email, String manager_password, String manager_phone, String manager_picname) {
-//先拿掉byte[] manager_pic,圖片尚待處理，與ManagerServlet有關	
 		
 		ManagerVO managerVO = new ManagerVO();
 		
@@ -30,7 +29,6 @@ public class ManagerService {
 	
 	public ManagerVO updateManager(Integer manager_id,String manager_account, String manager_name, byte[] manager_pic,
 			String manager_email, String manager_password, String manager_phone, String manager_picname) {
-//先拿掉byte[] manager_pic,圖片尚待處理，與ManagerServlet有關
 		
 		ManagerVO managerVO = new ManagerVO();
 		

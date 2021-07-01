@@ -1,0 +1,266 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    background-color:white;   
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+div.article_content{
+	width:80%;
+	margin: 0 auto;
+	position:relative;
+/* 	border:1px solid black; */
+}
+
+
+div.maintop_header{
+/*     border: 1px solid black; */
+    width: 20%;
+    height: 70px;
+}
+
+div.category{
+/*     border: 1px solid black; */
+    width: 100%;
+    border-top: 8px black solid;
+}
+
+div.category h2{
+    font-size: 52px;
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+}
+
+div.article_category{
+	width:100%;
+	height:100px;
+/* 	border:1px solid red; */
+	margin-top:20px;
+	border-bottom:0.5px solid rgb(192, 192, 192);
+	position:relative;
+	margin-bottom:90px;
+}
+
+input.article_post{
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 20px;
+	float:right;
+	color:gray;
+	margin-right:20px;
+	padding-left:10px;
+	margin-top:35px;
+	background-color:white;
+	border:0;
+	cursor:pointer;
+	color:#ef6e51;
+}
+
+div.article_category_tag{
+    font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 20px;
+	font-weight:bold;
+	float:left;
+	border-left:5px solid gray;
+	color:gray;
+	margin-right:20px;
+	padding-left:10px;
+	margin-top:35px;
+	cursor:pointer;
+}
+
+.fa-pen-square{
+	font-size: 24px;
+	position:absolute;
+	right:115px;
+	bottom:38px;
+	color:#ef6e51;
+}
+
+div.category_title{
+	border-bottom:5px solid black;
+	color:black;
+	font-size: 36px;
+	font-weight:bold;
+	padding:10px;
+	width:30%;
+	text-align:center;
+	margin:30px auto;
+}
+
+div.article_list{
+	padding:20px 0;
+	border-bottom:0.5px solid rgb(192, 192, 192);
+	width:100%;
+	position:relative;
+	margin-bottom:20px;
+}
+
+div.article_list img{
+	width:300px;
+	height:300px;
+	overflow:hidden;
+	transform:scale(1,1);transition: all 0.5s ease-out;
+}
+
+div.article_list img:hover{transform:scale(1.03,1.03);}
+
+div.article_title{
+	position:absolute;
+	top:20px;
+	right:0px;
+/* 	border:1px solid red; */
+	width:65%;
+	line-height:36px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 28px;
+	font-weight:bold;
+}
+
+div.article_title a,div.article_title a:visited{
+	color:black;
+	text-decoration:none;
+}
+
+div.article_create_time{
+	position:absolute;
+	top:125px;
+	right:0px;
+/* 	border:1px solid red; */
+	width:65%;
+	line-height:36px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 14px;
+	color:gray;
+}
+
+table.article_info{
+	position:absolute;
+	bottom:100px;
+	right:0px;
+/* 	border:1px solid red; */
+	width:65%;
+	line-height:36px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 14px;
+	table-layout:fixed;
+}
+
+table.article_info a,table.article_info a:visited{
+	color:black;
+	text-decoration:none;
+}
+
+table.article_info td{
+/* 	border:1px solid red; */
+overflow : hidden;
+
+text-overflow: ellipsis;
+
+display: -webkit-box;
+
+-webkit-line-clamp: 2;
+
+-webkit-box-orient: vertical;
+}
+
+
+table.article_info img{
+	display:none;
+}
+
+
+
+div.author{
+	position:absolute;
+	bottom:20px;
+	right:0px;
+/* 	border:1px solid red; */
+	width:65%;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 14px;
+	color:gray;
+}
+
+div.author img{
+	height:30px;
+	width:30px;
+	border-radius:999em;
+}
+
+div.member_name{
+	position:absolute;
+	bottom:10px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 18px;
+	left:40px;
+	color:black;
+}
+
+div.article_collection{
+	position:absolute;
+	bottom:10px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 18px;
+	right:0px;
+	color:black;
+}
+
+
+div.article_view_count{
+	position:absolute;
+	bottom:10px;
+	font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+	font-size: 18px;
+	right:85px;
+	color:black;
+}
+
+.fa-heart{
+	color:rgb(255, 85, 85);
+	margin-right:5px;
+}
+
+.fa-chart-line{
+	color:rgb(255, 85, 85);
+	margin-right:5px;
+}
+

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.orders.model.*"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	OrdersService ordersSvc = new OrdersService();
 	List<OrdersVO> list = ordersSvc.getAll();
@@ -34,7 +34,7 @@
 			</div>
 			<div class="product_navbar">
                 <div class="search">
-                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" id="form">
+                <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/orders/orders.do" id="form">
                     <input class="search_bar" type="text" name="orders_no" id="search" placeholder="訂單編號..">
                     <input type="hidden" name="action" value="getOne_For_Display">
         			<input type="submit" value="送出" class="search_submit">
@@ -48,8 +48,7 @@
 			<table>
 				<tr>
 					<th width="30px;"></th>
-					<th width="120px;">訂單編號</th>
-					
+					<th width="120px;">訂單編號</th>			
 					<th width="120px;">會員</th>				
 					<th width="120px">消費金額</th>
 					<th width="250px;">訂購時間</th>
@@ -69,7 +68,9 @@
 						</td>
 						
 						<td width="120px;">$${ordersVO.orders_total_point}</td>	
-						<td width="240px;">${ordersVO.orders_date}</td>		
+						<td width="240px;">
+							<fmt:formatDate value="${ordersVO.orders_date}" pattern="yyyy/MM/dd hh:mm:ss"/>
+						</td>		
 						<td>									
 						<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/orders/orders.do">
 								<input type="submit" value="查詢" class="view">
