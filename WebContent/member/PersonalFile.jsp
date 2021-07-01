@@ -109,14 +109,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="submit" value="修改" class="save_btn" style="width:150px">
                 </form>
                 <form action="member.html">
+                   
+                   <a href="./member/ChangePassword.jsp"><input type="button" value="修改密碼" class="save_btn" style="width:150px"></a>
+                </form>
+                <form action="member.html">
                     <input type=hidden name="action" value="log_out">
                     <input type="submit" value="登出" class="save_btn" style="width:150px">
                 </form>
+                
  
             </div>
-            <div id="chatRoom">
-<%--             <jsp:include page="/chat.jsp" flush="true" /> --%>
-        	</div>
     	</div>
 
 </body>

@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -28,6 +29,7 @@ import javax.servlet.http.Part;
 
 import com.comment.model.CommentService;
 import com.comment_report.model.*;
+import com.manager.model.MailService;
 import com.comment.model.CommentVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
@@ -348,7 +350,7 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				int member_id =Integer.valueOf(req.getParameter("MEMBER_ID"));
 				int comment_id = Integer.valueOf(req.getParameter("COMMENT_ID"));
-				String report_reason=req.getParameter("REASON");
+				String report_reason=req.getParameter("reason");
 				
 //				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -1424,6 +1426,108 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		
+		if ("change_password".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				HttpSession session=req.getSession();
+				MemberVO MemberVO=(MemberVO)session.getAttribute("login");
+				String member_password=req.getParameter("MEMBER_PASSWORD");
+				String new_password=req.getParameter("NEW_PASSWORD");
+				String password_confirm=req.getParameter("PASSWORD_CONFIRM");
+				if (!MemberVO.getMember_password().equals(member_password)) {
+					errorMsgs.add("密碼錯誤");
+				}
+				if (new_password.equals(member_password)) {
+					errorMsgs.add("請更新密碼");
+				}
+				if (!new_password.equals(password_confirm)) {
+					errorMsgs.add("請確認密碼");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/ChangePassword.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				MemberService memSvc = new MemberService();
+				int Member_id=MemberVO.getMember_id();
+				memSvc.change_password(new_password,Member_id);
+				// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/member/ChangePassword.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+	
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			  	req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
+				
+				String url = "/member/PersonalFile.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/sign/signin.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("forget_password".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String member_mail= req.getParameter("test");
+				
+				/*************************** 2.開始查詢資料 *****************************************/
+				MemberService memSvc=new MemberService();
+				MemberVO memberVO = memSvc.getOneMem(member_mail);
+				Integer member_id=memberVO.getMember_id();
+				String new_password=getRandomString(8);
+				memSvc.change_password(new_password, member_id);
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/sign/signin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+	
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				
+				String url = "/sign/signin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+				String to = member_mail;
+				String subject = "Guide好食-忘記密碼通知";
+				String ch_name = memberVO.getMember_name();
+				String passRandom = new_password;
+				String messageText = ch_name + "，您好!" + "\n" + "在這邊收到了忘記密碼的申請，在此提供您一組新密碼!" + "\n" +
+									"請謹記此密碼: " + passRandom + "\n" +" (密碼請盡快登入後更新)"+ 
+									"\n" + "\n" +"Guide好食團隊        敬上"; 
+		       
+				MailService mailService = new MailService();
+				mailService.sendMail(to, subject, messageText);
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/sign/signin.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		if ("delete_sf".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -1563,7 +1667,16 @@ public class MemberServlet extends HttpServlet {
 	
 	
 	
-
+	public static String getRandomString(int length) {
+		StringBuffer buffer = new StringBuffer("0123456789abcdefghijklmnopqrstuvwxyz");
+		StringBuffer sb = new StringBuffer();
+		Random r = new Random();
+		int range = buffer.length();
+		for (int i = 0; i < length; i ++) {
+		sb.append(buffer.charAt(r.nextInt(range)));
+		}
+		return sb.toString();
+		}
 	public String getFileNameFromPart(Part part) {
 		String header = part.getHeader("content-disposition");
 		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();

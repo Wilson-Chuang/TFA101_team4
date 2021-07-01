@@ -330,4 +330,9 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 			// TODO Auto-generated method stub
 			
 		}
+		@Override
+		public void change_password(String password, Integer MEMBERID) {
+			// TODO Auto-generated method stub
+			
+		}
 }

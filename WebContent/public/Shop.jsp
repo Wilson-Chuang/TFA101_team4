@@ -211,14 +211,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  				
 
                  			%>
-                            <form action="member.html" method="post">
+                            <form name="frmApp" action="member.html" id="frmAppId" mothed="post">
 							<input type=hidden name= "MEMBER_ID" value="<%=myMemberVO.getMember_id()%>">
 							<input type=hidden name= "COMMENT_ID" value="<%=com.getCOMMENT_ID()%>">
 							<input type=hidden name= "shop_id" value="<%=shop_id%>">
+							<input id="test" type="hidden" name="reason">
 							<input type=hidden name="action" value="comment_report">
-							<input type=text name= "REASON" placeholder="檢舉原因">
-							<input type="submit"  value="檢舉該評論" class="save_btn" style="width:150px"></input>
 				  			</form>
+							 <input type=button id="cr" value="檢舉該評論"  style="width:150px; border:none;background-color: #4166F8;color:white;" > 
 				  			<%}
                  			%>
                  				
@@ -252,4 +252,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			
 		</script>
+<script>
+
+	var obt=document.getElementById("cr");
+  	obt.onclick=function(){
+  	 var infor = window.prompt("請提供檢舉的原因，我們會盡快處理，謝謝!");
+  	document.getElementById("test").value = infor;
+  	var frm = document.getElementById("frmAppId"); 
+    frm.submit(); 
+  	
+  	}
+</script>
 </html>

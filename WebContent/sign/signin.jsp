@@ -40,54 +40,49 @@
 							</c:forEach>
 						</ul>
 					</c:if>
-					<form name="signin" action="member.html" method="post">
+					<form name="signin" id="signin" action="member.html" method="post">
 						<label for="">EMAIL ADDRESS<br></label>
-						 <input type="text"	name="MEMBER_EMAIL" class="sign_form"placeholder="name@address.com"> 
-						 <label for=""class="ps_zone">PASSWORD <a href="#">忘記密碼?</a></label> 
+						 <input type="text"	id="MEMBER_EMAIL" name="MEMBER_EMAIL" class="sign_form"placeholder="name@address.com"> 
+						 <label for=""class="ps_zone">PASSWORD
 						 <input	type="password" name="MEMBER_PASSWORD" class="sign_form"placeholder="Password">
 						  <input type="hidden"name="action" value="signin"> 
 						  <input type="submit" value="會員登入">
 					</form>
+						   <input type=button id="fp" value="忘記密碼?"  style="width:100%; border:none;background-color: #4166F8;color:white;" > 
 				</div>
 				<div class="sign_in_other">
 					<h3 class="title">
 						<span>OR</span>
 					</h3>
-<!-- 					<button class="fb_sign"> -->
-<!-- 						<i class="fab fa-facebook-f" style="color: #4166F8"></i><span -->
-<!-- 							class="fb_text">透過FACEBOOK登入</span> -->
-<!-- 					</button> -->
-<!-- 					<br> -->
-<!-- 					<button class="google_sign"> -->
-<!-- 						<i class="fab fa-google" style="color: #707070"></i><span -->
-<!-- 							class="g_text">透過GOOGLE登入</span> -->
-<!-- 					</button> -->
-<!-- 					<h3 class="title"> -->
-<!-- 						<span>OR</span> -->
-<!-- 					</h3> -->
 					<span class="sign_up">還沒有帳號?<a
 						href="${pageContext.request.contextPath}/sign/signup.jsp">點我註冊</a></span>
+						
+						
+				<form name="frmApp" action="member.html" id="frmAppId" mothed="post">
+  					 <input id="test" type="hidden" name="test">
+  					 <input type="hidden"name="action" value="forget_password"> 
+				</form>
 				</div>
 			</div>
 			<div class="col-8 "></div>
 		</div>
 	</div>
-	</div>
-
-
-
-
-
-
-
-
-
+</body>
 
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
 	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+	<script>
 
-</body>
+	var obt=document.getElementById("fp");
+  	obt.onclick=function(){
+  	 var infor = window.prompt("若您真的忘記了當初註冊之密碼，請輸入註冊信箱，我們會傳一組新密碼，請稍後至信箱查看。收信時間不定，請耐心等候，並盡快更改密碼，謝謝!");
+  	document.getElementById("test").value = infor;
+  	var frm = document.getElementById("frmAppId"); 
+    frm.submit(); 
+  	
+  	}
+</script>
 
 </html>

@@ -51,6 +51,9 @@ public class MemberService {
 		
 		return memberVO;
 	}
+	public void change_password(String MEMBER_PASSWORD,Integer MEMBER_ID) {
+		dao.change_password(MEMBER_PASSWORD,MEMBER_ID);
+	}
 
 	public MemberVO update(String Member_name,Integer Member_gender,Date Member_birth,
 		String Member_phone,String Member_address,String Member_pic,Timestamp Member_update_time,

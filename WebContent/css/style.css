@@ -80,13 +80,7 @@ input.save_btn{
 li.sidebar{
     position: relative;
 }
-  .lock::before {
-      position:absolute;
-      content: "";
-      left:0%;
-      top:25%;
-    font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f023";
-  }
+
   .sidebar::after{
     position:absolute;
     content: "";
