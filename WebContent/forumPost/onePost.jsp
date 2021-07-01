@@ -7,7 +7,7 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
-<%-- <%@include file="../../pages/header.file"%> --%>
+<%@include file="../../pages/header.file"%>
 <%-- <%=(request.getAttribute("forumPost") == null)%> --%>
 
 <%
@@ -22,6 +22,11 @@
 	ForumReplyService forumReplySvc = new ForumReplyService();
 	List<ForumReplyVO> list = forumReplySvc.getByFoumPostID(forum_post_id);
 	pageContext.setAttribute("list", list);
+%>
+
+<%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	pageContext.setAttribute("member", member);
 %>
 
 <%-- <%=forumPost.getForum_post_id()%> --%>
@@ -49,6 +54,7 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
+
 
 /* div#post, #reply { */
 /* 	border: solid 1px black; */
@@ -83,7 +89,7 @@ div.like_block{
 	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-	<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
 	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
@@ -141,12 +147,14 @@ div.like_block{
                 <input type="hidden" id="edit_post_content" name="post_content" value='${forumPost.forum_post_content}'>
             </c:if>
             <c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'>
-                <button type="sumbit" id="btn_post_edit" class="btn btn-outline-primary">編輯</button>
-                <input type="hidden" name="action" value="getOne_Post_For_update">
-                <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-                <input type="hidden" name="memberID" value="${forumPost.member_id}">
-                <input type="hidden" name="post_title" value="${forumPost.forum_post_title}">
-                <input type="hidden" id="edit_post_content" name="post_content" value='${forumPost.forum_post_content}'>
+            	<c:if test='${forumPost.member_id == member.member_id}'>
+                	<button type="sumbit" id="btn_post_edit" class="btn btn-outline-primary">編輯</button>
+                	<input type="hidden" name="action" value="getOne_Post_For_update">
+                	<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+                	<input type="hidden" name="memberID" value="${forumPost.member_id}">
+                	<input type="hidden" name="post_title" value="${forumPost.forum_post_title}">
+                	<input type="hidden" id="edit_post_content" name="post_content" value='${forumPost.forum_post_content}'>
+            	</c:if>
             </c:if>
         </FORM>
         <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumPost.do">
@@ -157,10 +165,12 @@ div.like_block{
                 <input type="hidden" name="memberID" value="${forumPost.member_id}">
             </c:if>
             <c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'>
-                <button type="button" id="btn_post_delete" class="btn btn-outline-secondary">刪除</button>
-                <input type="hidden" name="action" value="post_delete">
-                <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-                <input type="hidden" name="memberID" value="${forumPost.member_id}">
+            	<c:if test='${forumPost.member_id == member.member_id}'>
+                	<button type="button" id="btn_post_delete" class="btn btn-outline-secondary">刪除</button>
+                	<input type="hidden" name="action" value="post_delete">
+                	<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+                	<input type="hidden" name="memberID" value="${forumPost.member_id}">
+                </c:if>
             </c:if>
         </FORM>
         <FORM METHOD="post" ACTION="forumPost.do">
@@ -172,21 +182,27 @@ div.like_block{
                 <input type="hidden" name="post_content" value='${forumPost.forum_post_content}'>
             </c:if>
             <c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'>
-				<button type="button" id="btn_post_report" class="btn btn-outline-danger">檢舉</button>
-                <input type="hidden" name="action" value="getOne_Post_For_report">
-                <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-                <input type="hidden" name="memberID" value="${forumPost.member_id}">
-                <input type="hidden" name="post_content" value='${forumPost.forum_post_content}'>
+            	<c:if test="${member != null}">
+            		<c:if test='${!(forumPost.member_id == member.member_id)}'>
+						<button type="button" id="btn_post_report" class="btn btn-outline-danger">檢舉</button>
+                		<input type="hidden" name="action" value="getOne_Post_For_report">
+                		<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+                		<input type="hidden" name="memberID" value="${forumPost.member_id}">
+                		<input type="hidden" name="post_content" value='${forumPost.forum_post_content}'>
+            	 	</c:if>
+            	</c:if>
             </c:if>
         </FORM>
         
         <c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'>
-        	<div class="like_block"><i class="far fa-thumbs-up"></i></div>
-        	<input type="hidden" name="action" id="post_like_action" value="post_like">
-        	<input type="hidden" name="postid" id="post_like_postid" value="${forumPost.forum_post_id}">
-        	<input type="hidden" name="memberID" id="post_like_memberID" value="1">
+        	<c:if test="${member != null}">
+        		<div class="like_block"><i class="far fa-thumbs-up"></i></div>
+        		<input type="hidden" name="action" id="post_like_action" value="post_like">
+        		<input type="hidden" name="postid" id="post_like_postid" value="${forumPost.forum_post_id}">
+        		<input type="hidden" name="memberID" id="post_like_memberID" value="${member.member_id}">
         	
-        	<div><a class="btn btn-primary" href="#reply_editor" role="button">回復</a></div>
+        		<div><a class="btn btn-primary" href="#reply_editor" role="button">回復</a></div>
+        	</c:if>
         </c:if>
         
 
@@ -218,13 +234,15 @@ div.like_block{
                                             value='${forumReply.forum_reply_content}'>
                                     </c:if>
                                     <c:if test='${!(forumReply.forum_reply_content).equals("此內容已被刪除")}'>
-										<button type="sumbit" class="btn btn-outline-primary btn_reply_edit" >編輯</button>
-                                        <input type="hidden" name="action" value="getOne_Reply_For_update">
-                                        <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-                                        <input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
-                                        <input type="hidden" name="memberID" value="${forumReply.member_id}">
-                                        <input type="hidden" name="reply_content" class="edit_reply_content"
+                                    	<c:if test='${forumReply.member_id == member.member_id}'>
+											<button type="sumbit" class="btn btn-outline-primary btn_reply_edit" >編輯</button>
+                                        	<input type="hidden" name="action" value="getOne_Reply_For_update">
+                                        	<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+                                        	<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
+                                        	<input type="hidden" name="memberID" value="${forumReply.member_id}">
+                                        	<input type="hidden" name="reply_content" class="edit_reply_content"
                                             value='${forumReply.forum_reply_content}'>
+                                        </c:if>
                                     </c:if>
 
                                 </FORM>
@@ -239,13 +257,15 @@ div.like_block{
                                             value='${forumReply.forum_reply_content}'>
                                     </c:if>
                                     <c:if test='${!(forumReply.forum_reply_content).equals("此內容已被刪除")}'>
-                                        <button type="button" class="btn btn-outline-secondary btn_reply_delete">刪除</button>
-                                        <input type="hidden" name="action" value="reply_delete">
-                                        <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-                                        <input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
-                                        <input type="hidden" name="memberID" value="${forumReply.member_id}">
-                                        <input type="hidden" name="reply_content" class="delete_reply_content"
-                                            value='${forumReply.forum_reply_content}'>
+                                    	<c:if test='${forumReply.member_id == member.member_id}'>
+                                        	<button type="button" class="btn btn-outline-secondary btn_reply_delete">刪除</button>
+                                       		<input type="hidden" name="action" value="reply_delete">
+                                        	<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+                                        	<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
+                                        	<input type="hidden" name="memberID" value="${forumReply.member_id}">
+                                        	<input type="hidden" name="reply_content" class="delete_reply_content"
+                                            	value='${forumReply.forum_reply_content}'>
+                                         </c:if>
                                     </c:if>
 
                                 </FORM>
@@ -260,13 +280,17 @@ div.like_block{
                                             value='${forumReply.forum_reply_content}'>
                                     </c:if>
                                     <c:if test='${!(forumReply.forum_reply_content).equals("此內容已被刪除")}'>
-                                        <button type="button" class="btn btn-outline-danger btn_reply_report">檢舉</button>
-                                        <input type="hidden" name="action" value="getOne_Reply_For_report">
-                                        <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-                                        <input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
-                                        <input type="hidden" name="memberID" value="${forumReply.member_id}">
-                                        <input type="hidden" name="reply_content" class="report_reply_content"
-                                            value='${forumReply.forum_reply_content}'>
+                                    	<c:if test="${member != null}">
+                                    		<c:if test='${!(forumReply.member_id == member.member_id)}'>
+                                        	<button type="button" class="btn btn-outline-danger btn_reply_report">檢舉</button>
+                                        	<input type="hidden" name="action" value="getOne_Reply_For_report">
+                                        	<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+                                        	<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
+                                        	<input type="hidden" name="memberID" value="${forumReply.member_id}">
+                                        	<input type="hidden" name="reply_content" class="report_reply_content"
+                                            	value='${forumReply.forum_reply_content}'>
+                                        	</c:if>
+                                    	</c:if>
                                     </c:if>
                                 </FORM>
                             </div>
@@ -281,7 +305,8 @@ div.like_block{
 <!--                    				<input type="text" name="memberID"> -->
                    				<div class="input-group mb-3">
 									<span class="input-group-text" id="basic-addon1">會員</span>
-  									<input type="text" class="form-control" name="memberID" aria-label="Username" aria-describedby="basic-addon1">
+									<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+  									<input type="hidden" class="form-control" name="memberID" value="${member.member_id}" aria-label="Username" aria-describedby="basic-addon1">
 								</div> 
                    				<textarea class="ckeditor" id="myContent" name="reply"></textarea>
                    				<br> 
@@ -296,168 +321,6 @@ div.like_block{
         </div>
     </article>
 
-
-
-    
-<!-- 	<div>發文</div> -->
-<!-- 	<div id="post"> -->
-<%-- 		<div>用戶名:${memberSvc.GET_ONE_BY_ID(forumPost.member_id).member_email}</div> --%>
-<!-- 		<div> -->
-<!-- 			發文時間: -->
-<%-- 			<fmt:formatDate value="<%=forumPost.getForum_post_time()%>" --%>
-<%-- 				pattern="yyyy/MM/dd HH:mm" /> --%>
-<!-- 		</div> -->
-<!-- 		<div> -->
-<!-- 			最後更新時間: -->
-<%-- 			<fmt:formatDate value="<%=forumPost.getForum_update_time()%>" --%>
-<%-- 				pattern="yyyy/MM/dd HH:mm" /> --%>
-<!-- 		</div> -->
-<!-- 		<div> -->
-<%-- 			標題:<%=forumPost.getForum_post_title()%></div> --%>
-<!-- 		<div> -->
-<%-- 			內容:<%=forumPost.getForum_post_content()%></div> --%>
-<%-- 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumPost.do"> --%>
-<%-- 			<c:if test='${(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 				<button type="sumbit" disabled="disabled" id="btn_post_edit">編輯</button>  -->
-<!-- 				<input type="hidden" name="action" value="getOne_Post_For_update">  -->
-<%-- 				<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 				<input type="hidden" name="memberID" value="${forumPost.member_id}"> --%>
-<%-- 				<input type="hidden" name="post_title" value="${forumPost.forum_post_title}">  --%>
-<%-- 				<input type="hidden" id="edit_post_content" name="post_content" value='${forumPost.forum_post_content}'> --%>
-<%-- 			</c:if> --%>
-<%-- 			<c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 				<button type="sumbit" id="btn_post_edit">編輯</button>  -->
-<!-- 				<input type="hidden" name="action" value="getOne_Post_For_update">  -->
-<%-- 				<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 				<input type="hidden" name="memberID" value="${forumPost.member_id}"> --%>
-<%-- 				<input type="hidden" name="post_title" value="${forumPost.forum_post_title}">  --%>
-<%-- 				<input type="hidden" id="edit_post_content" name="post_content" value='${forumPost.forum_post_content}'> --%>
-<%-- 			</c:if> --%>
-<!-- 		</FORM> -->
-<%-- 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumPost.do"> --%>
-<%-- 			<c:if test='${(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 				<button type="sumbit" disabled="disabled" id="btn_post_delete">刪除</button>  -->
-<!-- 				<input type="hidden" name="action" value="post_delete">  -->
-<%-- 				<input type="hidden" name="postid" value="${forumPost.forum_post_id}">  --%>
-<%-- 				<input type="hidden" name="memberID" value="${forumPost.member_id}"> --%>
-<%-- 			</c:if> --%>
-<%-- 			<c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 				<button type="sumbit" id="btn_post_delete">刪除</button>  -->
-<!-- 				<input type="hidden" name="action" value="post_delete">  -->
-<%-- 				<input type="hidden" name="postid" value="${forumPost.forum_post_id}">  --%>
-<%-- 				<input type="hidden" name="memberID" value="${forumPost.member_id}"> --%>
-<%-- 			</c:if>		 --%>
-<!-- 		</FORM> -->
-<!-- 		<FORM METHOD="post" ACTION="forumPost.do"> -->
-<%-- 			<c:if test='${(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 				<button type="sumbit" disabled="disabled" id="btn_post_report">檢舉</button>  -->
-<!-- 				<input type="hidden" name="action" value="getOne_Post_For_report">  -->
-<%-- 				<input type="hidden" name="postid" value="${forumPost.forum_post_id}">  --%>
-<%-- 				<input type="hidden" name="memberID" value="${forumPost.member_id}"> --%>
-<%-- 				<input type="hidden" name="post_content" value='${forumPost.forum_post_content}'> --%>
-<%-- 			</c:if> --%>
-<%-- 			<c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 				<button type="sumbit" id="btn_post_report">檢舉</button>  -->
-<!-- 				<input type="hidden" name="action" value="getOne_Post_For_report">  -->
-<%-- 				<input type="hidden" name="postid" value="${forumPost.forum_post_id}">  --%>
-<%-- 				<input type="hidden" name="memberID" value="${forumPost.member_id}"> --%>
-<%-- 				<input type="hidden" name="post_content" value='${forumPost.forum_post_content}'> --%>
-<%-- 			</c:if> --%>
-			
-<!-- 		</FORM> -->
-<!-- 	</div> -->
-
-<!-- 	<div>回覆</div> -->
-<%-- 	<c:forEach var="forumReply" items="${list}"> --%>
-<!-- 		<div id="reply"> -->
-<%-- 			<div>用戶名:${memberSvc.GET_ONE_BY_ID(forumReply.member_id).member_email}</div> --%>
-<!-- 			<div> -->
-<!-- 				回覆時間: -->
-<%-- 				<fmt:formatDate value="${forumReply.forum_reply_time}" --%>
-<%--  					pattern="yyyy/MM/dd HH:mm" />  --%>
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 				最後更新時間: -->
-<%-- 				<fmt:formatDate value="${forumReply.forum_reply_update_time}" --%>
-<%-- 					pattern="yyyy/MM/dd HH:mm" />  --%>
-<!-- 			</div> -->
-<%-- 			<div>回復內容:${forumReply.forum_reply_content}</div> --%>
-<%-- 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumReply.do"> --%>
-<%-- 				<c:if test='${(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
-<!-- 					<button type="sumbit" disabled="disabled" id="btn_reply_edit">編輯</button>  -->
-<!-- 					<input type="hidden" name="action" value="getOne_Reply_For_update"> -->
-<%-- 					<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}"> --%>
-<%-- 					<input type="hidden" name="memberID" value="${forumReply.member_id}">  --%>
-<%-- 					<input type="hidden" name="reply_content" value='${forumReply.forum_reply_content}'> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test='${!(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
-<!-- 					<button type="sumbit" id="btn_reply_edit">編輯</button>  -->
-<!-- 					<input type="hidden" name="action" value="getOne_Reply_For_update"> -->
-<%-- 					<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}"> --%>
-<%-- 					<input type="hidden" name="memberID" value="${forumReply.member_id}">  --%>
-<%-- 					<input type="hidden" name="reply_content" value='${forumReply.forum_reply_content}'> --%>
-<%-- 				</c:if> --%>
-				
-<!-- 			</FORM> -->
-<%-- 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumReply.do">  --%>
-<%-- 				<c:if test='${(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
-<!-- 					<button type="sumbit" disabled="disabled" id="btn_reply_delete">刪除</button> -->
-<!-- 					<input type="hidden" name="action" value="reply_delete">  -->
-<%-- 					<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">  --%>
-<%-- 					<input type="hidden" name="memberID" value="${forumReply.member_id}"> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test='${!(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
-<!-- 					<button type="sumbit" id="btn_reply_delete">刪除</button> -->
-<!-- 					<input type="hidden" name="action" value="reply_delete">  -->
-<%-- 					<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">  --%>
-<%-- 					<input type="hidden" name="memberID" value="${forumReply.member_id}"> --%>
-<%-- 				</c:if> --%>
-				
-<!-- 			</FORM> -->
-<%-- 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumReply.do"> --%>
-<%-- 			 	<c:if test='${(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
-<!-- 			 		<button type="sumbit" disabled="disabled" id="btn_post_report">檢舉</button>  -->
-<!-- 					<input type="hidden" name="action" value="getOne_Reply_For_report">  -->
-<%-- 					<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">  --%>
-<%-- 					<input type="hidden" name="memberID" value="${forumReply.member_id}"> --%>
-<%-- 					<input type="hidden" name="reply_content" value='${forumReply.forum_reply_content}'> --%>
-<%-- 			 	</c:if> --%>
-<%-- 			 	<c:if test='${!(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
-<!-- 			 		<button type="sumbit" id="btn_post_report">檢舉</button>  -->
-<!-- 					<input type="hidden" name="action" value="getOne_Reply_For_report">  -->
-<%-- 					<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">  --%>
-<%-- 					<input type="hidden" name="memberID" value="${forumReply.member_id}"> --%>
-<%-- 					<input type="hidden" name="reply_content" value='${forumReply.forum_reply_content}'> --%>
-<%-- 			 	</c:if> --%>
-				
-<!-- 			</FORM> -->
-			
-			
-<!-- 		</div> -->
-<%-- 	</c:forEach> --%>
-
-<!-- 	<FORM METHOD="post" ACTION="forumReply.do"> -->
-<%-- 	 	<c:if test='${!(forumPost.forum_post_content).equals("此內容已被刪除")}'> --%>
-<!-- 	 		<label for="memberID">會員ID</label>  -->
-<!-- 			<br>  -->
-<!-- 			<input type="text" name="memberID">  -->
-<!-- 			<br>  -->
-<!-- 			<br> -->
-<!-- 			<textarea id="summernote" name="reply"></textarea> -->
-<!-- 			<textarea class="ckeditor" id="myContent" name="reply"></textarea> -->
-<!-- 			<br>  -->
-<!-- 			<input type="hidden" name="action" value="reply">  -->
-<%-- 			<input type="hidden" name="postid" value="${forumPost.forum_post_id}"> --%>
-<!-- 			<input type="submit" value="送出">  -->
-<!-- 			<input type="reset" value="清除"> -->
-<%-- 	 	</c:if> --%>
-<!-- 	</FORM> -->
 	
 	<script src="vendors/jquery/jquery-3.6.0.min.js"></script>
 	

@@ -5,9 +5,15 @@
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
 <%-- <%@include file="../../pages/header.file"%> --%>
+<%@ page import="com.member.model.*"%>
 
 <%
 	ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");
+%>
+
+<%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	pageContext.setAttribute("member", member);
 %>
 <html>
 <head>
@@ -48,7 +54,7 @@ th, td {
 <link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
@@ -86,7 +92,8 @@ th, td {
 		<!-- 		<input type="text" name="memberID" id="memberID"> -->	
 					<div class="input-group mb-3">
 						<span class="input-group-text" id="basic-addon1">會員</span>
-  						<input type="text" class="form-control" name="memberID" id="memberID" aria-label="Username" aria-describedby="basic-addon1">
+						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+  						<input type="hidden" class="form-control" name="memberID" id="memberID" value="${member.member_id}" aria-label="Username" aria-describedby="basic-addon1">
 					</div>
 		<!-- 		<label for="title">主題</label> -->
 		<!-- 		<input type="text" name="title" id="title"> -->
