@@ -373,28 +373,8 @@ $("#search-type").on("change", function () {
 	}
 });
 
-$("#topnav").on("click", ".guest", function () {
-	let logged =
-		'<a href="#" class="link-dark text-decoration-none dropdown-toggle mx-4 logged" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">' +
-		'<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">' +
-		"</a>" +
-		'<ul class="dropdown-menu text-small mt-2 logged" aria-labelledby="dropdownUser">' +
-		'<li><a class="dropdown-item" href="#">我的商家</a></li>' +
-		'<li><a class="dropdown-item" href="#">設定</a></li>' +
-		'<li><a class="dropdown-item" href="#">個人檔案</a></li>' +
-		'<li><hr class="dropdown-divider"></li>' +
-		'<li><a class="dropdown-item" href="#" id="logout">登出</a></li>' +
-		"</ul>";
-	$(".guest").remove();
-	$(logged).insertAfter("#shop-join");
-});
-
 $("#topnav").on("click", "#logout", function () {
-	let guest =
-		'<button type="button" class="btn btn-outline-primary me-3 guest">登入</button>' +
-		'<button type="button" class="btn btn-primary me-4 guest">註冊</button>';
-	$(".logged").remove();
-	$(guest).insertAfter("#shop-join");
+	$("#form-logout").submit();
 });
 
 document.addEventListener("DOMContentLoaded", function () {

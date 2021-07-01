@@ -411,7 +411,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			pstmt.setInt(1, product_category_no);
 			
-			rs = pstmt.executeQuery(); //接收結果
+			rs = pstmt.executeQuery(); //��蝯��
 			while(rs.next()) {
 				count ++;
 			}
