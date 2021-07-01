@@ -122,7 +122,12 @@ function timeSince(date) {
 	  return Math.floor(seconds) + " 秒前";
 }
 
-$("body").on("click", "a", function(){
+$("body").on("click", '[class*="map-popup-"] > a', function(){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
+$("body").on("click", '[class*="col-"] > a', function(){
 	$('#redirect').removeClass("d-none");
 	$('.row').fadeTo("fast", 0.5);
 });

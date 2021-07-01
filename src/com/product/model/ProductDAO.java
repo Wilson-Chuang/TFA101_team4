@@ -31,7 +31,7 @@ public class ProductDAO implements ProductDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -411,7 +411,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			pstmt.setInt(1, product_category_no);
 			
-			rs = pstmt.executeQuery(); //接收結果
+			rs = pstmt.executeQuery(); //��蝯��
 			while(rs.next()) {
 				count ++;
 			}

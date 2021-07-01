@@ -18,12 +18,12 @@ import com.product.model.ProductVO;
 
 public class Product_categoryDAO implements Product_categoryDAO_interface{
 
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	// 銝���蝔�葉,�������澈 ,��銝��ataSource��
 		private static DataSource ds = null;
 		static {
 			try {
 				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -76,7 +76,7 @@ public class Product_categoryDAO implements Product_categoryDAO_interface{
 
 		@Override
 		public void update(Product_categoryVO product_categoryVO) {
-			System.out.println("有近來DAO嗎");
+			System.out.println("����AO���");
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
@@ -122,29 +122,29 @@ public class Product_categoryDAO implements Product_categoryDAO_interface{
 
 				con = ds.getConnection();
 
-				// 1●設定於 pstm.executeUpdate()之前
+				// 1��身摰 pstm.executeUpdate()銋��
 				con.setAutoCommit(false);
 
-				// 先刪除商品
+				// �������
 				pstmt = con.prepareStatement(DELETE_PRODUCTs);
 				pstmt.setInt(1, product_category_no);
 				updateCount_PRODUCTs = pstmt.executeUpdate();
 
-				// 再刪除部門
+				// ������
 				pstmt = con.prepareStatement(DELETE_PRODUCT_CATEGORY);
 				pstmt.setInt(1, product_category_no);
 				pstmt.executeUpdate();
 
-				// 2●設定於 pstm.executeUpdate()之後
+				// 2��身摰 pstm.executeUpdate()銋��
 				con.commit();
 				con.setAutoCommit(true);
-				System.out.println("刪除商品類別編號" + product_category_no + "時,共有商品" + updateCount_PRODUCTs + "件同時被刪除");
+				System.out.println("������蝺刻��" + product_category_no + "���,������" + updateCount_PRODUCTs + "隞嗅��◤��");
 
 				// Handle any driver errors
 			} catch (SQLException se) {
 				if (con != null) {
 					try {
-						// 3●設定於當有exception發生時之catch區塊內
+						// 3��身摰���xception�����atch��憛
 						con.rollback();
 					} catch (SQLException excep) {
 						throw new RuntimeException("rollback error occured. " + excep.getMessage());
@@ -188,7 +188,7 @@ public class Product_categoryDAO implements Product_categoryDAO_interface{
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					// empVo 也稱為 Domain objects
+					// empVo 銋迂� Domain objects
 					product_categoryVO = new Product_categoryVO();
 					product_categoryVO.setProduct_category_no(rs.getInt("product_category_id"));
 					product_categoryVO.setProduct_category_name(rs.getString("product_category_name"));

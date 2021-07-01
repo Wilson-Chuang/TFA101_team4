@@ -22,12 +22,12 @@ import com.article.model.ArticleVO;
 
 public class Article_categoryDAO implements Article_categoryDAO_interface{
 	
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	// 銝���蝔�葉,�������澈 ,��銝��ataSource��
 	private static DataSource ds = null;
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
