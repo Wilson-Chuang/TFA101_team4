@@ -23,7 +23,7 @@ header.header {
     overflow: hidden;
     position: fixed; 
     /* top: 0px; */
-    /* z-index: 2; */
+    z-index: 9999;
     display: flex;
     flex-direction: row;
     box-shadow: 7px 4px 10px hsla(240, 24%, 88%, 0.6);
