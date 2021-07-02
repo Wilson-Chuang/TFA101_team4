@@ -48,6 +48,9 @@
 </head>
 <body bgcolor='white'>
 
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
 
 <table>
 	<tr>
