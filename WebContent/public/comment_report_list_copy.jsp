@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.shop.model.*"%>
@@ -13,25 +12,21 @@
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
 
-
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
-
+<base href="<%=basePath%>">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Giude好食|評論檢舉處理</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
 
@@ -47,9 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      font-size:15px;
   }
 </style>
-
-<meta charset="utf-8">
-<title>Insert title here</title>
 <jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
 </head>
 <body>
@@ -69,9 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</nav>
     </div>
 
-
-
-    <!-- 原先的code --> 
 <div class="container">
 
         <div class="row">
@@ -150,13 +139,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 
-</div>
 </body>
-
-<script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
-<script src="./vendors/popper/popper.min.js"></script>
-<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
-  <script type='text/javascript'>
+    <script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+	<script src="./vendors/popper/popper.min.js"></script>
+	<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script type='text/javascript'>
 			function change() {
   				var value = document.getElementById('range').value ;
   				document.getElementById('value').innerHTML = value;

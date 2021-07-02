@@ -23,7 +23,7 @@
 
 
 </head>
-<body class="sign_right" style="padding-top:50px;background-image: url('sign/loginBg.jpg');">
+<body class="sign_right" style="padding-top:50px;background-image: url('./loginBg.jpg');">
 	
 	<div class="container">
 		<div class="row">

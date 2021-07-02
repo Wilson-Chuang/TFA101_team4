@@ -34,6 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	String imgPath = request.getContextPath()+ File.separator+
 			"uploads" + File.separator + "shop"+ File.separator +  ShopVO.getShop_tax_id()+ 
 			File.separator +"images"+ File.separator+ShopVO.getShop_main_img() ;
+	String uploadFilePath = request.getContextPath()+ File.separator+ 
+			"UPLOAD" + File.separator + "comment"+ File.separator + "pic"+ File.separator;
 	
 %>
 <!DOCTYPE html>
@@ -195,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  							for (CommentVO com : list_Com) {
  							MemberService memSvc = new MemberService();
  							MemberVO MemberVO=memSvc.GET_ONE_BY_ID(com.getMEMBER_ID());
- 							if(com.getCOMMENT_STATUS()==0){
+ 							if(com.getCOMMENT_STATUS()==1){
  						%>
                     
                     <div class="comment_zone">
@@ -203,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <p><%=com.getCOMMENT_TIME() %></p>
                         <span class="ratins"><%=com.getCOMMENT_RATING()%><i class="fas fa-star"></i></span><br>
                         <p><%=com.getCOMMENT_CONTENT() %></p>
-                            <img src="/upload/<%=com.getCOMMENT_PIC()%>" alt="" style="width:25%"><br>
+                            <img src="<%=uploadFilePath+com.getCOMMENT_PIC()%>" alt="" style="width:25%"><br>
                              <%
                  			if(!(myMemberVO==null)){
                  			Comment_ReportService cmSvc=new Comment_ReportService();

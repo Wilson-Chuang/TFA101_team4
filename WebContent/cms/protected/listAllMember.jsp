@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
 <%@ page import="com.manager.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
@@ -13,6 +14,8 @@
     
     MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
     pageContext.setAttribute("memberVO",memberVO);
+    String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+
 %>
 
 
@@ -127,6 +130,8 @@
 		
 			<%@ include file="page1.file" %> 
 			<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+				<%System.out.println(picpath); %>
+				
 				
 				<tr style="align: center;">
 					<td class="table1">${memberVO.member_id}</td>
@@ -134,7 +139,7 @@
 					<td class="table1">${memberVO.member_birth}</td>
 					<td class="table1">${memberVO.member_phone}</td>
 					<td class="table1">${memberVO.member_address}</td>
-					<td class="table1"><img src="/upload/${memberVO.member_pic}"></td>
+					<td class="table1"><img src="<%=picpath %>${memberVO.member_pic}"></td>
 					<td class="table1">${memberVO.member_email}</td>
 					<td class="table1">
 					  <FORM METHOD="post" ACTION="member.html" style="margin-bottom: 0px;">

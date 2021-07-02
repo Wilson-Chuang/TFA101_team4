@@ -268,13 +268,18 @@ public class MemberServlet extends HttpServlet {
 				String comment_text = req.getParameter("comment_text");
 				Part part = req.getPart("comment_pic");
 				String filename = getFileNameFromPart(part);
-				String path = "C:/upload/"+filename;
-				FileOutputStream fos = new FileOutputStream(path);
-				InputStream in = part.getInputStream();
-				byte[] data = new byte[in.available()];
-				in.read(data);
-				fos.write(data);
-				fos.close();
+				String appPath = req.getServletContext().getRealPath("");
+				String uploadFilePath = appPath  + 
+						"UPLOAD" + File.separator + "comment"+ File.separator + "pic";
+				File fileSaveDir = new File(uploadFilePath);
+					if (!fileSaveDir.exists()) {
+			            fileSaveDir.mkdirs();
+			        }
+					part.write(uploadFilePath+File.separator +filename);
+					
+				
+				
+				
 				
 				if(req.getParameter("comment_rating").equals("0")) {
 					errorMsgs.add("請給個評價吧!");

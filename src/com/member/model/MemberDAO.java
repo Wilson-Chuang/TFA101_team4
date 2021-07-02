@@ -355,6 +355,7 @@ public class MemberDAO implements MemberDAO_Interface {
 				mem.setMember_birth(rs.getDate("MEMBER_BIRTH"));
 				mem.setMember_phone(rs.getString("MEMBER_PHONE"));
 				mem.setMember_address(rs.getString("MEMBER_ADDRESS"));
+				mem.setMember_pic(rs.getString("MEMBER_PIC"));
 				mem.setMember_point(rs.getInt("MEMBER_POINT"));
 				mem.setMember_create_time(rs.getTimestamp("MEMBER_CREATE_TIME"));
 				mem.setMember_update_time(rs.getTimestamp("MEMBER_UPDATE_TIME"));
