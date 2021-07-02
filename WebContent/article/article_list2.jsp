@@ -17,7 +17,7 @@
 %>
 
 <jsp:useBean id="article_categorySvc" scope="page" class="com.article_category.model.Article_categoryService" />
-
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +99,14 @@
 		
 		<div class="author">
 			<img src="./img/model8.jpeg">
-			<div class="member_name">Hank</div>
+			<div class="member_name">
+				<c:forEach var="memberVO" items="${memberSvc.all}">
+		       		<c:if test="${articleVO.member_no==memberVO.member_id}">
+		       			${memberVO.member_name}
+		       		</c:if>
+			     </c:forEach> 	
+			
+			</div>
 			<div class="article_collection"><i class="far fa-heart"></i>${articleVO.article_collection}</div>
 			<div class="article_view_count"><i class="fas fa-chart-line"></i>999</div>
 		</div>
