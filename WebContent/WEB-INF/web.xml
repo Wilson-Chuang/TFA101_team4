@@ -177,4 +177,26 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+	
+	<!-- 購物車結帳filter -->
+	<filter-mapping>
+	<filter-name>loginFilter</filter-name>
+	<url-pattern>/product_list/Checkout3.jsp</url-pattern>
+	<dispatcher>REQUEST</dispatcher>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>ERROR</dispatcher>
+	<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<!-- 專欄裡發表文章的filter -->
+	<filter-mapping>
+	<filter-name>loginFilter</filter-name>
+	<url-pattern>/article/addArticle.jsp</url-pattern>
+	<dispatcher>REQUEST</dispatcher>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>ERROR</dispatcher>
+	<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 </web-app>

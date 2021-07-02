@@ -9,8 +9,9 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" /><html lang="en">
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

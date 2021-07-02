@@ -22,14 +22,25 @@
 %>
 
 
-<%
-	MemberService memberSvc = new MemberService();
-	MemberVO memberVO = memberSvc.GET_ONE_BY_ID(1);
-	pageContext.setAttribute("memberVO", memberVO);
+<%	
+	
+
+
+// 	MemberService memberSvc = new MemberService();
+// 	MemberVO memberVO = memberSvc.GET_ONE_BY_ID(1);
+// 	pageContext.setAttribute("memberVO", memberVO);
 %>
 
 <%
-	
+
+	MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+	pageContext.setAttribute("member_login", MemberVO2);
+	if( MemberVO2 !=null){
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+		pageContext.setAttribute("memberVO", memberVO);
+	}
+
 %>
 
 
@@ -99,12 +110,26 @@
 	                    <button class="search_button"><i class="fas fa-search"></i></button>
                     </FORM>
                 </div>
-                <a href="">
-                    <div class="money">
-                        <p>GP:</p>
-                    </div>
-                    <div class="money_number">${memberVO.member_point}</div>
-                </a>
+                
+                <c:if test="${member_login == null}">
+	                <a href="">               
+	                    <div class="money">
+	                        <p></p>
+	                    </div>
+	                    <div class="money_number"></div>
+	                </a>
+	            </c:if>
+                
+                
+                
+                <c:if test="${member_login != null}">
+	                <a href="">               
+	                    <div class="money">
+	                        <p>GP:</p>
+	                    </div>
+	                    <div class="money_number">${memberVO.member_point}</div>
+	                </a>
+	            </c:if>
                 <button class="user"><i class="far fa-user"></i></button>
                 <button class="cart" id="sidebar-btn"><i class="far fa-clipboard"></i></button>
             </div>

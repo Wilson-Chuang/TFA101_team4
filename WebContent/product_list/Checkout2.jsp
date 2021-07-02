@@ -136,7 +136,7 @@
 			
 <%-- 			<input type="hidden" name="minus" value="<%=minus%>"> --%>
 			<input type="hidden" name="action"  value="CHECKOUT3">
-			<input type="submit" value="下一步" class="next">
+			<input type="submit" value="付款去" class="next">
 			</form>
 		</div>
 

@@ -1,9 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.article.model.*"%>
-
+<%@ page import="com.member.model.*"%>
 <%
 	ArticleVO articleVO = (ArticleVO) request.getAttribute("articleVO");
+%>
+<%
+	MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+	MemberService memberSvc = new MemberService();
+	MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+	pageContext.setAttribute("memberVO", memberVO);
 %>
 
 
@@ -49,7 +55,7 @@
 					<img src="${pageContext.request.contextPath}/article/img/model8.jpeg">
 				</th>
 				<th>
-					Hank<br><br>
+					${memberVO.member_name}<br><br>
 					<font class="rule">*提醒您：關於積分規則，詳情請參考 「食記發表規則」</font>
 				</th>
 			</tr>
@@ -127,7 +133,7 @@
 	</div>
 <!-- 返回 -->
 	<div class="back">
-		<a href="${pageContext.request.contextPath}/article/article.do?member_no=1&action=post">-回到文章列表-</a>
+		<a href="${pageContext.request.contextPath}/article/article.do?member_no=${memberVO.member_id}&action=post">-回到文章列表-</a>
 	</div>
 
 <!-- 送出 -->
