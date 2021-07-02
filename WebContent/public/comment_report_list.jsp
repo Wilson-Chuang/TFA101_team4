@@ -28,12 +28,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
+
+<style>
+  div.main_content {
+    width: 100%;
+    float: left;
+  }
+
+  .breadcrumb{
+     background-color: white;
+     margin:20px 0 0 0;
+     font-size:15px;
+  }
+</style>
+<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
 </head>
 <body>
+<div class="main_content">
+
+    <div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+    </div>
+    
+    <!--麵包屑，請大家對應側邊欄幫忙修改一下以下名稱，因為是bootstrap，所以需載入script-->
+    <div>
+	<nav aria-label="breadcrumb">
+	    <ol class="breadcrumb">
+		<li class="breadcrumb-item">意見回饋</li>
+		<li class="breadcrumb-item active" aria-current="page">評論檢舉</li>
+	    </ol>
+	</nav>
+    </div>
+
 <div class="container">
 
         <div class="row">
-<span style="color:black;font-size:30px;padding:0;width:120px">意見回饋</span><span style="color:gray;font-size:30px;margin:0px;padding:0;width:135px;">/評論檢舉</span>
            <div >
                 
                 <div class="row">
@@ -108,10 +137,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 </body>
-   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+    <script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+	<script src="./vendors/popper/popper.min.js"></script>
+	<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
     <script type='text/javascript'>
 			function change() {
   				var value = document.getElementById('range').value ;
