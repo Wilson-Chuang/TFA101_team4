@@ -60,7 +60,7 @@
                         <a href="#">專欄文章管理</a>
                     </li>
                     <li>
-                        <a href="#">揪團管理</a>
+                        <a href="listALLParty">揪團管理</a>
                     </li>
                 </ul>
             </li>

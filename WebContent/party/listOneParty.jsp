@@ -65,6 +65,8 @@
 	</tr>
 	<tr>
 		<td><%=partyVO.getParty_id()%></td>
+		<td><%=partyVO.getMember_id()%></td>
+		<td><%=partyVO.getShop_id()%></td>
 		<td><%=partyVO.getParty_title()%></td>
 		<td><%=partyVO.getParty_start_time()%></td>
 		<td><%=partyVO.getParty_end_time()%></td>
