@@ -4,9 +4,9 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.manager.model.*"%>
 
-<%
-	ManagerVO managerVO = (ManagerVO) request.getAttribute("manager_id");	
-%>  
+<%	
+	ManagerVO loginmanagerVO = (ManagerVO) session.getAttribute("loginmanagerVO");
+%>
     
 <!DOCTYPE html>
 <html>
@@ -42,10 +42,10 @@
 		<div>
             <ul class="user">
                 <li class="guidefoodindex">
-                    <a href="#">前台網頁</a>
+                    <a href="<%=request.getContextPath()%>/ ">前台網頁</a>
                 </li>
                 <li>
-                    <img src="<%=request.getContextPath()%>/manager/GetPic.do?manager_id=${managerVO.manager_id}">
+                    <img src="<%=request.getContextPath()%>/manager/GetPic.do?manager_id=${loginmanagerVO.manager_id}">
                 </li>
                 <li>
                     <form action="<%=request.getContextPath()%>/cms/login.do" method="post" >

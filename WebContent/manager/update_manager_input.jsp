@@ -5,11 +5,13 @@
 <%
   ManagerVO managerVO = (ManagerVO) request.getAttribute("managerVO"); //EmpServlet.java (Concroller) 存入req的managerVO物件 (包括幫忙取出的managerVO, 也包括輸入資料錯誤時的managerVO物件)
 %>
-<%= managerVO==null %>--${managerVO.manager_id}--
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>管理員資料修改 - update_manager_input.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
+
 
 <style>
   table#table-1 {
@@ -104,6 +106,13 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="manager_id" value="<%=(managerVO==null)?"":managerVO.getManager_id()%>">
 <input type="submit" value="送出修改"></FORM>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+<script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="./vendors/popper/popper.min.js"></script>
+<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

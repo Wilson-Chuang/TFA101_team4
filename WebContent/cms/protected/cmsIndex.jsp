@@ -5,7 +5,7 @@
 <%@ page import="com.manager.model.*"%>
 
 <%	
-	ManagerVO managerVO = (ManagerVO) request.getAttribute("manager_id");	
+	ManagerVO loginmanagerVO = (ManagerVO) session.getAttribute("loginmanagerVO");
 %>  
     
 <!DOCTYPE html>
@@ -44,7 +44,7 @@
                     <a href="#">前台網頁</a>
                 </li>
                 <li>
-                    <img src="<%=request.getContextPath()%>/manager/GetPic.do?manager_id=${managerVO.manager_id}">
+                    <img src="<%=request.getContextPath()%>/manager/GetPic.do?manager_id=${loginmanagerVO.manager_id}">
                 </li>
                 <li>
                     <form action="<%=request.getContextPath()%>/cms/login.do" method="post" >
@@ -77,7 +77,7 @@
                         <a href="#">會員管理</a>
                     </li>
                     <li>
-                        <a href="#">管理員管理</a>
+                        <a href="${pageContext.request.contextPath}/manager/listAllManager.jsp">管理員管理</a>
                     </li>
                 </ul>
             </li>
@@ -140,9 +140,9 @@
 
 		<div class="main">
 			${manager_id}
-			${manager_email}
-			${manager_account}
-			${manager_pic}
+			${loginmanagerVO.manager_email}
+			${loginmanagerVO.manager_account}
+			${loginmanagerVO.manager_name}
 			
 		</div>
 

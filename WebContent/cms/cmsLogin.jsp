@@ -19,11 +19,11 @@
 
 	<div class="main">
 		<div class="pic">
-			<img src="${pageContext.request.contextPath}/manager/images/login.jpg">
+			<img src="${pageContext.request.contextPath}/cms/images/login.jpg">
 		</div>
 
 		<div class="login">
-			<img src="${pageContext.request.contextPath}/manager/images/logo.png">
+			<img src="${pageContext.request.contextPath}/cms/images/logo.png">
 			<h3>後台管理系統登入</h3>
 			
 			
@@ -44,7 +44,7 @@
                     </c:if> 
 
 				<button type="submit">登入</button>
-				<input type="hidden" name="manager_id"  value="${managerVO.manager_id}">
+				<input type="hidden" name="manager_id"  value="${loginmanagerVO.manager_id}">
 				<input type="hidden" name="action" value="login">
 			</form>
 		</div>
