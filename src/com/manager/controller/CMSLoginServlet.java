@@ -59,7 +59,7 @@ public class CMSLoginServlet extends HttpServlet {
 				ManagerService managerSvc = new ManagerService();
 
 				int manager_id = managerSvc.GETID(email);
-				ManagerVO managerVO = managerSvc.getOneManager(manager_id);
+				ManagerVO loginmanagerVO = managerSvc.getOneManager(manager_id);
 				
 				System.out.println(manager_id);
 
@@ -79,23 +79,23 @@ public class CMSLoginServlet extends HttpServlet {
 				if (!(password.equals(checkPsw))) {
 					errorMsgs.add("密碼有誤，請重新輸入");
 				}
-
+				System.out.println("111111111111111");
 				// Send the use back, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/cms/cmsLogin.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-
+				System.out.println("222222222222222222222");
 				// 成功登入後
 				if ((email.equals(checkEmail)) && (password.equals(checkPsw))) {
 
 					/*********************** 登入成功，帳密有效，才做以下動作 ************************************/
 
 					HttpSession session = req.getSession();
-					session.setAttribute("manager_id", manager_id); // *工作1: 才在session內做已經登入過的標識
+					session.setAttribute("loginmanagerVO", loginmanagerVO); // *工作1: 才在session內做已經登入過的標識
 					
-					req.setAttribute("managerVO", managerVO); // 資料庫取出的managerVO物件,存入req
+//					req.setAttribute("loginmanagerVO", loginmanagerVO); // 資料庫取出的managerVO物件,存入req
 					
 					try {
 						String location = (String) session.getAttribute("location");
@@ -105,19 +105,22 @@ public class CMSLoginServlet extends HttpServlet {
 							return;
 						}
 					} catch (Exception ignored) {
+						System.out.println("666666666666");
 					}
-
-//						res.sendRedirect(req.getContextPath() + "/cms/protected/cmsIndex.jsp"); // *工作3:
+//						這個方法無法抓到登入的id的圖片
+//						res.sendRedirect(req.getContextPath() + "/cms/protected/cmsIndex.jsp"); // *工作3: (-->如無來源網頁:則重導至cmsIndex.jsp)
 
 //					      	準備轉交(Send the Success view)
 					String url = "/cms/protected/cmsIndex.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交index.jsp
 					successView.forward(req, res);
+					System.out.println("55555");
 //						
 				}
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
+				System.out.println("333333333333333333");
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/cms/cmsLogin.jsp");
 				failureView.forward(req, res);
