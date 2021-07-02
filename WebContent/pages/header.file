@@ -176,19 +176,25 @@
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle h6 fw-bold" href="#" data-bs-toggle="dropdown">討論區</a>
+								<a class="nav-link dropdown-toggle h6 fw-bold" href="<%=request.getContextPath()%>/forumPost/allPost.jsp" data-bs-toggle="dropdown">論壇</a>
 								<ul class="dropdown-menu text-center">
-									<li><a class="dropdown-item" href="#">討論區 item 1</a></li>
-									<li><a class="dropdown-item" href="#">討論區 item 2</a></li>
-									<li><a class="dropdown-item" href="#">討論區 item 3</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/forumPost/allPost.jsp">論壇首頁</a></li>
+									<c:choose>
+						    			<c:when test="${sessionScope.login != null}">
+											<li><a class="dropdown-item" href="<%=request.getContextPath()%>/forumPost/addPost.jsp">發起文章</a></li>
+										</c:when>
+									</c:choose>
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle h6 fw-bold" href="#" data-bs-toggle="dropdown">揪團</a>
+								<a class="nav-link dropdown-toggle h6 fw-bold" href="<%=request.getContextPath()%>/party/partyhome.jsp" data-bs-toggle="dropdown">揪團</a>
 								<ul class="dropdown-menu text-center">
-									<li><a class="dropdown-item" href="#">揪團 item 1</a></li>
-									<li><a class="dropdown-item" href="#">揪團 item 2</a></li>
-									<li><a class="dropdown-item" href="#">揪團 item 3</a></li>
+									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/party/partyhome.jsp">揪團首頁</a></li>
+									<c:choose>
+						    			<c:when test="${sessionScope.login != null}">
+											<li><a class="dropdown-item" href="<%=request.getContextPath()%>/party/addparty.jsp">發起揪團</a></li>
+										</c:when>
+									</c:choose>
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
