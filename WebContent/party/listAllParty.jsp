@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.party.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
@@ -53,6 +55,10 @@
 </head>
 <body bgcolor='white' >
 
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
+
 <table id="table-1">
 	<tr><td>
 		 <h3>所有揪團資料</h3>
@@ -73,6 +79,8 @@
 <table>
 	<tr>
 		<th>揪團編號</th>
+		<th>會員編號</th>
+		<th>餐廳編號</th>
 		<th>揪團標題</th>
 		<th>揪團開始時間</th>
 		<th>揪團結束時間</th>
@@ -88,6 +96,8 @@
 		
 		<tr>
 			<td>${partyVO.party_id}</td>
+			<td>${partyVO.member_id}</td>
+			<td>${partyVO.shop_id}</td>
 			<td>${partyVO.party_title}</td>
 			<td><fmt:formatDate value="${partyVO.party_start_time}"
 						pattern="yyyy-MM-dd hh:mm" /></td> 

@@ -9,8 +9,9 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" /><html lang="en">
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,25 +25,32 @@
 </head>
 
 <body>
-	<div class="main">
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
+<div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+</div>
+
+	<div class="main" style=" margin-right:130px;">
 		<div class="listProd_content">
 			<div class="product_title">
 				<h1>文章管理</h1>
 			</div>
 			<div class="product_navbar">
 			
-				<div class="search">
-                <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/article/article.do" id="form">
-                    <input class="search_bar" type="text" name="article_name" id="search" placeholder="文章標題..">
-                    <input type="hidden" name="action" value="search">
-        			<input type="submit" value="送出" class="search_submit">
-                    <button class="search_button"><i class="fas fa-search"></i></button>
-                </FORM>
-                </div>
+<!-- 				<div class="search"> -->
+<%--                 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/article/article.do" id="form"> --%>
+<!--                     <input class="search_bar" type="text" name="article_name" id="search" placeholder="文章標題.."> -->
+<!--                     <input type="hidden" name="action" value="search"> -->
+<!--         			<input type="submit" value="送出" class="search_submit"> -->
+<!--                     <button class="search_button"><i class="fas fa-search"></i></button> -->
+<!--                 </FORM> -->
+<!--                 </div> -->
 
-				<div class="datacount">
+<!-- 				<div class="datacount"> -->
 		
-				</div>
+<!-- 				</div> -->
 			</div>
 			<table>
 				<tr>

@@ -555,3 +555,7 @@ $(".nav-item > ul > li").click(function(e){
 	$('#redirect').removeClass("d-none");
 	$('.row').fadeTo("fast", 0.5);
 });
+
+$("li.nav-item > a.dropdown-toggle").click(function(e){
+	window.location.href = $(this).attr("href");
+});

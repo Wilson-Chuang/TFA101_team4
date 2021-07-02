@@ -30,6 +30,8 @@ import javax.servlet.http.Part;
 import com.comment.model.CommentService;
 import com.comment_report.model.*;
 import com.manager.model.MailService;
+import com.manager.model.ManagerService;
+import com.manager.model.ManagerVO;
 import com.comment.model.CommentVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
@@ -488,6 +490,7 @@ public class MemberServlet extends HttpServlet {
 						"UPLOAD" + File.separator + "member"+ File.separator + "pic";
 				File fileSaveDir = new File(uploadFilePath);
 				if (!fileSaveDir.exists()) {
+					System.out.println("1111111111111111111111111111");
 		            fileSaveDir.mkdirs();
 		        }
 				part.write(uploadFilePath+File.separator +filename);
@@ -1499,8 +1502,37 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("getOne_For_Update".equals(action)) { // 來自listAllMember.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				Integer member_ID = new Integer(req.getParameter("member_ID"));
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.GET_ONE_BY_ID(member_ID);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("memberVO", memberVO); // 資料庫取出的memberVO物件,存入req
+				String url = "/cms/protected/listAllMember.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_manager_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/cms/protected/listAllMember.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
-	
 	
 	
 	

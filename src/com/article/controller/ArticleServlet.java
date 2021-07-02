@@ -10,6 +10,8 @@ import javax.servlet.http.*;
 
 import com.article.model.ArticleService;
 import com.article.model.ArticleVO;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 import com.vote.model.VoteVO;
 
 import redis.clients.jedis.Jedis;
@@ -102,7 +104,14 @@ public class ArticleServlet extends HttpServlet {
 				
 			    //圖片名 
 			    String article_img_name = imageFileName.trim();
-			    Integer member_no = 1;
+			    
+			    
+			    HttpSession session = req.getSession();
+				MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+			    
+			    Integer member_no = memberVO.getMember_id();
 
 //				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
 			    
@@ -249,7 +258,12 @@ public class ArticleServlet extends HttpServlet {
 				}
 				
 			    
-			    Integer member_no = 1;
+			    HttpSession session = req.getSession();
+				MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+			    
+			    Integer member_no = memberVO.getMember_id();
 
 //				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
 			    
@@ -649,7 +663,12 @@ public class ArticleServlet extends HttpServlet {
 				
 				String article_img_name = "preview.png";
 				
-				Integer member_no = 1;
+			    HttpSession session = req.getSession();
+				MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+			    
+			    Integer member_no = memberVO.getMember_id();
 				
 				Integer shop_no = 2;
 				

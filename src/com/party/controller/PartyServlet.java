@@ -132,12 +132,21 @@ public class PartyServlet extends HttpServlet {
 					errorMsgs.add("內容請勿空白");
 				}
 				
-//				Integer member_id = null;
-//				try {
-//					member_id = new Integer(req.getParameter("memberID"));
-//				} catch (NumberFormatException e) {
-//					errorMsgs.add("請檢查是否已登入");
-//				}
+				Integer member_id = null;
+				try {
+					member_id = new Integer(req.getParameter("member_id"));
+				} catch (NumberFormatException e) {
+					errorMsgs.add("請檢查是否已登入");
+				}
+			
+				Integer shop_id = null;
+				try {
+					shop_id = new Integer(req.getParameter("shop_id"));
+				} catch (NumberFormatException e) {
+					errorMsgs.add("沒有餐廳資訊");
+				}
+				
+				
 				Integer party_participants_max = null;
 				try {
 					party_participants_max = new Integer(req.getParameter("party_participants_max").trim());
@@ -184,7 +193,8 @@ public class PartyServlet extends HttpServlet {
 //				Timestamp Party_end_time = new Timestamp(date.getTime());
 				PartyVO partyVO = new PartyVO();
 				partyVO.setParty_title(party_title);
-//		partyVO.setMember_id(member_id);
+		        partyVO.setMember_id(member_id);
+		        partyVO.setShop_id(shop_id);	
 				partyVO.setParty_start_time(Party_start_time);
 				partyVO.setParty_end_time(Party_end_time);
 				partyVO.setParty_intro(party_intro);
@@ -202,7 +212,7 @@ public class PartyServlet extends HttpServlet {
 				/*************************** 2.開始新增資料 ****************************************/
 				PartyService partySvc = new PartyService();
 				partyVO = partySvc.addParty(party_title, Party_start_time, Party_end_time, party_intro,
-						party_participants_max, party_participants_min, party_remarks);
+						party_participants_max, party_participants_min, party_remarks, member_id, shop_id);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ************/
 				String url = "/party/listAllParty.jsp";
@@ -276,12 +286,21 @@ public class PartyServlet extends HttpServlet {
 //					errorMsgs.add("內容請勿空白");
 //				}
 				
-//				Integer member_id = null;
-//				try {
-//					member_id = new Integer(req.getParameter("memberID"));
-//				} catch (NumberFormatException e) {
-//					errorMsgs.add("請檢查是否已登入");
-//				}
+				Integer member_id = null;
+				try {
+					member_id = new Integer(req.getParameter("member_id"));
+					System.out.println(member_id);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("請檢查是否已登入");
+				}
+				
+				Integer shop_id = null;
+				try {
+					shop_id = new Integer(req.getParameter("shop_id"));
+					System.out.println(shop_id);
+				} catch (NumberFormatException e) {
+					errorMsgs.add("查無此餐廳");
+				}
 				
 				
 				Integer party_participants_max = null;
@@ -327,6 +346,8 @@ public class PartyServlet extends HttpServlet {
 
 				partyVO.setParty_id(party_id);
 				partyVO.setParty_title(party_title);
+				partyVO.setMember_id(member_id);
+				partyVO.setShop_id(shop_id);
 				partyVO.setParty_start_time(Party_start_time);
 				partyVO.setParty_end_time(Party_end_time);
 				partyVO.setParty_intro(party_intro);
@@ -344,7 +365,7 @@ public class PartyServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				PartyService partySvc = new PartyService();
 				partyVO = partySvc.updateParty(party_id, party_title, Party_start_time, Party_end_time, party_intro,
-						party_participants_max, party_participants_min, party_remarks);
+						party_participants_max, party_participants_min, party_remarks, member_id, shop_id);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("partyVO", partyVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/party/listOneParty.jsp";

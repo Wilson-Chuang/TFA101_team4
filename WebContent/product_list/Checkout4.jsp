@@ -25,8 +25,13 @@
 
 
 <%
+// 	MemberService memberSvc = new MemberService();
+// 	MemberVO memberVO = memberSvc.GET_ONE_BY_ID(1);
+// 	pageContext.setAttribute("memberVO", memberVO);
+
+	MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
 	MemberService memberSvc = new MemberService();
-	MemberVO memberVO = memberSvc.GET_ONE_BY_ID(1);
+	MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
 	pageContext.setAttribute("memberVO", memberVO);
 %>
 

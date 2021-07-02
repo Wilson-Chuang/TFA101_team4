@@ -25,7 +25,14 @@
 </head>
 
 <body>
-	<div class="main">
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
+<div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+</div>
+
+	<div class="main" style=" margin-right:130px;">
 		<div class="listProd_content">
 			<div class="product_title">
 				<h1>產品管理</h1>

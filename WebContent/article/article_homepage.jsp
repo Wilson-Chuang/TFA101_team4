@@ -17,7 +17,7 @@
 	Long addResult = (Long) request.getAttribute("addResult");
 %>
 
-
+<!-- 哈囉我是亂碼嗎 -->
 <%
 	Article_categoryService article_categorySvc1 = new Article_categoryService();
 	Set<ArticleVO> set = article_categorySvc1.getArticlesByariticle_category_no(1);
@@ -42,6 +42,18 @@
 	Product_categoryService product_categorySvc2 = new Product_categoryService();
 	Set<ProductVO> set2 = product_categorySvc2.getProductsByproduct_category_no(2);
 	pageContext.setAttribute("set2", set2);
+%>
+
+<%
+
+	MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+	pageContext.setAttribute("member_login", MemberVO2);
+	if( MemberVO2 !=null){
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+		pageContext.setAttribute("memberVO", memberVO);
+	}
+
 %>
 
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
@@ -84,12 +96,12 @@
 
 <!-- 導航欄 -->
  <div class="banner">
-     <p><a href="javascript: void(0)" id="my-img">發表文章</a></p>
-         <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/article/article.do" style="display:none;">
-	    	<input type="submit" class="article_post" value="發表文章" style="display:none;" id="img-upload">
-	    	<input type="hidden" name="member_no"  value="1">
-			<input type="hidden" name="action" value="post">
-    	</FORM>	
+     <p><a href="${pageContext.request.contextPath}/article/addArticle.jsp">發表文章</a></p>
+<%--          <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/article/article.do" style="display:none;"> --%>
+<!-- 	    	<input type="submit" class="article_post" value="發表文章" style="display:none;" id="img-upload"> -->
+<%-- 	    	<input type="hidden" name="member_no"  value="${memberVO.member_id}"> --%>
+<!-- 			<input type="hidden" name="action" value="post"> -->
+<!--     	</FORM>	 -->
      <p><a href="${pageContext.request.contextPath}/article/article_list1.jsp">系列專欄</a></p>
      <p><a href="${pageContext.request.contextPath}/article/article.do?action=vote&author_no=11">活動投票</a></p>
      <p><a href="${pageContext.request.contextPath}/product_list/product_homePage.jsp">積分商城</a></p>

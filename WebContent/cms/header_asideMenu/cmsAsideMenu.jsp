@@ -60,7 +60,7 @@
                         <a href="#">專欄文章管理</a>
                     </li>
                     <li>
-                        <a href="#">揪團管理</a>
+                        <a href="listALLParty">揪團管理</a>
                     </li>
                 </ul>
             </li>
@@ -92,7 +92,10 @@
                         <a href="#">揪團檢舉</a>
                     </li>
                     <li>
-                        <a href="#">討論區檢舉</a>
+                        <a href="${pageContext.request.contextPath}/forumPost/allPostReport.jsp">討論區發文檢舉</a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/forumPost/allReplyReport.jsp">討論區回覆檢舉</a>
                     </li>
                 </ul>
             </li>

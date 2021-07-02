@@ -6,8 +6,8 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ManagerService managerSvc = new ManagerService();
-    List<ManagerVO> list = managerSvc.getAll();
+    ManagerService managerSvc1 = new ManagerService();
+    List<ManagerVO> list = managerSvc1.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -34,7 +34,7 @@
   div.add button:focus {
      outline: none;
   }
-  
+   
   .add button{
   	 /* 圓角 */
      border-radius: 10px;
@@ -52,6 +52,16 @@
 	font-size:15px;
 	color: rgb(41, 41, 41);
   }
+  
+  .add ul{
+  	float:right;
+  	padding: 30px 70px 30px 0;
+  }
+  .add li{
+  	float:left;
+  	margin-right:20px;
+  }
+  
   table {
 	width: 950px;
 	background-color: white;
@@ -90,6 +100,10 @@
      font-size:15px;
   }
   
+  div. firstline{
+  	float:left;
+  }
+  
   
 </style>
 
@@ -108,13 +122,24 @@
 		<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
     </div>
     
-    <div>
+    <div class="firstline">
 		<nav aria-label="breadcrumb">
 		  <ol class="breadcrumb">
 		    <li class="breadcrumb-item">用戶管理</li>
 		    <li class="breadcrumb-item active" aria-current="page">管理員管理</li>
 		  </ol>
 		</nav>
+		<div>
+			<%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs1}">
+				<font style="color:red">請修正以下錯誤:</font>
+				<div>
+				    <c:forEach var="message" items="${errorMsgs1}">
+						<li style="color:red">${message}</li>
+					</c:forEach>
+				</div>
+			</c:if>
+		</div>
     </div>
 
 
@@ -122,9 +147,44 @@
 		<button>
 			<a href="${pageContext.request.contextPath}/manager/addManager.jsp">新增管理員</a>
 		</button>
-		<button>
-			<a href="${pageContext.request.contextPath}/manager/select_page.jsp">查詢管理員</a>
-		</button>
+		<ul>
+			<li>
+				<FORM METHOD="post" ACTION="manager.do" >
+	        		<b>輸入編號查詢 :</b>
+	        		<input type="text" name="manager_id" style="width:100px; border: 1px solid gray;">
+	        		<input type="hidden" name="action" value="getOne_For_Display">
+	        		<input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
+	    		</FORM>
+			</li>
+			
+			<jsp:useBean id="managerSvc" scope="page" class="com.manager.model.ManagerService" />
+			
+			<li>
+				<FORM METHOD="post" ACTION="manager.do" >
+			       <b>選擇編號查詢:</b>
+			       <select size="1" name="manager_id">
+			         <c:forEach var="managerVO" items="${managerSvc.all}" > 
+			          <option value="${managerVO.manager_id}">${managerVO.manager_id}
+			         </c:forEach>   
+			       </select>
+			       <input type="hidden" name="action" value="getOne_For_Display">
+			       <input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
+			    </FORM>
+		    </li>
+		    <li>
+		    	<FORM METHOD="post" ACTION="manager.do" >
+			       <b>選擇姓名查詢:</b>
+			       <select size="1" name="manager_id">
+			         <c:forEach var="managerVO" items="${managerSvc.all}" > 
+			          <option value="${managerVO.manager_id}">${managerVO.manager_name}
+			         </c:forEach>   
+			       </select>
+			       <input type="hidden" name="action" value="getOne_For_Display">
+			       <input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
+			     </FORM>
+		    </li>
+		</ul>
+		
 	</div>
 	
 	

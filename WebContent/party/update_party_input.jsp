@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.party.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -39,6 +41,12 @@
 		<table>
 			<tr>
 				<td>揪團編號:<font color=red><b>*</b></font></td><td><%=partyVO.getParty_id()%></td>
+			</tr>
+			<tr>
+				<td>揪團編號:<font color=red><b>*</b></font></td><td><%=partyVO.getMember_id()%></td>
+			</tr>
+			<tr>
+				<td>揪團編號:<font color=red><b>*</b></font></td><td><%=partyVO.getShop_id()%></td>
 			</tr>
 			
 			

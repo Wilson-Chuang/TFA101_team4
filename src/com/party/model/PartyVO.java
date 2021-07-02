@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 
 public class PartyVO implements java.io.Serializable {
 	private Integer party_id;// 揪團編號
-//	private Integer member_id;// 揪團發起人會員ID
-//	private Integer shop_id;// 揪團目的地餐廳ID
+	private Integer member_id;// 揪團發起人會員ID  
+	private Integer shop_id;// 揪團目的地餐廳ID
 //	private Integer reserv_id;// 揪團餐廳訂位ID
 	private String party_title;// 揪團標題
 	private Timestamp party_start_time;// 揪團開始時間
@@ -24,12 +24,18 @@ public class PartyVO implements java.io.Serializable {
 	public void setParty_id(Integer party_id) {
 		this.party_id = party_id;
 	}
-//	public Integer getMember_id() {
-//		return member_id;
-//	}
-//	public void setMember_id(Integer member_id) {
-//		this.member_id = member_id;
-//	}
+	public Integer getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(Integer member_id) {
+		this.member_id = member_id;
+	}
+	public Integer getShop_id() {
+		return shop_id;
+	}
+	public void setShop_id(Integer shop_id) {
+		this.shop_id = shop_id;
+	}
 	public String getParty_title() {
 		return party_title;
 	}

@@ -1,13 +1,19 @@
+<%@page import="com.member.model.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.party.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.shop.model.*" %>
 
 <%
 	PartyVO partyVO = (PartyVO) request.getAttribute("PartyVO");
+	
+    MemberVO member = (MemberVO) session.getAttribute("login");
 %>
+
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 
 
 <!DOCTYPE html>
@@ -45,7 +51,6 @@
 <body>
 
 
-
 	
 	<div class="party_home">
 	
@@ -69,6 +74,28 @@
 	<FORM METHOD="post" ACTION="party.do" name="form1">
 		<table>
 
+			<tr>
+				<td>會員ID:</td>
+				<td>
+					<input type="text" name="member_name" size="45" value="${member.member_name}"/>
+					<input type="hidden" name="member_id" size="45" value="${member.member_id}"/>
+				
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td>餐廳ID:</td>
+				<td>
+					
+					<select name="shop_id">
+						<c:forEach var="shopVO" items="${shopSvc.all}">
+    						<option value="${shopVO.shop_id}">${shopVO.shop_name}</option>
+						</c:forEach>
+					</select>
+					</td>
+			</tr>
+			
 			<tr>
 				<td>揪團標題:</td>
 				<td><input type="TEXT" name="party_title" size="45"

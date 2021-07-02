@@ -14,3 +14,7 @@ body{
 		position: static;
 	}
 }
+
+.drop-right{
+	left: -4px;
+}

@@ -14,7 +14,7 @@ public class PartyService {
 
 	public PartyVO addParty( String party_title, Timestamp party_start_time, 
 			Timestamp party_end_time,String party_intro, Integer party_participants_max,
-			Integer party_participants_min, String party_remarks) {
+			Integer party_participants_min, String party_remarks, Integer member_id, Integer shop_id) {
 
 		PartyVO partyVO = new PartyVO();
 
@@ -25,6 +25,8 @@ public class PartyService {
 		partyVO.setParty_participants_max(party_participants_max);
 		partyVO.setParty_participants_min(party_participants_min);
 		partyVO.setParty_remarks(party_remarks);
+		partyVO.setMember_id(member_id);
+		partyVO.setShop_id(shop_id);
 		dao.insert(partyVO);
 
 		return partyVO;
@@ -32,7 +34,7 @@ public class PartyService {
 
 	public PartyVO updateParty(Integer party_id , String party_title, Timestamp party_start_time,
 			Timestamp party_end_time, String party_intro, Integer party_participants_max,
-			Integer party_participants_min, String party_remarks) {
+			Integer party_participants_min, String party_remarks, Integer member_id, Integer shop_id) {
 
 		PartyVO partyVO = new PartyVO();
 
@@ -44,6 +46,8 @@ public class PartyService {
 		partyVO.setParty_participants_max(party_participants_max);
 		partyVO.setParty_participants_min(party_participants_min);
 		partyVO.setParty_remarks(party_remarks);
+		partyVO.setMember_id(member_id);
+		partyVO.setShop_id(shop_id);
 		dao.update(partyVO);
 
 		return partyVO;

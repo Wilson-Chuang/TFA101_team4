@@ -47,7 +47,6 @@ public class ShoppingServlet extends HttpServlet {
 		
 		@SuppressWarnings("unchecked")
 		List<product> buylist = (Vector<product>) session.getAttribute("shoppingcart");
-//		int discount_minus = (int)session.getAttribute("discount_minus");
 		String action = req.getParameter("action");
 		
 	    
