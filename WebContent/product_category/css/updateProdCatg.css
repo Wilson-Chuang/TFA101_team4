@@ -1,4 +1,4 @@
-/*���鞊荔蕭���蕭謕蕭豲鞈對���蕭嚙踐�蕭豲���雓�蕭��嚙踐�蕭豲���嚙踐���雓����嚙踝蕭謕*/
+/*嚙踝蕭謕蕭豲���嚙踝蕭��蕭��雓�鞊船����蕭嚙踝蕭�����蕭謖鞊莎�揭嚙踝蕭謕蕭豲��嚙踝�嚙踝蕭���蕭謖鞊莎�揭嚙踝蕭謕蕭豲���揮嚙踝蕭�嚙踐�����蕭嚙踝�狀嚙踝蕭�豱血��雓�*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -74,11 +74,12 @@ div.product_info{
     width: 60%;
     height: 100%;
 /*     border: black 1px solid; */
-    margin: 0 auto;
+/*     margin: 0 auto; */
     background-color: white;
     border-radius: 20px;
     margin-top: 3%;    
-    box-shadow: 0px 0px 8px rgb(216, 216, 216);
+/*     box-shadow: 0px 0px 8px rgb(216, 216, 216); */
+ 	float:right;
 }
 
 div.product_info_form{
@@ -130,7 +131,7 @@ div.form2{
 div.product_save{
     /* border: 1px blue solid; */
     text-align: center;
-    margin-top: 45%;
+    margin-top: 15%;
     font-family: "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
 }
 

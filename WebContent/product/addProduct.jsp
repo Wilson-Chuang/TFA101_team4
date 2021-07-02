@@ -16,12 +16,21 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/product/css/addProduct.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/ckeditor/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/product/vendors/jquery/jquery-3.6.0.min.js"></script>
+
 </head>
 
 
 <body>
+		<header>
+			<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+		</header>
+	
+		<div>
+			<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+	    </div>
+	    
 		<FORM METHOD="post" ACTION="product.do" name="form1" enctype="multipart/form-data">
-			<div class="product_info">
+			<div class="product_info" style="margin-right:130px;">
 				<div class="product_title">
 					<h1>新增產品</h1>
 				</div>
@@ -94,9 +103,9 @@
 					</div>
 
 				</div>
-			</div>
+				</div>
 <!-- 			-----------------------------------------商品折扣----------------------------------------- -->
-			<div class="product_info" style="height:500px;">
+			<div class="product_info" style="height:500px; margin-right:130px;">
 				<div class="product_title">
 					<h1>優惠設定</h1>
 				</div>

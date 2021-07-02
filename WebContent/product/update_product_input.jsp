@@ -20,9 +20,16 @@
 
 
 <body>
+		<header>
+			<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+		</header>
+	
+		<div>
+			<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+	    </div>
 	<div class="main">
 		<FORM METHOD="post" ACTION="product.do" name="form1" enctype="multipart/form-data">
-			<div class="product_info">
+			<div class="product_info" style="margin-right:130px;">
 				<div class="product_title">
 					<h1>${productVO.product_name}								
 					<span class="product_no">產品編號:${productVO.product_no}</span>
@@ -78,7 +85,7 @@
 				</div>
 			</div>
 		<!-------------------------------------------商品折扣----------------------------------------- -->
-			<div class="product_info" style="height:500px;">
+			<div class="product_info" style="height:500px; margin-right:130px;">
 				<div class="product_title">
 					<h1>優惠設定</h1>
 				</div>

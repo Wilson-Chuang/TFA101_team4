@@ -19,9 +19,16 @@
 
 
 <body>
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
+
+<div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+</div>
 	<div class="main">
 		<FORM METHOD="post" ACTION="product_category.do" name="form1">
-			<div class="product_info">
+			<div class="product_info" style=" margin-right:130px;">
 				<div class="product_title">
 					<h1>新增系列</h1>
 				</div>
