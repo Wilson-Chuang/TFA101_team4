@@ -13,6 +13,7 @@ public interface MemberDAO_Interface {
     public List<String> accountCheck();
     public void point_update(MemberVO memberVO);
     public void change_password(String password,Integer MEMBERID);
+    public void change_status(Integer MEMBER_ID);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
  

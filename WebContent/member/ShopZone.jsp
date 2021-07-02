@@ -24,12 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	Member_FollowerService folSvc=new Member_FollowerService(); 
 	int count_fans = folSvc.count_fans(MemberVO.getMember_id());
-	String imgPath = request.getContextPath()+ File.separator+
-			"uploads" + File.separator + "shop"+ File.separator +  ShopVO.getShop_tax_id()+ 
-			File.separator +"images"+ File.separator ;
-	String galleryPath = request.getContextPath()+ File.separator  + 
-			"uploads" + File.separator + "shop"+ File.separator +  
-			ShopVO.getShop_tax_id()+ File.separator +"gallery"+ File.separator;
+	
+	String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+
 %>
 <!DOCTYPE html>
 <html>
@@ -51,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=picpath+MemberVO.getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
@@ -97,9 +94,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
             %>
           		  <a href="<%=request.getContextPath()+"/member/join.jsp" %>">
-	   				<img src="/upload/joinus.jpg" style="width:80%;"></a>
+	   				<img src="./public/img/joinus.jpg" style="width:80%;"></a>
 	
 			<%}else{ 
+				String imgPath = request.getContextPath()+ File.separator+
+						"uploads" + File.separator + "shop"+ File.separator +  ShopVO.getShop_tax_id()+ 
+						File.separator +"images"+ File.separator ;
+				String galleryPath = request.getContextPath()+ File.separator  + 
+						"uploads" + File.separator + "shop"+ File.separator +  
+						ShopVO.getShop_tax_id()+ File.separator +"gallery"+ File.separator;
 			double shopRating=comSvc.countRatings(ShopVO.getShop_id());
 			if(Double.isNaN(shopRating)){
 				shopRating =0.0;
@@ -140,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					if(pre_gallery.length()==0){%>
 						<div class="shop_pic">
-                        <img src="/upload/noimage.jpg" class="shop_img" style="width:150px;height:150px;">
+                        <img src="./public/img/noimage.jpg" class="shop_img" style="width:150px;height:150px;">
                     </div>	
 					<%}else{
 					String gallery=pre_gallery.substring(1,pre_gallery.length()-1);

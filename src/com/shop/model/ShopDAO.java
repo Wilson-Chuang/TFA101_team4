@@ -949,10 +949,8 @@ public class ShopDAO implements ShopDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_BY_MEMBER);
-			System.out.println(4);
 			pstmt.setInt(1, member_id);
 			rs = pstmt.executeQuery();
-			System.out.println(5);
 			
 			while (rs.next()) {
 				System.out.println(6);

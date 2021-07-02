@@ -462,7 +462,6 @@ public class MemberServlet extends HttpServlet {
 				String filename=MemberVO.getMember_pic();
 				
 				
-				
 				String name = req.getParameter("MEMBER_NAME");
 				String gender = req.getParameter("MEMBER_GENDER");
 
@@ -490,7 +489,6 @@ public class MemberServlet extends HttpServlet {
 						"UPLOAD" + File.separator + "member"+ File.separator + "pic";
 				File fileSaveDir = new File(uploadFilePath);
 				if (!fileSaveDir.exists()) {
-					System.out.println("1111111111111111111111111111");
 		            fileSaveDir.mkdirs();
 		        }
 				part.write(uploadFilePath+File.separator +filename);
@@ -516,6 +514,7 @@ public class MemberServlet extends HttpServlet {
 				MemberVO.setMember_age(age);
 				MemberVO.setMember_pic(filename);
 				memSvc.update(name,Member_gender,MEMBER_BIRTH,phone,address,filename,ts,age,email);
+				MemberVO=memSvc.getOneMem(email);
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/member/PersonalFile.jsp");
@@ -597,10 +596,13 @@ public class MemberServlet extends HttpServlet {
 						return;//程式中斷
 					}
 				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				session.setAttribute("login",MemberVO);
 				String password = MemberVO.getMember_password();
+				int status=MemberVO.getMember_status();
 				if(!login_pswd.equals(password) ) {
 					errorMsgs.add("密碼錯誤");
+				}
+				if(status==0 ) {
+					errorMsgs.add("帳號停權");
 				}
 				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -611,6 +613,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				session.setAttribute("login",MemberVO);
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				String location=(String) session.getAttribute("location");
 				if(location==null) {

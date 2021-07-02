@@ -6,6 +6,7 @@
 <%@ page import="com.article.model.*"%>
 <%@ page import="com.forum_post.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,6 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	int Member_id=MemberVO.getMember_id();
 	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
 	List<ForumPostVO> list_myForum=memSvc.getMyForum(Member_id);
+	String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+
 %>
 <!DOCTYPE html>
 <html>
@@ -40,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=picpath+MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
@@ -112,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  							}
 					}else{
 						%> 
-					<img src="/upload/empty.jpg" style="width:100%">
+					<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 					</div>
 					<div class="tab-pane fade" id="myforum">
@@ -128,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<%}%>
 							</ul>
  					<%}else{%> 
-							<img src="/upload/empty.jpg" style="width:100%">
+							<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 						
 					</div>

@@ -77,7 +77,7 @@
 		<div class="row">
 			<div class="col-2">
 				<img
-					src="/upload/<%=((MemberVO) (session.getAttribute("login"))).getMember_pic()%>"
+					src="<%=picpath+MemberVO.getMember_pic()%>"
 					width="150px" alt="" class="member_pic" id="showimg">
 			</div>
 			<div class="col-10">
@@ -172,7 +172,7 @@
  							}
 					}else{
 						%> 
-					<img src="/upload/empty.jpg" style="width:100%">
+					<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 					</div>
 					<div class="tab-pane fade" id="shop_favorite">
@@ -206,7 +206,7 @@
  							}
 					}else{
 						%> 
-					<img src="/upload/empty.jpg" style="width:100%">
+					<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 						
 					</div>
@@ -226,7 +226,7 @@
  							}
 					}else{
 						%> 
-					<img src="/upload/empty.jpg" style="width:100%">
+					<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 					</div>
 						
@@ -257,7 +257,7 @@
  							}
 					}else{
 						%> 
-					<img src="/upload/empty.jpg" style="width:100%">
+					<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 
 

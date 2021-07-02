@@ -9,6 +9,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ include file="/pages/header.file" %>
+<%@ page import="java.io.*"%>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -16,6 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%
 	MemberVO MemberVO = (MemberVO)session.getAttribute("login");
+String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+
 %>
 <!DOCTYPE html>
 <html>
@@ -35,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="/upload/<%=MemberVO.getMember_pic() %>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=picpath+MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=MemberVO.getMember_name() %></span>
@@ -96,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <%}%>
         </ul>
 							<%}else{%>
-        <img src="/upload/empty.jpg" style="width:100%">
+        <img src="./public/img/empty.jpg" style="width:100%">
         	<% }%>
     </div>
 </div>

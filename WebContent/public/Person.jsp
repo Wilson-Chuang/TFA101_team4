@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-10">
             <div class="row">
             <div class="col-2">
-                <img src="<%=pic%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=picpath +MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%= MemberVO.getMember_name()%></span>

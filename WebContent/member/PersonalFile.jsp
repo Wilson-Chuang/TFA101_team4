@@ -94,10 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr><th>電話:</th><td><%=MemberVO.getMember_phone()==null?"":MemberVO.getMember_phone()%></td></tr>
                 <tr><th>註冊日期:</th><td><fmt:formatDate value="<%=MemberVO.getMember_create_time()%>" pattern="yyyy/MM/dd"/></td></tr>
                 <tr><th>更新日期:</th><td><fmt:formatDate value="<%=MemberVO.getMember_update_time()%>" pattern="yyyy/MM/dd"/></td></tr>
-                <%System.out.println(MemberVO.getMember_birth()); %>
-                <%System.out.println(MemberVO.getMember_age()); %>
-                <%System.out.println(MemberVO.getMember_address()); %>
-                <%System.out.println(MemberVO.getMember_phone()); %>
+                
                 </table>
                     <input type=hidden name= "MEMBER_EMAIL" value="<%=MemberVO.getMember_email()%>">
                     <input type=hidden name= "MEMBER_NAME" value="<%=MemberVO.getMember_name()%>">

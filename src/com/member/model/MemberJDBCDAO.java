@@ -335,4 +335,9 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 			// TODO Auto-generated method stub
 			
 		}
+		@Override
+		public void change_status(Integer MEMBER_ID) {
+			// TODO Auto-generated method stub
+			
+		}
 }

@@ -32,6 +32,7 @@ public class MemberDAO implements MemberDAO_Interface {
 	private static final String DELETE = "DELETE FROM member where member_email = ?";
 	private static final String UPDATE = "UPDATE member set member_name=?,member_gender=?,member_birth=?,member_phone=?,member_address=?,member_pic=?,member_update_time=?,member_age=? where member_email=?";
 	private static final String change_password = "UPDATE member set member_password=? where member_id=?";
+	private static final String change_status = "UPDATE member set member_status=? where member_id=?";
 	private static final String POINT_UPDATE = 
 			"UPDATE member set member_point=? where member_id = ?";
 	
@@ -111,6 +112,42 @@ public class MemberDAO implements MemberDAO_Interface {
 			pstmt = con.prepareStatement(change_password);
 			pstmt.setString(1,password);
 			pstmt.setInt(2, MEMBERID);
+			pstmt.execute();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	@Override
+	public void change_status(Integer MEMBER_ID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(change_status);
+			MemberService memSvc=new MemberService();
+			MemberVO MemberVO=memSvc.GET_ONE_BY_ID(MEMBER_ID);
+			if(MemberVO.getMember_status()==1) {
+			pstmt.setInt(1,0);
+			}else {
+			pstmt.setInt(1,1);
+			}
+			pstmt.setInt(2, MEMBER_ID);
 			pstmt.execute();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
