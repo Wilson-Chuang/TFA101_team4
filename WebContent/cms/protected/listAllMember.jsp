@@ -7,60 +7,28 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ManagerService managerSvc1 = new ManagerService();
-    List<ManagerVO> list = managerSvc1.getAll();
+    MemberService memberSvc = new MemberService();
+    List<MemberVO> list = memberSvc.getAll();
     pageContext.setAttribute("list",list);
+    
+    MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+    pageContext.setAttribute("memberVO",memberVO);
 %>
 
 
 <html>
 <head>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/cms/vendors/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/cms/vendors/bootstrap/css/bootstrap.min.css">
 
 
-<title>管理員資料 - listAllManager.jsp</title>
+<title>會員資料 - listAllMember.jsp</title>
 
 
 <style>
   ul {
     list-style: none;
-  }
-  div.add{
-  	 width: 80%;
-     float: left;
-  }
-	
-  div.add button:focus {
-     outline: none;
-  }
-   
-  .add button{
-  	 /* 圓角 */
-     border-radius: 10px;
-    /* 輸入文字色彩設定 */
-     color: rgb(41, 41, 41);
-     padding: 5px 10px;
-  	 width:100px;
-  	 height:50px;
-  	 margin:20px 10px;
-  	 border-radius:20%;
-  	 background-color:#e9e9e9;
-  }  
-  .add button a{
-	text-decoration: none; 
-	font-size:15px;
-	color: rgb(41, 41, 41);
-  }
-  
-  .add ul{
-  	float:right;
-  	padding: 30px 70px 30px 0;
-  }
-  .add li{
-  	float:left;
-  	margin-right:20px;
   }
   
   table {
@@ -127,67 +95,11 @@
 		<nav aria-label="breadcrumb">
 		  <ol class="breadcrumb">
 		    <li class="breadcrumb-item">用戶管理</li>
-		    <li class="breadcrumb-item active" aria-current="page">管理員管理</li>
+		    <li class="breadcrumb-item active" aria-current="page">會員管理</li>
 		  </ol>
 		</nav>
-		<div>
-			<%-- 錯誤表列 --%>
-			<c:if test="${not empty errorMsgs1}">
-				<font style="color:red">請修正以下錯誤:</font>
-				<div>
-				    <c:forEach var="message" items="${errorMsgs1}">
-						<li style="color:red">${message}</li>
-					</c:forEach>
-				</div>
-			</c:if>
-		</div>
     </div>
 
-
-	<div class="add">
-		<button>
-			<a href="${pageContext.request.contextPath}/manager/addManager.jsp">新增管理員</a>
-		</button>
-		<ul>
-			<li>
-				<FORM METHOD="post" ACTION="manager.do" >
-	        		<b>輸入編號查詢 :</b>
-	        		<input type="text" name="manager_id" style="width:100px; border: 1px solid gray;">
-	        		<input type="hidden" name="action" value="getOne_For_Display">
-	        		<input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
-	    		</FORM>
-			</li>
-			
-			<jsp:useBean id="managerSvc" scope="page" class="com.manager.model.ManagerService" />
-			
-			<li>
-				<FORM METHOD="post" ACTION="manager.do" >
-			       <b>選擇編號查詢:</b>
-			       <select size="1" name="manager_id">
-			         <c:forEach var="managerVO" items="${managerSvc.all}" > 
-			          <option value="${managerVO.manager_id}">${managerVO.manager_id}
-			         </c:forEach>   
-			       </select>
-			       <input type="hidden" name="action" value="getOne_For_Display">
-			       <input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
-			    </FORM>
-		    </li>
-		    <li>
-		    	<FORM METHOD="post" ACTION="manager.do" >
-			       <b>選擇姓名查詢:</b>
-			       <select size="1" name="manager_id">
-			         <c:forEach var="managerVO" items="${managerSvc.all}" > 
-			          <option value="${managerVO.manager_id}">${managerVO.manager_name}
-			         </c:forEach>   
-			       </select>
-			       <input type="hidden" name="action" value="getOne_For_Display">
-			       <input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
-			     </FORM>
-		    </li>
-		</ul>
-		
-	</div>
-	
 	
 	<div>
 		<%-- 錯誤表列 --%>
@@ -203,42 +115,32 @@
 		<table>
 			<tr class="table0">
 				<th class="table1">編號</th>
-				<th class="table1">帳號</th>
 				<th class="table1">姓名</th>
+				<th class="table1">生日</th>
+				<th class="table1">電話</th>
+				<th class="table1">地址</th>
 				<th  class="table1" width="100px">大頭貼</th>
 				<th class="table1">信箱</th>
-			<!-- 	<th>密碼</th>  -->
-				<th class="table1">電話</th>
 				<th class="table1">修改</th>
-				<th class="table1">刪除</th>
 			</tr>
 			
 		
 			<%@ include file="page1.file" %> 
-			<c:forEach var="managerVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				
 				<tr style="align: center;">
-					<td class="table1">${managerVO.manager_id}</td>
-					<td class="table1">${managerVO.manager_account}</td>
-					<td class="table1">${managerVO.manager_name}</td>
+					<td class="table1">${memberVO.member_id}</td>
+					<td class="table1">${memberVO.member_name}</td>
+					<td class="table1">${memberVO.member_birth}</td>
+					<td class="table1">${memberVO.member_phone}</td>
+					<td class="table1">${memberVO.member_address}</td>
+					<td class="table1"><img src="/upload/${memberVO.member_pic}"></td>
+					<td class="table1">${memberVO.member_email}</td>
 					<td class="table1">
-						<img src="<%=request.getContextPath()%>/manager/GetPic.do?manager_id=${managerVO.manager_id}">
-					</td>
-					<td class="table1">${managerVO.manager_email}</td>
-				<!--	<td class="table1">${managerVO.manager_password}</td> -->
-					<td class="table1">${managerVO.manager_phone}</td>
-					<td class="table1">
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/manager/manager.do" style="margin-bottom: 0px;">
+					  <FORM METHOD="post" ACTION="member.html" style="margin-bottom: 0px;">
 					     <button type="submit"><i class="fas fa-edit fa-2x"></i></button>
-					     <input type="hidden" name="manager_id"  value="${managerVO.manager_id}">
+					     <input type="hidden" name="member_id"  value="${memberVO.member_id}">
 					     <input type="hidden" name="action"	value="getOne_For_Update">
-					  </FORM>
-					</td>
-					<td class="table1">
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/manager/manager.do" style="margin-bottom: 0px;">
-					     <button type="submit"><i class="fas fa-trash-alt fa-2x"></i></button>
-					     <input type="hidden" name="manager_id"  value="${managerVO.manager_id}">
-					     <input type="hidden" name="action" value="delete">
 					  </FORM>
 					</td>
 				</tr>
