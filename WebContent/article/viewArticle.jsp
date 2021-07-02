@@ -4,7 +4,7 @@
 <%@ page import="com.article.model.*"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +41,13 @@
 <!-- 您的文章 -->	
 	<div class="author">
 		<img src="${pageContext.request.contextPath}/article/img/model8.jpeg">
-		<p>Hank</p>
+		<p>
+		 <c:forEach var="memberVO" items="${memberSvc.all}">
+       		<c:if test="${articleVO.member_no==memberVO.member_id}">
+       			${memberVO.member_name}
+       		</c:if>
+	     </c:forEach> 	
+		</p>
 	</div>
 	<div class="title">${articleVO.article_title}</div>
 	<div class="article_info">
