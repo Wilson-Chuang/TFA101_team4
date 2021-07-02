@@ -9,7 +9,7 @@
 <%@ page import="com.search.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <%@ include file="/pages/header.file" %> --%>
+<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							for(ArticleVO article:list_myArticle){						
 						%>
 						<div class="card mb-3" style="max-width: 540px;">
-							<a href=#><div class="row no-gutters">
+							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+article.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
 								<div class="col-md-4">
 									<img src="/upload/<%=article.getArticle_img_name() %>" class="card-img" alt="...">
 								</div>

@@ -7,7 +7,7 @@
 <%@ page import="com.forum_post.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <%@ include file="/pages/header.file" %> --%>
+<%@ include file="/pages/header.file" %>
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
@@ -24,8 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Member_FollowerService memfolSvc=new Member_FollowerService();
 		List<ArticleVO> list_myArticle=memSvc.getMyArticle(member_id);
 		List<ForumPostVO> list_myForum=memSvc.getMyForum(member_id);
-		String pic=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator +MemberVO.getMember_pic();
-
+		String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+		String pic = picpath +MemberVO.getMember_pic();
 		
 %>
 <!DOCTYPE html>

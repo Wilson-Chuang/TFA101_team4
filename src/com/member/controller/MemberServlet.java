@@ -35,6 +35,7 @@ import com.member.model.MemberService;
 import com.member.model.MemberVO;
 import com.member_follower.model.Member_FollowerService;
 import com.member_follower.model.Member_FollowerVO;
+import com.orders.model.OrdersVO;
 import com.shop.model.ShopService;
 import com.shop.model.ShopVO;
 import com.shop_favorites.model.Shop_FavoritesService;
@@ -503,7 +504,7 @@ public class MemberServlet extends HttpServlet {
 				}
 				MemberVO.setMember_gender(Member_gender);
 				MemberVO.setMember_birth(MEMBER_BIRTH);
-	
+				
 				MemberVO.setMember_address(address);
 				MemberVO.setMember_phone(phone);
 				Timestamp ts = new java.sql.Timestamp(new java.util.Date().getTime());
@@ -667,25 +668,9 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				
 				HttpSession session=req.getSession();
-				String appPath = req.getServletContext().getRealPath("");
-				String uploadFilePath = appPath  + 
-						"UPLOAD" + File.separator + "member"+ File.separator + "pic";
-				String login_email;
-				String login_pswd;
-				if((session.getAttribute("login"))==null) {
-					login_email=req.getParameter("MEMBER_EMAIL");
-					login_pswd=req.getParameter("MEMBER_PASSWORD");
-				}else {
-					login_email=((MemberVO) (session.getAttribute("login"))).getMember_email();
-					login_pswd=((MemberVO) (session.getAttribute("login"))).getMember_password();
-					
-				}
-				if (login_email == null || (login_email.trim()).length() == 0) {
-					errorMsgs.add("請輸入帳號");
-				}
-				if (login_pswd == null || (login_pswd.trim()).length() == 0) {
-					errorMsgs.add("請輸入密碼");
-				}
+				MemberVO MemberVO=(MemberVO)(session.getAttribute("login"));
+				
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -694,38 +679,18 @@ public class MemberServlet extends HttpServlet {
 					return;//程式中斷
 				}
 				
-				// Send the use back to the form, if there were errors
-				
+
 				/*************************** 2.開始查詢資料 *****************************************/
-				MemberService memSvc=new MemberService();
-				List<String> list=memSvc.check();
-				if(!list.contains(login_email)) {
-					errorMsgs.add("信箱不存在");
-				}
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/sign/signin.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				session.setAttribute("login",MemberVO);
-				String password = MemberVO.getMember_password();
-				if(!login_pswd.equals(password) ) {
-					errorMsgs.add("密碼錯誤");
-				}
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/sign/signin.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/sign/signin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
-				req.setAttribute("uploadFilePath", uploadFilePath); // 資料庫取出的empVO物件,存入req
 				String url = "/member/PersonalFile.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -749,22 +714,7 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 						
 				HttpSession session=req.getSession();
-				String login_email;
-				String login_pswd;
-				if((session.getAttribute("login"))==null) {
-				login_email=req.getParameter("MEMBER_EMAIL");
-				login_pswd=req.getParameter("MEMBER_PASSWORD");
-				}else {
-					login_email=((MemberVO) (session.getAttribute("login"))).getMember_email();
-					login_pswd=((MemberVO) (session.getAttribute("login"))).getMember_password();
-					
-				}
-				if (login_email == null || (login_email.trim()).length() == 0) {
-					errorMsgs.add("請輸入帳號");
-				}
-				if (login_pswd == null || (login_pswd.trim()).length() == 0) {
-					errorMsgs.add("請輸入密碼");
-				}
+				MemberVO MemberVO=(MemberVO)(session.getAttribute("login"));
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -776,23 +726,7 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				MemberService memSvc=new MemberService();
-				List<String> list=memSvc.check();
-			     if(!list.contains(login_email)) {
-			    	 errorMsgs.add("信箱不存在");
-			     }
-			     if (!errorMsgs.isEmpty()) {
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/sign/signin.jsp");
-						failureView.forward(req, res);
-						return;//程式中斷
-					}
-				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				session.setAttribute("login",MemberVO);
-				String password = MemberVO.getMember_password();
-				if(!login_pswd.equals(password) ) {
-					errorMsgs.add("密碼錯誤");
-				}
+
 				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -834,22 +768,8 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 						
 				HttpSession session=req.getSession();
-				String login_email;
-				String login_pswd;
-				if((session.getAttribute("login"))==null) {
-				login_email=req.getParameter("MEMBER_EMAIL");
-				login_pswd=req.getParameter("MEMBER_PASSWORD");
-				}else {
-					login_email=((MemberVO) (session.getAttribute("login"))).getMember_email();
-					login_pswd=((MemberVO) (session.getAttribute("login"))).getMember_password();
-					
-				}
-				if (login_email == null || (login_email.trim()).length() == 0) {
-					errorMsgs.add("請輸入帳號");
-				}
-				if (login_pswd == null || (login_pswd.trim()).length() == 0) {
-					errorMsgs.add("請輸入密碼");
-				}
+				MemberVO MemberVO=(MemberVO)(session.getAttribute("login"));
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -860,22 +780,6 @@ public class MemberServlet extends HttpServlet {
 				
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				MemberService memSvc=new MemberService();
-				List<String> list=memSvc.check();
-			     if(!list.contains(login_email)) {
-			    	 errorMsgs.add("信箱不存在");
-			     }
-			     if (!errorMsgs.isEmpty()) {
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/sign/signin.jsp");
-						failureView.forward(req, res);
-						return;//程式中斷
-					}
-				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				String password = MemberVO.getMember_password();
-				if(!login_pswd.equals(password) ) {
-					errorMsgs.add("密碼錯誤");
-				}
 				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -884,7 +788,7 @@ public class MemberServlet extends HttpServlet {
 				return;//程式中斷
 			}
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req		
 				String url = "/member/MyFavorites.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
@@ -918,22 +822,8 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 						
 				HttpSession session=req.getSession();
-				String login_email;
-				String login_pswd;
-				if((session.getAttribute("login"))==null) {
-				login_email=req.getParameter("MEMBER_EMAIL");
-				login_pswd=req.getParameter("MEMBER_PASSWORD");
-				}else {
-					login_email=((MemberVO) (session.getAttribute("login"))).getMember_email();
-					login_pswd=((MemberVO) (session.getAttribute("login"))).getMember_password();
-					
-				}
-				if (login_email == null || (login_email.trim()).length() == 0) {
-					errorMsgs.add("請輸入帳號");
-				}
-				if (login_pswd == null || (login_pswd.trim()).length() == 0) {
-					errorMsgs.add("請輸入密碼");
-				}
+				MemberVO MemberVO=(MemberVO)(session.getAttribute("login"));
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -944,23 +834,6 @@ public class MemberServlet extends HttpServlet {
 				
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				MemberService memSvc=new MemberService();
-				List<String> list=memSvc.check();
-			     if(!list.contains(login_email)) {
-			    	 errorMsgs.add("信箱不存在");
-			     }
-			     if (!errorMsgs.isEmpty()) {
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/sign/signin.jsp");
-						failureView.forward(req, res);
-						return;//程式中斷
-					}
-				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				session.setAttribute("login",MemberVO);
-				String password = MemberVO.getMember_password();
-				if(!login_pswd.equals(password) ) {
-					errorMsgs.add("密碼錯誤");
-				}
 				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -968,7 +841,6 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
-
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				String url = "/member/MyActivities.jsp";
@@ -1004,22 +876,8 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 						
 				HttpSession session=req.getSession();
-				String login_email;
-				String login_pswd;
-				if((session.getAttribute("login"))==null) {
-				login_email=req.getParameter("MEMBER_EMAIL");
-				login_pswd=req.getParameter("MEMBER_PASSWORD");
-				}else {
-					login_email=((MemberVO) (session.getAttribute("login"))).getMember_email();
-					login_pswd=((MemberVO) (session.getAttribute("login"))).getMember_password();
-					
-				}
-				if (login_email == null || (login_email.trim()).length() == 0) {
-					errorMsgs.add("請輸入帳號");
-				}
-				if (login_pswd == null || (login_pswd.trim()).length() == 0) {
-					errorMsgs.add("請輸入密碼");
-				}
+				MemberVO MemberVO=(MemberVO)(session.getAttribute("login"));
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -1028,28 +886,8 @@ public class MemberServlet extends HttpServlet {
 					return;//程式中斷
 				}
 				
-				// Send the use back to the form, if there were errors
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				MemberService memSvc=new MemberService();
-				List<String> list=memSvc.check();
-			     if(!list.contains(login_email)) {
-			    	 errorMsgs.add("信箱不存在");
-			     }
-			     if (!errorMsgs.isEmpty()) {
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/sign/signin.jsp");
-						failureView.forward(req, res);
-						return;//程式中斷
-					}
-				MemberVO MemberVO =memSvc.getOneMem(login_email);
-				session.setAttribute("login",MemberVO);
-				String password = MemberVO.getMember_password();
-				if(!login_pswd.equals(password) ) {
-					errorMsgs.add("密碼錯誤");
-				}
-				int member_id= MemberVO.getMember_id();
-				
 				// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -1057,7 +895,6 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
-
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				String url = "/member/ShopZone.jsp";

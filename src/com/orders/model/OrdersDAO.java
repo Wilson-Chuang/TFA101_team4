@@ -506,5 +506,70 @@ public class OrdersDAO implements OrdersDAO_interface{
 			}
 
 		}
+		private static final String GET_ALL_BY_MEM = 
+				"SELECT * FROM ORDERS WHERE MEMBER_ID=? ORDER BY ORDERS_ID DESC";
+		@Override
+		public List<OrdersVO> getAllByMember(Integer member_id) {
+			List<OrdersVO> list = new ArrayList<OrdersVO>();
+			OrdersVO ordersVO = null;
 
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ALL_BY_MEM);
+				pstmt.setInt(1,member_id);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+				
+					ordersVO = new OrdersVO();
+					ordersVO.setOrders_no(rs.getInt("orders_id"));
+					ordersVO.setMember_no(rs.getInt("member_id"));
+					ordersVO.setOrders_date(rs.getTimestamp("orders_date"));
+					ordersVO.setOrders_total_point(rs.getInt("orders_total_point"));
+					ordersVO.setOrders_shipping_name(rs.getString("orders_shipping_name"));
+					ordersVO.setOrders_shipping_phone(rs.getString("orders_shipping_phone"));
+					ordersVO.setOrders_shipping_address(rs.getString("orders_shipping_address"));
+					ordersVO.setOrders_note(rs.getString("orders_note"));
+					ordersVO.setPayment_no(rs.getInt("payment_id"));
+					ordersVO.setInvoice_no(rs.getInt("invoice_id"));
+					ordersVO.setOrders_invoice_tax_number(rs.getInt("orders_invoice_tax_number"));
+					
+					list.add(ordersVO); // Store the row in the list
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
 }

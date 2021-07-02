@@ -13,7 +13,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.io.*"%>
-<%-- <%@ include file="/pages/header.file" %> --%>
+<%@ include file="/pages/header.file" %>
 
 <%
 	String path = request.getContextPath();
@@ -159,7 +159,7 @@
 								ArticleVO ArticleVO=memSvc.getArticleFollowed(article_no);
 						%>
 						<div class="card mb-3" style="max-width: 540px;">
-							<a href=#><div class="row no-gutters">
+							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+ArticleVO.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
 								<div class="col-md-4">
 									<img src="/upload/<%=ArticleVO.getArticle_img_name()%>" class="card-img" alt="...">
 								</div>

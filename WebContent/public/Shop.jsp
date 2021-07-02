@@ -11,7 +11,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
-<%-- <%@ include file="/pages/header.file" %> --%>
+<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";

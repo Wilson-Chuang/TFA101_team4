@@ -22,6 +22,7 @@ import com.shop.model.ShopVO;
 import com.shop_favorites.model.Shop_FavoritesDAO;
 import com.shop_favorites.model.Shop_FavoritesDAO_Interface;
 import com.shop_favorites.model.Shop_FavoritesVO;
+import com.orders.model.*;
 
 
 
@@ -33,6 +34,7 @@ public class MemberService {
 	private ArticleDAO_interface dao_article;
 	private Article_FavoriteDAO_interface dao_article_fav;
 	private ForumPostDAO dao_fp;
+	private OrdersDAO_interface dao_od;
 	
 	public MemberService() {
 		dao= new MemberDAO();
@@ -42,6 +44,7 @@ public class MemberService {
 		dao_article=new ArticleDAO();
 		dao_article_fav=new Article_FavoriteDAO();
 		dao_fp=new ForumPostJNDIDAO();
+		dao_od = new OrdersDAO();
 	}
 	public MemberVO insert(String Member_email,String Member_password){
 		MemberVO memberVO=new MemberVO();
@@ -159,5 +162,7 @@ public class MemberService {
 		public List<ForumPostVO> getMyForum(Integer member_id){
 			return dao_fp.getMyForum(member_id);
 		}
-	 
+		public List<OrdersVO> getOdersByMember(Integer member_id) {
+			return dao_od.getAllByMember(member_id);
+		}
 }

@@ -3,11 +3,12 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.member_follower.model.*"%>
 <%@ page import="com.comment.model.*"%>
+<%@ page import="com.orders.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.search.model.*"%>
-<%-- <%@ include file="/pages/header.file" %> --%>
+<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -85,24 +86,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <span class="point">目前積分餘額:<br><%=MemberVO.getMember_point() %></span><br>
         </div>
         <h3 class="wallet" style="text-align:center;">消費紀錄</h3>  
+        <%MemberService memSvc=new MemberService();
+		List<OrdersVO> oders=memSvc.getOdersByMember(MemberVO.getMember_id());
+        if(!oders.isEmpty()){%>
         <ul class="shopping_record" >
-            <li><span class="date">2021/05/13</span><span class="time">12:25</span><span class="item">使用1000積分購買「LADY M草莓千層蛋糕」</span></li>
-            <li><span class="date">2021/05/11</span><span class="time">11:05</span><span class="item">使用5000積分購買「星巴克不鏽鋼保溫瓶」</span></li>
+							<%for(OrdersVO order:oders){						
+						%>
+            <li><a href=#><%=order.getOrders_date() %>使用了<%=order.getOrders_total_point() %>積分!看看明細?</a></li>
+        <%}%>
         </ul>
+							<%}else{%>
+        <img src="/upload/empty.jpg" style="width:100%">
+        	<% }%>
     </div>
 </div>
 </div>
 
 </body>
-<script type="text/javascript">
-		function show(f) {
-			var reader = new FileReader();//建立檔案讀取物件
-			var files = f.files[0];//獲取file元件中的檔案
-			reader.readAsDataURL(files);//檔案讀取裝換為base64型別
-			reader.onloadend = function(e) {
-				//載入完畢之後獲取結果賦值給img
-				document.getElementById("showimg").src = this.result;
-			}
-		}
-	</script>
 </html>

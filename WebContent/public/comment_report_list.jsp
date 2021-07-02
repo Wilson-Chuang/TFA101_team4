@@ -15,22 +15,6 @@
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<%
-	
-// 	MemberVO myMemberVO = (MemberVO) session.getAttribute("login");
-// 	int shop_id= Integer.valueOf(request.getParameter("shop_id"));
-// 	ShopService shopSvc=new ShopService();
-// 	shopSvc.add_total_view(shop_id);
-// 	ShopVO ShopVO= shopSvc.getOneShop(shop_id);
-// 	CommentService comSvc = new CommentService();
-// 	double shopRating=comSvc.countRatings(shop_id);
-// 	if(Double.isNaN(shopRating)){
-// 		shopRating =0.0;
-// 	}
-// 	int countByShop = comSvc.countByShop(ShopVO.getShop_id());
-// 	List<CommentVO> list_Com =(List<CommentVO>)comSvc.getAllByShop(shop_id);
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,8 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
 </head>
 <body>

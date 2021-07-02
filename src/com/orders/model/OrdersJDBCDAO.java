@@ -609,5 +609,13 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 //				System.out.println();
 //			}
 		}
+
+
+
+		@Override
+		public List<OrdersVO> getAllByMember(Integer member_id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 }

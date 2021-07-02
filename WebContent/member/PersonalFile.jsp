@@ -8,17 +8,16 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
-<%-- <%@ include file="/pages/header.file" %> --%>
+<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <%
-	String email = ((MemberVO) session.getAttribute("login")).getMember_email();
-	MemberService memSvc=new MemberService();
-	MemberVO MemberVO = memSvc.getOneMem(email);
-	String pic=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator +MemberVO.getMember_pic();
+	MemberVO MemberVO = ((MemberVO) session.getAttribute("login"));
+	String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+	String uploadFilePath = picpath +MemberVO.getMember_pic();
 %>
 <!DOCTYPE html>
 <html>
@@ -38,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
         <div class="row">
             <div class="col-2">
-                <img src="<%=pic%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=uploadFilePath%>" width="150px" alt="" class="member_pic">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=MemberVO.getMember_name()==null?"":MemberVO.getMember_name()%></span>
@@ -53,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <span class="followers_count">會員ID:<%=MemberVO.getMember_id()%></span>
             </div>
 
-        </div>
+        </div> 	
 
         <div class="row">
 
@@ -95,7 +94,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr><th>電話:</th><td><%=MemberVO.getMember_phone()==null?"":MemberVO.getMember_phone()%></td></tr>
                 <tr><th>註冊日期:</th><td><fmt:formatDate value="<%=MemberVO.getMember_create_time()%>" pattern="yyyy/MM/dd"/></td></tr>
                 <tr><th>更新日期:</th><td><fmt:formatDate value="<%=MemberVO.getMember_update_time()%>" pattern="yyyy/MM/dd"/></td></tr>
-                
+                <%System.out.println(MemberVO.getMember_birth()); %>
+                <%System.out.println(MemberVO.getMember_age()); %>
+                <%System.out.println(MemberVO.getMember_address()); %>
+                <%System.out.println(MemberVO.getMember_phone()); %>
                 </table>
                     <input type=hidden name= "MEMBER_EMAIL" value="<%=MemberVO.getMember_email()%>">
                     <input type=hidden name= "MEMBER_NAME" value="<%=MemberVO.getMember_name()%>">

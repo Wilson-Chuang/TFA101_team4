@@ -5,7 +5,6 @@
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.search.model.*"%>
-<%-- <%@ include file="/pages/header.file" %> --%>
 
 <%
 	MemberVO MemberVO = (MemberVO) request.getAttribute("MemberVO");
