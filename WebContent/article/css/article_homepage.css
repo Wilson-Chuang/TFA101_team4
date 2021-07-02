@@ -318,13 +318,14 @@ div.see_more a:hover{
 
 #sidebar .sidebar__inner {
 /*   border:5px solid red;  */
-  height:720px;
+  height:600px;
   position: relative;
   background-image: url(../img/attention2.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   filter:opacity(90%) contrast(80%);
   padding-top: 150px; 
+/*   margin-top:50px; */
 }
 
 .clearfix:after {
@@ -335,19 +336,19 @@ div.see_more a:hover{
 
 div.sidebar_newopen{
     /* border: solid red 1px; */
-    height: 60%;
+    height: 80%;
     background-color: black;
     filter: opacity(70%);
 /*     margin-top:100px; */
-	padding-top:25%;
+/* 	padding-top:0; */
 }
 
 div.sidebar_unboxing{
 /*     border: solid red 1px; */
-    height: 60%;
+    height: 80%;
     background-color: black;
     filter: opacity(70%);
-    padding-top:25%;
+/*     padding-top:0; */
 }
 
 div.sidebar1 a:visited,div.sidebar1 a:link{
@@ -414,7 +415,7 @@ div.sidebar h2{
 
 #sidebar2 .sidebar__inner2 {
     position: relative;
-    height: 720px;
+    height: 600px;
     background-image: url(../img/unboxing1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -428,10 +429,11 @@ div.sidebar h2{
 
 div.banner3{
     height: 480px;
-    padding-top: 100px;
+    padding-top: 20px;
     margin-top: 100px;
     background-color: rgb(242,242,242);
     font-family:"Comic Sans MS", "cursive", "DomaineDisplay", "NotoSerifTC", "Songti TC", "Noto Serif CJK TC", "Microsoft JhengHei", "Pingfang TC", serif;
+/*   	border:1px solid red; */
   }
 
 div.banner3 h1{

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.article.model.*"%>
 <%@ page import="com.article_category.model.*"%>
@@ -55,7 +56,7 @@
 	}
 
 %>
-
+<jsp:useBean id="article_categorySvc" scope="page" class="com.article_category.model.Article_categoryService" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 <html>
 <head>
@@ -64,13 +65,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>文章首頁</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/article/css/article_homepage.css">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-icons.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/wrunner-default-theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-sidebar/3.3.1/sticky-sidebar.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/product_list/vendors/jquery/jquery-3.6.0.min.js"></script> --%>
+
+<style>
+.fixed-top{
+	position:static;
+}
+body{
+	padding-top: 0px;
+}
+</style>
+
+
 </head>
 <body>
-<button class="js-back-to-top back-to-top" >&#65085; <p>TOP</p></button>
-
-
+<button class="js-back-to-top back-to-top" style="height:65px;">&#65085; <p>TOP</p></button>
+<%@ include file="/pages/header.file" %>
 <div class="maintop">
     <div class="maintop_header">
 <!-- Hot Now標題 -->
@@ -310,11 +329,11 @@
             <a href=""><img src="./img/model1.jpeg" alt=""></a>
             <div class="author_intro_text"><a href="">Saria專欄</a>
            
-	             <FORM METHOD="GET" ACTION="article.do" name="form1">
-				 	 <input type="hidden" name="action" value="vote">
-					 <input type="hidden" name="author_no" value="1">
-				     <input type="submit" value="投票"> 
-				</FORM>
+<!-- 	             <FORM METHOD="GET" ACTION="article.do" name="form1"> -->
+<!-- 				 	 <input type="hidden" name="action" value="vote"> -->
+<!-- 					 <input type="hidden" name="author_no" value="1"> -->
+<!-- 				     <input type="submit" value="投票" style="color:white;">  -->
+<!-- 				</FORM> -->
 			
 			
             </div>
@@ -322,11 +341,11 @@
         <div class="author_intro">
             <a href=""><img src="./img/model2.jpeg" alt=""></a>
             <div class="author_intro_text"><a href="">唐熒霜專欄</a>
-	             <FORM METHOD="GET" ACTION="article.do" name="form1">
-				 	 <input type="hidden" name="action" value="vote">
-					 <input type="hidden" name="author_no" value="2">
-				     <input type="submit" value="投票"> 
-				</FORM>
+<!-- 	             <FORM METHOD="GET" ACTION="article.do" name="form1"> -->
+<!-- 				 	 <input type="hidden" name="action" value="vote"> -->
+<!-- 					 <input type="hidden" name="author_no" value="2"> -->
+<!-- 				     <input type="submit" value="投票">  -->
+<!-- 				</FORM> -->
             
             
             </div>
@@ -334,44 +353,44 @@
         <div class="author_intro">
             <a href=""><img src="./img/model4.jpeg" alt=""></a>
             <div class="author_intro_text"><a href="">喬夏專欄</a>
-	             <FORM METHOD="GET" ACTION="article.do" name="form1">
-				 	 <input type="hidden" name="action" value="vote">
-					 <input type="hidden" name="author_no" value="3">
-				     <input type="submit" value="投票"> 
-				</FORM>
+<!-- 	             <FORM METHOD="GET" ACTION="article.do" name="form1"> -->
+<!-- 				 	 <input type="hidden" name="action" value="vote"> -->
+<!-- 					 <input type="hidden" name="author_no" value="3"> -->
+<!-- 				     <input type="submit" value="投票">  -->
+<!-- 				</FORM> -->
             
             </div>
         </div>
         <div class="author_intro">
             <a href=""><img src="./img/model7.jpeg" alt=""></a>
             <div class="author_intro_text"><a href="">Passion Tsai專欄</a>
-	             <FORM METHOD="GET" ACTION="article.do" name="form1">
-				 	 <input type="hidden" name="action" value="vote">
-					 <input type="hidden" name="author_no" value="4">
-				     <input type="submit" value="投票"> 
-				</FORM>
+<!-- 	             <FORM METHOD="GET" ACTION="article.do" name="form1"> -->
+<!-- 				 	 <input type="hidden" name="action" value="vote"> -->
+<!-- 					 <input type="hidden" name="author_no" value="4"> -->
+<!-- 				     <input type="submit" value="投票">  -->
+<!-- 				</FORM> -->
             
             </div>
         </div>
         <div class="author_intro">
             <a href=""><img src="./img/model8.jpeg" alt=""></a>
             <div class="author_intro_text"><a href="">Tomo專欄</a>
-	            <FORM METHOD="GET" ACTION="article.do" name="form1">
-				 	 <input type="hidden" name="action" value="vote">
-					 <input type="hidden" name="author_no" value="5">
-				     <input type="submit" value="投票"> 
-				</FORM>
+<!-- 	            <FORM METHOD="GET" ACTION="article.do" name="form1"> -->
+<!-- 				 	 <input type="hidden" name="action" value="vote"> -->
+<!-- 					 <input type="hidden" name="author_no" value="5"> -->
+<!-- 				     <input type="submit" value="投票">  -->
+<!-- 				</FORM> -->
             
             </div>
         </div>
         <div class="author_intro">
             <a href=""><img src="./img/model9.jpeg" alt=""></a>
             <div class="author_intro_text"><a href="">Leslie專欄</a>
-	            <FORM METHOD="GET" ACTION="article.do" name="form1">
-				 	 <input type="hidden" name="action" value="vote">
-					 <input type="hidden" name="author_no" value="6">
-				     <input type="submit" value="投票"> 
-				</FORM>
+<!-- 	            <FORM METHOD="GET" ACTION="article.do" name="form1"> -->
+<!-- 				 	 <input type="hidden" name="action" value="vote"> -->
+<!-- 					 <input type="hidden" name="author_no" value="6"> -->
+<!-- 				     <input type="submit" value="投票">  -->
+<!-- 				</FORM> -->
             
             </div>
         </div>
@@ -426,7 +445,11 @@
 			</a>
 		</div>
 		
-<script src="${pageContext.request.contextPath}/product_list/vendors/jquery/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/article/js/article_homepage.js"></script>
+<script src='${pageContext.request.contextPath}/js/jquery.min.js'></script>
+<script src='${pageContext.request.contextPath}/js/bootstrap.bundle.min.js'></script>
+<script src='${pageContext.request.contextPath}/js/wrunner-jquery.js'></script>
+<script src='${pageContext.request.contextPath}/js/header.js'></script>
+
 </body>
 </html>

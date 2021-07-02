@@ -21,7 +21,7 @@
 
 <body>
 
-	<header class="header">
+	<header class="header" style="z-index:9999;">
 
 		<div class="logo">
 			<a href="${pageContext.request.contextPath}/cms/protected/cmsIndex.jsp">

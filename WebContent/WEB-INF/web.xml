@@ -214,7 +214,7 @@
 	<!-- 後台商品管理filter -->
 	<filter-mapping>
 		<filter-name>cmsLoginFilter</filter-name>
-		<url-pattern>/product/*</url-pattern>
+		<url-pattern>/product/listProd_back.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
@@ -225,7 +225,7 @@
 	<!-- 後台商品類別管理filter -->
 	<filter-mapping>
 		<filter-name>cmsLoginFilter</filter-name>
-		<url-pattern>/product_category/*</url-pattern>
+		<url-pattern>/product_category/listProdCatg_back.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: ·L³n¥¿¶ÂÅé, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: å¾®è»Ÿæ­£é»‘é«”, Verdana, Geneva, Tahoma, sans-serif;
 }
 
 html,
@@ -91,11 +91,11 @@ header.header {
 }
 
 header form button {
-    /* ¶ê¨¤ */
+    /* åœ“è§’ */
     border-radius: 10px;
     border: 0;
 
-    /* ¿é¤J¤å¦r¦â±m³]©w */
+    /* è¼¸å…¥æ–‡å­—è‰²å½©è¨­å®š */
     color: white;
     padding: 5px 5px;
     background-color: #333333;
