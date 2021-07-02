@@ -52,11 +52,8 @@
     	<a href="${pageContext.request.contextPath}/article/article_list3.jsp"><div class="article_category_tag">餐廳介紹</div></a>
     	<a href="${pageContext.request.contextPath}/article/article_list4.jsp"><div class="article_category_tag" style="color:black; border-left:5px solid #ef6e51; transform: scale(1.2); margin-right:30px; margin-left:15px;" >新店快報</div></a>
     	<i class="fas fa-pen-square"></i>
-    	<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/article/article.do">
-	    	<input type="submit" class="article_post" value="發表文章">
-	    	<input type="hidden" name="member_no"  value="1">
-			<input type="hidden" name="action" value="post">
-    	</FORM>	
+		<a class="apost" href="${pageContext.request.contextPath}/article/addArticle.jsp">發表文章</a>
+
     </div>
     
 <!-- 分類標題   -->
