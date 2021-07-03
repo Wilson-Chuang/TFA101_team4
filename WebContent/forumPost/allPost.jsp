@@ -27,55 +27,51 @@
 
 <html>
 <head>
-<title>Guide好食|討論區</title>
+	<title>Guide好食|討論區</title>
+	
+	<style>
+	table {
+		width: 800px;
+		background-color: white;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	#table-1 {
+		border: 1px solid #CCCCFF;
+	}
+	
+	tr, td {
+		padding: 5px;
+		text-align: center;
+	}
+	</style>
+	
+	<!-- fontawesome -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+	<!--Bootstrap CSS-->
+	<link rel="stylesheet" type="text/css"
+		href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+	<!--dataTables CSS-->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+	
+	<!-- Header -->
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-#table-1 {
-	border: 1px solid #CCCCFF;
-}
-
-tr, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
-
-<!-- fontawesome -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-<!--Bootstrap CSS-->
-<link rel="stylesheet" type="text/css"
-	href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
-<!--dataTables CSS-->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-
-<!-- Header -->
-<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
-<%@include file="../../pages/header.file"%>
 
 </head>
 <body>
-	
-	<table id="table-1">
-		<tr id="table-1-tr">
-			<td id="table-1-td"><h3>全部文章 ForumPost: allPost.jsp</h3>
-				<h4>( MVC )</h4></td>
-		</tr>
-	</table>
+	<%@include file="/pages/header.file"%>
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr id="table-1-tr"> -->
+<!-- 			<td id="table-1-td"><h3>全部文章 ForumPost: allPost.jsp</h3> -->
+<!-- 				<h4>( MVC )</h4></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -86,11 +82,14 @@ tr, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-
-	<ul>
-		<li><a href="addPost.jsp">發起討論</a><br></li>
-	</ul>
-
+	
+	<br>
+	<br>
+	<br>
+	<a class="btn btn-primary" href="addPost.jsp" role="button">發起討論</a>
+	<br>
+	<br>
+	
 	<table id="myTable" class="display" style="width:100%">
 		<thead>
 			<tr>
@@ -129,5 +128,10 @@ tr, td {
     <!--DataTables JS-->
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="js/allPost.js"></script>
+    
+<%--     <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script> --%>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </body>
 </html>

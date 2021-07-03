@@ -7,16 +7,20 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
-<%-- <%@include file="../../pages/header.file"%> --%>
+
+
+<%-- <% 
+	ForumPostVO forumPost = (ForumPostVO) request.getAttribute("forumPost");
+ %> --%>
 
 <%
-	ForumPostVO forumPost = (ForumPostVO) request.getAttribute("forumPost");
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	pageContext.setAttribute("member", member);
 %>
-
 
 <html>
 <head>
-<title>回覆修改</title>
+<title>Guide好食|回覆編輯</title>
 
 <style>
 table {
@@ -46,19 +50,19 @@ th, td {
 	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-	<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
-	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-	<script src="<%=request.getContextPath() %>/js/header.js"></script>
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+
+	<jsp:useBean id="forumPostSvc"
+	class="com.forum_post.model.ForumPostService" />
 </head>
 <body>
-	<table id="table-1">
-		<tr>
-			<td><h3>文章 ForumReply: replyUpdate.jsp</h3>
-				<h4>( MVC )</h4></td>
-		</tr>
-	</table>
+	<%@include file="/pages/header.file"%>
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td><h3>文章 ForumReply: replyUpdate.jsp</h3> -->
+<!-- 				<h4>( MVC )</h4></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -69,13 +73,21 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-	
+	<br>
+	<br>
 	<div class="container">
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
 				<FORM METHOD="post" ACTION="forumReply.do">
-		<%-- 		<textarea name="content" rows="6" cols="40" >${forumReply.forum_reply_content}</textarea> --%>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1">會員</span>
+						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+					</div>
+					<div class="input-group mb-3">
+  						<span class="input-group-text" id="basic-addon1">主題</span>
+  						<input type="text" class="form-control" name="title" id="title" disabled="disabled" value="${forumPostSvc.getOneForumPost(forumReply.forum_post_id).forum_post_title}" aria-label="Username" aria-describedby="basic-addon1">
+					</div>
 					<textarea class="ckeditor" id="myContent" name="content">${forumReply.forum_reply_content}</textarea>
 					<br>
 					<input type="hidden" name="action" value="reply_Update">
@@ -89,5 +101,9 @@ th, td {
 		</div>
 	</div>
 	
-
+	<!-- Header -->
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </body>
