@@ -54,13 +54,10 @@
                         <a href="#">評論管理</a>
                     </li>
                     <li>
-                        <a href="#">討論區文章管理</a>
+                        <a href="${pageContext.request.contextPath}/article/listArticle_back_end.jsp">專欄文章管理</a>
                     </li>
                     <li>
-                        <a href="#">專欄文章管理</a>
-                    </li>
-                    <li>
-                        <a href="listALLParty">揪團管理</a>
+                        <a href="${pageContext.request.contextPath}/party/listAllParty.jsp">揪團管理</a>
                     </li>
                 </ul>
             </li>
@@ -70,13 +67,13 @@
                     <i class="fas fa-chevron-up" id="b-3" style="display: none;"></i></a>
                 <ul class="hide" id="menu-3">
                     <li>
-                        <a href="#">產品管理</a>
+                        <a href="${pageContext.request.contextPath}/product/listProd_back.jsp">產品管理</a>
                     </li>
                     <li>
-                        <a href="#">系列管理</a>
+                        <a href="${pageContext.request.contextPath}/product_category/listProdCatg_back.jsp">系列管理</a>
                     </li>
                     <li>
-                        <a href="#">訂單管理</a>
+                        <a href="${pageContext.request.contextPath}/orders/orders_listAll.jsp">訂單管理</a>
                     </li>
                 </ul>
             </li>

@@ -169,7 +169,7 @@
 				<th>聯絡電話</th>
 		<!--		<th>均消</th> -->
 		<!--		<th>營業時間</th> -->
-				<th>網站</th>
+				<th width="150px">網站</th>
 		<!--		<th>圖片</th> -->
 				<th>圖片庫</th>
 				<th>建立時間</th>
@@ -213,7 +213,7 @@
 								${value01}<br><br>
 						</c:forTokens>
 					</td>		-->
-					<td>${shopVO.shop_website}</td>
+					<td width="150px">${shopVO.shop_website}</td>
 			<!--		<td>
 					<div id="preview">
 					<c:set var="shop_main_img" value="${shopVO.shop_main_img}"/>
@@ -259,13 +259,7 @@
 					     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
 					     <input type="hidden" name="action"	    value="getOne_For_Update"></FORM>
 					</td>
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/shop/shop.do" style="margin-bottom: 0px;">
-					     <button type="submit"><i class="fas fa-trash-alt fa-2x"></i></button>
-					     <input type="hidden" name="shop_id"      value="${shopVO.shop_id}">
-					     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-					     <input type="hidden" name="action"     value="delete"></FORM>
-					</td>
+					
 				</tr>
 			</c:forEach>
 		</table>
