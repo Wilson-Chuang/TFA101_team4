@@ -14,12 +14,12 @@ public class VoteVO implements java.io.Serializable{
 	private double author_4_score;
 	private double author_5_score;
 	private double author_6_score;
+	private double author_7_score;
 	private double author_8_score;
 	private double author_9_score;
 	private double author_10_score;
 	private double author_11_score;
 	private double author_12_score;
-	private double author_13_score;
 
 	public double getAuthor_8_score() {
 		return author_8_score;
@@ -61,12 +61,12 @@ public class VoteVO implements java.io.Serializable{
 		this.author_12_score = author_12_score;
 	}
 
-	public double getAuthor_13_score() {
-		return author_13_score;
+	public double getAuthor_7_score() {
+		return author_7_score;
 	}
 
-	public void setAuthor_13_score(double author_13_score) {
-		this.author_13_score = author_13_score;
+	public void setAuthor_7_score(double author_7_score) {
+		this.author_7_score = author_7_score;
 	}
 
 	private long addResult;

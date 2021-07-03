@@ -231,10 +231,32 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 	
+	<!-- 後台新增商品filter -->
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/product/addProduct.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
 	<!-- 後台商品類別管理filter -->
 	<filter-mapping>
 		<filter-name>cmsLoginFilter</filter-name>
 		<url-pattern>/product_category/listProdCatg_back.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<!-- 後台商品新增類別filter -->
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/product_category/addProduct_category.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

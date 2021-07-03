@@ -145,7 +145,7 @@
 									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member.html?action=toShop">商家專區</a></li>
 									<li><hr class="dropdown-divider"></li>
 									<li>
-										<form id="form-logout" action="member.html">
+										<form id="form-logout" action="<%=request.getContextPath()%>/member.html">
 											<a class="dropdown-item" id="logout">登出</a>
 											<input type="hidden" name="action" value="log_out">
 										</form>

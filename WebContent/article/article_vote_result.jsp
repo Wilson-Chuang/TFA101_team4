@@ -17,12 +17,12 @@
 	int author_4_score = (int)request.getAttribute("author_4_score");
 	int author_5_score = (int)request.getAttribute("author_5_score");
 	int author_6_score = (int)request.getAttribute("author_6_score");
-	int author_8_score = (int)request.getAttribute("author_8_score");
-	int author_9_score = (int)request.getAttribute("author_9_score");
-	int author_10_score = (int)request.getAttribute("author_10_score");
-	int author_11_score = (int)request.getAttribute("author_11_score");
-	int author_12_score = (int)request.getAttribute("author_12_score");
-	int author_13_score = (int)request.getAttribute("author_13_score");
+	int author_8_score = (int)request.getAttribute("author_7_score");
+	int author_9_score = (int)request.getAttribute("author_8_score");
+	int author_10_score = (int)request.getAttribute("author_9_score");
+	int author_11_score = (int)request.getAttribute("author_10_score");
+	int author_12_score = (int)request.getAttribute("author_11_score");
+	int author_13_score = (int)request.getAttribute("author_12_score");
 	
 	
 %>
@@ -98,6 +98,9 @@
 						<c:if test="${voteList.get(2)==6}">
 							${author_6_score}
 						</c:if>
+						<c:if test="${voteList.get(2)==7}">
+							${author_7_score}
+						</c:if>
 						<c:if test="${voteList.get(2)==8}">
 							${author_8_score}
 						</c:if>
@@ -112,9 +115,6 @@
 						</c:if>
 						<c:if test="${voteList.get(2)==12}">
 							${author_12_score}
-						</c:if>
-						<c:if test="${voteList.get(2)==13}">
-							${author_13_score}
 						</c:if>
 					
 					
