@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -264,7 +265,7 @@ public class MemberServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				
-				BigDecimal comment_rating = new BigDecimal(req.getParameter("comment_rating"));
+				BigDecimal comment_rating = new BigDecimal(req.getParameter("comment_rating")).setScale(1);
 				String comment_text = req.getParameter("comment_text");
 				Part part = req.getPart("comment_pic");
 				String filename = getFileNameFromPart(part);
@@ -970,7 +971,7 @@ public class MemberServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
-				String url = "/member//PersonalData.jsp";
+				String url = "/member/PersonalData.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -985,6 +986,61 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		
+		if ("getdbcomment".equals(action)) { // 來自select_page.jsp的請求
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				
+				
+				/*************************** 2.開始查詢資料 *****************************************/
+				MemberService memSvc = new MemberService();
+				
+				for(int i=0;i<1060;i++) {
+					if(memSvc.GET_ONE_BY_SHOP(i)!=null) {
+					ShopVO ShopVO=memSvc.GET_ONE_BY_SHOP(i);
+					String[] tags=ShopVO.getShop_tag().split(" ");
+					for(int j = 1;j<tags.length;j++) {
+						int member_id=ShopVO.getMember_id();
+						int shop_id=ShopVO.getShop_id();
+						String comment_text=tags[j];
+						BigDecimal comment_rating = new BigDecimal(Math.random() * 4 + 1).setScale(0, RoundingMode.FLOOR);;
+						String filename=ShopVO.getShop_main_img();
+						CommentService comSvc= new CommentService();
+						CommentVO CommentVO=comSvc.insert(member_id,shop_id,comment_text,comment_rating,filename);
+						ShopService shopSvc=new ShopService();
+						double rating=comSvc.countRatings(shop_id);
+						shopSvc.updateShopRaing(shop_id, rating);
+						}
+					}
+					i++;
+				}
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/sign/signin.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				// Send the use back to the form, if there were errors
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				String url = "/public/comment_report_list.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+				
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/sign/signin.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		if ("change_shop".equals(action)) { // 來自select_page.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();
@@ -1270,6 +1326,49 @@ public class MemberServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("change_status".equals(action)) { // 來自select_page.jsp的請求
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				HttpSession session=req.getSession();
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/ChangePassword.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/*************************** 2.開始查詢資料 *****************************************/
+				int Member_id=new Integer(req.getParameter("MEMBER_ID"));
+				MemberService memSvc = new MemberService();
+				memSvc.change_status(Member_id);
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/ChangePassword.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				
+				String url = "/member/PersonalFile.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				successView.forward(req, res);
+				
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/sign/signin.jsp");
 				failureView.forward(req, res);
 			}
 		}

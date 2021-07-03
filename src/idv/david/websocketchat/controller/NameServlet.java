@@ -23,7 +23,6 @@ public class NameServlet extends HttpServlet {
 		HttpSession session=req.getSession();
 		JedisPool pool = null;
 		String action = req.getParameter("action");
-	if("chat".equals(action)) {
 		String userName = ((MemberVO)(session.getAttribute("login"))).getMember_name();
 		Integer userID =((MemberVO)(session.getAttribute("login"))).getMember_id();
 		String name = userID+":"+userName;
@@ -32,4 +31,4 @@ public class NameServlet extends HttpServlet {
 		req.setAttribute("recieverName", reciever);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/chat.jsp");
 		dispatcher.forward(req, res);}
-	}}
+	}

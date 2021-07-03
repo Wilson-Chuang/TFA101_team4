@@ -57,6 +57,8 @@
 	List<Article_FavoriteVO> list_article_fol=memSvc.getAllArticleFavByMem(Member_id);
 // 	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
 			String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+			String uploadFilePath = picpath +MemberVO.getMember_pic();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -77,7 +79,7 @@
 		<div class="row">
 			<div class="col-2">
 				<img
-					src="<%=picpath+MemberVO.getMember_pic()%>"
+					src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":uploadFilePath%>"
 					width="150px" alt="" class="member_pic" id="showimg">
 			</div>
 			<div class="col-10">
@@ -250,6 +252,7 @@
 									<input type=hidden name="action" value="delete_fol">
 									<label ><i class="fas fa-trash-alt"></i>移除<input style="display:none" type="submit" value="移除"></input></label>
 								</form>
+
 							</ul>
 						</div>
 

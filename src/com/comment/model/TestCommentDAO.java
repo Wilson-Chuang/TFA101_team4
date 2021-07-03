@@ -3,20 +3,25 @@ package com.comment.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.member.model.MemberService;
+import com.shop.model.ShopDAO;
+import com.shop.model.ShopVO;
+
 public class TestCommentDAO {
 	public static void main(String[] args) {
 		CommentJDBCDAO dao = new CommentJDBCDAO();
-		
+//		MemberService memSvc=new MemberService();
+		ShopVO ShopVO=new ShopVO();
+//		ShopDAO sDAO=new ShopDAO();
 		//insert
 //		CommentVO com1 = new CommentVO();
 //		com1.setMEMBER_ID(2);
-//		com1.setSHOP_ID(2);
+//		com1.setSHOP_ID(1);
 //		com1.setCOMMENT_CONTENT("Really good!");
-//		com1.setCOMMENT_RATING(new BigDecimal("4.2"));
-//		com1.setCOMMENT_TIME(new java.sql.Timestamp(new java.util.Date().getTime()));
-//		com1.setCOMMENT_STATUS(1);
+//		com1.setCOMMENT_RATING(new BigDecimal("4"));
+//		com1.setCOMMENT_PIC("noimage.jpg");
 //		dao.insert(com1);
-//		
+		
 //		
 //		//update
 //		CommentVO com1 = new CommentVO();

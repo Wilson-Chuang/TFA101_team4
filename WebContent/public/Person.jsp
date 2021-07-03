@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-10">
             <div class="row">
             <div class="col-2">
-                <img src="<%=picpath +MemberVO.getMember_pic()%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":pic%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%= MemberVO.getMember_name()%></span>
@@ -100,7 +100,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<form  action="<%=request.getContextPath() %>/chat.do" method="POST" target="_blank">
                 	<%-- <input type=hidden name="userName" value=<%=myMemberVO.getMember_name() %>  >  --%>
                 		 <input type=hidden name="recieverName" value=<%=MemberVO.getMember_id()+":"+MemberVO.getMember_name() %>> 
-                		 <input type=hidden name="action" value="chat">
                 		 <input type="submit" value="聊天" class="save_btn" style="width: 150px;">
                 	</form>
                <% boolean followed =memfolSvc.check_follow(member_id, myMemberVO.getMember_id());
@@ -151,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  							}
 					}else{
 						%> 
-					<img src="/upload/empty.jpg" style="width:100%">
+					<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 					</div>
 					<div class="tab-pane fade" id="myforum">
@@ -165,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<%}%>
 							</ul>
  					<%}else{%> 
-							<img src="/upload/empty.jpg" style="width:100%">
+							<img src="./public/img/empty.jpg" style="width:100%">
 					<%} %>
 						
 					</div>

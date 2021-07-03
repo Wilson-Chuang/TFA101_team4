@@ -205,7 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <p><%=com.getCOMMENT_TIME() %></p>
                         <span class="ratins"><%=com.getCOMMENT_RATING()%><i class="fas fa-star"></i></span><br>
                         <p><%=com.getCOMMENT_CONTENT() %></p>
-                            <img src="<%=uploadFilePath+com.getCOMMENT_PIC()%>" alt="" style="width:25%"><br>
+                            <img src="<%=com.getCOMMENT_PIC().equals(ShopVO.getShop_main_img())?imgPath:uploadFilePath+com.getCOMMENT_PIC()%>" alt="" style="width:25%"><br>
                              <%
                  			if(!(myMemberVO==null)){
                  			Comment_ReportService cmSvc=new Comment_ReportService();
@@ -235,6 +235,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <%
  							}
 						%> 
+						
+                    </div>
                 </div>
 
             </div>

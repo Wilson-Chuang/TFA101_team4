@@ -25,6 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 
 <title>Giude好食|評論檢舉處理</title>
+<base href="<%=basePath%>">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -76,7 +78,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         <div class="row">
            <div >
-                
+                <div class="comment_table">
+                    	<form action="member.html"  method="post"  enctype="multipart/form-data">
+                    	<input type="hidden" name="action" value="getdbcomment">
+						<input type="submit" value="導入評論" class="comment_btn" style="width:150px;"><br><hr>
+						</form>
                 <div class="row">
                 <c:if test="${not empty errorMsgs}">
 						<ul>

@@ -12,15 +12,17 @@ import com.member.model.MemberVO;
 
 public class CommentJDBCDAO implements CommentDAO_Interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/new_schema?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/Team4DB?serverTimezone=Asia/Taipei";
 	String userid = "David";
 	String passwd = "123456";
 	private static final String INSERT_STMT = 
-			"INSERT INTO comment (member_id,shop_id,comment_content,comment_rating,comment_time,comment_status) VALUES (?, ?, ?, ?, ?, ?)";
-		private static final String GET_ALL_STMT = 
+			"INSERT INTO comment (member_id,shop_id,comment_content,comment_rating,comment_pic) VALUES (?, ?, ?, ?, ?)";
+			private static final String GET_ALL_STMT = 
 			"SELECT * FROM comment order by comment_id";
 		private static final String GET_ONE_STMT = 
 			"SELECT * FROM comment where comment_id = ?";
+		private static final String GET_ONE_SHOP = 
+				"SELECT * FROM shop where shop_id = ?";
 		private static final String DELETE = 
 			"DELETE FROM comment where comment_id = ?";
 		private static final String UPDATE = 
@@ -39,8 +41,7 @@ public class CommentJDBCDAO implements CommentDAO_Interface{
 			pstmt.setInt(2,CommentVO.getSHOP_ID());
 			pstmt.setString(3,CommentVO.getCOMMENT_CONTENT());
 			pstmt.setBigDecimal(4, CommentVO.getCOMMENT_RATING());
-			pstmt.setTimestamp(5, CommentVO.getCOMMENT_TIME());
-			pstmt.setInt(6, CommentVO.getCOMMENT_STATUS());
+			pstmt.setString(5, CommentVO.getCOMMENT_PIC());
 			pstmt.execute();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
