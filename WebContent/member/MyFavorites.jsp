@@ -13,7 +13,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.io.*"%>
-<%@ include file="/pages/header.file" %>
 
 <%
 	String path = request.getContextPath();
@@ -70,9 +69,14 @@
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-
+<%@ include file="/pages/header.file" %>
 </head>
 <body>
 	<div class="container">
@@ -271,10 +275,6 @@
 	</div>
 
 </body>
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"

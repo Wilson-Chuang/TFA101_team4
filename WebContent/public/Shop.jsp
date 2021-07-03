@@ -11,7 +11,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
-<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -48,8 +47,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
+<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
@@ -245,10 +250,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 </body>
-   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/js/scripts.js"></script>
     <script type='text/javascript'>
 			function change() {
   				var value = document.getElementById('range').value ;

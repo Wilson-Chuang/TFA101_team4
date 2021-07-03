@@ -9,7 +9,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
-<%@ include file="/pages/header.file" %>
 
 <%String path =request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -34,12 +33,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Giude好食|商家專區</title>
-<link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
+<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
@@ -170,10 +175,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%} %>
 </body>
-   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/js/scripts.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>

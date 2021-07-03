@@ -7,7 +7,6 @@
 <%@ page import="com.forum_post.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/pages/header.file" %>
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.search.model.*"%>
@@ -38,8 +37,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
+<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
@@ -136,12 +141,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<%if(!list_myArticle.isEmpty()){
 							for(ArticleVO article:list_myArticle){						
 						%>
-						<div class="card mb-3" style="max-width: 540px;">
+						<div class="card mb-3" >
 							<a href=#><div class="row no-gutters">
+								<div class="col-md-2">
+								</div>
 								<div class="col-md-4">
 									<img src="/upload/<%=article.getArticle_img_name() %>" class="card-img" alt="...">
 								</div>
-								<div class="col-md-8">
+								<div class="col-md-4">
 									<p class="card-text"><%=MemberVO.getMember_name() %>發表了「<%=article.getArticle_title() %>」這篇文章!</p>
 								</div>
 							</div></a>
@@ -174,10 +181,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 </body>
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"

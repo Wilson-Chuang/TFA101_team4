@@ -619,7 +619,9 @@ public class MemberServlet extends HttpServlet {
 			}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				if(session.getAttribute("login")==null) {
 				session.setAttribute("login",MemberVO);
+				}
 				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				String location=(String) session.getAttribute("location");
 				if(location==null) {

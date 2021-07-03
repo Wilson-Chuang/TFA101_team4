@@ -8,7 +8,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.search.model.*"%>
-<%@ include file="/pages/header.file" %>
 <%@ page import="java.io.*"%>
 
 <%String path =request.getContextPath();
@@ -30,8 +29,14 @@ String uploadFilePath = picpath +MemberVO.getMember_pic();
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
+<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
@@ -95,7 +100,7 @@ String uploadFilePath = picpath +MemberVO.getMember_pic();
         <ul class="shopping_record" >
 							<%for(OrdersVO order:oders){						
 						%>
-            <li><a href=#><%=order.getOrders_date() %>使用了<%=order.getOrders_total_point() %>積分!看看明細?</a></li>
+            <li><%=order.getOrders_date() %>使用了<%=order.getOrders_total_point() %>積分!</li>
         <%}%>
         </ul>
 							<%}else{%>

@@ -10,7 +10,6 @@
 }
 
 body{
-	padding-top: 380px;
 }
 
 @media (max-width: 991px) {	
@@ -25,10 +24,6 @@ body{
 div.container{
     /* border:1px solid black; */
     margin-top: 20px;
-}
-div.row{
-    /* border:1px solid red; */
-    margin-bottom: 50px;
 }
 /* div.col-2{
     border: 1px solid blue;
