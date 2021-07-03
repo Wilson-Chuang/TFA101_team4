@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import com.vote.model.VoteVO;
@@ -137,10 +138,10 @@ public class testVote {
 //		        author.put("name", "Leslie");
 //		        publish(author);
 //		    }
-		    //投票(隨機100個使用者，總共投500票)
-//		    for (long i = 0; i < 500; i++) {
-//		        vote(authors.get(new Random().nextInt(10)), (long) new Random().nextInt(100));
-//		    }
+		    //投票(隨機1000個使用者，總共投5000票)
+		    for (long i = 0; i < 5000; i++) {
+		        vote((long)(new Random().nextInt(12)+1), (long) (new Random().nextInt(1000)+1000));
+		    }
 		    //獲取排行榜
 
 //			vote(3L, 1002L);
@@ -151,9 +152,11 @@ public class testVote {
 //	        author.put("name", "Saria");
 //	        author.put("img_name","model1.jpeg");
 //	        publish(author);
+//	        
 //	        author.put("name", "唐熒霜");
 //	        author.put("img_name","model2.jpeg");
 //	        publish(author);
+//	        
 //	        author.put("name", "喬夏");
 //	        author.put("img_name","model4.jpeg");
 //	        publish(author);
@@ -169,30 +172,30 @@ public class testVote {
 //	        author.put("name", "Leslie");
 //	        author.put("img_name","model9.jpeg");
 //	        publish(author);
-	   
-	        author.put("name", "Hank");
-	        author.put("img_name","model10.jpg");
-	        publish(author);
-	        
-	        author.put("name", "Lisa");
-	        author.put("img_name","model11.jpg");
-	        publish(author);
-	        
-	        author.put("name", "泰勒");
-	        author.put("img_name","model12.jpg");
-	        publish(author);
-	        
-	        author.put("name", "William");
-	        author.put("img_name","model13.jpg");
-	        publish(author);
-	        
-	        author.put("name", "星哥");
-	        author.put("img_name","model14.jpg");
-	        publish(author);
-	        
-	        author.put("name", "Jasmine");
-	        author.put("img_name","model15.jpg");
-	        publish(author);
+//		
+//	        author.put("name", "Hank");
+//	        author.put("img_name","model10.jpg");
+//	        publish(author);
+//	        
+//	        author.put("name", "Lisa");
+//	        author.put("img_name","model11.jpg");
+//	        publish(author);
+//	        
+//	        author.put("name", "泰勒");
+//	        author.put("img_name","model12.jpg");
+//	        publish(author);
+//	        
+//	        author.put("name", "William");
+//	        author.put("img_name","model13.jpg");
+//	        publish(author);
+//	        
+//	        author.put("name", "星哥");
+//	        author.put("img_name","model14.jpg");
+//	        publish(author);
+//	        
+//	        author.put("name", "Jasmine");
+//	        author.put("img_name","model15.jpg");
+//	        publish(author);
 	        
 		    rank();
 		}
