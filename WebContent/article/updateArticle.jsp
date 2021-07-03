@@ -121,16 +121,16 @@
 <!-- 		</datalist> -->
 <!-- 	</div> -->
 
-	<div class="pick_restaurant">
-		指定餐廳: <input list="ice-cream-flavors" name="shop_no"/>		
-		<datalist id="ice-cream-flavors">
-		    <option value="三芝尚讚豆腐乳雞排">
-		    <option value="福伯黃金雞">
-		    <option value="食家個人土雞鍋">
-		    <option value="養鍋 Yang Guo 石頭涮涮鍋 台南文化店">
-		    <option value="音樂廚房之麥迪遜">
-		</datalist>
-	</div>
+<!-- 	<div class="pick_restaurant"> -->
+<!-- 		指定餐廳: <input list="ice-cream-flavors" name="shop_no"/>		 -->
+<!-- 		<datalist id="ice-cream-flavors"> -->
+<!-- 		    <option value="三芝尚讚豆腐乳雞排"> -->
+<!-- 		    <option value="福伯黃金雞"> -->
+<!-- 		    <option value="食家個人土雞鍋"> -->
+<!-- 		    <option value="養鍋 Yang Guo 石頭涮涮鍋 台南文化店"> -->
+<!-- 		    <option value="音樂廚房之麥迪遜"> -->
+<!-- 		</datalist> -->
+<!-- 	</div> -->
 <!-- 返回 -->
 	<div class="back">
 		<a href="${pageContext.request.contextPath}/article/article.do?member_no=${memberVO.member_id}&action=post">-回到文章列表-</a>
