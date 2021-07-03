@@ -34,20 +34,20 @@ public class ManagerServlet extends HttpServlet {
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
-			List<String> errorMsgs = new LinkedList<String>();
+			List<String> errorMsgs1 = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+			req.setAttribute("errorMsgs1", errorMsgs1);
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String str = req.getParameter("manager_id");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入編號");
+					errorMsgs1.add("請輸入編號");
 				}
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/manager/select_page.jsp");
+				if (!errorMsgs1.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/manager/listAllManager.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -56,11 +56,11 @@ public class ManagerServlet extends HttpServlet {
 				try {
 					manager_id = new Integer(str);
 				} catch (Exception e) {
-					errorMsgs.add("編號格式不正確");
+					errorMsgs1.add("編號格式不正確");
 				}
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/manager/select_page.jsp");
+				if (!errorMsgs1.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/manager/listAllManager.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -69,11 +69,11 @@ public class ManagerServlet extends HttpServlet {
 				ManagerService managerSvc = new ManagerService();
 				ManagerVO managerVO = managerSvc.getOneManager(manager_id);
 				if (managerVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs1.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/manager/select_page.jsp");
+				if (!errorMsgs1.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/manager/listAllManager.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -86,8 +86,8 @@ public class ManagerServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/manager/select_page.jsp");
+				errorMsgs1.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/manager/listAllManager.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -281,13 +281,14 @@ if("insert".equals(action))
 				errorMsgs.add("管理員姓名: 請勿空白");
 			}
 
+			
 			String manager_email = req.getParameter("manager_email");
 			String manager_emailReg = "^[_a-z0-9-]+([.][_a-z0-9-]+)*@[a-z0-9-]+([.][a-z0-9-]+)*$";
 			if (manager_email == null || manager_email.trim().length() == 0) {
 				errorMsgs.add("管理員信箱: 請勿空白");
 			} else if (!manager_email.trim().matches(manager_emailReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("管理員信箱格式有誤，請再次確認");
-			}
+			} 
 			
 			
 //			亂數產生密碼
@@ -365,7 +366,23 @@ if("insert".equals(action))
 			managerVO.setManager_account(manager_account);
 			managerVO.setManager_name(manager_name);
 			managerVO.setManager_pic(manager_pic);
+			
+			
+//			// 取資料庫取值比對信箱是否重複
+			ManagerService checkSvc = new ManagerService();
+			int ckeckId = checkSvc.GETID(manager_email);
+			
+			System.out.println(ckeckId);
+			
+			if (manager_email.trim().length() != 0) {
+				if (ckeckId != 0) {
+					errorMsgs.add("信箱重複註冊，請更換信箱");
+				}
+			}
+			
+			//確認信箱無重複再set manager_email
 			managerVO.setManager_email(manager_email);
+			
 			managerVO.setManager_password(manager_password);
 			managerVO.setManager_phone(manager_phone);
 			managerVO.setManager_picname(manager_picname);
@@ -427,14 +444,14 @@ if("insert".equals(action))
 			managerSvc.deleteManager(manager_id);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/manager/listAllmanager.jsp";
+			String url = "/manager/listAllManager.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 
 			/*************************** 其他可能的錯誤處理 **********************************/
 		} catch (Exception e) {
 			errorMsgs.add("刪除資料失敗:" + e.getMessage());
-			RequestDispatcher failureView = req.getRequestDispatcher("/manager/listAllmanager.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/manager/listAllManager.jsp");
 			failureView.forward(req, res);
 		}
 	}

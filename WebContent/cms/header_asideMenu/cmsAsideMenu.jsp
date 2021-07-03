@@ -43,7 +43,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#">商家管理</a>
+                <a href="${pageContext.request.contextPath}/shop/listAllShop.jsp">商家管理</a>
             </li>
             <li>
                 <a href="#" onclick="toggleMenu(2);">社群管理
