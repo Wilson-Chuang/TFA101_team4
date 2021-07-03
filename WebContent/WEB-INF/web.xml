@@ -286,7 +286,7 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
-	<filter-mapping>
+	</filter-mapping>
 	
 	<!-- 後台-討論區回復檢舉filter -->
 	<filter-mapping>
