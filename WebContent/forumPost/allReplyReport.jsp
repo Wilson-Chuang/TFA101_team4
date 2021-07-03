@@ -79,11 +79,40 @@
    border: none;
    background-color: none; 
   }
+  
+  div.main_content {
+    width: 100%;
+    float: left;
+  }
+
+  .breadcrumb{
+     background-color: white !​important;
+     margin:20px 0 0 0;
+     font-size:15px;
+  }
 </style>
+
+<!-- bootstrap -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
 </head>
 <body bgcolor='white'>
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
+<div class="main_content">
 
+    <div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+	</div>
+	<div>
+	<nav aria-label="breadcrumb">
+	    <ol class="breadcrumb">
+		<li class="breadcrumb-item">用戶管理</li>
+		<li class="breadcrumb-item active" aria-current="page">管理員管理</li>
+	    </ol>
+	</nav>
+    </div>
 
 <table id="table-1">
 	<tr><td>
@@ -112,7 +141,7 @@
 	</tr>
 
 	<c:forEach var="forumReplyReportVO" items="${list}">
-		<c:if test="${forumReplyReportVO.forum_reply_report_status == 2}">
+<%-- 		<c:if test="${forumReplyReportVO.forum_reply_report_status == 2}"> --%>
 			<tr>
 				<td>${forumReplyReportVO.forum_reply_id}</td>
 				<td>${memberSvc.GET_ONE_BY_ID(forumReplyReportVO.member_id).member_email}</td>
@@ -133,10 +162,13 @@
 					<input type="hidden" name="forum_reply_report_status" value="1">
 				</FORM>
 			</tr>
-		</c:if>	
+<%-- 		</c:if>	 --%>
 	</c:forEach>
 </table>
+</div>
 
-
+<script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="./vendors/popper/popper.min.js"></script>
+<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

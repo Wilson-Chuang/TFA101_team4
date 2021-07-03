@@ -7,13 +7,10 @@
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.member.model.*"%>
 
-<%@include file="../../pages/header.file"%>
+
 <%
 	MemberVO member = (MemberVO)session.getAttribute("login");
 %>
-
-<%-- <%=member.getMember_id()%> --%>
-<%-- <%=member.getMember_email()%> --%>
 
 <%
     ForumPostVO forumPost = (ForumPostVO)request.getAttribute("forumPost");
@@ -25,6 +22,7 @@
 %>
 
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="forumReplySvc" scope="page" class="com.forum_reply.model.ForumReplyService" />
 <jsp:useBean id="forumPostLikeSvc" scope="page" class="com.forum_post_like.model.ForumPostLikeService"></jsp:useBean>
 
 <html>
@@ -67,6 +65,8 @@ tr, td {
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
+<%@include file="../../pages/header.file"%>
+
 </head>
 <body>
 	
@@ -96,8 +96,8 @@ tr, td {
 			<tr>
 				<th>主題</th>
 				<th>回覆</th>
-				<th>用戶名</th>
-				<th>按讚</th>
+				<th><i class="fas fa-users"></i></th>
+				<th><i class="fas fa-thumbs-up"></i></th>
 				<th><i class="far fa-clock"></i></th>
 			</tr>
 		</thead>
@@ -106,7 +106,7 @@ tr, td {
 			<tr>
 				<FORM METHOD="post" ACTION="forumPost.do">				
 					<td><button type="submit" class="btn btn-outline-primary">${forumPost.forum_post_title}</button></td>
-					<td>${forumPost.forum_post_reply_total}</td>
+					<td>${forumReplySvc.countByPostID(forumPost.forum_post_id)}</td>
 					<td>${memberSvc.GET_ONE_BY_ID(forumPost.member_id).member_email}</td>
 					<td>${forumPostLikeSvc.countByPostID(forumPost.forum_post_id)}</td>
 					<td><fmt:formatDate value="${forumPost.forum_post_time}"

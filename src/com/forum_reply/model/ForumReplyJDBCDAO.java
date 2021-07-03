@@ -21,9 +21,9 @@ public class ForumReplyJDBCDAO implements ForumReplyDAO{
 //	public static final String DELETE_STMT = "DELETE FROM FORUM_REPLY WHERE FORUM_REPLY_ID = ?";
 	public static final String DELETE_STMT = "UPDATE FORUM_REPLY SET FORUM_REPLY_CONTENT = '此內容已被刪除' WHERE FORUM_REPLY_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM FORUM_REPLY WHERE FORUM_REPLY_ID = ?";
-	public static final String FIND_BY_POST_ID = "SELECT * FROM FORUM_REPLY WHERE FORUM_POST_ID = ?";
+	public static final String FIND_BY_POST_ID = "SELECT * FROM FORUM_REPLY WHERE FORUM_POST_ID = ? AND FORUM_REPLY_STATUS = 1";
 	public static final String GET_ALL = "SELECT * FROM FORUM_REPLY";
-	public static final String COUNT_BY_POSTID = "SELECT COUNT(*) FROM FORUM_REPLY WHERE FORUM_POST_ID = ?";
+	public static final String COUNT_BY_POSTID = "SELECT COUNT(*) FROM FORUM_REPLY WHERE FORUM_POST_ID = ? AND FORUM_REPLY_STATUS = 1";
 	
 	static {
 		try {
