@@ -5,6 +5,11 @@
 <%@ page import="java.io.*"%>
 <%@ page import="com.manager.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<%@ page import="com.shop_favorites.model.*"%>
+<%@ page import="com.comment.model.*"%>
+<%@ page import="com.comment_report.model.*"%>
+<%@ page import="com.member_follower.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
@@ -26,7 +31,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/cms/vendors/bootstrap/css/bootstrap.min.css">
 
 
-<title>會員資料 - listAllMember.jsp</title>
+<title>評論檢舉 - listAllMember.jsp</title>
 
 
 <style>
@@ -104,58 +109,98 @@
     </div>
 
 	
-	<div>
-		<%-- 錯誤表列 --%>
-		<c:if test="${not empty errorMsgs}">
-			<font style="color:red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color:red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
-		
-		<table>
-			<tr class="table0">
-				<th class="table1">編號</th>
-				<th class="table1">姓名</th>
-				<th class="table1">生日</th>
-				<th class="table1">電話</th>
-				<th class="table1">地址</th>
-				<th  class="table1" width="100px">大頭貼</th>
-				<th class="table1">信箱</th>
-				<th class="table1">修改</th>
-			</tr>
-			
-		
-			<%@ include file="page1.file" %> 
-			<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-				<%System.out.println(picpath); %>
-				
-				
-				<tr style="align: center;">
-					<td class="table1">${memberVO.member_id}</td>
-					<td class="table1">${memberVO.member_name}</td>
-					<td class="table1">${memberVO.member_birth}</td>
-					<td class="table1">${memberVO.member_phone}</td>
-					<td class="table1">${memberVO.member_address}</td>
-					<td class="table1"><img src="<%=picpath %>${memberVO.member_pic}"></td>
-					<td class="table1">${memberVO.member_email}</td>
-					<td class="table1">
-					  <FORM METHOD="post" ACTION="member.html" style="margin-bottom: 0px;">
-					     <button type="submit"><i class="fas fa-edit fa-2x"></i></button>
-					     <input type="hidden" name="member_id"  value="${memberVO.member_id}">
-					     <input type="hidden" name="action"	value="getOne_For_Update">
-					  </FORM>
-					</td>
-				</tr>
-			</c:forEach>
-			
-		</table>
-		<br>
-		<%@ include file="page2.file" %>
-	</div>
+	<div class="container">
 
+        <div class="row">
+           <div >
+                <div class="comment_table">
+                    	<form action="member.html"  method="post"  enctype="multipart/form-data">
+                    	<input type="hidden" name="action" value="getdbcomment">
+						<input type="submit" value="導入評論" class="comment_btn" style="width:150px;"><br><hr>
+						</form>
+                <div class="row">
+                <c:if test="${not empty errorMsgs}">
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+                <h1>評論檢舉清單</h1>
+                    <hr>
+                    <%
+                		Comment_ReportService cmSvc=new Comment_ReportService();
+                		List<Comment_ReportVO> rtList=cmSvc.getAll();
+ 							for (Comment_ReportVO rt : rtList) {
+ 							int member_id=rt.getMEMBER_ID();
+ 							int comment_id=rt.getCOMMENT_ID();
+ 							String reason = rt.getCOMMENT_REPORT_REASON();
+ 							MemberService memSvc=new MemberService();
+ 							MemberVO rt_MemberVO=memSvc.GET_ONE_BY_ID(member_id);
+ 							String member_name=rt_MemberVO.getMember_name();
+ 							CommentService comSvc=new CommentService();
+ 							CommentVO CommentVO=comSvc.getOneStmt(comment_id);
+ 							MemberVO MemberVO=memSvc.GET_ONE_BY_ID(CommentVO.getMEMBER_ID());
+ 							String uploadFilePath = request.getContextPath()+ File.separator+ 
+ 									"UPLOAD" + File.separator + "comment"+ File.separator + "pic"+ File.separator;
+ 						%>
+                    
+                    <div class="comment_zone">
+                    <table class="table0  table-striped"" >
+                    	<tr>
+                    		<td scope="col"width="100px">檢舉者</td>
+                    		<td scope="col"width="100px">檢舉原因</td>
+                    		<td scope="col"width="100px">評論作者</td>
+                    		<td scope="col"width="100px">評論等級</td>
+                    		<td scope="col"width="100px">評論內容</td>
+                    		<td scope="col" width="100px">評論圖案</td>
+                    		<td scope="col"width="100px">接受檢舉</td>
+                    		<td scope="col"width="100px">拒絕檢舉</td>
+               		  </tr>
+                    	<tr style="align: center;">
+                    		<td scope="row"><%=member_name%></td>
+                    		<td><%=reason %></td>
+                    		<td><%=MemberVO.getMember_name()%></td>
+                    		<td><%=CommentVO.getCOMMENT_RATING()%></td>
+                    		<td><%=CommentVO.getCOMMENT_CONTENT() %></td>
+                    		<td><img src="<%=uploadFilePath+CommentVO.getCOMMENT_PIC()%>" alt=""></td>
+                    		<td><form action="member.html" method="post">
+                         <input type="hidden" name="comment_id" value="<%=comment_id %>">
+                         <input type="hidden" name="comment_status" value="0">
+                         <input type="hidden" name="comment_report_id" value="<%=rt.getCOMMENT_REPORT_ID() %>">
+                         <input type="hidden" name="comment_report_status" value="0">
+                         <input type=hidden name="action" value="delete_comment_rt">
+                         <label><i class="fas fa-lock"></i>
+                         <input type="submit" value="遮蔽" class="save_btn"  style="display:none"></label>
+                         </form></td>
+                    		<td><form action="member.html" method="post">
+                         <input type="hidden" name="comment_id" value="<%=comment_id %>">
+                         <input type="hidden" name="comment_status" value="1">
+                         <input type="hidden" name="comment_report_id" value="<%=rt.getCOMMENT_REPORT_ID() %>">
+                         <input type="hidden" name="comment_report_status" value="0">
+                         <input type=hidden name="action" value="delete_comment_rt">
+                         <label><i class="fas fa-lock-open"></i>
+                         <input type="submit" value="通過" class="save_btn" style="display:none"></label>
+                         </form></td>
+               		  </tr>
+                    
+                    
+                    
+                    </table>
+                            <hr>
+                    </div>
+                    <%
+ 							}
+						%> 
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
