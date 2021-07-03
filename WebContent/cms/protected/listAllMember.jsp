@@ -141,6 +141,8 @@
 					<td class="table1">${memberVO.member_address}</td>
 					<td class="table1"><img src="<%=picpath %>${memberVO.member_pic}"></td>
 					<td class="table1">${memberVO.member_email}</td>
+					
+<!-- 					改成停權狀態及按鈕 -->
 					<td class="table1">
 					  <FORM METHOD="post" ACTION="member.html" style="margin-bottom: 0px;">
 					     <button type="submit"><i class="fas fa-edit fa-2x"></i></button>
