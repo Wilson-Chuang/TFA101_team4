@@ -751,9 +751,17 @@ public class ArticleServlet extends HttpServlet {
         
         	
         	Long author_no = new Long(req.getParameter("author_no"));
- 	
-        	vote(author_no,213L); //記得改用登入會員編號
         	
+		    HttpSession session = req.getSession();
+			MemberVO MemberVO2 = (MemberVO) session.getAttribute("login");
+			MemberService memberSvc = new MemberService();
+			MemberVO memberVO = memberSvc.GET_ONE_BY_ID(MemberVO2.getMember_id());
+		    
+		    Integer member_no = memberVO.getMember_id();
+        	
+		    
+//        	vote(author_no,new Long((long) member_no)); //記得改用登入會員編號
+		    vote(author_no,103L);
         	rank();      
         	     	
         	Long addResult = votevo.getAddResult();
@@ -764,12 +772,12 @@ public class ArticleServlet extends HttpServlet {
         	int author_4_score = (int)votevo.getAuthor_4_score();
         	int author_5_score = (int)votevo.getAuthor_5_score();
         	int author_6_score = (int) votevo.getAuthor_6_score();
+        	int author_7_score = (int) votevo.getAuthor_7_score();
         	int author_8_score = (int) votevo.getAuthor_8_score();
         	int author_9_score = (int) votevo.getAuthor_9_score();
         	int author_10_score = (int) votevo.getAuthor_10_score();
         	int author_11_score = (int) votevo.getAuthor_11_score();
         	int author_12_score = (int) votevo.getAuthor_12_score();
-        	int author_13_score = (int) votevo.getAuthor_13_score();
         	
 
 //        	--------------------------------------------
@@ -781,12 +789,12 @@ public class ArticleServlet extends HttpServlet {
         	req.setAttribute("author_4_score", author_4_score);
         	req.setAttribute("author_5_score", author_5_score);
         	req.setAttribute("author_6_score", author_6_score);
+        	req.setAttribute("author_7_score", author_7_score);
         	req.setAttribute("author_8_score", author_8_score);
         	req.setAttribute("author_9_score", author_9_score);
         	req.setAttribute("author_10_score", author_10_score);
         	req.setAttribute("author_11_score", author_11_score);
         	req.setAttribute("author_12_score", author_12_score);
-        	req.setAttribute("author_13_score", author_13_score);
         	
         	
         	
@@ -852,12 +860,12 @@ public class ArticleServlet extends HttpServlet {
 	        Double author_4_score = resource.zscore("author:queue", "author:4");
 	        Double author_5_score = resource.zscore("author:queue", "author:5");
 	        Double author_6_score = resource.zscore("author:queue", "author:6");
+	        Double author_7_score = resource.zscore("author:queue", "author:7");
 	        Double author_8_score = resource.zscore("author:queue", "author:8");
 	        Double author_9_score = resource.zscore("author:queue", "author:9");
 	        Double author_10_score = resource.zscore("author:queue", "author:10");
 	        Double author_11_score = resource.zscore("author:queue", "author:11");
 	        Double author_12_score = resource.zscore("author:queue", "author:12");
-	        Double author_13_score = resource.zscore("author:queue", "author:13");
 //	        System.out.println("zscore = " + author_1_score);
 	        votevo.setAuthor_1_score(author_1_score);
 	        votevo.setAuthor_2_score(author_2_score);
@@ -865,12 +873,12 @@ public class ArticleServlet extends HttpServlet {
 	        votevo.setAuthor_4_score(author_4_score);
 	        votevo.setAuthor_5_score(author_5_score);
 	        votevo.setAuthor_6_score(author_6_score);
+	        votevo.setAuthor_7_score(author_7_score);
 	        votevo.setAuthor_8_score(author_8_score);
 	        votevo.setAuthor_9_score(author_9_score);
 	        votevo.setAuthor_10_score(author_10_score);
 	        votevo.setAuthor_11_score(author_11_score);
 	        votevo.setAuthor_12_score(author_12_score);
-	        votevo.setAuthor_13_score(author_13_score);
 	        
 	        for (Tuple tuple : tuples) {
 	        	tuple.getScore();
