@@ -4,7 +4,6 @@
 <%@ page import="com.forum_post.model.*" %>
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
-<%-- <%@include file="../../pages/header.file"%> --%>
 <%@ page import="com.member.model.*"%>
 
 <%
@@ -59,6 +58,8 @@ th, td {
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
+<%@include file="../../pages/header.file"%>
+
 </head>
 <body>
 

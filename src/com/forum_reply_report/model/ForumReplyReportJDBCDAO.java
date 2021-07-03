@@ -16,7 +16,7 @@ public class ForumReplyReportJDBCDAO implements ForumReplyReportDAO {
 	public static final String UPDATE_STATUS_STMT = "UPDATE FORUM_REPLY_REPORT SET FORUM_REPLY_REPORT_STATUS = ? WHERE FORUM_REPLY_REPORT_ID = ?";
 	public static final String DELETE_STMT = "DELETE FROM FORUM_REPLY_REPORT WHERE FORUM_REPLY_REPORT_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM FORUM_REPLY_REPORT WHERE FORUM_REPLY_REPORT_ID = ?";
-	public static final String GET_ALL = "SELECT * FROM FORUM_REPLY_REPORT";
+	public static final String GET_ALL = "SELECT * FROM FORUM_REPLY_REPORT WHERE FORUM_REPLY_REPORT_STATUS = 2";
 
 	static {
 		try {
