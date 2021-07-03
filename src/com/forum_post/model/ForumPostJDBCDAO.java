@@ -27,7 +27,7 @@ public class ForumPostJDBCDAO implements ForumPostDAO {
 //	public static final String DELETE_STMT = "DELETE FROM FORUM_POST WHERE FORUM_POST_ID = ?";
 	public static final String DELETE_STMT = "UPDATE FORUM_POST SET FORUM_POST_CONTENT = '此內容已被刪除' WHERE FORUM_POST_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM FORUM_POST WHERE FORUM_POST_ID = ?";
-	public static final String GET_ALL = "SELECT * FROM FORUM_POST";
+	public static final String GET_ALL = "SELECT * FROM FORUM_POST WHERE FORUM_POST_STATUS = 1";
 	public static final String GET_ALL_BY_MEMBER = "SELECT * FROM FORUM_POST where member_id=? order by FORUM_POST_ID desc";
 	
 	

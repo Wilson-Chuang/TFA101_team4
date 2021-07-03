@@ -153,7 +153,7 @@
 				 </a>
 				 <div class="draft_title">(公開中)</div>
 				 <div class="favorite_rate"><i class="far fa-heart"></i>&nbsp;收藏:&nbsp;${articleVO.article_collection}次</div>
-				 <div class="click_rate"><i class="far fa-eye"></i>&nbsp;人氣:&nbsp;1233次</div>
+				 <div class="click_rate"><i class="far fa-eye"></i>&nbsp;人氣:&nbsp;0次</div>
 			</div>		
 		</c:if>
 		</c:forEach>	

@@ -5,10 +5,16 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.forum_reply.model.*"%>
 <%@ page import="com.forum_reply_report.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 <%
 	ForumReplyVO forumReply = (ForumReplyVO) request.getAttribute("forumReply");
 	ForumReplyReportVO forumReplyReport = (ForumReplyReportVO) request.getAttribute("forumReplyReport");
+%>
+
+<%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	pageContext.setAttribute("member", member);
 %>
 <html>
 <head>
@@ -77,8 +83,8 @@ th, td {
 							<input type="text" name="report_reason">
 						</div>
 						<div>
-							<label for="report_memberID">會員</label>
-							<input type="text" id="report_memberID" name="report_memberID">
+<!-- 							<label for="report_memberID">會員</label> -->
+							<input type="hidden" id="report_memberID" name="report_memberID" value="${member.member_id}">
 						</div>
 						
 						<button class="btn btn-primary" type="submit">送出</button>

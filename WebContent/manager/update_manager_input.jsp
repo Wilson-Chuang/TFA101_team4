@@ -14,23 +14,6 @@
 
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
   table {
 	width: 450px;
 	background-color: white;
@@ -41,72 +24,140 @@
     border: 0px solid #CCCCFF;
   }
   th, td {
+  	margin-top:30px;
     padding: 1px;
   }
+  tr, td {
+ 	height:50px;
+  }
+  
+  div.main_content {
+    width: 100%;
+    float: left;
+  }
+
+  .breadcrumb{
+     background-color: white;
+     margin:20px 0 0 0;
+     font-size:15px;
+  }
+  
+  .inputtext{
+  	border:0;
+  	border-bottom: 1px solid gray;
+  }
+  
+  push:focus {
+     outline: none;
+  }
+   
+  push{
+  	 /* 圓角 */
+     border-radius: 10px;
+    /* 輸入文字色彩設定 */
+     color: rgb(41, 41, 41);
+     padding: 5px 10px;
+  	 width:100px;
+  	 height:50px;
+  	 margin:20px 10px;
+  	 border-radius:10%;
+  	 background-color:#e9e9e9;
+  }  
+
 </style>
 
 </head>
 <body bgcolor='white'>
 
-<!-- 
-<table id="table-1">
-	<tr><td>
-		 <h3>管理員資料修改 - update_manager_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/logo.png" width="200" height="64" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
- -->
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
  
-<h3>資料修改:</h3>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<FORM METHOD="post" ACTION="manager.do" name="form1" enctype="multipart/form-data">
-<table>
-	<tr>
-		<td>編號:<font color=red><b>*</b></font></td>
-		<td><%=(managerVO==null)?"":managerVO.getManager_id()%></td>
-	</tr>
-	<tr>
-		<td>帳號:</td>
-		<td><input type="TEXT" name="manager_account" size="45" 
-		value="<%=(managerVO==null)?"":managerVO.getManager_account()%>" /></td>
-	</tr>
-	<tr>
-		<td>姓名:</td>
-		<td><input type="TEXT" name="manager_name" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_name()%>" /></td>
-	</tr>
-	<tr>
-		<td>大頭貼:</td>
-		<td><input type="file" name="manager_pic" value="<%=(managerVO==null)?"":managerVO.getManager_pic()%>" /></td>
-	</tr>
-	<tr>
-		<td>信箱:</td>
-		<td><input type="TEXT" name="manager_email" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_email()%>" /></td>
-	</tr>
-	<tr>
-		<td>密碼:</td>
-		<td><input type="password" name="manager_password" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_password()%>" /></td>
-	</tr>
-	<tr>
-		<td>電話:</td>
-		<td><input type="TEXT" name="manager_phone" size="45" value="<%=(managerVO==null)?"":managerVO.getManager_phone()%>" /></td>
-	</tr>
-
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="manager_id" value="<%=(managerVO==null)?"":managerVO.getManager_id()%>">
-<input type="submit" value="送出修改"></FORM>
-
+ <div class="main_content">
+ 	
+ 	<div>
+		<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+    </div>
+    
+    <!--麵包屑，請大家對應側邊欄幫忙修改一下以下名稱，因為是bootstrap，所以需載入script-->
+    <div>
+		<nav aria-label="breadcrumb">
+		    <ol class="breadcrumb">
+				<li class="breadcrumb-item">用戶管理</li>
+				<li class="breadcrumb-item active" aria-current="page">管理員管理</li>
+		    </ol>
+		</nav>
+    </div>
+ 
+		<h4>管理員資料修改</h4>
+		
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		
+		<FORM METHOD="post" ACTION="manager.do" name="form1" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>編號&emsp;<font color=red><b>*</b></font></td>
+				<td><%=(managerVO==null)?"":managerVO.getManager_id()%></td>
+			</tr>
+			<tr>
+				<td>帳號&emsp;</td>
+				<td>
+					<input type="TEXT" class="inputtext" name="manager_account" size="45" 
+						value="<%=(managerVO==null)?"":managerVO.getManager_account()%>" />
+				</td>
+			</tr>
+			<tr>
+				<td>姓名&emsp;</td>
+				<td>
+					<input type="TEXT" class="inputtext" name="manager_name" size="45" 
+						value="<%=(managerVO==null)?"":managerVO.getManager_name()%>" />
+				</td>
+			</tr>
+			<tr>
+				<td>大頭貼&emsp;</td>
+				<td>
+					<input type="file" name="manager_pic" 
+						value="<%=(managerVO==null)?"":managerVO.getManager_pic()%>" />
+				</td>
+			</tr>
+			<tr>
+				<td>信箱&emsp;</td>
+				<td>
+					<input type="TEXT" class="inputtext" size="45" disabled="disabled"
+						value="<%=(managerVO==null)?"":managerVO.getManager_email()%>" />
+					<input type="hidden" class="inputtext" name="manager_email" size="45" 
+						value="<%=(managerVO==null)?"":managerVO.getManager_email()%>" />
+				</td>
+			</tr>
+			<tr>
+				<td>密碼&emsp;</td>
+				<td>
+					<input type="password" class="inputtext" name="manager_password" size="45" 
+						value="<%=(managerVO==null)?"":managerVO.getManager_password()%>" />
+				</td>
+			</tr>
+			<tr>
+				<td>電話&emsp;</td>
+				<td>
+					<input type="TEXT" class="inputtext" name="manager_phone" size="45" 
+						value="<%=(managerVO==null)?"":managerVO.getManager_phone()%>" />
+				</td>
+			</tr>
+		
+		</table>
+		<br>
+		<input type="hidden" name="action" value="update">
+		<input type="hidden" name="manager_id" value="<%=(managerVO==null)?"":managerVO.getManager_id()%>">
+		<input type="submit" class="push" value="送出修改"></FORM>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 <script src="./vendors/jquery/jquery-3.5.1.min.js"></script>

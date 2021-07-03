@@ -252,7 +252,7 @@ public class ForumPostServlet extends HttpServlet {
 				req.setAttribute("postid", postid);
 
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				String url = "/forumPost/onePost.jsp";
+				String url = "/forumPost/allPost.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
