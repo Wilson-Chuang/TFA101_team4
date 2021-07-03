@@ -19,78 +19,45 @@
 
 <html>
 <head>
-<title>回覆檢舉列表 - allReplyReport.jsp</title>
-
-<!--  <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style> -->
-
-<!-- <style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin: 0 auto;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>  -->
-
-<style>
-  table {
- width: 900px;
- background-color: white;
- margin-top: 5px;
- margin-bottom: 5px;
-  }
-  th, td {
-   border: 0;
-    border-bottom: 1px solid gray;
-    padding: 5px;
-    text-align: center;
-    height: 50px;
-  }
-  tr{
-   align: center;
-   }
-  img {
-  width: 80%;
-  }
-  button{
-   border: none;
-   background-color: none; 
-  }
-  
-  div.main_content {
-    width: 100%;
-    float: left;
-  }
-
-  .breadcrumb{
-     background-color: white !​important;
-     margin:20px 0 0 0;
-     font-size:15px;
-  }
-</style>
+	<title>回覆檢舉列表</title>
+	
+	
+	<style>
+	  table {
+	 width: 900px;
+	 background-color: white;
+	 margin-top: 5px;
+	 margin-bottom: 5px;
+	  }
+	  th, td {
+	   border: 0;
+	    border-bottom: 1px solid gray;
+	    padding: 5px;
+	    text-align: center;
+	    height: 50px;
+	  }
+	  tr{
+	   align: center;
+	   }
+	  img {
+	  width: 80%;
+	  }
+	  button{
+	   border: none;
+	   background-color: none; 
+	  }
+	  
+	  div.main_content {
+	    width: 100%;
+	    float: left;
+	  }
+	
+	  .breadcrumb{
+	     background-color: white !​important;
+	     margin:20px 0 0 0;
+	     font-size:15px;
+	  }
+	</style>
 
 <!-- bootstrap -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
@@ -105,18 +72,12 @@
     <div>
 	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
 	</div>
-	<div>
-	<nav aria-label="breadcrumb">
-	    <ol class="breadcrumb">
-		<li class="breadcrumb-item">用戶管理</li>
-		<li class="breadcrumb-item active" aria-current="page">管理員管理</li>
-	    </ol>
-	</nav>
-    </div>
+	<br>
+	<br>
 
 <table id="table-1">
 	<tr><td>
-		 <h3>回覆檢舉列表 - allReplyReport.jsp</h3>
+		 <h3>回覆檢舉列表 </h3>
 	</td></tr>
 </table>
 

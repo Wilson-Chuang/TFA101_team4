@@ -6,6 +6,8 @@
 <%@ page import="com.forum_reply.model.*"%>
 <%@ page import="com.forum_reply_report.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.search.model.*"%>
+<%@ page import="com.shop.model.*"%>
 
 <%
 	ForumReplyVO forumReply = (ForumReplyVO) request.getAttribute("forumReply");
@@ -18,38 +20,45 @@
 %>
 <html>
 <head>
-<title>Guide好食|檢舉回覆</title>
-
-<link rel="stylesheet" type="text/css"
-	href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/report.css">
-
-
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
+	<title>Guide好食|檢舉回覆</title>
+	
+	<style>
+	table {
+		width: 800px;
+		background-color: white;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	table, th, td {
+		border: 1px solid #CCCCFF;
+	}
+	
+	th, td {
+		padding: 5px;
+		text-align: center;
+	}
+	</style>
+	
+	<!--Bootstrap CSS-->
+	<link rel="stylesheet" type="text/css" href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/report.css">
+	
+	<!-- Header -->
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 </head>
 <body>
-	<table id="table-1">
-		<tr>
-			<td><h3>ForumReply: replyReport.jsp</h3>
-				<h4>( MVC )</h4></td>
-		</tr>
-	</table>
+	<%@include file="/pages/header.file"%>
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td><h3>ForumReply: replyReport.jsp</h3> -->
+<!-- 				<h4>( MVC )</h4></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 	錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -60,7 +69,8 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-
+	
+	<br>
 	<div class="container">
 		<div class="report">
 			<div class="row">
@@ -107,5 +117,11 @@ th, td {
             integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
             crossorigin="anonymous"></script>
         <script src="vendors/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+        
+        <!-- Header -->
+        <%--     <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script> --%>
+		<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+		<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+		<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </body>
 </html>
