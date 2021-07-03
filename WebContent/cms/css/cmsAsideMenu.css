@@ -20,7 +20,7 @@ body {
 
 div.aside-menu {
     width: 20%;
-    height: 100%;
+    height: 100% !important;
     padding: 20px 0 0;
     float: left;
 

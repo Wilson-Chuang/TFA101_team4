@@ -44,7 +44,7 @@
   	 width:100px;
   	 height:50px;
   	 margin:20px 10px;
-  	 border-radius:20%;
+  	 border-radius:10%;
   	 background-color:#e9e9e9;
   }  
   .add button a{
@@ -111,7 +111,7 @@
 <body bgcolor='white'>
 
  
- <header>
+<header>
 	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
 </header>
 
