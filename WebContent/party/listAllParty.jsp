@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.party.model.*"%>
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.member.model.*"%>
@@ -18,7 +18,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>所有揪團資料</title>
+<title>後台所有揪團資料</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
 
@@ -223,7 +223,7 @@
 	<%@ include file="page1.file" %> 
 	<c:forEach var="partyVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
-		<tr>
+		<tr class="table_0">
 			<td class="table_1">${partyVO.party_id}</td>
 			<td class="table_1">${partyVO.member_id}</td>
 			<td class="table_1">${partyVO.shop_id}</td>

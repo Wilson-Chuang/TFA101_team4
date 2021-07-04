@@ -486,6 +486,36 @@ RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_in
 				failureView.forward(req, res);
 			}
 		}
+		
+		
+		if ("delete2".equals(action)) { // 來自listAllEmp.jsp
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/***************************1.接收請求參數***************************************/
+				Integer party_id = new Integer(req.getParameter("party_id"));
+				
+				/***************************2.開始刪除資料***************************************/
+				PartyService partySvc = new PartyService();
+				partySvc.deleteParty(party_id);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				String url = "/party/myparty.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/party/myparty.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 	
 	

@@ -4,8 +4,10 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.party.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 
 <%
     PartyService partySvc = new PartyService();
@@ -38,9 +40,10 @@ div.Party_top {
 }
 
 div.Party_middle {
-	width: 400px;
-	height: 200px;
-	
+	 float:left;
+	 width:500px;
+	 padding:20px;
+	 margin: 50px 20px;
 }
 
 
@@ -61,13 +64,13 @@ div.Party_btm {
 }
 
 div.party_data{
-    width: 250px !important;
-    height: 50% !important;
+    width: 280px !important;
+    height: 60% !important;
 	display:inline-block;
 	margin: 300px 0;
-	border:2px #ccc solid;
+	border:5px #ccc solid;
 	border-radius: 10px;
-	box-shadow:3px 3px 5px 6px #cccccc;
+	box-shadow:5px 3px 5px 6px #cccccc;
 }
 
 
@@ -90,10 +93,26 @@ div.party_title{
 
 
 div.button{
-
  margin: 50px 94px;
 }
 
+h5{
+ 	color: #4166F8;
+  	letter-spacing: 5px;
+  	font-style: italic;
+  	font-size: 1.5rem;
+  	text-align:center;
+  	margin: 0;
+}
+
+div.myparty{
+	width:500px;
+    padding:20px;
+	float:right;
+	margin: 50px 20px;
+	size: 2em;
+	
+}
 
 
 </style>
@@ -101,7 +120,7 @@ div.button{
 
 <style>
 
- 	input[type="submit"]{padding:5px 20px; background:#4166F8; border:0 none;
+ 	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
 	cursor:pointer;
 	-webkit-border-radius: 5px;
 	border-radius: 5px; 
@@ -113,6 +132,20 @@ div.button{
 <style>
  li {list-style-type:none;}
 </style>
+
+<style>
+div.membername{
+		display: inline-block;
+    	padding: 0 25px;
+    	height: 50px;
+    	font-size: 16px;
+    	line-height: 50px;
+    	border-radius: 25px;
+    	background-color: #f3f5ee;
+    	color: #4166F8;
+	}	
+</style>
+
 
 </head>
 
@@ -132,11 +165,19 @@ div.button{
 	
     </div>
     
-    <div>
+    <div class="myparty">
     <%
 	if(!(myMemberVO==null)){
 	%>
-   		 <a href='${pageContext.request.contextPath}/party/myparty.jsp'> ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</a>
+   		 <a href='${pageContext.request.contextPath}/party/myparty.jsp'>我的參加的揪團</a>
+    <%} %>
+    </div>
+    
+    <div class="myparty">
+    <%
+	if(!(myMemberVO==null)){
+	%>
+   		 <a href='${pageContext.request.contextPath}/party/listMYParty.jsp'>我發起的揪團</a>
     <%} %>
     </div>
 
@@ -157,7 +198,6 @@ div.button{
 
 
 	<div class="party_data">
-	
 		<div>
 		<c:forEach var="memberVO" items="${memberSvc.all}">
 	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
@@ -165,28 +205,34 @@ div.button{
 	                    		</c:if>
                 			 </c:forEach> 
 		</div>
-		<div>
+		<div class="membername">
 		<c:forEach var="memberVO" items="${memberSvc.all}">
 	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
 		                   			${memberVO.member_name}
 	                    		</c:if>
                 			 </c:forEach> 
+		<h5>${partyVO.party_title}</h5>
 		</div>
 		<div>結束時間: <fmt:formatDate value="${partyVO.party_end_time}"
 						pattern="yyyy-MM-dd hh:mm" /></div>
 		<div>最高人數: ${partyVO.party_participants_max}</div>
 		<div>最低人數: ${partyVO.party_participants_min}</div>
+		
+		<div>
+		<c:forEach var="shopVO" items="${shopSvc.all}">
+	                    		<c:if test="${partyVO.shop_id==shopVO.shop_id}">
+		                   			${shopVO.shop_address}
+	                    		</c:if>
+                			 </c:forEach> 
+		</div>
+		
 	      
 	<div class="button">
-	
-	
-	
-	<FORM METHOD="post" ACTION="party.do" >
-       
-       <input type="hidden" name="action" value="getOne_For_party">
-       <input type="hidden" name="party_id" value="${partyVO.party_id}">
-       <input type="submit" value="查看">
-    </FORM>
+		<FORM METHOD="post" ACTION="party.do" >
+       		<input type="hidden" name="action" value="getOne_For_party">
+       		<input type="hidden" name="party_id" value="${partyVO.party_id}">
+       		<input type="submit" value="查看">
+    	</FORM>
 	</div>
 	
 	</div>
