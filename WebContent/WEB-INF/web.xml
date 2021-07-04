@@ -56,6 +56,14 @@
 		<url-pattern>/sign/member.html</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>comment_reportMemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>comment_reportMemberServlet</servlet-name>
+		<url-pattern>/cms/protected/member.html</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>ShopServlet</servlet-name>
 		<servlet-class>com.shop.controller.ShopServlet</servlet-class>
 	</servlet>
