@@ -154,8 +154,8 @@
                     		<td scope="col"width="100px">評論等級</td>
                     		<td scope="col"width="100px">評論內容</td>
                     		<td scope="col" width="100px">評論圖案</td>
-                    		<td scope="col"width="100px">接受檢舉</td>
-                    		<td scope="col"width="100px">拒絕檢舉</td>
+                    		<td scope="col"width="50px">接受檢舉</td>
+                    		<td scope="col"width="50px">拒絕檢舉</td>
                		  </tr>
                     	<tr style="align: center;">
                     		<td scope="row"><%=member_name%></td>

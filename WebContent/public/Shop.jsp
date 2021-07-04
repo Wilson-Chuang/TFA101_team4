@@ -48,16 +48,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
+<%@ include file="/pages/header.file" %>
 <div class="container">
 
         <div class="row">
@@ -96,8 +92,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="col-md-8 shop_zone">
                         <h1 class="shop_title"><%=ShopVO.getShop_name() %></h1>
-                        <span class="ratins"><%=shopRating %><i class="fas fa-star"></i></span><span class="coms"><%=countByShop %>則評論</span>
-                        <span class="avg_prices">均消$<%=ShopVO.getShop_price_level() %></span> <span class="tags"><%=ShopVO.getShop_tag() %></span><br>
+                        <span class="ratins"><%= Math.round(shopRating*10.0)/10.0 %><i class="fas fa-star"></i></span><span class="coms"><%=countByShop %>則評論</span>
+                        <%String priceLeverl="";
+                        switch(ShopVO.getShop_price_level()){
+                        	case 1:
+                        		priceLeverl="$150以下";
+                        		break;
+                        	case 2:
+                        		priceLeverl="$150~$300";
+                        		break;
+                        	case 3:
+                        		priceLeverl="$300~$600";
+                        		break;
+                        	case 4:
+                        		priceLeverl="$600以上";
+                        		break;} %>
+                        <span class="avg_prices">均消<%=priceLeverl%></span> <span class="tags"><%=ShopVO.getShop_tag() %></span><br>
                         <%String opening_time=ShopVO.getShop_opening_time().replaceAll("[(\\[\")(\"\\])]","").replaceAll("\\\\u2013","-");
                         String[] week=opening_time.split(",");
                         for(int i = 0;i<week.length;i++){                      
@@ -268,4 +278,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
   	}
 </script>
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </html>

@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Member_FollowerService memfolSvc=new Member_FollowerService();
 		List<ArticleVO> list_myArticle=memSvc.getMyArticle(member_id);
 		List<ForumPostVO> list_myForum=memSvc.getMyForum(member_id);
-		String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+		String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator+MemberVO.getMember_id()+ File.separator;
 		String pic = picpath +MemberVO.getMember_pic();
 		
 %>
@@ -38,16 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
+<%@ include file="/pages/header.file" %>
  
 <div class="container">
         
@@ -185,4 +181,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
+	
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </html>

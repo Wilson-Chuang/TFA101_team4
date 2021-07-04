@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.search.model.*"%>
-<%@ include file="/pages/header.file"%>
+
 
 
 <%String path =request.getContextPath();
@@ -19,16 +19,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|修改個人資料</title>
+<title>Giude好食|商家資料填寫</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 </head>
 <body>
+<%@ include file="/pages/header.file"%>
 <div class="container">
         
             
@@ -50,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label for="">商家電話:	<input type="text" name="Shop_phone" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
                     <label for="">商家信箱:	<input type="email" name="Shop_email"  ></label><br><br>
                     <label for="">商家介紹:	<textarea name="shop_description" required></textarea></label><br><br>
-                    <label for="">商家標籤:	<textarea name="Shop_tag" placeholder="多個標籤請用分號分隔"></textarea></label><br><br>
-                    <label for="">商家均消:	<input type="text" name="Shop_price_level" onkeyup="value=value.replace(/[^(\d)]/g,'')"></label><br><br>
+                    <label for="">商家標籤:	<textarea name="Shop_tag" placeholder="多個標籤請用空格分隔"></textarea></label><br><br>
+                    <label for="">商家均消:	<select name="Shop_price_level"><option value=0>不選擇</option><option value=1>$150以下</option><option value=2>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option></select><br><br>
                     <label for="">營業時間:	<input type="text" name="Shop_opening_time" ></label><br><br>
                     <label for="">商家網頁:	<input type="text" name="Shop_website" ></label><br><br>
 					<label style="border:1px solid black;border-radius:5px;">上傳封面<input style="display:none" type="file" name="SHOP_MAIN_IMG" ></label><br><br>              
@@ -69,4 +71,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 </body>
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </html>

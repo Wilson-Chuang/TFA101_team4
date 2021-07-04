@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	Member_FollowerService folSvc=new Member_FollowerService(); 
 	int count_fans = folSvc.count_fans(MemberVO.getMember_id());
 	
-	String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+	String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator+MemberVO.getMember_id()+ File.separator;
 	String uploadFilePath = picpath +MemberVO.getMember_pic();
 %>
 <!DOCTYPE html>
@@ -38,16 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-<%@ include file="/pages/header.file" %>
 
 </head>
 <body>
+<%@ include file="/pages/header.file" %>
 
 
 <div class="container">
@@ -112,7 +108,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(Double.isNaN(shopRating)){
 				shopRating =0.0;
 			}
-			int countByShop = comSvc.countByShop(ShopVO.getShop_id());%>
+			int countByShop = comSvc.countByShop(ShopVO.getShop_id());
+			String priceLeverl="";
+                        switch(ShopVO.getShop_price_level()){
+                        	case 1:
+                        		priceLeverl="$150以下";
+                        		break;
+                        	case 2:
+                        		priceLeverl="$150~$300";
+                        		break;
+                        	case 3:
+                        		priceLeverl="$300~$600";
+                        		break;
+                        	case 4:
+                        		priceLeverl="$600以上";
+                        		break;}%>
                 <div class="row">
                     <div class="col-md-4">
                     
@@ -124,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <h1 class="shop_title"><%=ShopVO.getShop_name() %></h1>
                         <span class="ratins"><%=shopRating%><i class="fas fa-star"></i></span>
                         <span class="coms"><%=countByShop %>則評論|</span>
-                        <span class="avg_prices">均消:<%=ShopVO.getShop_price_level() %>|</span>
+                        <span class="avg_prices">均消:<%=priceLeverl%>|</span>
                         <span class="tags"><%=ShopVO.getShop_tag() %></span><br>
                         <span class="open_time">營業時間:<%=ShopVO.getShop_opening_time() %></span><br>
                         <span class="address">地址:<%=ShopVO.getShop_address() %></span><br>
@@ -178,4 +188,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </html>

@@ -56,7 +56,7 @@
 	List<Article_FavoriteVO> list_article_fol=memSvc.getAllArticleFavByMem(Member_id);
 // 	List<ArticleVO> list_myArticle=memSvc.getMyArticle(Member_id);
 			String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
-			String uploadFilePath = picpath +MemberVO.getMember_pic();
+			String uploadFilePath = picpath +MemberVO.getMember_id()+ File.separator+MemberVO.getMember_pic();
 
 %>
 <!DOCTYPE html>
@@ -70,15 +70,11 @@
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
-<%@ include file="/pages/header.file" %>
 </head>
 <body>
+<%@ include file="/pages/header.file" %>
 	<div class="container">
 		<div class="row">
 			<div class="col-2">
@@ -167,6 +163,7 @@
 						<div class="card mb-3" style="max-width: 540px;">
 							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+ArticleVO.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
 								<div class="col-md-4">
+								
 									<img src="/upload/<%=ArticleVO.getArticle_img_name()%>" class="card-img" alt="...">
 								</div>
 								<div class="col-md-8">
@@ -222,7 +219,7 @@
 						%>
 						<div class="card follow_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fans.getMember_id() %>">
-							<img class="card-img-top" src="<%=picpath+fans.getMember_pic()%>"
+							<img class="card-img-top" src="<%=fans.getMember_pic().equals("noimage.jpg")?"./public/img/noimage.jpg":picpath+fans.getMember_id()+ File.separator+fans.getMember_pic()%>"
 								alt="Card image cap" style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fans.getMember_name()%></h5>
@@ -243,7 +240,7 @@
 						<div class="card fans_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fing.getMember_id() %>">
 							<img class="card-img-top"
-								src="<%=picpath+fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
+								src="<%=fing.getMember_pic().equals("noimage.jpg")?"./public/img/noimage.jpg":picpath+fing.getMember_id()+ File.separator+fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fing.getMember_name()%></h5>
 							</div>
@@ -275,6 +272,10 @@
 	</div>
 
 </body>
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
