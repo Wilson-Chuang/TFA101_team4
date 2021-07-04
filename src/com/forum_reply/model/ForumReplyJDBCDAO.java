@@ -132,7 +132,7 @@ public class ForumReplyJDBCDAO implements ForumReplyDAO{
 			if(forum_reply_status == 0) {
 				pstmt.setInt(1, forum_reply_status);
 				pstmt.setInt(2, forum_reply_id);
-				delete(forum_reply_id);
+//				delete(forum_reply_id);
 			}else if(forum_reply_status == 1){
 				pstmt.setInt(1, forum_reply_status);
 				pstmt.setInt(2, forum_reply_id);

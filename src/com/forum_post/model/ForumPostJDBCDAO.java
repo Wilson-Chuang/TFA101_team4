@@ -143,7 +143,7 @@ public class ForumPostJDBCDAO implements ForumPostDAO {
 			if(forum_post_status == 0) {
 				pstmt.setInt(1, forum_post_status);
 				pstmt.setInt(2, forum_post_id);
-				delete(forum_post_id);
+//				delete(forum_post_id);
 			}else if(forum_post_status == 1) {
 				pstmt.setInt(1, forum_post_status);
 				pstmt.setInt(2, forum_post_id);
