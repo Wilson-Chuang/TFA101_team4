@@ -3,6 +3,7 @@ package com.party.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 public class PartyService {
 
@@ -62,6 +63,18 @@ public class PartyService {
 	}
 
 	public List<PartyVO> getAll() {
+		return dao.getAll();
+	}
+	public List<PartyVO> getAllmyparty(Integer party_id) {
+		return dao.getAllmyparty(party_id);
+	}
+	public Set<PartyVO> getAllmypartybymember(Integer member_id) {
+		return dao.getAllmypartybymember(member_id);
+	}
+	public List<PartyVO> getOne_For_mamber(Integer member_id) {
+		return dao.getAllmamber(member_id);
+	}
+	public List<PartyVO> getAllmyparty() {
 		return dao.getAll();
 	}
 }

@@ -169,4 +169,9 @@ public class ShopService {
 		dao.add_total_view(shop_id);
 	}
 	
+	
+	//======郁昔的code=======
+	public Integer countShop() {
+		return dao.countShop();
+	}
 }

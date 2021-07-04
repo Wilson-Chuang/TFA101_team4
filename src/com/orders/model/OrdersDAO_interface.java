@@ -14,6 +14,7 @@ public interface OrdersDAO_interface {
 	  public List<OrdersVO> getAllByMember(Integer member_id);
       public Set<Order_itemVO>getOrder_Item_ByOrders_no(Integer orders_no);
       public void insertWithOrder_item(OrdersVO ordersVO , List<Order_itemVO> list);
+      public Integer countOrders();
 	
 
 }

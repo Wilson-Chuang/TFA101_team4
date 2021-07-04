@@ -28,12 +28,13 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 		}
 	}
 	
-	public static final String INSERT_STMT = "INSERT INTO PARTY_PARTICIPANTS(PARTY_MEMBER_ID, PARTY_ID, PARTY_UP_TIME) VALUES(?, ?, ?)";
+	public static final String INSERT_STMT = "INSERT INTO PARTY_PARTICIPANTS(PARTY_MEMBER_ID, PARTY_ID) VALUES(?, ?)";
 	public static final String UPDATE_STMT = "UPDATE PARTY_PARTICIPANTS SET PARTY_MEMBER_ID = ?, PARTY_ID = ? PARTY_UP_TIME = ? WHERE PARTY_PARTICIPANTS_ID = ?";
 	public static final String DELETE_STMT = "DELETE FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
 	public static final String GET_ALL = "SELECT * FROM PARTY_PARTICIPANTS";
 	public static final String COUNT_BY_POST_ID = "SELECT COUNT(*) FROM PARTY_PARTICIPANTS WHERE PARTY_ID = ?";
+	public static final String FIND_BY_MEMBER_ID = "SELECT * FROM PARTY_PARTICIPANTS WHERE PARTY_MEMBER_ID = ?";
 	
 	@Override
 	public void insert(PartyParticipantsVO partyparticipantsVO) {
@@ -47,10 +48,9 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 			pstmt = con.prepareStatement(INSERT_STMT);
 			pstmt.setInt(1, partyparticipantsVO.getParty_member_id());
 			pstmt.setInt(2, partyparticipantsVO.getParty_id());
-			pstmt.setTimestamp(3, partyparticipantsVO.getParty_up_time());
 			
-			pstmt.executeUpdate("set auto_increment_offset=10;");
-			pstmt.executeUpdate("set auto_increment_increment=10;");
+			pstmt.executeUpdate("set auto_increment_offset=1;");
+			pstmt.executeUpdate("set auto_increment_increment=1;");
 						pstmt.executeUpdate();
 
 						// Handle any SQL errors
@@ -305,6 +305,59 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 			
 			return likelist;
 		}
-		
-		
+
+		@Override
+		public List<PartyParticipantsVO> getMemberAll(Integer member_id) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<PartyParticipantsVO> likelist = new ArrayList();
+			PartyParticipantsVO forumPostLike = null;
+			
+			try {
+				con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+				pstmt = con.prepareStatement(FIND_BY_MEMBER_ID);
+				pstmt.setInt(1, member_id);
+				
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					forumPostLike = new PartyParticipantsVO();
+					forumPostLike.setParty_participants_id(rs.getInt("PARTY_PARTICIPANTS_ID"));
+					forumPostLike.setParty_member_id(rs.getInt("PARTY_MEMBER_ID"));
+					forumPostLike.setParty_id(rs.getInt("PARTY_ID"));
+					forumPostLike.setParty_up_time(rs.getTimestamp("PARTY_UP_TIME"));
+					
+					likelist.add(forumPostLike);
+				}
+				
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+			}	
+			
+			return likelist;
+		}
 	}

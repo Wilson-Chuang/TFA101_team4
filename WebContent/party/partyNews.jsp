@@ -1,9 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.party.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.member.model.MemberVO"%>
+<%@ page import="com.party.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+
 
 <%
   PartyVO partyVO = (PartyVO) request.getAttribute("partyVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+  
+  MemberVO member = (MemberVO) session.getAttribute("login");
+  pageContext.setAttribute("member", member);
 %>
     
 <!DOCTYPE html>
@@ -123,19 +134,37 @@ p.p1{
            </ul>
 	   </div>
 	
+	
+		
 	<FORM METHOD="post" ACTION="party.do" name="form1">
 		<div class="party_t">
-			<p>${partyVO.party_id}</p>
 			<h5>${partyVO.party_title}</h5>
+			<p>
+				<c:forEach var="memberVO" items="${memberSvc.all}">
+	            	<c:if test="${partyVO.member_id==memberVO.member_id}">${memberVO.member_name}
+	                </c:if>
+               	</c:forEach> 
+			</p>
 			<hr>
 			<p>結束時間: <fmt:formatDate value="${partyVO.party_end_time}"
 						pattern="yyyy-MM-dd hh:mm" /></p>
 			<p>最高人數: ${partyVO.party_participants_max}</p>
 			<p>最低人數: ${partyVO.party_participants_min}</p>
+			<p>
+				<c:forEach var="shopVO" items="${shopSvc.all}">
+	            	<c:if test="${partyVO.shop_id==shopVO.shop_id}">${shopVO.shop_address}
+	                </c:if>
+               	</c:forEach> 
+			</p>
 			<p>備註: ${partyVO.party_remarks}</p>
 			
-			<input type="hidden" name="action" value="insert">
+	<% if(!(member==null)){
+		%>
+			<input type="hidden" name="action" value="join">
+			<input type="hidden" name="member_id" value="${member.member_id}">
+			<input type="hidden" name="party_id" value="${partyVO.party_id}">
 		    <input type="submit" value="加入揪團">
+		<%} %>
 		</div>
 		</FORM>
 	</div>
@@ -147,7 +176,6 @@ p.p1{
 			<p>${partyVO.party_intro}</p>
 		</div>
 	
-
 
 
 

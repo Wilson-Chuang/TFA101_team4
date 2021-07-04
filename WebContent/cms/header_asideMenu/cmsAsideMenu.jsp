@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.manager.model.*"%>
+<%@ page import="com.party.model.*"%>
 
 
     
@@ -35,7 +36,7 @@
                     <i class="fas fa-chevron-up" id="b-1" style="display: none;"></i></a>
                 <ul class="hide" id="menu-1">
                     <li>
-                        <a href="#">會員管理</a>
+                        <a href="${pageContext.request.contextPath}/cms/protected/listAllMember.jsp">會員管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/manager/listAllManager.jsp">管理員管理</a>
@@ -51,16 +52,10 @@
                     <i class="fas fa-chevron-up" id="b-2" style="display: none;"></i></a>
                 <ul class="hide" id="menu-2">
                     <li>
-                        <a href="#">評論管理</a>
+                        <a href="${pageContext.request.contextPath}/article/listArticle_back_end.jsp">專欄文章管理</a>
                     </li>
                     <li>
-                        <a href="#">討論區文章管理</a>
-                    </li>
-                    <li>
-                        <a href="#">專欄文章管理</a>
-                    </li>
-                    <li>
-                        <a href="listALLParty">揪團管理</a>
+                        <a href="${pageContext.request.contextPath}/party/listAllParty.jsp">揪團管理</a>
                     </li>
                 </ul>
             </li>
@@ -70,13 +65,13 @@
                     <i class="fas fa-chevron-up" id="b-3" style="display: none;"></i></a>
                 <ul class="hide" id="menu-3">
                     <li>
-                        <a href="#">產品管理</a>
+                        <a href="${pageContext.request.contextPath}/product/listProd_back.jsp">產品管理</a>
                     </li>
                     <li>
-                        <a href="#">系列管理</a>
+                        <a href="${pageContext.request.contextPath}/product_category/listProdCatg_back.jsp">系列管理</a>
                     </li>
                     <li>
-                        <a href="#">訂單管理</a>
+                        <a href="${pageContext.request.contextPath}/orders/orders_listAll.jsp">訂單管理</a>
                     </li>
                 </ul>
             </li>
@@ -86,11 +81,11 @@
                     <i class="fas fa-chevron-up" id="b-4" style="display: none;"></i></a>
                 <ul class="hide" id="menu-4">
                     <li>
-                        <a href="#">評論檢舉</a>
+                        <a href="${pageContext.request.contextPath}/cms/protected/listAllComment.jsp">評論檢舉</a>
                     </li>
-                    <li>
+                  <!--  <li>
                         <a href="#">揪團檢舉</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="${pageContext.request.contextPath}/forumPost/allPostReport.jsp">討論區發文檢舉</a>
                     </li>

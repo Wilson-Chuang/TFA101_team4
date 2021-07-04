@@ -8,8 +8,6 @@
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
 
-<%@include file="../../pages/header.file"%>
-
 
 <%
 	Integer forum_post_id = (Integer) request.getAttribute("postid");
@@ -62,13 +60,11 @@ div#post, #reply {
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-	<script src="<%=request.getContextPath() %>/js/header.js"></script>
+
 
 </head>
 <body>
+	<%@include file="/pages/header.file"%>
 	<table id="table-1">
 		<tr>
 			<td><h3>文章 ForumReply: replyFailed.jsp</h3>
@@ -107,5 +103,10 @@ div#post, #reply {
 		</div>
 	</div>
 	
+	<!-- Header -->
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 	
 </body>

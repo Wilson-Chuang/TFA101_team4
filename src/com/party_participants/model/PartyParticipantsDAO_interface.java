@@ -9,4 +9,5 @@ public interface PartyParticipantsDAO_interface {
 	public PartyParticipantsVO findByPK(Integer party_participants_id);
 	public List<PartyParticipantsVO> getAll();
 	public Integer countByPostID(Integer party_id);
+	public List<PartyParticipantsVO> getMemberAll(Integer member_id);
 }

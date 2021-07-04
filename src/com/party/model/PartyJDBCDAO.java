@@ -15,6 +15,9 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks, member_id, shop_id FROM party where party_id = ?";
 	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=?, party_remarks=? , member_id=?, shop_id=? where party_id = ?";
 	private static final String DELETE = "DELETE FROM party where party_id = ?";
+	public static final String FIND_BY_ALL_MEMBER_ID = "SELECT * FROM member_id where party_id = ?";
+	public static final String FIND_BY_MEMBER_ID = "SELECT * FROM party where member_id = ?";
+	
 	@Override
 	public void insert(PartyVO partyVO) {
 
@@ -287,66 +290,212 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 		}
 		return list;
 	}
+	
+	
+	@Override
+	public List<PartyVO> getAllmyparty(Integer party_id) {
+		List<PartyVO> list = new ArrayList<PartyVO>();
+		PartyVO partyVO = null;
 
-	public static void main(String[] args) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-       PartyJDBCDAO dao = new PartyJDBCDAO();
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_BY_ALL_MEMBER_ID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				partyVO = new PartyVO();
+				partyVO.setParty_id(rs.getInt("party_id"));
+				partyVO.setParty_title(rs.getString("party_title"));
+				partyVO.setParty_start_time(rs.getTimestamp("party_start_time"));
+				partyVO.setParty_end_time(rs.getTimestamp("party_end_time"));
+				partyVO.setParty_intro(rs.getString("party_intro"));
+				partyVO.setParty_participants_max(rs.getInt("party_participants_max"));
+				partyVO.setParty_participants_min(rs.getInt("party_participants_min"));
+				partyVO.setParty_remarks(rs.getString("party_remarks"));
+				partyVO.setMember_id(rs.getInt("member_id"));
+				partyVO.setShop_id(rs.getInt("shop_id"));
+				list.add(partyVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	@Override
+	public List<PartyVO> getAllmamber(Integer mamber_id) {
+		List<PartyVO> list = new ArrayList<PartyVO>();
+		PartyVO partyVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_BY_ALL_MEMBER_ID);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				partyVO = new PartyVO();
+				partyVO.setParty_id(rs.getInt("party_id"));
+				partyVO.setParty_title(rs.getString("party_title"));
+				partyVO.setParty_start_time(rs.getTimestamp("party_start_time"));
+				partyVO.setParty_end_time(rs.getTimestamp("party_end_time"));
+				partyVO.setParty_intro(rs.getString("party_intro"));
+				partyVO.setParty_participants_max(rs.getInt("party_participants_max"));
+				partyVO.setParty_participants_min(rs.getInt("party_participants_min"));
+				partyVO.setParty_remarks(rs.getString("party_remarks"));
+				partyVO.setMember_id(rs.getInt("member_id"));
+				partyVO.setShop_id(rs.getInt("shop_id"));
+				list.add(partyVO); // Store the row in the list
+			}
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public Set<PartyVO> getAllmypartybymember(Integer member_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
+	
+
+//	public static void main(String[] args) {
+//
+//       PartyJDBCDAO dao = new PartyJDBCDAO();
 
 		// 新增
-		PartyVO partyVO1 = new PartyVO();
-		System.out.println("1");
-		partyVO1.setMember_id(1);
-		System.out.println("2");
-		partyVO1.setShop_id(1);
-		System.out.println("3");
-		partyVO1.setParty_title("揪團");
-		System.out.println("4");
-		partyVO1.setParty_intro("揪團");
-		System.out.println("5");
-		partyVO1.setParty_participants_max(10);
-		System.out.println("6");
-		partyVO1.setParty_participants_min(20);
-		System.out.println("7");
-		partyVO1.setParty_start_time(Timestamp.valueOf("2021-06-14 00:00:00"));
-		System.out.println("8");
-		partyVO1.setParty_end_time(Timestamp.valueOf("2021-06-14 00:00:00"));
-		System.out.println("9");
-		partyVO1.setParty_remarks("備註");
-		System.out.println("10");
-		dao.insert(partyVO1);
-	}
+//		PartyVO partyVO1 = new PartyVO();
+//		System.out.println("1");
+//		partyVO1.setMember_id(1);
+//		System.out.println("2");
+//		partyVO1.setShop_id(1);
+//		System.out.println("3");
+//		partyVO1.setParty_title("揪團");
+//		System.out.println("4");
+//		partyVO1.setParty_intro("揪團");
+//		System.out.println("5");
+//		partyVO1.setParty_participants_max(10);
+//		System.out.println("6");
+//		partyVO1.setParty_participants_min(20);
+//		System.out.println("7");
+//		partyVO1.setParty_start_time(Timestamp.valueOf("2021-06-14 00:00:00"));
+//		System.out.println("8");
+//		partyVO1.setParty_end_time(Timestamp.valueOf("2021-06-14 00:00:00"));
+//		System.out.println("9");
+//		partyVO1.setParty_remarks("備註");
+//		System.out.println("10");
+//		dao.insert(partyVO1);
+//	}
 //
 //		 修改
 //		PartyVO partyVO2 = new PartyVO();
-//		partyVO2.setParty_id(1);
-//		System.out.println("111111");
+//		partyVO2.setParty_id(3);
+//		System.out.println("1");
 //		
 //		partyVO2.setParty_title("修改測試123");
-//		System.out.println("111111");
+//		System.out.println("2");
 //		
 //		partyVO2.setParty_intro("修改測試123");
-//		System.out.println("111111");
+//		System.out.println("3");
 //		
 //		partyVO2.setParty_participants_max(50);
-//		System.out.println("111111");
+//		System.out.println("4");
 //		
 //		partyVO2.setParty_participants_min(30);
-//		System.out.println("111111");
+//		System.out.println("5");
 //		
 //		partyVO2.setParty_start_time(Timestamp.valueOf("2021-08-06 01:01:01"));
-//		System.out.println("111111");
+//		System.out.println("6");
 //		
 //		partyVO2.setParty_end_time(Timestamp.valueOf("2021-04-25 02:02:02"));
-//		System.out.println("111111");
+//		System.out.println("7");
 //		
 //		partyVO2.setParty_remarks("備註11");
-////		System.out.println("9");
-//		
+//		System.out.println("8");
+//		partyVO2.setMember_id(1);
+//		System.out.println("9");
+//		partyVO2.setShop_id(1);
+//		System.out.println("10");
 //		dao.update(partyVO2);
 //	}
 //
-		// 刪除
-//		dao.delete(12);
+//		 刪除
+//		dao.delete(2);
 //		System.out.println("成功");
 //	}
 //
@@ -375,6 +524,8 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 //			System.out.println();
 //		}
 //	}
+
+	
 
 }
 		
