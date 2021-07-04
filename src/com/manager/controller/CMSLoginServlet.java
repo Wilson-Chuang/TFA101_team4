@@ -140,7 +140,7 @@ public class CMSLoginServlet extends HttpServlet {
 				return;	
 				
 			} else {
-				session.removeAttribute("manager_id");
+				session.removeAttribute("loginmanagerVO");
 //				res.sendRedirect("/cms/cmsLogin.jsp");
 				
 				String url = "/cms/cmsLogin.jsp";
