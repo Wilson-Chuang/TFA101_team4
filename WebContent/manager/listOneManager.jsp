@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>員工資料 - listOneManager.jsp</title>
+<title>管理員資料 - listOneManager</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
@@ -26,14 +26,13 @@
    
   .back button{
   	 /* 圓角 */
-     border-radius: 5px;
+     border-radius: 20%;
     /* 輸入文字色彩設定 */
      color: rgb(41, 41, 41);
      padding: 5px 10px;
   	 width:150px;
   	 height:50px;
   	 margin:20px 10px;
-  	 border-radius:20%;
   	 background-color:#e9e9e9;
   }  
   .back button a{

@@ -3,9 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.manager.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
 
 <%	
 	ManagerVO loginmanagerVO = (ManagerVO) session.getAttribute("loginmanagerVO");
+
+	MemberService memberSvc = new MemberService();
+	Integer countmember = memberSvc.countMember();
+	
+	ShopService shopSvc = new ShopService();
+	Integer countshop = shopSvc.countShop();
 %>  
     
 <!DOCTYPE html>
@@ -65,17 +73,17 @@
 	    height:70px;
 	}
 	.box3{
-	    background-color: rgb(0, 133, 174);
-	    border-top-left-radius: 20%;
-	    border-top-right-radius: 20%;
-	    height:70px;
-	}
-	.box4{
 	    background-color: rgb(240, 185, 140);
 	    border-top-left-radius: 20%;
 	    border-top-right-radius: 20%;
 	    height:70px;
 	}
+/* 	.box4{ */
+/* 	    background-color: rgb(0, 133, 174); */
+/* 	    border-top-left-radius: 20%; */
+/* 	    border-top-right-radius: 20%; */
+/* 	    height:70px; */
+/* 	} */
 	.bottom{
 	    box-shadow:3px 3px 12px rgb(196, 196, 196);
 	    height: 100px;
@@ -113,33 +121,33 @@
                         <h3>會員人數</h3>
                     </div>
                     <div class="bottom">
-                        <h3>0000</h3>
+                        <h3><%=countmember%></h3>
                     </div>
                 </li>
                 <li>
                     <div class="box2">
-                        <h3>商家人數</h3>
+                        <h3>商家數量</h3>
                     </div>
                     <div class="bottom">
-                        <h3>0000</h3>
+                        <h3><%=countshop%></h3>
                     </div>
                 </li>
                 <li>
                     <div class="box3">
-                        <h3>評論數量</h3>
+                        <h3>訂單數量</h3>
                     </div>
                     <div class="bottom">
                         <h3>0000</h3>
                     </div>
                 </li>
-                <li>
+          <!--      <li>
                     <div class="box4">
                         <h3>活動數量</h3>
                     </div>
                     <div class="bottom">
                         <h3>0000</h3>
                     </div>
-                </li>
+                </li> --> 
             </ul>
 			
 		</div>

@@ -124,7 +124,8 @@
 				<th class="table1">地址</th>
 				<th  class="table1" width="100px">大頭貼</th>
 				<th class="table1">信箱</th>
-				<th class="table1">修改</th>
+				<th class="table1">狀態</th>
+				<th class="table1">停權/<br>可使用</th>
 			</tr>
 			
 		
@@ -141,13 +142,22 @@
 					<td class="table1">${memberVO.member_address}</td>
 					<td class="table1"><img src="<%=picpath %>${memberVO.member_pic}"></td>
 					<td class="table1">${memberVO.member_email}</td>
-					
-<!-- 					改成停權狀態及按鈕 -->
+<%-- 					<td class="table1"><%= (memberVO.getMember_status() == 1) ? "可使用" : "停權" %></td> --%>
 					<td class="table1">
-					  <FORM METHOD="post" ACTION="member.html" style="margin-bottom: 0px;">
-					     <button type="submit"><i class="fas fa-edit fa-2x"></i></button>
+						<c:if test="${memberVO.member_status == 1}">可使用</c:if>
+						<c:if test="${memberVO.member_status != 1}">停權</c:if>
+					</td>
+ 				<!--改成停權狀態及按鈕 status==0停權 <i class="fas fa-user-alt-slash"></i>  
+ 					==1開放  <i class="fas fa-user"></i> 
+ 					-->
+					<td class="table1">
+					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.html" style="margin-bottom: 0px;">
+					     <button type="submit">
+						     <c:if test="${memberVO.member_status == 1}"><i class="fas fa-user-alt-slash"></i><br>停權</c:if>
+							 <c:if test="${memberVO.member_status != 1}"><i class="fas fa-user"></i><br>開放使用</c:if>
+					     </button>
 					     <input type="hidden" name="member_id"  value="${memberVO.member_id}">
-					     <input type="hidden" name="action"	value="getOne_For_Update">
+					     <input type="hidden" name="action"	value="changeOne_Status">
 					  </FORM>
 					</td>
 				</tr>

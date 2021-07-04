@@ -25,8 +25,20 @@
   ul {
     list-style: none;
   }
+  div.main_content {
+    width: 100%;
+    float: left;
+  }
+  .firstline{
+  	margin:20px 0;
+  }
+
+  .rightcontent{
+  	margin-left:20%;
+  }
+
   table {
-	width: 950px;
+/* 	width: 950px; */
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -86,20 +98,7 @@
   	background-color: white;	
   }
   
-    div.main_content {
-    width: 100%;
-    float: left;
-  }
 
-  .breadcrumb{
-     background-color: white;
-     margin:20px 0 0 0;
-     font-size:15px;
-  }
-  
-  .rightcontent{
-  	margin-left:20%;
-  }
     
 
 </style>
@@ -120,10 +119,7 @@
     
     <div class="firstline">
 		<nav aria-label="breadcrumb">
-		  <ol class="breadcrumb">
-		    <li class="breadcrumb-item">用戶管理</li>
-		    <li class="breadcrumb-item active" aria-current="page">管理員管理</li>
-		  </ol>
+		  <h3>商家管理</h3>
 		</nav>
 		<div>
 			<%-- 錯誤表列 --%>
@@ -177,7 +173,7 @@
 				<th>總瀏覽數</th>
 		<!-- 		<th>預約功能</th>-->
 				<th>修改</th>
-				<th>刪除</th>
+		<!--		<th>刪除</th>-->
 			</tr>
 			<%@ include file="pages/page1.file" %> 
 			<c:forEach var="shopVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -275,7 +271,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
-<script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="./vendors/jquery/jquery-3.6.0.min.js"></script>
 <script src="./vendors/popper/popper.min.js"></script>
 <script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
 
