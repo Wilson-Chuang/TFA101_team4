@@ -109,7 +109,7 @@
 			     </c:forEach> 	
 			</div>
 			<div class="article_collection"><i class="far fa-heart"></i>${articleVO.article_collection}</div>
-			<div class="article_view_count"><i class="fas fa-chart-line"></i>999</div>
+			<div class="article_view_count"><i class="fas fa-chart-line"></i>0</div>
 		</div>
 		
 	</div>

@@ -95,7 +95,7 @@
     <div id="content" class="content" style="background-color:white">
        <header>
             <div class="header_top">
-                <h6><a href="">BACK TO GUIDE FOOD</a></h6>
+                <h6><a href="${pageContext.request.contextPath}/article/article_homepage.jsp">BACK TO GUIDE FOOD</a></h6>
             </div>
             <div class="header_bottom">
                 <div class="logo"><a href="${pageContext.request.contextPath}/product_list/product_homePage.jsp">
