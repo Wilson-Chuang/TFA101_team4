@@ -63,7 +63,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文章首頁</title>
+<title>Guide Food文章專欄</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/article/css/article_homepage.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -105,7 +105,7 @@ body{
     </div>
     <div class="maintop_slider_text">
         <p>BEST AUTHOR</p>
-        <h2>GuideFood 7月號封面，食尚作家</h2>
+        <h2>GuideFood 6月號封面，食尚作家</h2>
         <p>By Hank Wu, 2021/7/6</p>
     </div>
 
