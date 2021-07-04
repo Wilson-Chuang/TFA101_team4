@@ -541,6 +541,16 @@ for(var i = 0; i < 12; i++){
 	});
 }
 
+$("#btn-submit").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
+$("a > button.guest").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
 $(".navbar-brand").click(function(e){
 	$('#redirect').removeClass("d-none");
 	$('.row').fadeTo("fast", 0.5);

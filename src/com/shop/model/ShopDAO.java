@@ -590,13 +590,13 @@ public class ShopDAO implements ShopDAO_interface {
 			for(int i = 0;i < keyArray.length;i++) {
 				if(i == keyArray.length - 1) {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ?)";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?))";
 					keyCount += 3;
 				}else {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ? OR ";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?) AND ";
 					keyCount += 3;
 				}				
 			}
@@ -705,13 +705,13 @@ public class ShopDAO implements ShopDAO_interface {
 			for(int i = 0;i < keyArray.length;i++) {
 				if(i == keyArray.length - 1) {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ?";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?)";
 					keyCount += 3;
 				}else {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ? OR ";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?) AND ";
 					keyCount += 3;
 				}				
 			}
