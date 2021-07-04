@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Giude好食|修改個人資料</title>
+<title>Giude好食|修改商家資料</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -50,8 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<input type=hidden value="<%=MemberVO.getMember_email() %>" name="MEMBER_EMAIL">
                 	<input type=hidden value="<%=ShopVO.getShop_main_img() %>" name="filename">
                     <label for="">店名<br><input type="text" name="SHOP_NAME" value="<%=ShopVO.getShop_name() %>"></label><br>
-                    <label for="">均消<br><input type="text" name="SHOP_PRICE_LEVEL"  value="<%=ShopVO.getShop_price_level() %>"></label><br>
-                    <label for="">營業時間<br><input type="text" name="SHOP_OPENING_TIME"  value="<%=ShopVO.getShop_opening_time() %>"></label><br>
+                    <label for="">商家均消:<select name="Shop_price_level"><option value=0>不選擇</option><option value=1>$150以下</option><option value=2>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option></select><br><br><label for="">營業時間<br><input type="text" name="SHOP_OPENING_TIME"  value="<%=ShopVO.getShop_opening_time() %>"></label><br>
                     <label for="">地址<br><input type="text" name="address" value="<%=ShopVO.getShop_address()%>"></label><br>
                     <label for="">縣市<br><input type="text" name="SHOP_CITY" value="<%=ShopVO.getShop_city() %>"></label><br>
                     <label for="">粉絲專頁<br><input type="text" name="SHOP_WEBSITE" value="<%=ShopVO.getShop_website() %>"></label><br>

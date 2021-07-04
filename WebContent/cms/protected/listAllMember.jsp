@@ -14,7 +14,7 @@
     
     MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
     pageContext.setAttribute("memberVO",memberVO);
-    String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
+    String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator+memberVO.getMember_id()+ File.separator;
 
 %>
 

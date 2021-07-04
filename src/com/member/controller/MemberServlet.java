@@ -154,6 +154,7 @@ public class MemberServlet extends HttpServlet {
 				String shop_email=req.getParameter("Shop_email");
 				String shop_description=req.getParameter("shop_description");
 				String shop_tag=req.getParameter("Shop_tag");
+				System.out.println(req.getParameter("Shop_price_level"));
 				Integer shop_price_level=new Integer(req.getParameter("Shop_price_level"));
 				String shop_opening_time=req.getParameter("Shop_opening_time");
 				String shop_website=req.getParameter("Shop_website");
@@ -492,12 +493,12 @@ public class MemberServlet extends HttpServlet {
 				filename = getFileNameFromPart(part);
 				String appPath = req.getServletContext().getRealPath("");
 				String uploadFilePath = appPath  + 
-						"UPLOAD" + File.separator + "member"+ File.separator + "pic";
+						"UPLOAD" + File.separator + "member"+ File.separator + "pic"+File.separator+MemberVO.getMember_id()+File.separator;
 				File fileSaveDir = new File(uploadFilePath);
 				if (!fileSaveDir.exists()) {
 		            fileSaveDir.mkdirs();
 		        }
-				part.write(uploadFilePath+File.separator +filename);
+				part.write(uploadFilePath+filename);
 				}
 				/*************************** 2.開始查詢資料 *****************************************/
 				MemberService memSvc= new MemberService();
@@ -1032,7 +1033,7 @@ public class MemberServlet extends HttpServlet {
 				
 				// Send the use back to the form, if there were errors
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				String url = "/public/comment_report_list.jsp";
+				String url = "/cms/protected/listAllComment.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 				
@@ -1296,7 +1297,7 @@ public class MemberServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			String url = "/public/comment_report_list.jsp";
+			String url = "/cms/protected/listAllComment.jsp";
 			
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/

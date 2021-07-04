@@ -18,12 +18,15 @@
 <link href="${pageContext.request.contextPath}/css/bootstrap-icons.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 
 </head>
 <body class="sign_right" style="padding-top:50px;background-image: url('./loginBg.jpg');">
+<%@ include file="/pages/header.file" %>
 	
 	<div class="container">
 		<div class="row">
@@ -68,10 +71,6 @@
 	</div>
 </body>
 
-	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/wrunner-jquery.js"></script>
-	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 	<script>
 
 	var obt=document.getElementById("fp");
@@ -83,5 +82,8 @@
   	
   	}
 </script>
-
+<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </html>
