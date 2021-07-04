@@ -21,7 +21,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>揪團資料</title>
+<title>揪團</title>
 
 
 <style>
@@ -123,6 +123,7 @@ p.p1{
 <style>
  li {list-style-type:none;}
 </style>
+
 </head>
 <body>
 
@@ -176,9 +177,13 @@ p.p1{
 			<p>${partyVO.party_intro}</p>
 		</div>
 	
-
-
-
+		<div class="paert_tag">
+			<p class="p1">餐廳評論</p>
+			<c:forEach var="shopVO" items="${shopSvc.all}">
+	           <c:if test="${partyVO.shop_id==shopVO.shop_id}">${shopVO.shop_tag}
+	          </c:if>
+         	</c:forEach> 
+		</div>
 
 
 </body>
