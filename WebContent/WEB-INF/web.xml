@@ -309,4 +309,77 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+
+ 	<!-- 揪團filter -->
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/party/addparty.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/party/listMYParty.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/party/myparty.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/party/update_party_input.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+		<!-- 揪團後台filter -->
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/party/listAllParty.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/party/listAllParty2.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/party/listOneParty.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
 </web-app>
