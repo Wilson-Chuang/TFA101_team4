@@ -132,6 +132,7 @@
                 		Comment_ReportService cmSvc=new Comment_ReportService();
                 		List<Comment_ReportVO> rtList=cmSvc.getAll();
  							for (Comment_ReportVO rt : rtList) {
+ 							if(rt.getCOMMENT_REPORT_STATUS()==1){
  							int member_id=rt.getMEMBER_ID();
  							int comment_id=rt.getCOMMENT_ID();
  							String reason = rt.getCOMMENT_REPORT_REASON();
@@ -190,7 +191,7 @@
                             <hr>
                     </div>
                     <%
- 							}
+ 								}}
 						%> 
                 </div>
 
