@@ -168,4 +168,8 @@ public class MemberService {
 		public List<OrdersVO> getOdersByMember(Integer member_id) {
 			return dao_od.getAllByMember(member_id);
 		}
+		
+		public Integer countMember() {
+			return dao.countMember();
+		}
 }
