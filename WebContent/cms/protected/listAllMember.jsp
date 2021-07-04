@@ -140,7 +140,7 @@
 					<td class="table1">${memberVO.member_birth}</td>
 					<td class="table1">${memberVO.member_phone}</td>
 					<td class="table1">${memberVO.member_address}</td>
-					<td class="table1"><img src="<%=picpath+memberVO.getMember_id()+File.separator %>${memberVO.member_pic}"></td>
+					<td class="table1"><img src="<%=picpath%>${memberVO.member_id}<%=File.separator%>${memberVO.member_pic}"></td>
 					<td class="table1">${memberVO.member_email}</td>
 <%-- 					<td class="table1"><%= (memberVO.getMember_status() == 1) ? "可使用" : "停權" %></td> --%>
 					<td class="table1">
