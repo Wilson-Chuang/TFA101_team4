@@ -42,8 +42,17 @@
 </script>
 
 
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+
+
 </head>
 <body>
+
+	<%@include file="/pages/header.file"%>
 
 	<select name="typeState" style="width: 160">
 		<option value="0" <c:if test="${gp.typeState == 0 }">selected</c:if>>±Ò¥Î</option>
@@ -95,7 +104,10 @@ String value = request.getParameter("item");
 		
 	</form>
 
-
+    <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 
 
 </body>

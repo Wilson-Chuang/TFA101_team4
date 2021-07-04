@@ -29,41 +29,47 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>我的揪團</title>
+<title>我參加的揪團</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
 <style>
   table {
-	width: 800px;
+	width: 950px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
+  
+  .table_1 {
+  	border: 0;
     padding: 5px;
+    margin: 0 5px;
     text-align: center;
+    height: 80px;
+    vertical-align: middle;
   }
+  .table_0{
+   padding-top: 15px;
+   vertical-align: middle;
+   }
 </style>
 
+<style>
+
+ 	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	color: white;
+	}
+
+</style>
+
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 
 
 
@@ -71,13 +77,8 @@
 
 <body bgcolor='white' >
 
+<%@include file="/pages/header.file"%>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>所有揪團資料</h3>
-		 <h4><a href="party_select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -90,43 +91,43 @@
 </c:if>
 
 <table>
-	<tr>
-		<th>揪團編號</th>
-		<th>會員編號</th>
-		<th>餐廳編號</th>
-		<th>揪團標題</th>
-		<th>揪團開始時間</th>
-		<th>揪團結束時間</th>
-		<th>揪團簡介</th>
-		<th>成團人數最多限制</th>
-		<th>成團人數最少限制</th>
-		<th>備註</th>
+	<tr class="table_0">
+		<th class="table_1">揪團編號</th>
+		<th class="table_1">會員編號</th>
+		<th class="table_1">餐廳編號</th>
+		<th class="table_1">揪團標題</th>
+		<th class="table_1">揪團開始時間</th>
+		<th class="table_1">揪團結束時間</th>
+		<th class="table_1">揪團簡介</th>
+		<th class="table_1">成團人數最多限制</th>
+		<th class="table_1">成團人數最少限制</th>
+		<th class="table_1">備註</th>
 	</tr>
 	
 	
 <%-- 	<%@ include file="page5.file" %>  --%>
 	<c:forEach var="partyVO1" items="${list}">
 	
-		<tr>
-			<td>${partyVO1.party_id}</td>
-			<td>${partyVO1.member_id}</td>
-			<td>${partyVO1.shop_id}</td>
-			<td>${partyVO1.party_title}</td>
-			<td><fmt:formatDate value="${partyVO1.party_start_time}"
+		<tr class="table_0">
+			<td class="table_1">${partyVO1.party_id}</td>
+			<td class="table_1">${partyVO1.member_id}</td>
+			<td class="table_1">${partyVO1.shop_id}</td>
+			<td class="table_1">${partyVO1.party_title}</td>
+			<td class="table_1"><fmt:formatDate value="${partyVO1.party_start_time}"
 						pattern="yyyy-MM-dd hh:mm" /></td> 
-			<td><fmt:formatDate value="${partyVO1.party_end_time}"
+			<td class="table_1"><fmt:formatDate value="${partyVO1.party_end_time}"
 						pattern="yyyy-MM-dd hh:mm" /></td>   
-			<td>${partyVO1.party_intro}</td>
-			<td>${partyVO1.party_participants_max}</td>
-			<td>${partyVO1.party_participants_min}</td>
-			<td>${partyVO1.party_remarks}</td>
+			<td class="table_1">${partyVO1.party_intro}</td>
+			<td class="table_1">${partyVO1.party_participants_max}</td>
+			<td class="table_1">${partyVO1.party_participants_min}</td>
+			<td class="table_1">${partyVO1.party_remarks}</td>
 			
 			
-			<td>
+			<td class="table_1">
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input type="submit" value="取消">
 			     <input type="hidden" name="party_id"  value="${partyVO1.party_id}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="action" value="delete2"></FORM>
 			</td>
 		</tr>
 	</c:forEach>
@@ -135,27 +136,10 @@
 
 
 
-<body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 
 
 </body>

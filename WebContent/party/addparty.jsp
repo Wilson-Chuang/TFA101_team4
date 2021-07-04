@@ -28,12 +28,6 @@
 
 
 <style>
- li {list-style-type:none;}
-</style>
-
-
-<style>
-
  	input[type="submit"]{padding:10px 25px; background:#4166F8; border:0 none;
 	cursor:pointer;
 	-webkit-border-radius: 5px;
@@ -42,26 +36,24 @@
 	float:right;
 	margin: 20px 20px;
 	}
-
 </style>
 
 
 
-<script src="<%=request.getContextPath()%>/party/ckeditor/ckeditor.js"></script>
+    <script src="<%=request.getContextPath()%>/party/ckeditor/ckeditor.js"></script>
+
+
+    <link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 
 </head>
 <body>
 
-
+<%@include file="/pages/header.file"%>
 	
-	<div class="party_home">
-	
-      <ul>
-         <li><a href='partyhome.jsp'><img src="./image/logo.png"  width="400px" height="200px"></a></li>
-      </ul>
-	
-    </div>
-
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -74,82 +66,77 @@
 	</c:if>
 
 	<FORM METHOD="post" ACTION="party.do" name="form1">
-		<table>
-
-			<tr>
-				<td>會員名稱:</td>
-				<td>
-					<input type="text" disabled="disabled" name="member_name" size="45" value="${member.member_name}"/>
-					<input type="hidden" name="member_id" size="45" value="${member.member_id}"/>
-				</td>
-			</tr>
-			
-			
-			<tr>
-				<td>餐廳地址:</td>
-				<td>
-					<select name="shop_id">
-						<c:forEach var="shopVO" items="${shopSvc.all}">
-    						<option value="${shopVO.shop_id}">${shopVO.shop_name}</option>
-						</c:forEach>
-					</select>
-					</td>
-			</tr>
-			
-			<tr>
-				<td>揪團標題:</td>
-				<td><input type="TEXT" name="party_title" size="45"
-					value="<%=(party == null) ? "標題" : party.getParty_title()%>" /></td>
-			</tr>
-			
-			<tr>
-				<td>開始日期時間:</td>
-				<td><input name="party_start_time" id="party_start_time" type="text" ></td>
-			</tr>
-			<tr>
-			<fmt:formatDate type="party_start_time" value="${party_start_time }" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-			
-				<td>結束日期時間:</td>
-				<td><input name="party_end_time" id="party_end_time" type="text"><fmt:formatDate type="party_end_time" value="${party_end_time }" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
-			</tr>
-			
-
-			<tr>
-				<td>最高人數:</td>
-				<td><input type="number" min="1" max="15" name="party_participants_max" size="45"
-							value="<%= (party == null) ? "1": party.getParty_participants_max()%>" /></td>
-			</tr>
-			<tr>
-				<td>最低人數:</td>
-				<td><input type="number" min="1" max="15" name="party_participants_min" size="45"
-							value="<%=(party == null) ? "1" : party.getParty_participants_min()%>" /></td>
-			</tr>
-			
-			<tr>
-				<td>備註:</td>
-				<td>		<select name="party_remarks" style="width: 160">
-		                    <option value="<%=(party == null) ? "無菸環境，不喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>無菸環境，不喝酒</option>
-		                    <option value="<%=(party == null) ? "無菸環境，喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>無菸環境，喝酒</option>
-		                    <option value="<%=(party == null) ? "抽菸環境，不喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>抽菸環境，不喝酒</option>
-		                    <option value="<%=(party == null) ? "抽菸環境，喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>抽菸環境，喝酒</option>
-	                        </select>
-				
-					      </td>
-			</tr>
-			
-			<tr>
-				<td>揪團介紹:</td>
-				<td>
-					 <textarea class="ckeditor" id="mContent" name="party_intro" ></textarea></td>
-			</tr>
-			
-
-
-		</table>
+	
+	<div>
+		會員名稱:
+		<input type="text" disabled="disabled" name="member_name" size="20" value="${member.member_name}"/>
+		<input type="hidden" name="member_id" size="45" value="${member.member_id}"/>
+	</div>
+	
+	<div>
+		餐廳地址:
+		<select name="shop_id">
+	 	   <c:forEach var="shopVO" items="${shopSvc.all}">
+    			 <option value="${shopVO.shop_id}">${shopVO.shop_name}</option>
+			</c:forEach>
+		</select>
+	</div>
+	
+	<div>
+		揪團標題:
+		<input type="TEXT" name="party_title" size="45"
+				value="<%=(party == null) ? "標題" : party.getParty_title()%>" />
+	</div>
+	
+	<div>
+		開始日期時間:
+		<input name="party_start_time" id="party_start_time" type="text" >
+	</div>
+	
+	<div>
+		結束日期時間:
+		<input name="party_end_time" id="party_end_time" type="text">
+	</div>
+	
+	<div>
+		最高人數:
+		<input type="number" min="1" max="15" name="party_participants_max" size="45"
+				value="<%= (party == null) ? "1": party.getParty_participants_max()%>" />
+	</div>
+	
+	<div>
+		最低人數:
+		<input type="number" min="1" max="15" name="party_participants_min" size="45"
+				value="<%=(party == null) ? "1" : party.getParty_participants_min()%>" />
+	</div>
+	
+	<div>
+		備註:
+		<select name="party_remarks" style="width: 160">
+			<option value="<%=(party == null) ? "無菸環境，不喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>無菸環境，不喝酒</option>
+		    <option value="<%=(party == null) ? "無菸環境，喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>無菸環境，喝酒</option>
+		    <option value="<%=(party == null) ? "抽菸環境，不喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>抽菸環境，不喝酒</option>
+		    <option value="<%=(party == null) ? "抽菸環境，喝酒" : party.getParty_remarks()%>" <c:if test="${partyVO.party_remarks}">selected</c:if>>抽菸環境，喝酒</option>
+	    </select>
+	</div>
+	
+	<div>
+		揪團介紹:
+		<textarea class="ckeditor" id="mContent" name="party_intro" ></textarea>
+	</div>
+	
+	
 		<br> 
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" value="建立">
 	</FORM>
+	
+	
+	
+    <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 
 
 </body>

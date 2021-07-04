@@ -1,7 +1,14 @@
-<%@page import="com.member.model.MemberVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.party.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.member.model.MemberVO"%>
+<%@ page import="com.party.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+
 
 <%
   PartyVO partyVO = (PartyVO) request.getAttribute("partyVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
@@ -131,15 +138,24 @@ p.p1{
 		
 	<FORM METHOD="post" ACTION="party.do" name="form1">
 		<div class="party_t">
-			<p>${partyVO.party_id}</p>
-			<p>${partyVO.member_id}</p>
-			<p>${shopVO.shop_name}</p>
 			<h5>${partyVO.party_title}</h5>
+			<p>
+				<c:forEach var="memberVO" items="${memberSvc.all}">
+	            	<c:if test="${partyVO.member_id==memberVO.member_id}">${memberVO.member_name}
+	                </c:if>
+               	</c:forEach> 
+			</p>
 			<hr>
 			<p>結束時間: <fmt:formatDate value="${partyVO.party_end_time}"
 						pattern="yyyy-MM-dd hh:mm" /></p>
 			<p>最高人數: ${partyVO.party_participants_max}</p>
 			<p>最低人數: ${partyVO.party_participants_min}</p>
+			<p>
+				<c:forEach var="shopVO" items="${shopSvc.all}">
+	            	<c:if test="${partyVO.shop_id==shopVO.shop_id}">${shopVO.shop_address}
+	                </c:if>
+               	</c:forEach> 
+			</p>
 			<p>備註: ${partyVO.party_remarks}</p>
 			
 	<% if(!(member==null)){
