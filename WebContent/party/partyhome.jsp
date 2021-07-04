@@ -1,14 +1,17 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.party.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 
 <%
     PartyService partySvc = new PartyService();
     List<PartyVO> list = partySvc.getAll();
     pageContext.setAttribute("list",list);
+    MemberVO myMemberVO = (MemberVO) session.getAttribute("login");
 %>
 
 <!DOCTYPE html>
@@ -119,11 +122,22 @@ div.button{
 	
 	<div class="Party_middle">
 	
-	
+	<%
+	if(!(myMemberVO==null)){
+	%>
       <ul>
-         <li><a href='addparty.jsp'><img src="./image/發起揪團.png"  width="400px" height="200px"></a></li>
+         <li><a href='${pageContext.request.contextPath}/party/addparty.jsp'><img src="./image/發起揪團.png"  width="400px" height="200px"></a></li>
       </ul>
+	<%} %>
 	
+    </div>
+    
+    <div>
+    <%
+	if(!(myMemberVO==null)){
+	%>
+   		 <a href='${pageContext.request.contextPath}/party/myparty.jsp'> ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</a>
+    <%} %>
     </div>
 
 <%-- 錯誤表列 --%>
@@ -144,8 +158,20 @@ div.button{
 
 	<div class="party_data">
 	
-		<div>${partyVO.party_id}</div>
-		<div class="party_title">${partyVO.party_title}</div>
+		<div>
+		<c:forEach var="memberVO" items="${memberSvc.all}">
+	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
+		                   			${memberVO.member_pic}
+	                    		</c:if>
+                			 </c:forEach> 
+		</div>
+		<div>
+		<c:forEach var="memberVO" items="${memberSvc.all}">
+	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
+		                   			${memberVO.member_name}
+	                    		</c:if>
+                			 </c:forEach> 
+		</div>
 		<div>結束時間: <fmt:formatDate value="${partyVO.party_end_time}"
 						pattern="yyyy-MM-dd hh:mm" /></div>
 		<div>最高人數: ${partyVO.party_participants_max}</div>

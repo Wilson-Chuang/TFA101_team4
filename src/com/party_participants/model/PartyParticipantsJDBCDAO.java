@@ -26,6 +26,7 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 	public static final String FIND_BY_PK = "SELECT * FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
 	public static final String GET_ALL = "SELECT * FROM PARTY_PARTICIPANTS";
 	public static final String COUNT_BY_POST_ID = "SELECT COUNT(*) FROM PARTY_PARTICIPANTS WHERE PARTY_ID = ?";
+	public static final String FIND_BY_MEMBER_ID = "SELECT * FROM PARTY_PARTICIPANTS WHERE MEMBER_ID = ?";
 	
 	static {
 		try {
@@ -268,6 +269,61 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 		}
 		
 		return count;
+	}
+
+	@Override
+	public List<PartyParticipantsVO> getMemberAll(Integer member_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<PartyParticipantsVO> likelist = new ArrayList();
+		PartyParticipantsVO forumPostLike = null;
+		
+		try {
+			con = DriverManager.getConnection(url,userid,passwd);
+			pstmt = con.prepareStatement(FIND_BY_MEMBER_ID);
+			pstmt.setInt(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				forumPostLike = new PartyParticipantsVO();
+				forumPostLike.setParty_participants_id(rs.getInt("PARTY_PARTICIPANTS_ID"));
+				forumPostLike.setParty_member_id(rs.getInt("PARTY_MEMBER_ID"));
+				forumPostLike.setParty_id(rs.getInt("PARTY_ID"));
+				forumPostLike.setParty_up_time(rs.getTimestamp("PARTY_UP_TIME"));
+				
+				likelist.add(forumPostLike);
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		return likelist;
 	}
 	
 	
