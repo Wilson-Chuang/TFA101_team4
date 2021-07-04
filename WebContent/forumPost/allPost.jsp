@@ -25,6 +25,7 @@
 <jsp:useBean id="forumReplySvc" scope="page" class="com.forum_reply.model.ForumReplyService" />
 <jsp:useBean id="forumPostLikeSvc" scope="page" class="com.forum_post_like.model.ForumPostLikeService"></jsp:useBean>
 
+<!DOCTYPE html> 
 <html>
 <head>
 	<title>Guide好食|討論區</title>
@@ -50,8 +51,8 @@
 	<!-- fontawesome -->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 	<!--Bootstrap CSS-->
-	<link rel="stylesheet" type="text/css"
-		href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+<!-- 	<link rel="stylesheet" type="text/css" -->
+<!-- 		href="vendors/bootstrap-4.6.0-dist/css/bootstrap.min.css"> -->
 	<!--dataTables CSS-->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 	

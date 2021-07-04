@@ -206,3 +206,7 @@ div.star_block > span.star{
 div.star_block > span.star.-on{
   color: yellow;
 }
+
+img{
+	max-width:95%;
+}
