@@ -36,7 +36,7 @@
                     <i class="fas fa-chevron-up" id="b-1" style="display: none;"></i></a>
                 <ul class="hide" id="menu-1">
                     <li>
-                        <a href="#">會員管理</a>
+                        <a href="${pageContext.request.contextPath}/cms/protected/listAllMember.jsp">會員管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/manager/listAllManager.jsp">管理員管理</a>
@@ -44,7 +44,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#">商家管理</a>
+                <a href="${pageContext.request.contextPath}/shop/listAllShop.jsp">商家管理</a>
             </li>
             <li>
                 <a href="#" onclick="toggleMenu(2);">社群管理
@@ -65,13 +65,13 @@
                     <i class="fas fa-chevron-up" id="b-3" style="display: none;"></i></a>
                 <ul class="hide" id="menu-3">
                     <li>
-                        <a href="#">產品管理</a>
+                        <a href="${pageContext.request.contextPath}/product/listProd_back.jsp">產品管理</a>
                     </li>
                     <li>
-                        <a href="#">系列管理</a>
+                        <a href="${pageContext.request.contextPath}/product_category/listProdCatg_back.jsp">系列管理</a>
                     </li>
                     <li>
-                        <a href="#">訂單管理</a>
+                        <a href="${pageContext.request.contextPath}/orders/orders_listAll.jsp">訂單管理</a>
                     </li>
                 </ul>
             </li>
@@ -83,9 +83,9 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/cms/protected/listAllComment.jsp">評論檢舉</a>
                     </li>
-                    <li>
+                  <!--  <li>
                         <a href="#">揪團檢舉</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="${pageContext.request.contextPath}/forumPost/allPostReport.jsp">討論區發文檢舉</a>
                     </li>
