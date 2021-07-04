@@ -42,12 +42,25 @@
 			<tr>
 				<td>揪團編號:<font color=red><b>*</b></font></td><td><%=partyVO.getParty_id()%></td>
 			</tr>
+			
 			<tr>
-				<td>揪團編號:<font color=red><b>*</b></font></td><td><%=partyVO.getMember_id()%></td>
+				<td>會員名稱:</td>
+				<td><input type="TEXT" disabled="disabled" min="1" max="15" name="member_id" size="45"value="<%=partyVO.getMember_id()%>" /></td>
 			</tr>
+			
+			<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+			
 			<tr>
-				<td>揪團編號:<font color=red><b>*</b></font></td><td><%=partyVO.getShop_id()%></td>
+				<td>餐廳地址:<font color=red><b>*</b></font></td>
+					<td><select size="1" name="shop_id">
+						<c:forEach var="shopVO" items="${shopSvc.all}">
+							<option value="${shopVO.shop_id}" ${(partyVO.shop_id==shopVO.shop_id)?'selected':'' } >${shopVO.shop_name}
+						</c:forEach>
+						</select>
+					</td>
 			</tr>
+			
+			
 			
 			
 			<tr>
@@ -97,6 +110,7 @@
 		</table>
 		<br> 
 			 <input type="hidden" name="action" value="update"> 
+			 <input type="hidden" name="member_id" value="<%=partyVO.getMember_id()%>">
 		     <input type="hidden" name="party_id" value="<%=partyVO.getParty_id()%>">
 		     <input type="submit" value="送出修改">
 		</FORM>

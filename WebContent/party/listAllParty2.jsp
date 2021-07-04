@@ -5,19 +5,33 @@
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.*"%>
 
+<%-- <% --%>
+<!-- //     PartyService partySvc1 = new PartyService(); -->
+<!-- //     List<PartyVO> list = partySvc1.getAll(); -->
+<!-- //     pageContext.setAttribute("list",list); -->
+<!-- //     MemberVO myMemberVO = (MemberVO) session.getAttribute("login"); -->
+<%-- %> --%>
 
 <%
-    PartyService partySvc1 = new PartyService();
-    List<PartyVO> list = partySvc1.getAll();
-    pageContext.setAttribute("list",list);
-    MemberVO myMemberVO = (MemberVO) session.getAttribute("login");
+	Set list2 = new LinkedHashSet();
+      list2.add(request.getAttribute("partyVO"));
+//       int member_id = new Integer(request.getAttribute("member_id"));
+//       System.out.println(member_id);
+      				PartyService partySvc2 = new PartyService();
+      				Set<PartyVO> partyVO = partySvc2.getAllmypartybymember(1);
 %>
+
+
+	
+
+
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>所有揪團資料</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
 
@@ -220,9 +234,9 @@
 	</tr>
 	
 	
-	<%@ include file="page1.file" %> 
-	<c:forEach var="partyVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
+<%-- 	<%@ include file="page6.file" %>  --%>
+	<c:forEach var="partyVO" items="${partyVO}">
+	
 		<tr>
 			<td class="table_1">${partyVO.party_id}</td>
 			<td class="table_1">${partyVO.member_id}</td>
@@ -252,7 +266,7 @@
 	</c:forEach>
 </table>
 <div class="pa_fi">
-	<%@ include file="page2.file" %>
+<%-- 	<%@ include file="page2.file" %> --%>
 </div>
 </article>
 

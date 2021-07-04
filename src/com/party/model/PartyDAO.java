@@ -8,6 +8,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.party_participants.model.PartyParticipantsVO;
+
+import util.Util;
+
 
 public class PartyDAO implements PartyDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
@@ -25,7 +29,13 @@ public class PartyDAO implements PartyDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks, member_id, shop_id FROM party where party_id = ?";
 	private static final String DELETE = "DELETE FROM party where party_id = ?";
 	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=?, party_remarks=?, member_id=?, shop_id=? where party_id = ?";
-
+	public static final String FIND_BY_ALL_MEMBER_ID = "SELECT * FROM party where member_id = ?";
+	
+	
+	
+	
+	public static final String FIND_BY_PARTY_ID = "SELECT * FROM party where party_id = ?";
+	
 	@Override
 	public void insert(PartyVO partyVO) {
 
@@ -279,4 +289,200 @@ public class PartyDAO implements PartyDAO_interface {
 		}
 		return list;
 	}
+	
+	
+		
+
+	@Override
+	public List<PartyVO> getAllmyparty(Integer party_id) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<PartyVO> likelist = new ArrayList();
+		PartyVO forumPostLike = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_ALL_MEMBER_ID);
+			pstmt.setInt(1, party_id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				forumPostLike = new PartyVO();
+				forumPostLike.setParty_id(rs.getInt("party_id"));
+				System.out.println(rs.getInt("party_id"));
+				forumPostLike.setParty_title(rs.getString("party_title"));
+				forumPostLike.setParty_start_time(rs.getTimestamp("party_start_time"));
+				forumPostLike.setParty_end_time(rs.getTimestamp("party_end_time"));
+				forumPostLike.setParty_intro(rs.getString("party_intro"));
+				forumPostLike.setParty_participants_max(rs.getInt("party_participants_max"));
+				forumPostLike.setParty_participants_min(rs.getInt("party_participants_min"));
+				forumPostLike.setParty_remarks(rs.getString("party_remarks"));
+				forumPostLike.setMember_id(rs.getInt("member_id"));
+				forumPostLike.setShop_id(rs.getInt("shop_id"));  
+				likelist.add(forumPostLike); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return likelist;
+	
+	}
+	@Override
+	public Set<PartyVO> getAllmypartybymember(Integer member_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Set<PartyVO> likelist = new LinkedHashSet();
+		PartyVO forumPostLike = null;
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_PARTY_ID);
+			pstmt.setInt(1, member_id);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				forumPostLike = new PartyVO();
+				forumPostLike.setParty_id(rs.getInt("party_id"));
+				System.out.println(rs.getInt("party_id"));
+				forumPostLike.setParty_title(rs.getString("party_title"));
+				forumPostLike.setParty_start_time(rs.getTimestamp("party_start_time"));
+				forumPostLike.setParty_end_time(rs.getTimestamp("party_end_time"));
+				forumPostLike.setParty_intro(rs.getString("party_intro"));
+				forumPostLike.setParty_participants_max(rs.getInt("party_participants_max"));
+				forumPostLike.setParty_participants_min(rs.getInt("party_participants_min"));
+				forumPostLike.setParty_remarks(rs.getString("party_remarks"));
+				forumPostLike.setMember_id(rs.getInt("member_id"));
+				forumPostLike.setShop_id(rs.getInt("shop_id"));  
+				likelist.add(forumPostLike); // Store the row in the list
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return likelist;
+		
+	}
+	
+	
+	@Override
+	public List<PartyVO> getAllmamber(Integer member_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<PartyVO> likelist = new ArrayList();
+		PartyVO forumPostLike = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_PARTY_ID);
+			pstmt.setInt(1, member_id);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				forumPostLike = new PartyVO();
+				forumPostLike.setParty_id(rs.getInt("party_id"));
+				forumPostLike.setParty_title(rs.getString("party_title"));
+				forumPostLike.setParty_start_time(rs.getTimestamp("party_start_time"));
+				forumPostLike.setParty_end_time(rs.getTimestamp("party_end_time"));
+				forumPostLike.setParty_intro(rs.getString("party_intro"));
+				forumPostLike.setParty_participants_max(rs.getInt("party_participants_max"));
+				forumPostLike.setParty_participants_min(rs.getInt("party_participants_min"));
+				forumPostLike.setParty_remarks(rs.getString("party_remarks"));
+				forumPostLike.setMember_id(rs.getInt("member_id"));
+				forumPostLike.setShop_id(rs.getInt("shop_id"));  
+				likelist.add(forumPostLike); // Store the row in the list
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return likelist;
+		
+	}
+	
+	
+	
 }
+

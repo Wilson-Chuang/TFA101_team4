@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.manager.model.*"%>
+<%@ page import="com.party.model.*"%>
 
 
     
@@ -60,7 +61,7 @@
                         <a href="#">專欄文章管理</a>
                     </li>
                     <li>
-                        <a href="listALLParty">揪團管理</a>
+                        <a href="${pageContext.request.contextPath}/party/listAllParty.jsp">揪團管理</a>
                     </li>
                 </ul>
             </li>
