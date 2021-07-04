@@ -25,8 +25,20 @@
   ul {
     list-style: none;
   }
+  div.main_content {
+    width: 100%;
+    float: left;
+  }
+  .firstline{
+  	margin:20px 0;
+  }
+
+  .rightcontent{
+  	margin-left:20%;
+  }
+
   table {
-	width: 950px;
+/* 	width: 950px; */
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -86,20 +98,7 @@
   	background-color: white;	
   }
   
-    div.main_content {
-    width: 100%;
-    float: left;
-  }
 
-  .breadcrumb{
-     background-color: white;
-     margin:20px 0 0 0;
-     font-size:15px;
-  }
-  
-  .rightcontent{
-  	margin-left:20%;
-  }
     
 
 </style>
@@ -120,10 +119,7 @@
     
     <div class="firstline">
 		<nav aria-label="breadcrumb">
-		  <ol class="breadcrumb">
-		    <li class="breadcrumb-item">用戶管理</li>
-		    <li class="breadcrumb-item active" aria-current="page">管理員管理</li>
-		  </ol>
+		  <h3>商家管理</h3>
 		</nav>
 		<div>
 			<%-- 錯誤表列 --%>
@@ -169,7 +165,7 @@
 				<th>聯絡電話</th>
 		<!--		<th>均消</th> -->
 		<!--		<th>營業時間</th> -->
-				<th>網站</th>
+				<th width="150px">網站</th>
 		<!--		<th>圖片</th> -->
 				<th>圖片庫</th>
 				<th>建立時間</th>
@@ -177,7 +173,7 @@
 				<th>總瀏覽數</th>
 		<!-- 		<th>預約功能</th>-->
 				<th>修改</th>
-				<th>刪除</th>
+		<!--		<th>刪除</th>-->
 			</tr>
 			<%@ include file="pages/page1.file" %> 
 			<c:forEach var="shopVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -213,7 +209,7 @@
 								${value01}<br><br>
 						</c:forTokens>
 					</td>		-->
-					<td>${shopVO.shop_website}</td>
+					<td width="150px">${shopVO.shop_website}</td>
 			<!--		<td>
 					<div id="preview">
 					<c:set var="shop_main_img" value="${shopVO.shop_main_img}"/>
@@ -259,13 +255,7 @@
 					     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
 					     <input type="hidden" name="action"	    value="getOne_For_Update"></FORM>
 					</td>
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/shop/shop.do" style="margin-bottom: 0px;">
-					     <button type="submit"><i class="fas fa-trash-alt fa-2x"></i></button>
-					     <input type="hidden" name="shop_id"      value="${shopVO.shop_id}">
-					     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-					     <input type="hidden" name="action"     value="delete"></FORM>
-					</td>
+					
 				</tr>
 			</c:forEach>
 		</table>
@@ -281,7 +271,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
-<script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="./vendors/jquery/jquery-3.6.0.min.js"></script>
 <script src="./vendors/popper/popper.min.js"></script>
 <script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
 

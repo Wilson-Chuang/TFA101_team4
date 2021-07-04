@@ -617,5 +617,13 @@ public class OrdersJDBCDAO implements OrdersDAO_interface{
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+
+
+		@Override
+		public Integer countOrders() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 }

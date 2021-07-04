@@ -29,4 +29,7 @@ public interface ShopDAO_interface {
 	public void update_shop(ShopVO shopVO);
 	public void add_total_view(Integer shop_id);
 	public void update_rating(ShopVO shopVO);
+	
+	// ====================郁昔的code======================
+	public Integer countShop();
 }

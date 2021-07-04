@@ -3,9 +3,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.manager.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="com.shop.model.*"%>
+<%@ page import="com.orders.model.*"%>
 
 <%	
 	ManagerVO loginmanagerVO = (ManagerVO) session.getAttribute("loginmanagerVO");
+
+	MemberService memberSvc = new MemberService();
+	Integer countmember = memberSvc.countMember();
+	
+	ShopService shopSvc = new ShopService();
+	Integer countshop = shopSvc.countShop();
+	
+	OrdersService ordersSvc = new OrdersService();
+	Integer countorders = ordersSvc.countOrders();
 %>  
     
 <!DOCTYPE html>
@@ -15,166 +27,138 @@
 <title>Gudie好食 | 後台系統</title>
 
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/manager/css/managerIndex.css">
+
 </head>
+
+<style>
+	div.main_content {
+	    width: 100%;
+	    float: left;
+	
+	}
+	.main{
+	    height: 100%;
+	    width: 80%;
+	    float: left;
+	    background-color: #ffffff;
+	    padding-top: 30px;
+	}
+	.main ul{
+	list-style: none;
+	/*background-color: red;*/
+	overflow: hidden;
+	width: 1086px;
+	padding: 50px 0;
+	margin: 0 auto;
+	}
+	.main li{
+		width: 200px;
+		float: left;
+		margin: 0 10px;
+	    
+	}
+	.main h3{
+	text-align: center;
+	color: white;
+    font-weight: bold;
+    font-size: 25px;
+    padding-top: 25px;
+	}
+	.box1{
+	    background-color: rgb(126, 185, 205);
+	    border-top-left-radius: 20%;
+	    border-top-right-radius: 20%;
+	    height:70px;
+	}
+	.box2{
+	    background-color: rgb(255, 147, 179);
+	    border-top-left-radius: 20%;
+	    border-top-right-radius: 20%;
+	    height:70px;
+	}
+	.box3{
+	    background-color: rgb(240, 185, 140);
+	    border-top-left-radius: 20%;
+	    border-top-right-radius: 20%;
+	    height:70px;
+	}
+/* 	.box4{ */
+/* 	    background-color: rgb(0, 133, 174); */
+/* 	    border-top-left-radius: 20%; */
+/* 	    border-top-right-radius: 20%; */
+/* 	    height:70px; */
+/* 	} */
+	.bottom{
+	    box-shadow:3px 3px 12px rgb(196, 196, 196);
+	    height: 100px;
+	}
+	.bottom h3{
+	    text-align: center;
+		color: rgb(119, 119, 119);
+	    font-weight: bold;
+	    font-size: 25px;
+	    padding-top: 40px;
+	}
+
+
+</style>
 
 <body>
 
 	
-	<header class="header">
-
-		<div class="logo">
-			<img src="${pageContext.request.contextPath}/manager/images/logo(white).png">
-		</div>
-		<div class="Breadcrumbs">
-			<!--
-			<form>
-				 placeholder輸入欄裡的預設字 
-				<input type="search" placeholder="搜尋">
-				<button>
-					<i class="fas fa-search"></i>
-				</button>
-			</form>
-			-->
-		</div>
-		<div>
-            <ul class="user">
-                <li class="guidefoodindex">
-                    <a href="#">前台網頁</a>
-                </li>
-                <li>
-                    <img src="<%=request.getContextPath()%>/manager/GetPic.do?manager_id=${loginmanagerVO.manager_id}">
-                </li>
-                <li>
-                    <form action="<%=request.getContextPath()%>/cms/login.do" method="post" >
-                        <button>登出</button>
-                        <input type="hidden" name="action" value="logout">
-                    </form>
-                </li>
-            </ul>
-        </div>
-	</header>
-
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
 
 	<div class="main_content">
+		
+		<div>
+			<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+    	</div>
 
-        <div class="aside-menu">
-
-        <ul class="menu-name">
-            <li>
-                <a href="#">
-                    <i class="fas fa-home"></i>
-                    首頁
-                </a>
-            </li>
-            <li>
-                <a href="#" onclick="toggleMenu(1);">用戶管理
-                    <i class="fas fa-chevron-down" id="a-1"></i>
-                    <i class="fas fa-chevron-up" id="b-1" style="display: none;"></i></a>
-                <ul class="hide" id="menu-1">
-                    <li>
-                        <a href="#">會員管理</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/manager/listAllManager.jsp">管理員管理</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">商家管理</a>
-            </li>
-            <li>
-                <a href="#" onclick="toggleMenu(2);">社群管理
-                    <i class="fas fa-chevron-down" id="a-2"></i>
-                    <i class="fas fa-chevron-up" id="b-2" style="display: none;"></i></a>
-                <ul class="hide" id="menu-2">
-                    <li>
-                        <a href="#">評論管理</a>
-                    </li>
-                    <li>
-                        <a href="#">討論區文章管理</a>
-                    </li>
-                    <li>
-                        <a href="#">專欄文章管理</a>
-                    </li>
-                    <li>
-                        <a href="#">揪團管理</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" onclick="toggleMenu(3);">商品管理
-                    <i class="fas fa-chevron-down" id="a-3"></i>
-                    <i class="fas fa-chevron-up" id="b-3" style="display: none;"></i></a>
-                <ul class="hide" id="menu-3">
-                    <li>
-                        <a href="#">產品管理</a>
-                    </li>
-                    <li>
-                        <a href="#">系列管理</a>
-                    </li>
-                    <li>
-                        <a href="#">訂單管理</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" onclick="toggleMenu(4);">意見回饋
-                    <i class="fas fa-chevron-down" id="a-4"></i>
-                    <i class="fas fa-chevron-up" id="b-4" style="display: none;"></i></a>
-                <ul class="hide" id="menu-4">
-                    <li>
-                        <a href="#">評論檢舉</a>
-                    </li>
-                    <li>
-                        <a href="#">揪團檢舉</a>
-                    </li>
-                    <li>
-                        <a href="#">討論區檢舉</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
 
 		<div class="main">
-			${manager_id}
-			${loginmanagerVO.manager_email}
-			${loginmanagerVO.manager_account}
-			${loginmanagerVO.manager_name}
+			
+			<ul>
+                <li>
+                    <div class="box1">
+                        <h3>會員人數</h3>
+                    </div>
+                    <div class="bottom">
+                        <h3><%=countmember%></h3>
+                    </div>
+                </li>
+                <li>
+                    <div class="box2">
+                        <h3>商家數量</h3>
+                    </div>
+                    <div class="bottom">
+                        <h3><%=countshop%></h3>
+                    </div>
+                </li>
+                <li>
+                    <div class="box3">
+                        <h3>訂單數量</h3>
+                    </div>
+                    <div class="bottom">
+                        <h3><%=countorders%></h3>
+                    </div>
+                </li>
+          <!--      <li>
+                    <div class="box4">
+                        <h3>活動數量</h3>
+                    </div>
+                    <div class="bottom">
+                        <h3>0000</h3>
+                    </div>
+                </li> --> 
+            </ul>
 			
 		</div>
 
-
-
 	</div>
 
-	<script>
-
-        // 設定側邊欄，點擊展開/縮合
-        function toggleMenu(number) {
-            var menu = document.getElementById("menu-" + number);
-            var down = document.getElementById('a-'+ number);
-            var up = document.getElementById('b-'+ number);
-               
-            //display.none 代表隱藏。 
-            if (menu.style.display == "none") {
-                // 點擊後，若現在狀態為隱藏，則展開。
-                menu.style.display = "block";
-                down.style.display='none';
-                up.style.display='';
-                
-            } else {
-                // 點擊後，若現在狀態為展開，則隱藏。
-                menu.style.display = "none";
-                down.style.display='';
-                up.style.display='none';
-                
-            };
-        }
-    </script>
-
+	
 
 	<!-- body 結束標籤之前，載入Bootstrap 的 JS 及其相依性安裝(jQuery、Popper) -->
 	<script src="./vendors/jquery/jquery-3.6.0.min.js"></script>

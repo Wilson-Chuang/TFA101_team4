@@ -195,6 +195,8 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 	
+
+	
 	<!-- 購物車結帳filter -->
 	<filter-mapping>
 	<filter-name>loginFilter</filter-name>
@@ -276,6 +278,39 @@
 	<filter-mapping>
 		<filter-name>cmsLoginFilter</filter-name>
 		<url-pattern>/orders/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<!-- 後台-討論區發文檢舉filter -->
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/forumPost/allPostReport.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<!-- 後台-討論區回復檢舉filter -->
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/forumPost/allReplyReport.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<!-- 論壇發起討論filter -->
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/forumPost/addPost.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

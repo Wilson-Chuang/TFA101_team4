@@ -28,7 +28,6 @@
 	pageContext.setAttribute("member", member);
 %>
 
-<%-- <%=forumPost.getForum_post_id()%> --%>
 
 <jsp:useBean id="memberSvc" scope="page"
 	class="com.member.model.MemberService" />
@@ -89,16 +88,13 @@ div.like_block{
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-	<script src="<%=request.getContextPath() %>/js/header.js"></script>
-	<%@include file="../../pages/header.file"%>
+
+	
 	
 	<link rel="stylesheet" href="css/onePost.css">
 </head>
 <body>
-
+	<%@include file="/pages/header.file"%>
 	
 <!-- 	<table id="table-1"> -->
 <!-- 		<tr> -->
@@ -117,9 +113,6 @@ div.like_block{
 		</ul>
 	</c:if>
 	
-	<ul>
-		<li><a href="allPost.jsp">討論區</a><br></li>
-	</ul>
 	
     <article class="task_container">
 
@@ -134,6 +127,7 @@ div.like_block{
         <div>最後更新時間:
             <fmt:formatDate value="<%=forumPost.getForum_update_time()%>" pattern="yyyy/MM/dd HH:mm" />
         </div>
+        <br>
         <div>
             <%=forumPost.getForum_post_content()%>
         </div>
@@ -222,6 +216,7 @@ div.like_block{
                                     <fmt:formatDate value="${forumReply.forum_reply_update_time}"
                                         pattern="yyyy/MM/dd HH:mm" />
                                 </div>
+                                <br>
                                 <div>${forumReply.forum_reply_content}</div>
                                 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/forumPost/forumReply.do">
 <%--                                     <c:if test='${(forumReply.forum_reply_content).equals("此內容已被刪除")}'> --%>
@@ -432,5 +427,11 @@ div.like_block{
 		});
 		
 	</script>
+	
+	<!-- Header -->
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 
 </body>

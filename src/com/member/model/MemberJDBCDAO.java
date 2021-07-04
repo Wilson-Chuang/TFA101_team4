@@ -14,6 +14,8 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 	private static final String DELETE = "DELETE FROM member where member_email = ?";
 	private static final String UPDATE = "UPDATE member set member_name=?,member_gender=?,member_birth=?,member_phone=?,member_address=?,member_update_time=? where member_email=?";
 	private static final String GET_ONE_BY_ID = "SELECT * FROM member where member_id = ?";
+	
+	private static final String COUNT_MEMBER = "SELECT COUNT(*) FROM member";
 		@Override
 		public void insert(MemberVO MemberVO) {
 			Connection con = null;
@@ -339,5 +341,10 @@ public class MemberJDBCDAO implements MemberDAO_Interface{
 		public void change_status(Integer MEMBER_ID) {
 			// TODO Auto-generated method stub
 			
+		}
+		@Override
+		public Integer countMember() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 }

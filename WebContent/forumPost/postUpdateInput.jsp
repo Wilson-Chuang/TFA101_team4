@@ -7,12 +7,16 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.search.model.*"%>
 <%@ page import="com.shop.model.*"%>
-<%-- <%@include file="../../pages/header.file"%> --%>
+
 
 <%
 	ForumPostVO forumPost = (ForumPostVO) request.getAttribute("forumPost");
 %>
 
+<%
+	MemberVO member = (MemberVO)session.getAttribute("login");
+	pageContext.setAttribute("member", member);
+%>
 
 <html>
 <head>
@@ -45,11 +49,8 @@
 	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-	<link href="<%=request.getContextPath() %>/css/style_header.css" rel="stylesheet">
-	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-	<script src="<%=request.getContextPath() %>/js/header.js"></script>
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+
 	
 	 	<!-- include libraries(jQuery, bootstrap) -->
 <!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -61,12 +62,13 @@
 <!--     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 </head>
 <body>
-	<table id="table-1">
-		<tr>
-			<td><h3>文章 ForumPost: postUpdate.jsp</h3>
-				<h4>( MVC )</h4></td>
-		</tr>
-	</table>
+	<%@include file="/pages/header.file"%>
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td><h3>文章 ForumPost: postUpdate.jsp</h3> -->
+<!-- 				<h4>( MVC )</h4></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -78,11 +80,17 @@
 		</ul>
 	</c:if>
 	
+	<br>
+	<br>
 	<div class="container">
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
 				<FORM METHOD="post" ACTION="forumPost.do">
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1">會員</span>
+						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+					</div>
 					<div class="input-group mb-3">
   						<span class="input-group-text" id="basic-addon1">主題</span>
   						<input type="text" class="form-control" name="title" id="title" value="${forumPost.forum_post_title}" aria-label="Username" aria-describedby="basic-addon1">
@@ -102,25 +110,9 @@
 		</div>
 	</div>
 	
-	
-	<script>
-//         $('#summernote').summernote({
-//           placeholder: '請輸入內容',
-//           tabsize: 2,
-//           height: 300,
-//           width: 500,
-//           minHeight: null,             // set minimum height of editor
-//           maxHeight: null,             // set maximum height of editor
-//           focus: true,                  // set focus to editable area after initializing summernote
-//           toolbar: [
-//             ['style', ['style']],
-//             ['font', ['bold', 'underline', 'clear']],
-//             ['color', ['color']],
-//             ['para', ['ul', 'ol', 'paragraph']],
-//             ['insert', ['picture']],
-//             ['view', ['fullscreen']]
-//           ]
-//         });
-      </script>
-
+	<!-- Header -->
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
 </body>

@@ -80,5 +80,9 @@ public class OrdersService {
 	 public void insertWithOrder_item(OrdersVO ordersVO , List<Order_itemVO> list) {
 		 dao.insertWithOrder_item(ordersVO,list);
 	}
+	 
+	 public Integer countOrders() {
+ 		 return dao.countOrders();
+	}
 
 }

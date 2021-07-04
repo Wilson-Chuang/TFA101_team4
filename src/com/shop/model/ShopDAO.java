@@ -66,6 +66,9 @@ public class ShopDAO implements ShopDAO_interface {
 			+ "shop_email,shop_phone,shop_price_level,shop_opening_time,"
 			+ "shop_website,shop_main_img,shop_gallery,shop_reserv_status)"
 			+ " VALUES (?, ?, ?, ?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )";
+	
+	//===============郁昔的code===============
+	private static final String COUNT_SHOP = "SELECT COUNT(*) FROM shop";
 
 	@Override
 	public void insert(ShopVO shopVO) {
@@ -1138,6 +1141,58 @@ public class ShopDAO implements ShopDAO_interface {
 			}
 		}
 		
+	}
+
+	//=========郁昔的code=============
+	@Override
+	public Integer countShop() {
+		
+		Integer countShop = 0;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(COUNT_SHOP);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				countShop = rs.getInt(1);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return countShop;
 	}
 
 

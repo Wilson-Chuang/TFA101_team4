@@ -12,26 +12,13 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>商家資料修改 - update_shop_input.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/manager/vendors/bootstrap/css/bootstrap.min.css">
+
 
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
 table {
-	width: 450px;
+	width: 900px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -44,6 +31,21 @@ table, th, td {
 th, td {
 	padding: 1px;
 }
+
+div.main_content {
+    width: 100%;
+    float: left;
+  }
+  
+ h3{
+ 	margin:20px 0;
+ 	font-size:22px;
+ }
+.rightcontent{
+	margin-left:20%;
+}
+
+
 #preview {
       border: 1px solid lightgray;
       display: table;
@@ -87,200 +89,209 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>商家資料修改 - update_shop_input.jsp</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>"><img
-						src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
 
-	<h3>資料修改:</h3>
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<div class="main_content">
 
-	<FORM METHOD="post" ACTION="shop.do" name="form1" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>商家編號:<font color=red><b>*</b></font></td>
-				<td><%=shopVO.getShop_id()%></td>
-			</tr>
-			<jsp:useBean id="memberSvc" scope="page"
-				class="com.member.model.MemberService" />
-			<tr>
-				<td>會員編號:<font color=red><b>*</b></font></td>
-				<td><select size="1" name="member_id">
-						<c:forEach var="memberVO" items="${memberSvc.all}">
-							<option value="${memberVO.member_id}"
-								${(shopVO.member_id==memberVO.member_id)? 'selected':'' }>${memberVO.member_id}
-						</c:forEach>
-				</select></td>
-			</tr>
+    <div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+    </div>
 
-			<tr>
-				<td>統一編號:</td>
-				<td>
-					<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_tax_id()%>" />
-					<input type="hidden" name="shop_tax_id" size="45" value="<%=shopVO.getShop_tax_id()%>" />
-				</td>
-			</tr>
-			<tr>
-				<td>商家名稱:</td>
-				<td><input type="TEXT" name="shop_name" size="45"
-					value="<%=shopVO.getShop_name()%>" /></td>
-			</tr>
-			<tr>
-				<td>郵遞區號:</td>
-				<td><input type="TEXT" name="shop_zip_code" size="45"
-					value="<%=shopVO.getShop_zip_code()%>" /></td>
-			</tr>
-			<tr>
-				<td>縣市:</td>
-				<td><input type="TEXT" name="shop_city" size="45"
-					value="<%=shopVO.getShop_city()%>" /></td>
-			</tr>
-			<tr>
-				<td>地址:</td>
-				<td><input type="TEXT" name="shop_address" size="45"
-					value="<%=shopVO.getShop_address()%>" /></td>
-			</tr>
-			<tr>
-				<td>緯度:</td>
-				<td><input type="TEXT" name="shop_latitude" size="45" 
-					value="<%=shopVO.getShop_latitude()%>" /></td>
-			</tr>
-			<tr>
-				<td>經度:</td>
-				<td><input type="TEXT" name="shop_longitude" size="45"
-					value="<%=shopVO.getShop_longitude()%>" /></td>
-			</tr>
-			<tr>
-				<td>商家介紹:</td>
-				<td><input type="TEXT" name="shop_description" size="45"
-					value="<%=shopVO.getShop_description()%>" /></td>
-			</tr>
-			<tr>
-				<td>標籤:</td>
-				<td><input type="TEXT" name="shop_tag" size="45"
-					value="<%=shopVO.getShop_tag()%>" /></td>
-			</tr>
-			<tr>
-				<td>評價:</td>
-				<td>
-					<input type="TEXT"  size="45"	value="<%=shopVO.getShop_rating()%>" />
-					<input type="hidden" name="shop_rating" size="45" value="<%=shopVO.getShop_rating()%>"/>				
-				</td>
-			</tr>
-			<tr>
-				<td>評價總數:</td>
-				<td>
-					<input type="TEXT" size="45" value="<%=shopVO.getShop_rating_count()%>" />
-					<input type="hidden" name="shop_rating_count" size="45" value="<%=shopVO.getShop_rating_count()%>" />
-				</td>
-			</tr>
-			<tr>
-				<td>評價總和:</td>
-				<td>
-					<input type="TEXT" size="45" value="<%=shopVO.getShop_rating_total()%>" />
-					<input type="hidden" name="shop_rating_total" size="45" value="<%=shopVO.getShop_rating_total()%>" />
-				</td>
-			</tr>
-			<tr>
-				<td>信箱:</td>
-				<td><input type="TEXT" name="shop_email" size="45"
-					value="<%=shopVO.getShop_email()%>" /></td>
-			</tr>
-			<tr>
-				<td>聯絡電話:</td>
-				<td><input type="TEXT" name="shop_phone" size="45"
-					value="<%=shopVO.getShop_phone()%>" /></td>
-			</tr>
-			<tr>
-				<td>均消:</td>
-				<td><input type="TEXT" name="shop_price_level" size="45"
-					value="<%=shopVO.getShop_price_level()%>" /></td>
-			</tr>
-			<tr>
-				<td>營業時間:</td>
-				<td><input type="TEXT" name="shop_opening_time" size="45"
-					value="<%=shopVO.getShop_opening_time()%>" /></td>
-			</tr>
-			<tr>
-				<td>網站:</td>
-				<td><input type="TEXT" name="shop_website" size="45"
-					value="<%=shopVO.getShop_website()%>" /></td>
-			</tr>
-			<tr>
-				<td>圖片:</td>
-				<td>
-					<input type="file" id="p_file" name="shop_main_img" accept="image/*" /><br />
-			      	<div id="preview">
-			      	<% if(shopVO.getShop_main_img().length()<1 || shopVO.getShop_id()==null){ %>
-			      	<span class="text">預覽圖</span>
-			      	<% }else{ %>
-			      	<div><img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/<% out.print(shopVO.getShop_tax_id()); %>/images/<%=shopVO.getShop_main_img()%>'
-			      	title='<%=shopVO.getShop_main_img()%>'/></div>
-			      	<% } %>
-			      	</div>
-				</td>
-			</tr>
-			<tr>
-				<td>圖片庫:</td>
-				<td>
-					<input type="file" id="p_file_m" name="shop_gallery" accept="image/*" multiple /><br />
-				     <div id="preview_m">
-				      	<% if(shopVO.getShop_gallery().length()<1 || shopVO.getShop_id()==null){ %>
+	<div class="rightcontent">
+		<h3>商家資料修改:</h3>
+	
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+	
+		<FORM METHOD="post" ACTION="shop.do" name="form1" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td>商家編號:<font color=red><b>*</b></font></td>
+					<td><%=shopVO.getShop_id()%></td>
+				</tr>
+				<jsp:useBean id="memberSvc" scope="page"
+					class="com.member.model.MemberService" />
+				<tr>
+					<td>會員編號:<font color=red><b>*</b></font></td>
+					<td><select size="1" name="member_id">
+							<c:forEach var="memberVO" items="${memberSvc.all}">
+								<option value="${memberVO.member_id}"
+									${(shopVO.member_id==memberVO.member_id)? 'selected':'' }>${memberVO.member_id}
+							</c:forEach>
+					</select></td>
+				</tr>
+	
+				<tr>
+					<td>統一編號:</td>
+					<td>
+						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_tax_id()%>" />
+						<input type="hidden" name="shop_tax_id" size="45" value="<%=shopVO.getShop_tax_id()%>" />
+					</td>
+				</tr>
+				<tr>
+					<td>商家名稱:</td>
+					<td><input type="TEXT" name="shop_name" size="45"
+						value="<%=shopVO.getShop_name()%>" /></td>
+				</tr>
+				<tr>
+					<td>郵遞區號:</td>
+					<td><input type="TEXT" name="shop_zip_code" size="45"
+						value="<%=shopVO.getShop_zip_code()%>" /></td>
+				</tr>
+				<tr>
+					<td>縣市:</td>
+					<td><input type="TEXT" name="shop_city" size="45"
+						value="<%=shopVO.getShop_city()%>" /></td>
+				</tr>
+				<tr>
+					<td>地址:</td>
+					<td><input type="TEXT" name="shop_address" size="45"
+						value="<%=shopVO.getShop_address()%>" /></td>
+				</tr>
+				<tr>
+					<td>緯度:</td>
+					<td><input type="TEXT" name="shop_latitude" size="45" 
+						value="<%=shopVO.getShop_latitude()%>" /></td>
+				</tr>
+				<tr>
+					<td>經度:</td>
+					<td><input type="TEXT" name="shop_longitude" size="45"
+						value="<%=shopVO.getShop_longitude()%>" /></td>
+				</tr>
+				<tr>
+					<td>商家介紹:</td>
+					<td><input type="TEXT" name="shop_description" size="45"
+						value="<%=shopVO.getShop_description()%>" /></td>
+				</tr>
+				<tr>
+					<td>標籤:</td>
+					<td><input type="TEXT" name="shop_tag" size="45"
+						value="<%=shopVO.getShop_tag()%>" /></td>
+				</tr>
+				<tr>
+					<td>評價:</td>
+					<td>
+						<input type="TEXT"  size="45" disabled="disabled" value="<%=shopVO.getShop_rating()%>" />
+						<input type="hidden" name="shop_rating" size="45" value="<%=shopVO.getShop_rating()%>"/>				
+					</td>
+				</tr>
+				<tr>
+					<td>評價總數:</td>
+					<td>
+						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_count()%>" />
+						<input type="hidden" name="shop_rating_count" size="45" value="<%=shopVO.getShop_rating_count()%>" />
+					</td>
+				</tr>
+				<tr>
+					<td>評價總和:</td>
+					<td>
+						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_total()%>" />
+						<input type="hidden" name="shop_rating_total" size="45" value="<%=shopVO.getShop_rating_total()%>" />
+					</td>
+				</tr>
+				<tr>
+					<td>信箱:</td>
+					<td><input type="TEXT" name="shop_email" size="45"
+						value="<%=shopVO.getShop_email()%>" /></td>
+				</tr>
+				<tr>
+					<td>聯絡電話:</td>
+					<td><input type="TEXT" name="shop_phone" size="45"
+						value="<%=shopVO.getShop_phone()%>" /></td>
+				</tr>
+				<tr>
+					<td>均消:</td>
+					<td><input type="TEXT" name="shop_price_level" size="45"
+						value="<%=shopVO.getShop_price_level()%>" /></td>
+				</tr>
+				<tr>
+					<td>營業時間:</td>
+					<td><input type="TEXT" name="shop_opening_time" size="45"
+						value="<%=shopVO.getShop_opening_time()%>" /></td>
+				</tr>
+				<tr>
+					<td>網站:</td>
+					<td><input type="TEXT" name="shop_website" size="45"
+						value="<%=shopVO.getShop_website()%>" /></td>
+				</tr>
+				<tr>
+					<td>圖片:</td>
+					<td>
+						<input type="file" id="p_file" name="shop_main_img" accept="image/*" /><br />
+				      	<div id="preview">
+				      	<% if(shopVO.getShop_main_img().length()<1 || shopVO.getShop_id()==null){ %>
 				      	<span class="text">預覽圖</span>
-				      	<% }else{ %>      	
-				      	<div>
-				      	<%
-				      	String filename = shopVO.getShop_gallery().replaceAll("[\\[\\]\"]", "");
-				      	String[] values = filename.split(", ");				      	
-					    for (int i=0; i<values.length; i++) {
-					    %>
-					      	<img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/<% out.print(shopVO.getShop_tax_id()); %>/gallery/<% out.print(values[i]); %>' 
-					      	title='<% out.print(values[i]); %>'/>		
-							<% } %>
-				      	</div>
+				      	<% }else{ %>
+				      	<div><img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/<% out.print(shopVO.getShop_tax_id()); %>/images/<%=shopVO.getShop_main_img()%>'
+				      	title='<%=shopVO.getShop_main_img()%>'/></div>
 				      	<% } %>
-      				</div>
-				</td>
-			</tr>
-			<tr>
-			<!--	<td>更新時間:</td> -->
-				<td><input name="shop_update_time" id="f_date2" type="hidden"></td>
-			</tr>
-			<tr>
-				<td>總瀏覽數:</td>
-				<td>
-					<input type="TEXT" size="45" value="<%=shopVO.getShop_total_view()%>" disabled="disabled"/>
-					<input type="hidden" name="shop_total_view" size="45" value="<%=shopVO.getShop_total_view()%>" />
-				</td>
-			</tr>
-			<tr>
-			<!--<td>預約功能:</td> -->
-				<td><input type="hidden" name="shop_reserv_status" size="45"
-					value="<%=shopVO.getShop_reserv_status()%>" />
-				</td>
-			</tr>
+				      	</div>
+					</td>
+				</tr>
+				<tr>
+					<td>圖片庫:</td>
+					<td>
+						<input type="file" id="p_file_m" name="shop_gallery" accept="image/*" multiple /><br />
+					     <div id="preview_m">
+					      	<% if(shopVO.getShop_gallery().length()<1 || shopVO.getShop_id()==null){ %>
+					      	<span class="text">預覽圖</span>
+					      	<% }else{ %>      	
+					      	<div>
+					      	<%
+					      	String filename = shopVO.getShop_gallery().replaceAll("[\\[\\]\"]", "");
+					      	String[] values = filename.split(", ");				      	
+						    for (int i=0; i<values.length; i++) {
+						    %>
+						      	<img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/<% out.print(shopVO.getShop_tax_id()); %>/gallery/<% out.print(values[i]); %>' 
+						      	title='<% out.print(values[i]); %>'/>		
+								<% } %>
+					      	</div>
+					      	<% } %>
+	      				</div>
+					</td>
+				</tr>
+				<tr>
+				<!--	<td>更新時間:</td> -->
+					<td><input name="shop_update_time" id="f_date2" type="hidden"></td>
+				</tr>
+				<tr>
+					<td>總瀏覽數:</td>
+					<td>
+						<input type="TEXT" size="45" value="<%=shopVO.getShop_total_view()%>" disabled="disabled"/>
+						<input type="hidden" name="shop_total_view" size="45" value="<%=shopVO.getShop_total_view()%>" />
+					</td>
+				</tr>
+				<tr>
+				<!--<td>預約功能:</td> -->
+					<td><input type="hidden" name="shop_reserv_status" size="45"
+						value="<%=shopVO.getShop_reserv_status()%>" />
+					</td>
+				</tr>
+	
+			</table>
+			<br> 
+			<input type="hidden" name="action" value="update"> 
+			<input type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
+			<input type="submit" value="送出修改">
+		</FORM>
+	</div>
+</div>
 
-		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
-		<input type="submit" value="送出修改">
-	</FORM>
+
+
+<script src="./vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="./vendors/popper/popper.min.js"></script>
+<script src="./vendors/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 

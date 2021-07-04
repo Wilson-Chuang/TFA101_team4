@@ -53,14 +53,13 @@
    
   push{
   	 /* 圓角 */
-     border-radius: 10px;
+     border-radius: 20%;
     /* 輸入文字色彩設定 */
      color: rgb(41, 41, 41);
      padding: 5px 10px;
   	 width:100px;
   	 height:50px;
   	 margin:20px 10px;
-  	 border-radius:10%;
   	 background-color:#e9e9e9;
   }  
 

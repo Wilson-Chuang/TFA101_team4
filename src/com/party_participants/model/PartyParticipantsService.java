@@ -13,13 +13,12 @@ public class PartyParticipantsService {
 	}
 	
 	public PartyParticipantsVO addPartyParticipants(Integer party_member_id, 
-			Integer party_id, Timestamp party_up_time) {
+			Integer party_id) {
 		
 		PartyParticipantsVO partyParticipants = new PartyParticipantsVO();
 		
 		partyParticipants.setParty_member_id(party_member_id);
 		partyParticipants.setParty_id(party_id);
-		partyParticipants.setParty_up_time(party_up_time);
 		dao.insert(partyParticipants);
 		
 		return partyParticipants;
@@ -49,6 +48,9 @@ public class PartyParticipantsService {
 	
 	public List<PartyParticipantsVO> getAll() {
 		return dao.getAll();
+	}
+	public List<PartyParticipantsVO> getMemberAll(Integer member_id) {
+		return dao.getMemberAll(member_id);
 	}
 	
 	public Integer countByPostID(Integer party_id) {

@@ -1642,6 +1642,36 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		
+		if ("changeOne_Status".equals(action)) { // 來自listAllMember.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				Integer member_ID = new Integer(req.getParameter("member_id"));
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				MemberService memberSvc = new MemberService();
+				memberSvc.change_status(member_ID);
+				MemberVO memberVO = memberSvc.GET_ONE_BY_ID(member_ID);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("memberVO", memberVO); // 資料庫取出的memberVO物件,存入req
+				String url = "/cms/protected/listAllMember.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_manager_input.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/cms/protected/listAllMember.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 	
 	

@@ -9,52 +9,39 @@
 <head>
 <title>揪團資料</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
 <style>
   table {
-	width: 600px;
+	width: 900px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
   th, td {
+  	border: 0;
+    border-bottom: 1px solid gray;
     padding: 5px;
     text-align: center;
+    height: 50px;
   }
+  tr{
+   align: center;
+   }
 </style>
 
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>揪團資料</h3>
-		 <h4><a href="party_select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
 
 <table>
 	<tr>
 		<th>揪團編號</th>
+		<th>會員編號</th>
+		<th>餐廳編號</th>
 		<th>揪團標題</th>
 		<th>揪團開始時間</th>
 		<th>揪團結束時間</th>

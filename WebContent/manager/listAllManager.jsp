@@ -37,14 +37,13 @@
    
   .add button{
   	 /* 圓角 */
-     border-radius: 10px;
+     border-radius: 20%;
     /* 輸入文字色彩設定 */
      color: rgb(41, 41, 41);
      padding: 5px 10px;
   	 width:100px;
   	 height:50px;
   	 margin:20px 10px;
-  	 border-radius:10%;
   	 background-color:#e9e9e9;
   }  
   .add button a{
@@ -153,7 +152,7 @@
 	        		<b>輸入編號查詢 :</b>
 	        		<input type="text" name="manager_id" style="width:100px; border: 1px solid gray;">
 	        		<input type="hidden" name="action" value="getOne_For_Display">
-	        		<input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
+	        		<input type="submit" value="送出" style="border-radius: 10%; border: 1px solid gray;">
 	    		</FORM>
 			</li>
 			
@@ -168,7 +167,7 @@
 			         </c:forEach>   
 			       </select>
 			       <input type="hidden" name="action" value="getOne_For_Display">
-			       <input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
+			       <input type="submit" value="送出" style="border-radius: 10%; border: 1px solid gray;">
 			    </FORM>
 		    </li>
 		    <li>
@@ -180,7 +179,7 @@
 			         </c:forEach>   
 			       </select>
 			       <input type="hidden" name="action" value="getOne_For_Display">
-			       <input type="submit" value="送出" style="border-radius: 5px; border: 1px solid gray;">
+			       <input type="submit" value="送出" style="border-radius: 10%; border: 1px solid gray;">
 			     </FORM>
 		    </li>
 		</ul>

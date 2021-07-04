@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.manager.model.ManagerVO;
+
 
 
 public class MemberDAO implements MemberDAO_Interface {
@@ -35,6 +37,10 @@ public class MemberDAO implements MemberDAO_Interface {
 	private static final String change_status = "UPDATE member set member_status=? where member_id=?";
 	private static final String POINT_UPDATE = 
 			"UPDATE member set member_point=? where member_id = ?";
+	
+	private static final String COUNT_MEMBER = "SELECT COUNT(*) FROM member";
+	
+	
 	
 	@Override
 	public void insert(MemberVO MemberVO) {
@@ -474,4 +480,56 @@ public class MemberDAO implements MemberDAO_Interface {
 	   }
 	  }
 	 }
+	
+//	後台首頁，計算會員數量
+	@Override
+	public Integer countMember() {
+		
+		Integer countMember = 0;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(COUNT_MEMBER);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				countMember = rs.getInt(1);
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return countMember;
+	}
 }

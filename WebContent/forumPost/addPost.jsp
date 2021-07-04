@@ -14,61 +14,53 @@
 	MemberVO member = (MemberVO)session.getAttribute("login");
 	pageContext.setAttribute("member", member);
 %>
+<!DOCTYPE html>
 <html>
 <head>
-<title>發起討論</title>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>發起討論</title>
 
-<style>
-table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
+	<style>
+	table {
+		width: 800px;
+		background-color: white;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	table, th, td {
+		border: 1px solid #CCCCFF;
+	}
+	
+	th, td {
+		padding: 5px;
+		text-align: center;
+	}
+	</style>
 
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
+	<!-- ckeditor -->
+	<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/ckeditor.js"></script>
+	<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/config.js"></script>
 
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
 
-		<!-- ckeditor -->
-		<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/ckeditor.js"></script>
-		<script src="<%=request.getContextPath()%>/forumPost/resources/ckeditor/config.js"></script>
-<!--     include libraries(jQuery, bootstrap) -->
-<!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
-<!--     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-<!--     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
-<!--     include summernote css/js -->
-<!--     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> -->
-<!--     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
-
-<!-- Header -->
-<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
-<script src="<%=request.getContextPath() %>/js/header.js"></script>
-<%@include file="../../pages/header.file"%>
+	<!-- Header -->
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
 
 </head>
 <body>
-
-	<table id="table-1">
-		<tr>
-			<td><h3>ForumPost: addPost.jsp</h3>
-				<h4>( MVC )</h4></td>
-		</tr>
-	</table>
+	<%@include file="/pages/header.file"%>
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td><h3>ForumPost: addPost.jsp</h3> -->
+<!-- 				<h4>( MVC )</h4></td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<%-- 	錯誤列表 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -80,10 +72,11 @@ th, td {
 		</ul>
 	</c:if>
 	
-	<ul>
-		<li><a href="allPost.jsp">討論區</a><br></li>
-	</ul>
-	
+<!-- 	<ul> -->
+<!-- 		<li><a href="allPost.jsp">討論區</a><br></li> -->
+<!-- 	</ul> -->
+	<br>
+	<br>
 	<div class="container">
 		<div class="row">
 			<div class="col-3"></div>
@@ -112,26 +105,12 @@ th, td {
 			<div class="col-3"></div>
 		</div>
 	</div>
-
 	
-	<script>
-//         $('#summernote').summernote({
-//           placeholder: '請輸入內容',
-//           tabsize: 2,
-//           height: 300,
-//           width: 900,
-//           minHeight: null,             // set minimum height of editor
-//           maxHeight: null,             // set maximum height of editor
-//           focus: true,                  // set focus to editable area after initializing summernote
-//           toolbar: [
-//             ['style', ['style']],
-//             ['font', ['bold', 'underline', 'clear']],
-//             ['color', ['color']],
-//             ['para', ['ul', 'ol', 'paragraph']],
-//             ['insert', ['picture']],
-//             ['view', ['fullscreen']]
-//           ]
-//         });
-      </script>
+	<!-- Header -->
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
+
 </body>
 </html>
