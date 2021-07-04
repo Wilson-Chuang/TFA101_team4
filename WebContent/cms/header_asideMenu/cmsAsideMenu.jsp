@@ -35,7 +35,7 @@
                     <i class="fas fa-chevron-up" id="b-1" style="display: none;"></i></a>
                 <ul class="hide" id="menu-1">
                     <li>
-                        <a href="#">會員管理</a>
+                        <a href="${pageContext.request.contextPath}/cms/protected/listAllMember.jsp">會員管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/manager/listAllManager.jsp">管理員管理</a>
@@ -51,7 +51,7 @@
                     <i class="fas fa-chevron-up" id="b-2" style="display: none;"></i></a>
                 <ul class="hide" id="menu-2">
                     <li>
-                        <a href="#">評論管理</a>
+                        <a href="${pageContext.request.contextPath}/cms/protected/listAllComment.jsp">評論管理</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/article/listArticle_back_end.jsp">專欄文章管理</a>
