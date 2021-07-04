@@ -181,21 +181,21 @@ div.main_content {
 				<tr>
 					<td>評價:</td>
 					<td>
-						<input type="TEXT"  size="45"	value="<%=shopVO.getShop_rating()%>" />
+						<input type="TEXT"  size="45" disabled="disabled" value="<%=shopVO.getShop_rating()%>" />
 						<input type="hidden" name="shop_rating" size="45" value="<%=shopVO.getShop_rating()%>"/>				
 					</td>
 				</tr>
 				<tr>
 					<td>評價總數:</td>
 					<td>
-						<input type="TEXT" size="45" value="<%=shopVO.getShop_rating_count()%>" />
+						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_count()%>" />
 						<input type="hidden" name="shop_rating_count" size="45" value="<%=shopVO.getShop_rating_count()%>" />
 					</td>
 				</tr>
 				<tr>
 					<td>評價總和:</td>
 					<td>
-						<input type="TEXT" size="45" value="<%=shopVO.getShop_rating_total()%>" />
+						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_total()%>" />
 						<input type="hidden" name="shop_rating_total" size="45" value="<%=shopVO.getShop_rating_total()%>" />
 					</td>
 				</tr>
@@ -279,8 +279,9 @@ div.main_content {
 				</tr>
 	
 			</table>
-			<br> <input type="hidden" name="action" value="update"> <input
-				type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
+			<br> 
+			<input type="hidden" name="action" value="update"> 
+			<input type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
 			<input type="submit" value="送出修改">
 		</FORM>
 	</div>

@@ -53,6 +53,9 @@ public class OrdersDAO implements OrdersDAO_interface{
 	
 		private static final String UPDATE = 
 			"UPDATE ORDERS SET MEMBER_ID=?, ORDERS_DATE=?, ORDERS_TOTAL_POINT=?, ORDERS_SHIPPING_NAME=?, ORDERS_SHIPPING_PHONE=?, ORDERS_SHIPPING_ADDRESS=?, ORDERS_NOTE=?, PAYMENT_ID=?, INVOICE_ID=?,ORDERS_INVOICE_TAX_NUMBER=? WHERE ORDERS_ID = ?";
+		
+		private static final String COUNT_ORDERS = 
+				"SELECT COUNT(*) FROM ORDERS";
 	
 		
 		@Override
@@ -571,5 +574,58 @@ public class OrdersDAO implements OrdersDAO_interface{
 				}
 			}
 			return list;
+		}
+
+
+		//後台計算總訂單數
+		@Override
+		public Integer countOrders() {
+			
+			Integer countOrders = 0;
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(COUNT_ORDERS);
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					countOrders = rs.getInt(1);
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			
+			return countOrders;
 		}
 }
