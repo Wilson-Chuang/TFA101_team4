@@ -5,6 +5,7 @@
 <%@ page import="com.manager.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.shop.model.*"%>
+<%@ page import="com.orders.model.*"%>
 
 <%	
 	ManagerVO loginmanagerVO = (ManagerVO) session.getAttribute("loginmanagerVO");
@@ -14,6 +15,9 @@
 	
 	ShopService shopSvc = new ShopService();
 	Integer countshop = shopSvc.countShop();
+	
+	OrdersService ordersSvc = new OrdersService();
+	Integer countorders = ordersSvc.countOrders();
 %>  
     
 <!DOCTYPE html>
@@ -137,7 +141,7 @@
                         <h3>訂單數量</h3>
                     </div>
                     <div class="bottom">
-                        <h3>0000</h3>
+                        <h3><%=countorders%></h3>
                     </div>
                 </li>
           <!--      <li>

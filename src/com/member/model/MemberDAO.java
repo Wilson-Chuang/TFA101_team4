@@ -481,6 +481,7 @@ public class MemberDAO implements MemberDAO_Interface {
 	  }
 	 }
 	
+//	後台首頁，計算會員數量
 	@Override
 	public Integer countMember() {
 		
