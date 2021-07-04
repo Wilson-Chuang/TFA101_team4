@@ -74,6 +74,7 @@ div.like_block{
 .svg-inline--fa{
 	font-size: medium;
 }
+
 </style>
 	<!-- fontawesome -->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -411,7 +412,8 @@ div.like_block{
 				
 				
 				$.ajax({
-				    url: "http://localhost:8081/Team4/forumPost/forumPost.do",
+// 				    url: "http://localhost:8081/Team4/forumPost/forumPost.do",
+				    url: "<%=request.getContextPath()%>/forumPost/forumPost.do",
 				    type: "POST",
 				    data: { action: action, postid: postid, memberID: memberID },
 				    dataType: "json",
