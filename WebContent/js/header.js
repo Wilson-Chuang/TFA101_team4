@@ -137,10 +137,10 @@ class Autocomplete {
 		});
 
 		field.addEventListener("keydown", (e) => {
-			if (e.keyCode === 40) {
-				this.dropdown._menu.children[0].focus();
+			if (e.keyCode === 27) {
+				this.dropdown.hide();
 				return;
-			}
+			}			
 		});
 	}
 
@@ -406,6 +406,13 @@ function killDrop() {
 	}
 	$(".dropdown-menu.show").removeClass("show");
 }
+
+$("body").on("keypress", ".search-bar", function(e){
+	var code = (e.keyCode ? e.keyCode : e.which);
+	if (code == 13){
+		$("#btn-submit").click();
+	}
+});
 
 $("#btn-submit").on("click", function () {
 	let recentArray = [];
