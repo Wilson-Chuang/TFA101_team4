@@ -47,13 +47,3 @@ function navigate(ori_lat, ori_lng, des_lat, des_lng, mode) {
 $(".btn-check").click(function(e){
 	navigate(parseFloat(latitude), parseFloat(longitude), shopVO.shop_latitude, shopVO.shop_longitude, $(this).val());
 });
-
-$("body").on("click", "a", function(){
-	$('#redirect').removeClass("d-none");
-	$('.row').fadeTo("fast", 0.5);
-});
-
-$("body").on("click", "button", function(){
-	$('#redirect').removeClass("d-none");
-	$('.row').fadeTo("fast", 0.5);
-});
