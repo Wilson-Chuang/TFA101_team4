@@ -49,22 +49,24 @@ function pagelist(data){
 
 $("#orderbyrate").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortDesc(refine, 0, refine.length, "shop_rating");
+	$("#search-order-now > span").text($(this).text());	
 	if(filtertemp.length > 0){
+		quickSortDesc(filtertemp, 0, filtertemp.length, "shop_rating");
 		pagelist(filtertemp);
 	}else{
+		quickSortDesc(refine, 0, refine.length, "shop_rating");
 		pagelist(refine);
 	}
 });
 
 $("#orderbypopular").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortDesc(refine, 0, refine.length, "shop_total_view");
+	$("#search-order-now > span").text($(this).text());	
 	if(filtertemp.length > 0){
+		quickSortDesc(filtertemp, 0, filtertemp.length, "shop_total_view");
 		pagelist(filtertemp);
 	}else{
+		quickSortDesc(refine, 0, refine.length, "shop_total_view");
 		pagelist(refine);
 	}
 });
@@ -72,22 +74,24 @@ $("#orderbypopular").click(function(e){
 
 $("#orderbycost").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortAsc(refine, 0, refine.length, "shop_price_level");
+	$("#search-order-now > span").text($(this).text());	
 	if(filtertemp.length > 0){
+		quickSortAsc(filtertemp, 0, filtertemp.length, "shop_price_level");
 		pagelist(filtertemp);
 	}else{
+		quickSortAsc(refine, 0, refine.length, "shop_price_level");
 		pagelist(refine);
 	}
 });
 
 $("#orderbydistance").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortDistance(refine, 0, refine.length, "shop_latitude", "shop_longitude");
+	$("#search-order-now > span").text($(this).text());	
 	if(filtertemp.length > 0){
+		quickSortDistance(filtertemp, 0, filtertemp.length, "shop_latitude", "shop_longitude");
 		pagelist(filtertemp);
 	}else{
+		quickSortDistance(refine, 0, refine.length, "shop_latitude", "shop_longitude");
 		pagelist(refine);
 	}
 });
