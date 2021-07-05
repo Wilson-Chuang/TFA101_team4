@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.article.model.*"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 <html>
@@ -67,13 +68,26 @@
        		</c:if>
 	     </c:forEach> 	
 		</p>
+		
+		
+		   <c:forEach var="shopVO" items="${shopSvc.all}">
+              <c:if test="${articleVO.shop_no==shopVO.shop_id}">
+	   			<div class="shopname">
+	               <a href="http://guidefood.myftp.org:8081/public/Shop.jsp?shop_id=${shopVO.shop_id}">                
+	                 <p style="color:gray; font-size:10px; position:absolute; bottom:78px; left:155px; font-weight:bold;" > 
+	       			${shopVO.shop_name}			       
+	               </a>
+	          	</div>
+              </c:if>
+           </c:forEach>
 	</div>
 	<div class="title">${articleVO.article_title}</div>
 	<div class="article_info">
 		<span>推薦美食</span>
 		<span><fmt:formatDate value="${articleVO.article_create_time}" pattern="yyyy/MM/dd hh:mm:ss"/></span>
-		<span>人氣:199</span>
+		<span>人氣:0</span>
 	</div>
+	
 	<div class="content">
 		${articleVO.article_content}
 	</div>

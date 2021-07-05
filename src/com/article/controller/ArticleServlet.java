@@ -113,9 +113,9 @@ public class ArticleServlet extends HttpServlet {
 			    
 			    Integer member_no = memberVO.getMember_id();
 
-//				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
+				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
 			    
-			    Integer shop_no = 2;
+//			    Integer shop_no = 2;
 			    
 				Integer category_no = new Integer(req.getParameter("category_no").trim());
 			
@@ -265,9 +265,9 @@ public class ArticleServlet extends HttpServlet {
 			    
 			    Integer member_no = memberVO.getMember_id();
 
-//				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
+				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
 			    
-			    Integer shop_no = 2;
+//			    Integer shop_no = 2;
 			    
 				Integer category_no = new Integer(req.getParameter("category_no").trim());
 			

@@ -716,3 +716,15 @@ div.hot_sales_content p{
     left: 0%;
     background-position:64px -2px;
     }
+
+    
+.article_titleA{
+	text-decoration:none;
+	color:coral;
+}    
+
+
+.shopname{
+	text-decoration:none;
+	color:coral;
+}
