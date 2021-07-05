@@ -35,10 +35,11 @@
 
   .rightcontent{
   	margin-left:20%;
+  	width: 1000px; 
   }
 
   table {
-/* 	width: 950px; */
+ 	width: 950px; 
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -56,43 +57,43 @@
     height: 80px;
     vertical-align: middle;
   }
-#preview {
-      border: 1px solid lightgray;
-      display: table;
-      width: 100px;
-      min-height: 150px;
-      position: relative;
-    }
-    #preview span.text {
-      position: absolute;
-      display: inline-block;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      color: lightgray;
-    }
-    #preview img.preview_img {
-      width: 100%;
-    }
-     #preview_m {
-      border: 1px solid lightgray;
-      display: table;
-      width: 100px;
-      min-height: 150px;
-      position: relative;
-    }
-    #preview_m span.text {
-      position: absolute;
-      display: inline-block;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-      color: lightgray;
-    }
-    #preview_m img.preview_img {
-      width: 100%;
-    }
+ 	#preview { 
+       border: 1px solid lightgray; 
+       display: table; 
+       width: 100%; 
+/*        min-height: 150px;  */
+       position: relative; 
+    } 
+     #preview span.text { 
+       position: absolute; 
+       display: inline-block; 
+       left: 50%;
+       top: 50%; 
+       transform: translate(-50%, -50%); 
+       color: lightgray; 
+     } 
+    #preview img.preview_img { 
+      width: 100%; 
+     } 
+/*      #preview_m { */
+/*       border: 1px solid lightgray; */
+/*       display: table; */
+/*       width: 100%; */
+/*       min-height: 150px; */
+/*       position: relative; */
+/*     } */
+/*     #preview_m span.text { */
+/*       position: absolute; */
+/*       display: inline-block; */
+/*       left: 50%; */
+/*       top: 50%; */
+/*       transform: translate(-50%, -50%); */
+/*       z-index: 1; */
+/*       color: lightgray; */
+/*     } */
+/*     #preview_m img.preview_img { */
+/*       width: 100%; */
+/*     } */
     button{
   	border: none;
   	background-color: white;	
@@ -134,7 +135,7 @@
 		</div>
     </div>
 
-	<div class="rightcontent">
+	<div class="rightcontent" width="1000px;">
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color:red">請修正以下錯誤:</font>
@@ -145,12 +146,12 @@
 			</ul>
 		</c:if>
 		
-		<table>
+		<table style="width:980px; table-layout:fixed; word-wrap:break-word; word-break ; break-all;">
 			<tr>
-				<th>商家編號</th>
-				<th>會員編號</th>
-				<th>統一編號</th>
-				<th>商家名稱</th>
+				<th>商家<br>編號</th>
+				<th>會員<br>編號</th>
+				<th>統一<br>編號</th>
+				<th>商家<br>名稱</th>
 		<!-- 		<th>郵遞區號</th>  -->
 				<th>縣市</th>
 		<!--		<th>地址</th> -->
@@ -159,18 +160,18 @@
 		<!-- 		<th>商家介紹</th>-->
 		<!-- 		<th>標籤</th> -->
 				<th>評價</th>
-				<th>評價總數</th>
+				<th>評價<br>總數</th>
 		<!--		<th>評價總和</th> -->
 				<th>Email</th>
-				<th>聯絡電話</th>
+				<th>聯絡<br>電話</th>
 		<!--		<th>均消</th> -->
 		<!--		<th>營業時間</th> -->
-				<th width="150px">網站</th>
-		<!--		<th>圖片</th> -->
-				<th>圖片庫</th>
-				<th>建立時間</th>
-				<th>更新時間</th>
-				<th>總瀏覽數</th>
+				<th width="100px">網站</th>
+				<th>圖片</th> 
+			<!--	<th>圖片庫</th> -->
+			<!--	<th>建立<br>時間</th> -->
+				<th>更新<br>時間</th>
+				<th>總瀏<br>覽數</th>
 		<!-- 		<th>預約功能</th>-->
 				<th>修改</th>
 		<!--		<th>刪除</th>-->
@@ -209,8 +210,8 @@
 								${value01}<br><br>
 						</c:forTokens>
 					</td>		-->
-					<td width="150px">${shopVO.shop_website}</td>
-			<!--		<td>
+					<td width="100px">${shopVO.shop_website}</td>
+					<td>
 					<div id="preview">
 					<c:set var="shop_main_img" value="${shopVO.shop_main_img}"/>
 						<c:choose>					
@@ -223,8 +224,8 @@
 							 </c:otherwise>
 						</c:choose>
 					</div>
-					</td>  -->
-					<td>
+					</td> 
+				<!--	<td>
 						<div id="preview_m">
 						<c:set var="shop_gallery" value="${shopVO.shop_gallery}"/>
 						<c:choose>
@@ -243,8 +244,8 @@
 				      			</div>
 							 </c:otherwise>
 						</c:choose>
-			   			</div></td>
-					<td><fmt:formatDate value="${shopVO.shop_create_time}" pattern="yyyy/MM/dd HH:mm"/></td>
+			   			</div></td>  -->
+				<!--	<td><fmt:formatDate value="${shopVO.shop_create_time}" pattern="yyyy/MM/dd HH:mm"/></td> -->
 					<td><fmt:formatDate value="${shopVO.shop_update_time}" pattern="yyyy/MM/dd HH:mm"/></td>
 					<td>${shopVO.shop_total_view}</td>
 				<!--	<td>${shopVO.shop_reserv_status}</td>	-->	
