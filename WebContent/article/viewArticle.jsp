@@ -53,7 +53,7 @@
 	<div class="article_info">
 		<span>推薦美食</span>
 		<span><fmt:formatDate value="${articleVO.article_create_time}" pattern="yyyy/MM/dd hh:mm:ss"/></span>
-		<span>人氣:199</span>
+		<span>人氣:0</span>
 	</div>
 	<div class="content">
 		${articleVO.article_content}
