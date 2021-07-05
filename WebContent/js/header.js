@@ -137,10 +137,6 @@ class Autocomplete {
 		});
 
 		field.addEventListener("keydown", (e) => {
-			if (e.keyCode === 27) {
-				this.dropdown.hide();
-				return;
-			}
 			if (e.keyCode === 40) {
 				this.dropdown._menu.children[0].focus();
 				return;
