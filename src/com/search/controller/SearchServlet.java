@@ -275,8 +275,32 @@ public class SearchServlet extends HttpServlet {
 				res.sendRedirect(req.getContextPath());
 				throw new ServletException(e);
 			}
+			} else if("fromShopid".equals(action)) {
+				res.setContentType("application/json; charset=utf-8");
+				String tmp_shop_id = "";
+				if(req.getParameter("shop_id") != null) {
+					tmp_shop_id = req.getParameter("shop_id").trim();
+				}
+				Integer shop_id = 0;
+				if(tmp_shop_id != null && tmp_shop_id.length() != 0) {
+					try {
+						shop_id = Integer.parseInt(tmp_shop_id);
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+						res.sendRedirect(req.getContextPath());
+					}
+				}				
+				ShopVO shopVO = shopSvc.getOneShop(shop_id);			
+				Gson gson = new Gson();
+		        String list = gson.toJson(shopVO);
+				JSONObject resJSON = new JSONObject();
+				resJSON.put("list", list);
+				resJSON.put("status", "OK");
+		        PrintWriter out = res.getWriter();				 
+		        out.println(resJSON);
 		} else {
 			res.sendRedirect(req.getContextPath());
 		}
+		
 	}
 }
