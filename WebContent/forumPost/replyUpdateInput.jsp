@@ -51,7 +51,9 @@ th, td {
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-
+	
+	<link rel="stylesheet" href="css/onePost.css">
+	
 	<jsp:useBean id="forumPostSvc"
 	class="com.forum_post.model.ForumPostService" />
 </head>
@@ -73,33 +75,55 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-	<br>
-	<br>
-	<div class="container">
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<FORM METHOD="post" ACTION="forumReply.do">
-					<div class="input-group mb-3">
-						<span class="input-group-text" id="basic-addon1">會員</span>
-						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-					<div class="input-group mb-3">
-  						<span class="input-group-text" id="basic-addon1">主題</span>
-  						<input type="text" class="form-control" name="title" id="title" disabled="disabled" value="${forumPostSvc.getOneForumPost(forumReply.forum_post_id).forum_post_title}" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-					<textarea class="ckeditor" id="myContent" name="content">${forumReply.forum_reply_content}</textarea>
-					<br>
-					<input type="hidden" name="action" value="reply_Update">
-					<input type="hidden" name="postid" value="${forumReply.forum_post_id}">
-					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
-					<input type="hidden" name="memberID" id="memberID" value="${forumReply.member_id}">
-					<button type="submit" class="btn btn-primary">送出</button>
-				</FORM>
-			</div>
-			<div class="col-3"></div>
-		</div>
-	</div>
+<!-- 	<br> -->
+<!-- 	<br> -->
+<!-- 	<div class="container"> -->
+<!-- 		<div class="row"> -->
+<!-- 			<div class="col-3"></div> -->
+<!-- 			<div class="col-6"> -->
+<!-- 				<FORM METHOD="post" ACTION="forumReply.do"> -->
+<!-- 					<div class="input-group mb-3"> -->
+<!-- 						<span class="input-group-text" id="basic-addon1">會員</span> -->
+<%-- 						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1"> --%>
+<!-- 					</div> -->
+<!-- 					<div class="input-group mb-3"> -->
+<!--   						<span class="input-group-text" id="basic-addon1">主題</span> -->
+<%--   						<input type="text" class="form-control" name="title" id="title" disabled="disabled" value="${forumPostSvc.getOneForumPost(forumReply.forum_post_id).forum_post_title}" aria-label="Username" aria-describedby="basic-addon1"> --%>
+<!-- 					</div> -->
+<%-- 					<textarea class="ckeditor" id="myContent" name="content">${forumReply.forum_reply_content}</textarea> --%>
+<!-- 					<br> -->
+<!-- 					<input type="hidden" name="action" value="reply_Update"> -->
+<%-- 					<input type="hidden" name="postid" value="${forumReply.forum_post_id}"> --%>
+<%-- 					<input type="hidden" name="replyid" value="${forumReply.forum_reply_id}"> --%>
+<%-- 					<input type="hidden" name="memberID" id="memberID" value="${forumReply.member_id}"> --%>
+<!-- 					<button type="submit" class="btn btn-primary">送出</button> -->
+<!-- 				</FORM> -->
+<!-- 			</div> -->
+<!-- 			<div class="col-3"></div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+		 <article class="task_container">
+	        <div class="task_add_block">
+	            <FORM METHOD="post" ACTION="forumReply.do">
+	                <div class="input-group mb-3">
+	                    <span class="input-group-text" id="basic-addon1">會員</span>
+	                    <input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+	                </div>
+	                <div class="input-group mb-3">
+	                      <span class="input-group-text" id="basic-addon1">主題</span>
+	                      <input type="text" class="form-control" name="title" id="title" disabled="disabled" value="${forumPostSvc.getOneForumPost(forumReply.forum_post_id).forum_post_title}" aria-label="Username" aria-describedby="basic-addon1">
+	                </div>
+	                <textarea class="ckeditor" id="myContent" name="content">${forumReply.forum_reply_content}</textarea>
+	                <br>
+	                <input type="hidden" name="action" value="reply_Update">
+	                <input type="hidden" name="postid" value="${forumReply.forum_post_id}">
+	                <input type="hidden" name="replyid" value="${forumReply.forum_reply_id}">
+	                <input type="hidden" name="memberID" id="memberID" value="${forumReply.member_id}">
+	                <button type="submit" class="btn btn-primary">送出</button>
+	            </FORM>
+	        </div>
+    	</article>
 	
 	<!-- Header -->
 	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
