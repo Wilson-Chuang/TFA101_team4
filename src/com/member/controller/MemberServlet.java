@@ -158,7 +158,7 @@ public class MemberServlet extends HttpServlet {
 				Integer shop_price_level=new Integer(req.getParameter("Shop_price_level"));
 				String shop_opening_time=req.getParameter("Shop_opening_time");
 				String shop_website=req.getParameter("Shop_website");
-				String shop_main_img= "noimage.jpg";
+				String shop_main_img= "";
 				if(!((req.getPart("SHOP_MAIN_IMG")).getSize()==0)) {
 					Part part = req.getPart("SHOP_MAIN_IMG");
 					shop_main_img = getFileNameFromPart(part);
