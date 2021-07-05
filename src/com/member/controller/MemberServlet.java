@@ -149,12 +149,13 @@ public class MemberServlet extends HttpServlet {
 				String city=req.getParameter("SHOP_CITY");
 				String shop_address=req.getParameter("address");
 				Double shop_latitude = new Double(req.getParameter("Shop_latitude"));
+				System.out.println(shop_latitude);
 				Double shop_longitude = new Double(req.getParameter("Shop_longitude"));
+				System.out.println(shop_longitude);
 				String shop_phone=req.getParameter("Shop_phone");
 				String shop_email=req.getParameter("Shop_email");
 				String shop_description=req.getParameter("shop_description");
 				String shop_tag=req.getParameter("Shop_tag");
-				System.out.println(req.getParameter("Shop_price_level"));
 				Integer shop_price_level=new Integer(req.getParameter("Shop_price_level"));
 				String shop_opening_time=req.getParameter("Shop_opening_time");
 				String shop_website=req.getParameter("Shop_website");
@@ -1116,7 +1117,7 @@ public class MemberServlet extends HttpServlet {
 				MemberVO myMemberVO = (MemberVO)session.getAttribute("login");
 				int Member_id=myMemberVO.getMember_id();
 				String name = req.getParameter("SHOP_NAME");
-				String price_level_s = req.getParameter("SHOP_PRICE_LEVEL");
+				String price_level_s = req.getParameter("Shop_price_level");
 				int price_level=Integer.valueOf(price_level_s);
 				String opening_time = req.getParameter("SHOP_OPENING_TIME");
 				String city = req.getParameter("SHOP_CITY");
@@ -1184,6 +1185,7 @@ public class MemberServlet extends HttpServlet {
 				ShopVO ShopVO=new ShopVO();
 				ShopVO.setShop_name(name);
 				ShopVO.setShop_price_level(price_level);
+				System.out.println(price_level);
 				ShopVO.setShop_opening_time(opening_time);
 				ShopVO.setShop_address(address);
 				ShopVO.setShop_city(city);
@@ -1208,7 +1210,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				req.setAttribute("ShopVO", ShopVO); // 資料庫取出的empVO物件,存入req
 				String url = "/member/ShopZone.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
@@ -1445,6 +1447,16 @@ public class MemberServlet extends HttpServlet {
 				
 				/*************************** 2.開始查詢資料 *****************************************/
 				MemberService memSvc=new MemberService();
+				List<String> list=memSvc.check();
+			     if(!(list.contains(member_mail))) {
+			    	 errorMsgs.add("信箱不存在");
+			     }
+			     if (!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/sign/signin.jsp");
+						failureView.forward(req, res);
+						return;//程式中斷
+					}
 				MemberVO memberVO = memSvc.getOneMem(member_mail);
 				Integer member_id=memberVO.getMember_id();
 				String new_password=getRandomString(8);

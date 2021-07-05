@@ -47,8 +47,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label for="">郵遞區號:	<input type="text" name="Shop_zip_code" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
                     <label for="">地址:		<input type="text" name="address" required></label><br><br>
                     <label for="">縣市:		<input type="text" name="SHOP_CITY" ></label><br><br>
-                    <label for="">商家所在地-經度:	<input type="text" name="Shop_latitude" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'.')" required></label><br><br>
-                    <label for="">商家所在地-緯度:	<input type="text" name="Shop_longitude" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'.')" required></label><br><br>
+                    <label for="">商家所在地-經度:	<input type="text" name="Shop_latitude" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label><br><br>
+                    <label for="">商家所在地-緯度:	<input type="text" name="Shop_longitude" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label><br><br>
                     <label for="">商家電話:	<input type="text" name="Shop_phone" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
                     <label for="">商家信箱:	<input type="email" name="Shop_email"  ></label><br><br>
                     <label for="">商家介紹:	<textarea name="shop_description" required></textarea></label><br><br>

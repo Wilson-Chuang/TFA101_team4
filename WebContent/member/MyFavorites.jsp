@@ -140,8 +140,6 @@
 			<div class="col-10">
 				<ul class="nav nav-tabs">
 					<li class="favorite_page_li"><a class="favorite_page"
-						href="#article_follower" rel="external nofollow" data-toggle="tab">文章追蹤</a></li>
-					<li class="favorite_page_li"><a class="favorite_page"
 						href="#shop_favorite" rel="external nofollow" data-toggle="tab">餐廳收藏</a></li>
 					<li class="favorite_page_li"><a class="favorite_page"
 						href="#member_follower_fans" rel="external nofollow"
@@ -153,31 +151,6 @@
 				</ul>
 				<!--標籤的內容-->
 				<div id="myTabContent" class="tab-content">
-					<div class="tab-pane fade in active" id="article_follower">
-					<%
-					if(!list_article_fol.isEmpty()){
-							for(Article_FavoriteVO article_fav:list_article_fol){
-								int article_no=article_fav.getArticle_no();
-								ArticleVO ArticleVO=memSvc.getArticleFollowed(article_no);
-						%>
-						<div class="card mb-3" style="max-width: 540px;">
-							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+ArticleVO.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
-								<div class="col-md-4">
-								
-									<img src="/upload/<%=ArticleVO.getArticle_img_name()%>" class="card-img" alt="...">
-								</div>
-								<div class="col-md-8">
-								<p class="card-text">您追蹤了「<%=ArticleVO.getArticle_title() %>」這篇文章</p>
-								</div>
-							</div></a>
-						</div>
-						<%
- 							}
-					}else{
-						%> 
-					<img src="./public/img/empty.jpg" style="width:100%">
-					<%} %>
-					</div>
 					<div class="tab-pane fade" id="shop_favorite">
 					
 					

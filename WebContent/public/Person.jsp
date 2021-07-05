@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							for(ArticleVO article:list_myArticle){						
 						%>
 						<div class="card mb-3" >
-							<a href=#><div class="row no-gutters">
+							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+article.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
 								<div class="col-md-2">
 								</div>
 								<div class="col-md-4">
@@ -177,13 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 </body>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
 	
 <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
 </html>

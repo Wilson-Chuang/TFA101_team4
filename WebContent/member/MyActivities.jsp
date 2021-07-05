@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 							<ul class="list-group list-group-flush shopping_record">
   						<%for (ForumPostVO post : list_myForum) {%>  
-								<li class="list-group-item"><a href=#>您成功發表了「<%=post.getForum_post_title() %>」這則討論!</a></li>
+								<li class="list-group-item">您成功發表了「<%=post.getForum_post_title() %>」這則討論!</li>
 					<%}%>
 							</ul>
  					<%}else{%> 
