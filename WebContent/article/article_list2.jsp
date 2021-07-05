@@ -15,7 +15,7 @@
 	Set<ArticleVO> set = article_categorySvc2.getArticlesByariticle_category_no(2);
 	pageContext.setAttribute("set", set);
 %>
-
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 <jsp:useBean id="article_categorySvc" scope="page" class="com.article_category.model.Article_categoryService" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
 <!DOCTYPE html>
@@ -75,6 +75,18 @@
 			${articleVO.article_title}
 		</a>
 		</div>
+		
+		
+		   <c:forEach var="shopVO" items="${shopSvc.all}">
+              <c:if test="${articleVO.shop_no==shopVO.shop_id}">
+   			<div class="shopname">
+               <a href="http://guidefood.myftp.org:8081/public/Shop.jsp?shop_id=${shopVO.shop_id}">                
+                 <p style="color:coral; font-size:20px; position:absolute; bottom:70px; left:355px; font-weight:bold;" > 
+       			${shopVO.shop_name}			       
+               </a>
+          </div>
+              </c:if>
+           </c:forEach>
 		<div class="article_create_time">
 			<span style="color:rgb(0, 143, 209);">
 			<c:forEach var="article_categoryVO" items="${article_categorySvc.all}">
@@ -108,7 +120,7 @@
 			
 			</div>
 			<div class="article_collection"><i class="far fa-heart"></i>${articleVO.article_collection}</div>
-			<div class="article_view_count"><i class="fas fa-chart-line"></i>999</div>
+			<div class="article_view_count"><i class="fas fa-chart-line"></i>0</div>
 		</div>
 		
 	</div>

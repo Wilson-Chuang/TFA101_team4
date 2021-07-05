@@ -20,7 +20,7 @@
 
 <html>
 <head>
-	<title>文章修改</title>
+	<title>Guide好食|發文編輯</title>
 
 	<style>
 		table {
@@ -50,16 +50,9 @@
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-
 	
-	 	<!-- include libraries(jQuery, bootstrap) -->
-<!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
-<!--     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-<!--     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
-<!--     include summernote css/js -->
-<!--     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> -->
-<!--     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
+	<link rel="stylesheet" href="css/onePost.css">
+	
 </head>
 <body>
 	<%@include file="/pages/header.file"%>
@@ -79,36 +72,27 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-	
-	<br>
-	<br>
-	<div class="container">
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<FORM METHOD="post" ACTION="forumPost.do">
-					<div class="input-group mb-3">
-						<span class="input-group-text" id="basic-addon1">會員</span>
-						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-					<div class="input-group mb-3">
-  						<span class="input-group-text" id="basic-addon1">主題</span>
-  						<input type="text" class="form-control" name="title" id="title" value="${forumPost.forum_post_title}" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-<!-- 					<label for="title">標題</label> -->
-<%-- 					<input type="text" name="title" id="title" value="${forumPost.forum_post_title}"> --%>
-		<%-- 		<textarea id="summernote" name="content">${forumPost.forum_post_content}</textarea> --%>
-					<textarea class="ckeditor" id="myContent" name="content">${forumPost.forum_post_content}</textarea>
-					<br>
-					<input type="hidden" name="action" value="post_Update">
-					<input type="hidden" name="postid" value="${forumPost.forum_post_id}">
-					<input type="hidden" name="memberID" id="memberID" value="${forumPost.member_id}">
-					<button type="submit" class="btn btn-primary">送出</button>
-				</FORM>
-			</div>
-			<div class="col-3"></div>
-		</div>
-	</div>
+		
+		<article class="task_container">
+	        <div class="task_add_block">
+	            <FORM METHOD="post" ACTION="forumPost.do">
+	                <div class="input-group mb-3">
+	                    <span class="input-group-text" id="basic-addon1">會員</span>
+	                    <input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
+	                </div>
+	                <div class="input-group mb-3">
+	                      <span class="input-group-text" id="basic-addon1">主題</span>
+	                      <input type="text" class="form-control" name="title" id="title" value="${forumPost.forum_post_title}" aria-label="Username" aria-describedby="basic-addon1">
+	                </div>
+	                <textarea class="ckeditor" id="myContent" name="content">${forumPost.forum_post_content}</textarea>
+	                <br>
+	                <input type="hidden" name="action" value="post_Update">
+	                <input type="hidden" name="postid" value="${forumPost.forum_post_id}">
+	                <input type="hidden" name="memberID" id="memberID" value="${forumPost.member_id}">
+	                <button type="submit" class="btn btn-primary">送出</button>
+	            </FORM>
+	        </div>
+    	</article>
 	
 	<!-- Header -->
 	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>

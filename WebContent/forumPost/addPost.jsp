@@ -20,7 +20,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>發起討論</title>
+	<title>Guide好食|發起討論</title>
 
 	<style>
 	table {
@@ -51,7 +51,8 @@
 	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
 	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-
+	
+	<link rel="stylesheet" href="css/onePost.css">
 </head>
 <body>
 	<%@include file="/pages/header.file"%>
@@ -71,40 +72,30 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-	
-<!-- 	<ul> -->
-<!-- 		<li><a href="allPost.jsp">討論區</a><br></li> -->
-<!-- 	</ul> -->
-	<br>
-	<br>
-	<div class="container">
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<FORM METHOD="post" ACTION="forumPost.do">
-		<!-- 		<label for="memberID">會員</label> -->
-		<!-- 		<input type="text" name="memberID" id="memberID"> -->	
-					<div class="input-group mb-3">
-						<span class="input-group-text" id="basic-addon1">會員</span>
-						<input type="text" class="form-control" name="member_email" disabled="disabled" value="${member.member_email}" aria-label="Username" aria-describedby="basic-addon1">
-  						<input type="hidden" class="form-control" name="memberID" id="memberID" value="${member.member_id}" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-		<!-- 		<label for="title">主題</label> -->
-		<!-- 		<input type="text" name="title" id="title"> -->
-					<div class="input-group mb-3">
-						<span class="input-group-text" id="basic-addon1">主題</span>
-  						<input type="text" class="form-control" name="title" id="title" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-		<!-- 		<textarea id="summernote" name="content"></textarea> -->
-					<textarea class="ckeditor" id="myContent" name="content"></textarea>
-					<br>
-					<input type="hidden" name="action" value="insert">
-					<button type="submit" class="btn btn-primary">送出</button>
-				</FORM>
-			</div>
-			<div class="col-3"></div>
-		</div>
-	</div>
+
+		 <article class="task_container">
+	        <div class="task_add_block">
+	            <FORM METHOD="post" ACTION="forumPost.do">
+	                <div class="input-group mb-3">
+	                    <span class="input-group-text" id="basic-addon1">會員</span>
+	                    <input type="text" class="form-control" name="member_email" disabled="disabled"
+	                        value="${member.member_email}" aria-label="Username"
+	                        aria-describedby="basic-addon1">
+	                    <input type="hidden" class="form-control" name="memberID" id="memberID"
+	                        value="${member.member_id}" aria-label="Username" aria-describedby="basic-addon1">
+	                </div>
+	                <div class="input-group mb-3">
+	                    <span class="input-group-text" id="basic-addon1">主題</span>
+	                    <input type="text" class="form-control" name="title" id="title" aria-label="Username"
+	                        aria-describedby="basic-addon1">
+	                </div>
+	                <textarea class="ckeditor" id="myContent" name="content"></textarea>
+	                <br>
+	                <input type="hidden" name="action" value="insert">
+	                <button type="submit" class="btn btn-primary">送出</button>
+	            </FORM>
+	        </div>
+    	</article>
 	
 	<!-- Header -->
 	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>

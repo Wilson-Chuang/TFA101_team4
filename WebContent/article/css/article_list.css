@@ -186,6 +186,12 @@ div.article_create_time{
 	color:gray;
 }
 
+div.article_create_time a:visited, div.article_create_time a{
+	text-decoration:none;
+	color:coral;
+	z-index:99;
+}
+
 table.article_info{
 	position:absolute;
 	bottom:100px;
@@ -276,5 +282,10 @@ div.article_view_count{
 .fa-chart-line{
 	color:rgb(255, 85, 85);
 	margin-right:5px;
+}
+
+div.shopname a:visited,div.shopname a{
+	text-decoration:none;
+	color:coral;
 }
 

@@ -111,17 +111,17 @@
 		
 <!-- 指定餐廳 -->
 
-<!-- 	<div class="pick_restaurant"> -->
-<%-- 	<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" /> --%>
-<!-- 		指定餐廳:<input list="shop_no" name="shop_no"/>		 -->
-<!-- 		<datalist id="shop_no"> -->
-<%-- 		<c:forEach var="shopVO" items="${shopSvc.all}"> --%>
-<%-- 		    <option value="${shopVO.shop_id}" --%>
-<%-- 				${(articleVO.shop_no==shopVO.shop_id)? 'selected':'' }> --%>
-<%-- 				${shopVO.shop_name} --%>
-<%-- 		</c:forEach>     --%>
-<!-- 		</datalist> -->
-<!-- 	</div> -->
+	<div class="pick_restaurant">
+	<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+		指定餐廳:<input list="shop_no" name="shop_no"/>		
+		<datalist id="shop_no">
+		<c:forEach var="shopVO" items="${shopSvc.all}">
+		    <option value="${shopVO.shop_id}"
+				${(articleVO.shop_no==shopVO.shop_id)? 'selected':'' }>
+				${shopVO.shop_name}
+		</c:forEach>    
+		</datalist>
+	</div>
 
 <!-- 	<div class="pick_restaurant"> -->
 <!-- 		指定餐廳: <input list="ice-cream-flavors" name="shop_no"/>		 -->

@@ -132,11 +132,6 @@ $("body").on("click", '[class*="col-"] > a', function(){
 	$('.row').fadeTo("fast", 0.5);
 });
 
-$("body").on("click", "button", function(){
-	$('#redirect').removeClass("d-none");
-	$('.row').fadeTo("fast", 0.5);
-});
-
 $('body').on('click', ".map-popup-direction", function () {
 	$(this).closest('form').submit();
 });

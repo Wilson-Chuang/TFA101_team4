@@ -58,12 +58,14 @@
 %>
 <jsp:useBean id="article_categorySvc" scope="page" class="com.article_category.model.Article_categoryService" />
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文章首頁</title>
+<title>Guide Food文章專欄</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/article/css/article_homepage.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
@@ -105,7 +107,7 @@ body{
     </div>
     <div class="maintop_slider_text">
         <p>BEST AUTHOR</p>
-        <h2>GuideFood 7月號封面，食尚作家</h2>
+        <h2>GuideFood 6月號封面，食尚作家</h2>
         <p>By Hank Wu, 2021/7/6</p>
     </div>
 
@@ -142,9 +144,11 @@ body{
      
     <c:forEach var="articleVO" items="${set3}" begin="0" end ="3">
 	<c:if test="${articleVO.article_status == 1}">
-         <a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=see_article">
+      
              <div class="content_short">
+                <a href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=see_article">
                  <img src="/upload/${articleVO.article_img_name}">
+                 </a>
                  <div class="info_short">
                      <p>
                      	<c:forEach var="article_categoryVO" items="${article_categorySvc.all}">
@@ -154,7 +158,18 @@ body{
 			     		</c:forEach> 
                      
                      </p>
-                     <h2>${articleVO.article_title}</h2>
+                    <c:forEach var="shopVO" items="${shopSvc.all}">
+	                    <c:if test="${articleVO.shop_no==shopVO.shop_id}">
+		                    <a class="shopname" href="http://guidefood.myftp.org:8081/public/Shop.jsp?shop_id=${shopVO.shop_id}">                
+		                      <p style="color:coral; font-size:14px; margin:-10px 0px 2px 0px;" > 
+					         			${shopVO.shop_name}			       
+		                    </a>
+	                    </c:if>
+                    </c:forEach>
+                     </p>
+                     <a class="article_titleA" href="${pageContext.request.contextPath}/article/article.do?article_no=${articleVO.article_no}&action=see_article">
+                     	<h2>${articleVO.article_title}</h2>
+                     </a>
                      <div></div>
                       <p>By 	<c:forEach var="memberVO" items="${memberSvc.all}">
 	                    		<c:if test="${articleVO.member_no==memberVO.member_id}">
@@ -164,7 +179,7 @@ body{
 			     		,  <fmt:formatDate value="${articleVO.article_create_time}" pattern="yyyy/MM/dd"/></p>
                  </div>
              </div>
-         </a>
+         
     </c:if>
 	</c:forEach>  
         
@@ -216,6 +231,14 @@ body{
 			         		</c:if>
 			     		</c:forEach>                    
                      </p>
+                      <c:forEach var="shopVO" items="${shopSvc.all}">
+	                    <c:if test="${articleVO.shop_no==shopVO.shop_id}">
+		                    <a class="shopname" href="http://guidefood.myftp.org:8081/public/Shop.jsp?shop_id=${shopVO.shop_id}">                
+		                      <p style="color:coral; font-size:14px; margin:-10px 0px 2px 0px;" > 
+					         			${shopVO.shop_name}			       
+		                    </a>
+	                    </c:if>
+                    </c:forEach>
                      <h2>${articleVO.article_title}</h2>
                      <div></div>
                      <p>By 	<c:forEach var="memberVO" items="${memberSvc.all}">
@@ -289,6 +312,14 @@ body{
 			         		</c:if>
 			     		</c:forEach>                    
                      </p>
+                      <c:forEach var="shopVO" items="${shopSvc.all}">
+	                    <c:if test="${articleVO.shop_no==shopVO.shop_id}">
+		                    <a class="shopname" href="http://guidefood.myftp.org:8081/public/Shop.jsp?shop_id=${shopVO.shop_id}">                
+		                      <p style="color:coral; font-size:14px; margin:-10px 0px 2px 0px;" > 
+					         			${shopVO.shop_name}			       
+		                    </a>
+	                    </c:if>
+                    </c:forEach>
                      <h2>${articleVO.article_title}</h2>
                      <div></div>
                      <p>By 	<c:forEach var="memberVO" items="${memberSvc.all}">

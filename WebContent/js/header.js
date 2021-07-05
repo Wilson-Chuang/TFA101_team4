@@ -140,11 +140,7 @@ class Autocomplete {
 			if (e.keyCode === 27) {
 				this.dropdown.hide();
 				return;
-			}
-			if (e.keyCode === 40) {
-				this.dropdown._menu.children[0].focus();
-				return;
-			}
+			}			
 		});
 	}
 
@@ -411,6 +407,13 @@ function killDrop() {
 	$(".dropdown-menu.show").removeClass("show");
 }
 
+$("body").on("keypress", ".search-bar", function(e){
+	var code = (e.keyCode ? e.keyCode : e.which);
+	if (code == 13){
+		$("#btn-submit").click();
+	}
+});
+
 $("#btn-submit").on("click", function () {
 	let recentArray = [];
 	let searchedObj = new Object();
@@ -540,6 +543,16 @@ for(var i = 0; i < 12; i++){
 		$("#form-submit").submit();
 	});
 }
+
+$("#btn-submit").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
+
+$("a > button.guest").click(function(e){
+	$('#redirect').removeClass("d-none");
+	$('.row').fadeTo("fast", 0.5);
+});
 
 $(".navbar-brand").click(function(e){
 	$('#redirect').removeClass("d-none");
