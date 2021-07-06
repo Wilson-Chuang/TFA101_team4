@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="<%=(MemberVO.getMember_pic())==null?"./public/img/noimage.jpg":uploadFilePath%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=(MemberVO.getMember_pic())!=null?uploadFilePath:"./public/img/noimage.jpg"%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
