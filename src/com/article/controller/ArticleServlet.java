@@ -820,7 +820,7 @@ public class ArticleServlet extends HttpServlet {
 	    try {
 	        //檢查當前使用者是否已經投過票(使用set)
 	        Long addResult = resource.sadd(AUTHOR_VOTE + authorId, userId.toString());
-	        
+	        resource.auth("123456");
 	        
 	        votevo.setAddResult(addResult);
 	        
@@ -842,6 +842,7 @@ public class ArticleServlet extends HttpServlet {
 	//獲取排行榜資訊
 	public static void rank() {
 	    Jedis resource = JEDIS_POOL.getResource();
+	    resource.auth("123456");
 	    List voteList = new ArrayList();
 	    try {
 	        //獲取排行榜
