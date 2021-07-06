@@ -125,7 +125,7 @@ div.like_block{
         <div><i class="fas fa-clock"></i>
             <fmt:formatDate value="<%=forumPost.getForum_post_time()%>" pattern="yyyy/MM/dd HH:mm" />
         </div>
-        <div>最後更新時間:
+        <div><i class="fas fa-history"></i>
             <fmt:formatDate value="<%=forumPost.getForum_update_time()%>" pattern="yyyy/MM/dd HH:mm" />
         </div>
         <br>
@@ -213,7 +213,7 @@ div.like_block{
                                 <div><i class="fas fa-clock"></i>
                                     <fmt:formatDate value="${forumReply.forum_reply_time}" pattern="yyyy/MM/dd HH:mm" />
                                 </div>
-                                <div> 最後更新時間:
+                                <div><i class="fas fa-history"></i>
                                     <fmt:formatDate value="${forumReply.forum_reply_update_time}"
                                         pattern="yyyy/MM/dd HH:mm" />
                                 </div>
