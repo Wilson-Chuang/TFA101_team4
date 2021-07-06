@@ -12,32 +12,44 @@
 <title>商家資料新增 - addShop.jsp</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
   table {
-	width: 450px;
+	width: 950px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
+}
+
+table, th, td {
+	border: 0px solid #CCCCFF;
+}
+
+th, td {
+	padding: 1px;
+	height:50px;
+}
+
+div.main_content {
+    width: 100%;
+    float: left;
   }
-  table, th, td {
-    border: 0px solid #CCCCFF;
+  
+ h3{
+ 	margin:20px 0;
+ 	font-size:22px;
+  	color: gray;
   }
-  th, td {
-    padding: 1px;
-  }  
+  
+  input{
+  	border:0;
+  	border-bottom: 1px solid gray;
+  }
+ 
+ 
+ 
+.rightcontent{
+	margin-left:20%;
+}
+ 
     #preview {
       border: 1px solid lightgray;
       display: table;
@@ -81,184 +93,140 @@
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>商家資料新增 - addShop.jsp</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<header>
+	<jsp:include page="/cms/header_asideMenu/cmsHeader.jsp" flush="true" />
+</header>
 
-<h3>資料新增:</h3>
+<div class="main_content">
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+    <div>
+	<jsp:include page="/cms/header_asideMenu/cmsAsideMenu.jsp" flush="true" />
+    </div>
 
-<FORM METHOD="post" ACTION="shop.do" name="form1" enctype="multipart/form-data">
-<table>
-	<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
-	<tr>
-		<td>會員編號:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="member_id">
-			<c:forEach var="memberVO" items="${memberSvc.all}">
-				<option value="${memberVO.member_id}" ${(shopVO.member_id==memberVO.member_id)? 'selected':'' } >${memberVO.member_id}
-			</c:forEach>
-		</select></td>
-	</tr>
-	<tr>
-		<td>統一編號:</td>
-		<td><input type="TEXT" name="shop_tax_id" size="45" 
-			 value="<%= (shopVO==null)? "04595257" : shopVO.getShop_tax_id()%>" /></td>
-	</tr>
-	<tr>
-		<td>商家名稱:</td>
-		<td><input type="TEXT" name="shop_name" size="45"
-			 value="<%= (shopVO==null)? "第一家店" : shopVO.getShop_name()%>" /></td>
-	</tr>
-	<tr>
-		<td>郵遞區號:</td>
-		<td><input type="TEXT" id="postal" name="shop_zip_code" size="45"
-			 value="<%= (shopVO==null)? "106409" : shopVO.getShop_zip_code()%>" /></td>
-	</tr>
-	<tr>
-		<td>縣市:</td>
-		<td><input type="TEXT" name="shop_city" size="45"
-			 value="<%= (shopVO==null)? "新北市" : shopVO.getShop_city()%>" /></td>
-	</tr>
-	<tr>
-		<td>地址:</td>
-		<td>
-			<input type="TEXT" id="address" name="shop_address" size="45"
-			 value="<%= (shopVO==null)? "" : shopVO.getShop_address()%>" />
-		</td>
-	</tr>
-	<tr>
-		<td>緯度:</td>
-		<td><input type="TEXT" id="lat" name="shop_latitude" size="45"
-			 value="<%= (shopVO==null)? "" : shopVO.getShop_latitude()%>"/></td>
-	</tr>
-	<tr>
-		<td>經度:</td>
-		<td><input type="TEXT" id="lng" name="shop_longitude" size="45"
-			 value="<%= (shopVO==null)? "" : shopVO.getShop_longitude()%>"/></td>
-	</tr>
-	<tr>
-		<td>商家介紹:</td>
-		<td><input type="TEXT" name="shop_description" size="45"
-			 value="<%= (shopVO==null)? "測試" : shopVO.getShop_description()%>" /></td>
-	</tr>
-	<tr>
-		<td>標籤:</td>
-		<td><input type="TEXT" name="shop_tag" size="45"
-			 value="<%= (shopVO==null)? "好吃, 炸機" : shopVO.getShop_tag()%>" /></td>
-	</tr>
-	<tr>
-		<td>評價:</td>
-		<td><input type="TEXT" name="shop_rating" size="45"
-			 value="<%= (shopVO==null)? "3.0" : shopVO.getShop_rating()%>" /></td>
-	</tr>
-	<tr>
-		<td>評價總數:</td>
-		<td><input type="TEXT" name="shop_rating_count" size="45"
-			 value="<%= (shopVO==null)? "1" : shopVO.getShop_rating_count()%>" /></td>
-	</tr>
-	<tr>
-		<td>評價總和:</td>
-		<td><input type="TEXT" name="shop_rating_total" size="45"
-			 value="<%= (shopVO==null)? "3" : shopVO.getShop_rating_total()%>" /></td>
-	</tr>
-	<tr>
-		<td>信箱:</td>
-		<td><input type="TEXT" name="shop_email" size="45"
-			 value="<%= (shopVO==null)? "xxx@gmail.com" : shopVO.getShop_email()%>" /></td>
-	</tr>
-	<tr>
-		<td>聯絡電話:</td>
-		<td><input type="TEXT" name="shop_phone" size="45"
-			 value="<%= (shopVO==null)? "0999999999" : shopVO.getShop_phone()%>" /></td>
-	</tr>
-	<tr>
-		<td>均消:</td>
-		<td><input type="TEXT" name="shop_price_level" size="45"
-			 value="<%= (shopVO==null)? "4" : shopVO.getShop_price_level()%>" /></td>
-	</tr>
-	<tr>
-		<td>營業時間:</td>
-		<td><input type="TEXT" name="shop_opening_time" size="45"
-			 value="<%= (shopVO==null)? "每天13:00~17:00" : shopVO.getShop_opening_time()%>" /></td>
-	</tr>
-	<tr>
-		<td>網站:</td>
-		<td><input type="TEXT" name="shop_website" size="45"
-			 value="<%= (shopVO==null)? "http://www.abc.com/" : shopVO.getShop_website()%>" /></td>
-	</tr>
-	<tr>
-		<td>圖片:</td>
-		<td>
-		<input type="file" id="p_file" name="shop_main_img" accept="image/*" /><br />
-      	<div id="preview">
-      	<% if(shopVO==null){ %>
-      	<span class="text">預覽圖</span>
-      	<% }else{ %>
-      	<div><img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/
-      	<% shopVO.getShop_tax_id(); %>/images/<% shopVO.getShop_main_img(); %>' 
-      	title='<% shopVO.getShop_main_img(); %>'/></div>
-      	<% } %>
-      	</div>
-      	</td>
-	</tr>
-	<tr>
-		<td>圖片庫:</td>
-		<td>
-		<input type="file" id="p_file_m" name="shop_gallery" accept="image/*" multiple /><br />
-      	<div id="preview_m">
-      	<% if(shopVO==null){ %>
-      	<span class="text">預覽圖</span>
-      	<% }else{ %>      	
-      	<div>
-      	<%
-      	String filename = shopVO.getShop_gallery().replaceAll("[\\[\\]\"]", "");
-      	String[] values = filename.split(", ");
-      	for (int i=0; i < values.length; i++) {
-      	%>
-      	<img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/
-      	<% shopVO.getShop_tax_id(); %>/gallery/<% out.print(values[i]); %>' 
-      	title='<% out.print(values[i]); %>'/>
-		<% } %>
-      	</div>
-      	<% } %>
-      	</div>
-      	</td>
-	</tr>
-	<tr>
-		<td>建立時間:</td>
-		<td><input name="shop_create_time" id="f_date1" type="text"></td>
-	</tr>
-	<tr>
-		<td>更新時間:</td>
-		<td><input name="shop_update_time" id="f_date2" type="text"></td>
-	</tr>
-	<tr>
-		<td>總瀏覽數:</td>
-		<td><input type="TEXT" name="shop_total_view" size="45"
-			 value="<%= (shopVO==null)? "1" : shopVO.getShop_total_view()%>" /></td>
-	</tr>
-	<tr>
-		<td>預約功能:</td>
-		<td><input type="TEXT" name="shop_reserv_status" size="45"
-			 value="<%= (shopVO==null)? "0" : shopVO.getShop_reserv_status()%>" /></td>
-	</tr>
+	<div class="rightcontent">
 
-</table>
-<br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+		<h3>商家資料新增</h3>
+		
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color:red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		
+		<form action="${pageContext.request.contextPath}/manager/cmsMember.do" class="personal_form" method="post"  enctype="multipart/form-data">
+			<table>
+                   <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+					<tr style="margin-bottom:20px;">
+						<td width="150px">會員編號<font color=red><b>*</b></font></td>
+						<td><select size="1" name="member_id">
+							<c:forEach var="memberVO" items="${memberSvc.all}">
+								<option value="${memberVO.member_id}" ${(shopVO.member_id==memberVO.member_id)? 'selected':'' } >${memberVO.member_id}
+							</c:forEach>
+						</select></td>
+					</tr><br>
+                    <tr>
+                    	<td>商家名稱</td>		
+                    	<td><label for=""><input type="text" name="Shop_name" required style="width:400px; font-size:16px;"></label></td>
+                    </tr>
+                    
+                     <tr>
+                    	<td>統一編號</td>		
+                    	<td><label for=""><input type="text" name="Shop_tax_id" style="width:400px;font-size:16px;" maxlength="8" minlength="8" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label></td>
+                    </tr>
+                    
+                     <tr>
+                    	<td>郵遞區號</td>		
+                    	<td><label for=""><input type="text" name="Shop_zip_code" style="width:400px;font-size:16px;" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label></td>
+                    </tr>	
+                    
+                    <tr>
+                    	<td>地址</td>		
+                    	<td><label for=""><input type="text" name="address" style="width:400px;font-size:16px;" required></label></td>
+                    </tr>	
+                    
+                    <tr>
+                    	<td>縣市</td>		
+                    	<td><label for=""><input type="text" name="SHOP_CITY" style="width:400px;font-size:16px;"></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家所在地-經度</td>		
+                    	<td><label for=""><input type="text" name="Shop_latitude" style="width:400px;font-size:16px;" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家所在地-緯度</td>		
+                    	<td><label for=""><input type="text" name="Shop_longitude" style="width:400px;font-size:16px;" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家電話</td>		
+                    	<td><label for=""><input type="text" name="Shop_phone"style="width:400px;font-size:16px;"  maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家信箱</td>		
+                    	<td><label for=""><input type="email" name="Shop_email" style="width:400px;font-size:16px;" ></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家介紹</td>		
+                    	<td><label for=""><textarea name="shop_description" style="width:400px;font-size:16px;" required></textarea></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家標籤</td>		
+                    	<td><label for=""><textarea name="Shop_tag" style="width:400px;font-size:16px;" placeholder="多個標籤請用空格分隔"></textarea></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家均消</td>		
+                    	<td><label for=""><select name="Shop_price_level"><option value=0>不選擇</option><option value=1>$150以下</option><option value=2>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option></select></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>營業時間</td>		
+                    	<td><label for=""><input type="text" name="Shop_opening_time" style="width:400px;font-size:16px;"></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>商家網頁</td>		
+                    	<td><label for=""><input type="text" name="Shop_website" style="width:400px;font-size:16px;"></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>上傳封面</td>		
+                    	<td><label style="border:1px solid black;border-radius:10px;padding:5px;font-size:16px;">請選擇檔案<input style="display:none" type="file" name="SHOP_MAIN_IMG" ></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>上傳圖片庫</td>		
+                    	<td><label style="border:1px solid black;border-radius:10px;padding:5px;font-size:16px;">請選擇檔案<input style="display:none" type="file" name="SHOP_GALLERY" multiple></label></td>
+                    </tr>
+                    
+                    <tr>
+                    	<td>訂位開放狀態</td>		
+                    	<td>
+	                    	<label for=""><select name="Shop_reservation_status">
+	                            <option value=1 selected=selected >開放</option>
+	                            <option value=2 >未開放</option>
+	                  		 </select></label>
+                  		 </td>
+                    </tr>
+          
+          <table>
+                    
+                    <input type="hidden" name="action" value="insert_shop">
+                    <input type="submit" value="儲存" class="save_btn" style="border:1px solid gray; border-radius:20px; height:40px; width:150px; padding:10px;">
+			              
+        </form>
+	</div>
+</div>
+
 </body>
 
 
