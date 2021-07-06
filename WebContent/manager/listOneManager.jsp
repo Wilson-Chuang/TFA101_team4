@@ -26,7 +26,7 @@
    
   .back button{
   	 /* 圓角 */
-     border-radius: 20%;
+     border-radius: 30px;
     /* 輸入文字色彩設定 */
      color: rgb(41, 41, 41);
      padding: 5px 10px;

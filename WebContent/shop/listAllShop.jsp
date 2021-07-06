@@ -37,6 +37,33 @@
   	margin-left:20%;
   	width: 1000px; 
   }
+  
+  div.add{
+  	 width: 80%;
+     float: left;
+  }
+	
+  div.add button:focus {
+     outline: none;
+  }
+   
+  .add button{
+  	 /* 圓角 */
+     border-radius: 30px;
+    /* 輸入文字色彩設定 */
+     color: rgb(41, 41, 41);
+     padding: 5px 10px;
+  	 width:100px;
+  	 height:50px;
+  	 margin:0px 10px 20px;
+  	 background-color:#e9e9e9;
+  }  
+  .add button a{
+	text-decoration: none; 
+	font-size:15px;
+	color: rgb(41, 41, 41);
+  }
+  
   h3{
   	font-size:20px;
   	color: gray;
@@ -138,6 +165,12 @@
 			</c:if>
 		</div>
     </div>
+    
+    <div class="add">
+		<button>
+			<a href="${pageContext.request.contextPath}/shop/addShop.jsp">新增商家</a>
+		</button>
+	</div>
 
 	<div class="rightcontent" width="1000px;">
 		<%-- 錯誤表列 --%>
@@ -154,7 +187,7 @@
 			<tr>
 				<th width="50px">商家<br>編號</th>
 				<th width="50px">會員<br>編號</th>
-				<th>統一<br>編號</th>
+<!-- 				<th>統一<br>編號</th> -->
 				<th>商家<br>名稱</th>
 		<!-- 		<th>郵遞區號</th>  -->
 				<th width="60px">縣市</th>
@@ -170,27 +203,29 @@
 <!-- 				<th>聯絡<br>電話</th> -->
 		<!--		<th>均消</th> -->
 		<!--		<th>營業時間</th> -->
-				<th width="100px">網站</th>
+<!-- 				<th width="100px">網站</th> -->
 				<th>圖片</th> 
 			<!--	<th>圖片庫</th> -->
 			<!--	<th>建立<br>時間</th> -->
 				<th>更新<br>時間</th>
 <!-- 				<th>總瀏<br>覽數</th> -->
 		<!-- 		<th>預約功能</th>-->
-				<th>修改</th>
+				<th width="60px">詳細<br>資料</th>
+				<th width="60px">修改</th>
 		<!--		<th>刪除</th>-->
 			</tr>
 			<%@ include file="pages/page1.file" %> 
 			<c:forEach var="shopVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
 					<td>${shopVO.shop_id}</td>
-					<td><c:forEach var="memberVO" items="${memberSvc.all}">
+					<td>
+						<c:forEach var="memberVO" items="${memberSvc.all}">
 		                    <c:if test="${shopVO.member_id==memberVO.member_id}">
 			                    ${memberVO.member_id}
 		                    </c:if>
 		                </c:forEach>
 					</td>
-					<td>${shopVO.shop_tax_id}</td>
+<%-- 					<td>${shopVO.shop_tax_id}</td> --%>
 					<td>${shopVO.shop_name}</td>
 		<!-- 		<td>${shopVO.shop_zip_code}</td> -->
 					<td>${shopVO.shop_city}</td>
@@ -214,7 +249,7 @@
 								${value01}<br><br>
 						</c:forTokens>
 					</td>		-->
-					<td width="100px">${shopVO.shop_website}</td>
+<%-- 					<td width="100px">${shopVO.shop_website}</td> --%>
 					<td>
 					<div id="preview">
 					<c:set var="shop_main_img" value="${shopVO.shop_main_img}"/>
@@ -254,11 +289,18 @@
 <%-- 					<td>${shopVO.shop_total_view}</td> --%>
 				<!--	<td>${shopVO.shop_reserv_status}</td>	-->	
 					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/shop/shop.do" style="margin-bottom: 0px;">
+					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/shop/shop.do" >
+					     <button type="submit"><i class="fas fa-info-circle fa-2x"></i></button>
+					     <input type="hidden" name="shop_id"      value="${shopVO.shop_id}">
+					     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
+					     <input type="hidden" name="action"	    value="cms_details"></FORM>
+					</td>
+					<td>
+					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/shop/shop.do" >
 					     <button type="submit"><i class="fas fa-edit fa-2x"></i></button>
 					     <input type="hidden" name="shop_id"      value="${shopVO.shop_id}">
 					     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
-					     <input type="hidden" name="action"	    value="getOne_For_Update"></FORM>
+					     <input type="hidden" name="action"	    value="details_Update_display"></FORM>
 					</td>
 					
 				</tr>
