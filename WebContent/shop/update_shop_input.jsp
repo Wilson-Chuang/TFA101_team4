@@ -30,6 +30,7 @@ table, th, td {
 
 th, td {
 	padding: 1px;
+	height:50px;
 }
 
 div.main_content {
@@ -40,6 +41,13 @@ div.main_content {
  h3{
  	margin:20px 0;
  	font-size:22px;
+  	color: gray;
+  }
+  
+  input{
+  	border:0;
+  	border-bottom: 1px solid gray;
+  }
  }
 .rightcontent{
 	margin-left:20%;
@@ -101,7 +109,7 @@ div.main_content {
     </div>
 
 	<div class="rightcontent">
-		<h3>商家資料修改:</h3>
+		<h3>商家資料修改</h3>
 	
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
@@ -116,13 +124,13 @@ div.main_content {
 		<FORM METHOD="post" ACTION="shop.do" name="form1" enctype="multipart/form-data">
 			<table>
 				<tr>
-					<td>商家編號:<font color=red><b>*</b></font></td>
+					<td>商家編號<font color=red><b>*</b></font></td>
 					<td><%=shopVO.getShop_id()%></td>
 				</tr>
 				<jsp:useBean id="memberSvc" scope="page"
 					class="com.member.model.MemberService" />
 				<tr>
-					<td>會員編號:<font color=red><b>*</b></font></td>
+					<td>會員編號<font color=red><b>*</b></font></td>
 					<td><select size="1" name="member_id">
 							<c:forEach var="memberVO" items="${memberSvc.all}">
 								<option value="${memberVO.member_id}"
@@ -132,101 +140,101 @@ div.main_content {
 				</tr>
 	
 				<tr>
-					<td>統一編號:</td>
+					<td>統一編號</td>
 					<td>
 						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_tax_id()%>" />
 						<input type="hidden" name="shop_tax_id" size="45" value="<%=shopVO.getShop_tax_id()%>" />
 					</td>
 				</tr>
 				<tr>
-					<td>商家名稱:</td>
+					<td>商家名稱</td>
 					<td><input type="TEXT" name="shop_name" size="45"
 						value="<%=shopVO.getShop_name()%>" /></td>
 				</tr>
 				<tr>
-					<td>郵遞區號:</td>
+					<td>郵遞區號</td>
 					<td><input type="TEXT" name="shop_zip_code" size="45"
 						value="<%=shopVO.getShop_zip_code()%>" /></td>
 				</tr>
 				<tr>
-					<td>縣市:</td>
+					<td>縣市</td>
 					<td><input type="TEXT" name="shop_city" size="45"
 						value="<%=shopVO.getShop_city()%>" /></td>
 				</tr>
 				<tr>
-					<td>地址:</td>
+					<td>地址</td>
 					<td><input type="TEXT" name="shop_address" size="45"
 						value="<%=shopVO.getShop_address()%>" /></td>
 				</tr>
 				<tr>
-					<td>緯度:</td>
+					<td>緯度</td>
 					<td><input type="TEXT" name="shop_latitude" size="45" 
 						value="<%=shopVO.getShop_latitude()%>" /></td>
 				</tr>
 				<tr>
-					<td>經度:</td>
+					<td>經度</td>
 					<td><input type="TEXT" name="shop_longitude" size="45"
 						value="<%=shopVO.getShop_longitude()%>" /></td>
 				</tr>
 				<tr>
-					<td>商家介紹:</td>
+					<td>商家介紹</td>
 					<td><input type="TEXT" name="shop_description" size="45"
 						value="<%=shopVO.getShop_description()%>" /></td>
 				</tr>
 				<tr>
-					<td>標籤:</td>
+					<td>標籤</td>
 					<td><input type="TEXT" name="shop_tag" size="45"
 						value="<%=shopVO.getShop_tag()%>" /></td>
 				</tr>
 				<tr>
-					<td>評價:</td>
+					<td>評價</td>
 					<td>
 						<input type="TEXT"  size="45" disabled="disabled" value="<%=shopVO.getShop_rating()%>" />
 						<input type="hidden" name="shop_rating" size="45" value="<%=shopVO.getShop_rating()%>"/>				
 					</td>
 				</tr>
 				<tr>
-					<td>評價總數:</td>
+					<td>評價總數</td>
 					<td>
 						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_count()%>" />
 						<input type="hidden" name="shop_rating_count" size="45" value="<%=shopVO.getShop_rating_count()%>" />
 					</td>
 				</tr>
 				<tr>
-					<td>評價總和:</td>
+					<td>評價總和</td>
 					<td>
 						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_total()%>" />
 						<input type="hidden" name="shop_rating_total" size="45" value="<%=shopVO.getShop_rating_total()%>" />
 					</td>
 				</tr>
 				<tr>
-					<td>信箱:</td>
+					<td>信箱</td>
 					<td><input type="TEXT" name="shop_email" size="45"
 						value="<%=shopVO.getShop_email()%>" /></td>
 				</tr>
 				<tr>
-					<td>聯絡電話:</td>
+					<td>聯絡電話</td>
 					<td><input type="TEXT" name="shop_phone" size="45"
 						value="<%=shopVO.getShop_phone()%>" /></td>
 				</tr>
 				<tr>
-					<td>均消:</td>
+					<td>均消</td>
 					<td><input type="TEXT" name="shop_price_level" size="45"
 						value="<%=shopVO.getShop_price_level()%>" /></td>
 				</tr>
 				<tr>
-					<td>營業時間:</td>
+					<td>營業時間</td>
 					<td><input type="TEXT" name="shop_opening_time" size="45"
 						value="<%=shopVO.getShop_opening_time()%>" /></td>
 				</tr>
 				<tr>
-					<td>網站:</td>
+					<td>網站</td>
 					<td><input type="TEXT" name="shop_website" size="45"
 						value="<%=shopVO.getShop_website()%>" /></td>
 				</tr>
 				<tr>
-					<td>圖片:</td>
-					<td>
+					<td>圖片</td>
+					<td style="padding: 10px 0;">
 						<input type="file" id="p_file" name="shop_main_img" accept="image/*" /><br />
 				      	<div id="preview">
 				      	<% if(shopVO.getShop_main_img().length()<1 || shopVO.getShop_id()==null){ %>
@@ -239,8 +247,8 @@ div.main_content {
 					</td>
 				</tr>
 				<tr>
-					<td>圖片庫:</td>
-					<td>
+					<td>圖片庫</td>
+					<td style="padding: 10px 0;">
 						<input type="file" id="p_file_m" name="shop_gallery" accept="image/*" multiple /><br />
 					     <div id="preview_m">
 					      	<% if(shopVO.getShop_gallery().length()<1 || shopVO.getShop_id()==null){ %>
@@ -260,29 +268,29 @@ div.main_content {
 	      				</div>
 					</td>
 				</tr>
-				<tr>
+<!-- 				<tr> -->
 				<!--	<td>更新時間:</td> -->
-					<td><input name="shop_update_time" id="f_date2" type="hidden"></td>
-				</tr>
+<!-- 					<td><input name="shop_update_time" id="f_date2" type="hidden"></td> -->
+<!-- 				</tr> -->
 				<tr>
-					<td>總瀏覽數:</td>
+					<td>總瀏覽數</td>
 					<td>
 						<input type="TEXT" size="45" value="<%=shopVO.getShop_total_view()%>" disabled="disabled"/>
 						<input type="hidden" name="shop_total_view" size="45" value="<%=shopVO.getShop_total_view()%>" />
 					</td>
 				</tr>
 				<tr>
-				<!--<td>預約功能:</td> -->
-					<td><input type="hidden" name="shop_reserv_status" size="45"
-						value="<%=shopVO.getShop_reserv_status()%>" />
-					</td>
-				</tr>
+<!-- 				<td>預約功能</td> -->
+<!-- 					<td><input type="hidden" name="shop_reserv_status" size="45"  -->
+<%-- 						value="<%=shopVO.getShop_reserv_status()%>" /> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
 	
 			</table>
 			<br> 
 			<input type="hidden" name="action" value="update"> 
 			<input type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
-			<input type="submit" value="送出修改">
+			<input type="submit" value="送出修改" style="margin-left: 20%; margin-bottom: 30px; border:1px solid gray; border-radius:10%;" >
 		</FORM>
 	</div>
 </div>
