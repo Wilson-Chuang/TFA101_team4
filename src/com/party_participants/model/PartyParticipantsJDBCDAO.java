@@ -23,7 +23,7 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 	
 	public static final String INSERT_STMT = "INSERT INTO PARTY_PARTICIPANTS(PARTY_MEMBER_ID, PARTY_ID, PARTY_UP_TIME) VALUES(?, ?, ?)";
 	public static final String UPDATE_STMT = "UPDATE PARTY_PARTICIPANTS SET PARTY_MEMBER_ID = ?, PARTY_ID = ? PARTY_UP_TIME = ? WHERE PARTY_PARTICIPANTS_ID = ?";
-	public static final String DELETE_STMT = "DELETE FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
+	public static final String DELETE_STMT = "DELETE FROM PARTY_PARTICIPANTS WHERE PARTY_MEMBER_ID = ? AND PARTY_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
 	public static final String GET_ALL = "SELECT * FROM PARTY_PARTICIPANTS";
 	public static final String COUNT_BY_POST_ID = "SELECT COUNT(*) FROM PARTY_PARTICIPANTS WHERE PARTY_ID = ?";
@@ -110,7 +110,7 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 	}
 
 	@Override
-	public void delete(Integer party_participants_id) {
+	public void delete(Integer party_member_id, Integer party_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -118,7 +118,8 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 			con = DriverManager.getConnection(url,userid,passwd);
 			pstmt = con.prepareStatement(DELETE_STMT);
 			
-			pstmt.setInt(1, party_participants_id);
+			pstmt.setInt(1, party_member_id);
+			pstmt.setInt(2, party_id);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
@@ -328,9 +329,9 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 	}
 	
 	
-	public static void main(String[] args) {
-		PartyParticipantsJDBCDAO dao = new PartyParticipantsJDBCDAO();
-		PartyParticipantsVO t1 = new PartyParticipantsVO();
+//	public static void main(String[] args) {
+//		PartyParticipantsJDBCDAO dao = new PartyParticipantsJDBCDAO();
+//		PartyParticipantsVO t1 = new PartyParticipantsVO();
 //		
 //		t1.setParty_member_id(1);
 //		t1.setParty_participants_id(2);
@@ -388,9 +389,9 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 //		}
 	//
 //			 刪除
-			dao.delete(1);
-			System.out.println("成功");
-		}
+//			dao.delete(1);
+//			System.out.println("成功");
+//		}
 	//
 //			// 查詢
 //			EmpVO empVO3 = dao.findByPrimaryKey(7001);
@@ -419,7 +420,7 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 //				System.out.println();
 //			}
 //		}
-	
+
 	
 	
 	
