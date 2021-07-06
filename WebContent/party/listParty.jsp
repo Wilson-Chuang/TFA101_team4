@@ -6,6 +6,9 @@
 <%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
+
 
 <%-- <% --%>
 <!-- //     PartyService partySvc1 = new PartyService(); -->
@@ -190,7 +193,6 @@
   
   
   <li>
-  <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
   
 	<FORM METHOD="post" ACTION="party.do" >
 	     <b>選擇姓名查詢:</b>
@@ -234,8 +236,8 @@
 	</tr>
 	
 	
-<%-- 	<%@ include file="page6.file" %>  --%>
-	<c:forEach var="partyVO" items="${partyVO}">
+	<%@ include file="page6.file" %> 
+	<c:forEach var="partyVO" items="${partyVO}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 	
 		<tr>
 			<td class="table_1">${partyVO.party_id}</td>

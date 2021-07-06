@@ -51,12 +51,13 @@
 			<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 			
 			<tr>
-				<td>餐廳地址:<font color=red><b>*</b></font></td>
-					<td><select size="1" name="shop_id">
-						<c:forEach var="shopVO" items="${shopSvc.all}">
-							<option value="${shopVO.shop_id}" ${(partyVO.shop_id==shopVO.shop_id)?'selected':'' } >${shopVO.shop_name}
-						</c:forEach>
-						</select>
+				<td>餐廳地址:<input list="shop_no" name="shop_id"/>  
+  				<datalist id="shop_no">
+  					<c:forEach var="shopVO" items="${shopSvc.all}">
+      					<option value="${shopVO.shop_id}"
+   							${(partyVO.shop_id==shopVO.shop_id)? 'selected':'' }>${shopVO.shop_name}
+  					</c:forEach>    
+  				</datalist>
 					</td>
 			</tr>
 			

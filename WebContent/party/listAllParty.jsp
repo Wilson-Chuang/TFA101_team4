@@ -109,6 +109,15 @@
   }
 </style>
 
+<style>
+ 	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	color: white;
+	}
+</style>
+
 </head>
 <body bgcolor='white' >
 
@@ -236,12 +245,6 @@
 			<td class="table_1">${partyVO.party_participants_max}</td>
 			<td class="table_1">${partyVO.party_participants_min}</td>
 			<td class="table_1">${partyVO.party_remarks}</td>
-			<td class="table_1">
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="party_id"  value="${partyVO.party_id}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
 			<td class="table_1">
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">

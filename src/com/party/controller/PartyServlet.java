@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 
 import com.member.model.*;
 import com.party.model.*;
+import com.party_participants.model.*;
 import com.party_participants.model.PartyParticipantsService;
 import com.party_participants.model.PartyParticipantsVO;
 
@@ -142,7 +143,7 @@ System.out.println(member_id);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("member_id", member_id); // 資料庫取出的partyVO物件,存入req
-				String url = "/party/listAllParty2.jsp";
+				String url = "/party/listParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				System.out.println("88888");
 				successView.forward(req, res);
@@ -184,11 +185,12 @@ System.out.println(member_id);
 			
 				Integer shop_id = null;
 				try {
+					System.out.println("shop");
 					shop_id = new Integer(req.getParameter("shop_id"));
 				} catch (NumberFormatException e) {
 					errorMsgs.add("沒有餐廳資訊");
 				}
-				
+				System.out.println(shop_id);
 				
 				Integer party_participants_max = null;
 				try {
@@ -413,7 +415,7 @@ System.out.println(member_id);
 						party_participants_max, party_participants_min, party_remarks, member_id, shop_id);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("partyVO", partyVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/party/listOneParty.jsp";
+				String url = "/party/listMYParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -474,7 +476,7 @@ RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_in
 				partySvc.deleteParty(party_id);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/party/listAllParty.jsp";
+				String url = "/party/listMYParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -489,7 +491,6 @@ RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_in
 		
 		
 		if ("delete2".equals(action)) { // 來自listAllEmp.jsp
-			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -498,10 +499,12 @@ RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_in
 			try {
 				/***************************1.接收請求參數***************************************/
 				Integer party_id = new Integer(req.getParameter("party_id"));
-				
+				HttpSession session = req.getSession();
+				MemberVO member = new MemberVO();	
+				Integer party_member_id = ((MemberVO)(session.getAttribute("login"))).getMember_id();
 				/***************************2.開始刪除資料***************************************/
-				PartyService partySvc = new PartyService();
-				partySvc.deleteParty(party_id);
+				PartyParticipantsService partyParticipantsServiceSvc = new PartyParticipantsService();
+				partyParticipantsServiceSvc.deletePartyParticipants(party_member_id, party_id);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
 				String url = "/party/myparty.jsp";
