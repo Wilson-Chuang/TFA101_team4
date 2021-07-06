@@ -73,19 +73,23 @@
 		<input type="hidden" name="member_id" size="45" value="${member.member_id}"/>
 	</div>
 	
+	
 	<div>
-		餐廳地址:
-		<select name="shop_id">
-	 	   <c:forEach var="shopVO" items="${shopSvc.all}">
-    			 <option value="${shopVO.shop_id}">${shopVO.shop_name}</option>
-			</c:forEach>
-		</select>
-	</div>
+		餐廳名稱:<input list="shop_no" name="shop_id"/>  
+  				<datalist id="shop_no">
+  					<c:forEach var="shopVO" items="${shopSvc.all}">
+      					<option value="${shopVO.shop_id}"
+   							${(partyVO.shop_id==shopVO.shop_id)? 'selected':'' }>${shopVO.shop_name}
+  					</c:forEach>    
+  				</datalist>
+ 		</div>
+	
+	
 	
 	<div>
 		揪團標題:
 		<input type="TEXT" name="party_title" size="45"
-				value="<%=(party == null) ? "標題" : party.getParty_title()%>" />
+				value="<%=(party == null) ? "" : party.getParty_title()%>" />
 	</div>
 	
 	<div>

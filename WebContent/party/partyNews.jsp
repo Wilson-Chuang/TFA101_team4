@@ -1,3 +1,4 @@
+<%@page import="com.party_participants.model.PartyParticipantsVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,10 +12,14 @@
 
 
 <%
-  PartyVO partyVO = (PartyVO) request.getAttribute("partyVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+  PartyVO partyVO = (PartyVO) request.getAttribute("partyVO"); 
   
   MemberVO member = (MemberVO) session.getAttribute("login");
   pageContext.setAttribute("member", member);
+  
+  PartyParticipantsVO participants = (PartyParticipantsVO) session.getAttribute("partyparticipantsVO");
+  pageContext.setAttribute("participants", participants);
+  
 %>
     
 <!DOCTYPE html>
@@ -89,6 +94,14 @@ div.party_intro{
 }
 
 
+div.paert_tag{
+	float: right;
+	width:500px; 
+	height:400px;
+	margin: 50px;
+}
+
+
 p.p1{
 	color: #4166F8;
   	letter-spacing: 5px;
@@ -100,9 +113,34 @@ p.p1{
 }
 
 
-
 </style>
 
+
+<style>
+/* 去掉a標籤底線 */
+a{ text-decoration:none} 
+a:hover{ text-decoration:none}
+
+/* 設定還沒有瀏覽過的連結 */
+a:link{
+color:blue;
+}
+
+/* 設定已經瀏覽過的連結 */
+a:visited {
+color:blue;
+}
+
+/* 設定滑鼠移經的連結 */
+a:hover {
+color:red;
+}
+
+/* 設定正在點選的連結 */
+a:active {
+color:#fafafa;
+}
+</style>
 
 <style>
 
@@ -123,6 +161,8 @@ p.p1{
 <style>
  li {list-style-type:none;}
 </style>
+
+
 
 </head>
 <body>
@@ -151,11 +191,14 @@ p.p1{
 						pattern="yyyy-MM-dd hh:mm" /></p>
 			<p>最高人數: ${partyVO.party_participants_max}</p>
 			<p>最低人數: ${partyVO.party_participants_min}</p>
-			<p>
+			<p>餐廳名稱:
 				<c:forEach var="shopVO" items="${shopSvc.all}">
-	            	<c:if test="${partyVO.shop_id==shopVO.shop_id}">${shopVO.shop_address}
-	                </c:if>
-               	</c:forEach> 
+ 					<c:if test="${partyVO.shop_id==shopVO.shop_id}">
+  						<a href="http://guidefood.myftp.org:8081/public/Shop.jsp?shop_id=${shopVO.shop_id}">                
+       						${shopVO.shop_name}         
+  						</a>
+        			</c:if>
+ 				</c:forEach>
 			</p>
 			<p>備註: ${partyVO.party_remarks}</p>
 			
@@ -164,6 +207,7 @@ p.p1{
 			<input type="hidden" name="action" value="join">
 			<input type="hidden" name="member_id" value="${member.member_id}">
 			<input type="hidden" name="party_id" value="${partyVO.party_id}">
+			<input type="hidden" name="party_participants_id" value="${participants.party_participants_id}">
 		    <input type="submit" value="加入揪團">
 		<%} %>
 		</div>
@@ -179,11 +223,14 @@ p.p1{
 	
 		<div class="paert_tag">
 			<p class="p1">餐廳評論</p>
+			<hr>
 			<c:forEach var="shopVO" items="${shopSvc.all}">
 	           <c:if test="${partyVO.shop_id==shopVO.shop_id}">${shopVO.shop_tag}
 	          </c:if>
          	</c:forEach> 
 		</div>
+
+	
 
 
 </body>

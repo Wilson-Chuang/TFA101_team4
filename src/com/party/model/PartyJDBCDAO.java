@@ -15,7 +15,7 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT party_id, party_title, party_start_time, party_end_time, party_intro, party_participants_max, party_participants_min, party_remarks, member_id, shop_id FROM party where party_id = ?";
 	private static final String UPDATE = "UPDATE party set party_title=?, party_start_time=?, party_end_time=?, party_intro=?, party_participants_max=?, party_participants_min=?, party_remarks=? , member_id=?, shop_id=? where party_id = ?";
 	private static final String DELETE = "DELETE FROM party where party_id = ?";
-	public static final String FIND_BY_ALL_MEMBER_ID = "SELECT * FROM member_id where party_id = ?";
+	public static final String FIND_BY_ALL_MEMBER_ID = "SELECT * FROM party where member_id = ?";
 	public static final String FIND_BY_MEMBER_ID = "SELECT * FROM party where member_id = ?";
 	
 	@Override
@@ -358,22 +358,24 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 	}
 	
 	
+
 	@Override
-	public List<PartyVO> getAllmamber(Integer mamber_id) {
-		List<PartyVO> list = new ArrayList<PartyVO>();
+	public Set<PartyVO> getAllmypartybymember(Integer member_id) {
+		Set<PartyVO> list = new LinkedHashSet();
 		PartyVO partyVO = null;
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
-			
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(FIND_BY_ALL_MEMBER_ID);
+			pstmt.setInt(1, member_id);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
 				partyVO = new PartyVO();
@@ -389,7 +391,7 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 				partyVO.setShop_id(rs.getInt("shop_id"));
 				list.add(partyVO); // Store the row in the list
 			}
-			
+
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -420,12 +422,6 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 				}
 			}
 		}
-		return list;
-	}
-
-	@Override
-	public Set<PartyVO> getAllmypartybymember(Integer member_id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -434,9 +430,9 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 	
 	
 
-//	public static void main(String[] args) {
-//
-//       PartyJDBCDAO dao = new PartyJDBCDAO();
+	public static void main(String[] args) {
+
+       PartyJDBCDAO dao = new PartyJDBCDAO();
 
 		// 新增
 //		PartyVO partyVO1 = new PartyVO();
@@ -511,19 +507,21 @@ public class PartyJDBCDAO implements PartyDAO_interface {
 //		System.out.println("---------------------");
 //
 //		// 查詢
-//		List<PartyVO> list = dao.getAll();
-//		for (PartyVO aEmp : list) {
-//			System.out.print(aEmp.getParty_id() + ",");
-//			System.out.print(aEmp.getParty_title() + ",");
-//			System.out.print(aEmp.getParty_start_time() + ",");
-//			System.out.print(aEmp.getParty_end_time() + ",");
-//			System.out.print(aEmp.getParty_intro() + ",");
-//			System.out.print(aEmp.getParty_participants_max() + ",");
-//			System.out.print(aEmp.getParty_participants_min() + ",");
-//			System.out.print(aEmp.getParty_remarks() + ",");
-//			System.out.println();
-//		}
-//	}
+       Set<PartyVO> set = dao.getAllmypartybymember(1);
+		for (PartyVO aEmp : set) {
+			System.out.print(aEmp.getParty_id() + ",");
+			System.out.print(aEmp.getMember_id() + ",");
+			System.out.print(aEmp.getShop_id() + ",");
+			System.out.print(aEmp.getParty_title() + ",");
+			System.out.print(aEmp.getParty_start_time() + ",");
+			System.out.print(aEmp.getParty_end_time() + ",");
+			System.out.print(aEmp.getParty_intro() + ",");
+			System.out.print(aEmp.getParty_participants_max() + ",");
+			System.out.print(aEmp.getParty_participants_min() + ",");
+			System.out.print(aEmp.getParty_remarks() + ",");
+			System.out.println();
+		}
+	}
 
 	
 

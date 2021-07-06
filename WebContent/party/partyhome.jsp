@@ -16,11 +16,15 @@
     MemberVO myMemberVO = (MemberVO) session.getAttribute("login");
 %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>揪團首頁</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 
 
 <style>
@@ -107,8 +111,7 @@ h5{
 
 div.myparty{
 	width:500px;
-    padding:20px;
-	float:right;
+    padding:70px 130px;
 	margin: 50px 20px;
 	size: 2em;
 	
@@ -119,14 +122,12 @@ div.myparty{
 
 
 <style>
-
  	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
 	cursor:pointer;
 	-webkit-border-radius: 5px;
 	border-radius: 5px; 
 	color: white;
 	}
-
 </style>
 
 <style>
@@ -146,12 +147,61 @@ div.membername{
 	}	
 </style>
 
+<style>
+.swiper-container {
+    width: 500px;
+    height:300px;
+}  
+
+</style>
+
+<style>
+
+.swiper-button-prev{
+	color: #5E5F61;
+
+}
+
+.swiper-button-next{
+	color: #5E5F61;
+}
+
+</style>
+
+
+<style type="text/css">
+a:link{
+//設定還沒有瀏覽過的連結
+text-decoration:none;
+background-color:#ffffff;
+}
+a:visited {
+//設定已經瀏覽過的連結
+}
+a:hover {
+//設定滑鼠移經的連結
+text-decoration:underline;
+background-color:#fafafa;
+color:gray;
+}
+a:active {
+//設定正在點選的連結
+text-decoration:none;
+background-color:gray;
+color:#fafafa;
+}
+</style>
 
 </head>
 
 
 <body>
-	<div class="Party_top"></div>
+
+	<div class="Party_top" style="cursor: pointer;" onclick="window.location='${pageContext.request.contextPath}/member/PersonalFile.jsp';"></div>
+	
+	<%
+	if(!(myMemberVO==null)){
+	%>
 	
 	<div class="Party_middle">
 	
@@ -165,20 +215,35 @@ div.membername{
 	
     </div>
     
-    <div class="myparty">
+   
+    
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+            	<div class="myparty">
     <%
 	if(!(myMemberVO==null)){
 	%>
    		 <a href='${pageContext.request.contextPath}/party/myparty.jsp'>我的參加的揪團</a>
     <%} %>
     </div>
-    
-    <div class="myparty">
+            </div>
+            <div class="swiper-slide">
+            	 <div class="myparty">
     <%
 	if(!(myMemberVO==null)){
 	%>
    		 <a href='${pageContext.request.contextPath}/party/listMYParty.jsp'>我發起的揪團</a>
     <%} %>
+    </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+   		<div class="swiper-button-next"></div>
+   		<%} %>
     </div>
 
 <%-- 錯誤表列 --%>
@@ -198,13 +263,6 @@ div.membername{
 
 
 	<div class="party_data">
-		<div>
-		<c:forEach var="memberVO" items="${memberSvc.all}">
-	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
-		                   			${memberVO.member_pic}
-	                    		</c:if>
-                			 </c:forEach> 
-		</div>
 		<div class="membername">
 		<c:forEach var="memberVO" items="${memberSvc.all}">
 	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
@@ -239,6 +297,22 @@ div.membername{
 	</c:forEach>
 	</div>
 <%@ include file="page4.file" %>
+
+
+<!-- Initialize Swiper -->
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        
+    });
+    
+    </script>
 
 
 </body>
