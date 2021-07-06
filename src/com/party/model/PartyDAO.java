@@ -34,7 +34,7 @@ public class PartyDAO implements PartyDAO_interface {
 	
 	
 	
-	public static final String FIND_BY_member_ID = "SELECT * FROM party where member_idmember_id_id = ?";
+	public static final String FIND_BY_member_ID = "SELECT * FROM party where member_id = ?";
 	
 	@Override
 	public void insert(PartyVO partyVO) {

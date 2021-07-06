@@ -32,9 +32,17 @@
 	}
 </style>
 
+	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/bootstrap-icons.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/materialdesignicons.min.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/wrunner-default-theme.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
+
+
 </head>
 <body bgcolor='white'>
 
+<%@include file="/pages/header.file"%>
 
 	<h3>資料修改:</h3>
 
@@ -127,6 +135,14 @@
 		     <input type="hidden" name="party_id" value="<%=partyVO.getParty_id()%>">
 		     <input type="submit" value="送出修改">
 		</FORM>
+
+
+
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
+	<script src="<%=request.getContextPath() %>/js/header.js"></script>
+
 
 
 </body>
