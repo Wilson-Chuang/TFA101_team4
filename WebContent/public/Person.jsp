@@ -51,36 +51,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="row">
 
             <div class="col-2">
-                <ul class="sidebar_ul">
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toPersonal">
-                    <input type="submit" value="個人資料" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toWallet">
-                    <input type="submit" value="我的錢包" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toFavorites">
-                    <input type="submit" value="我的收藏" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toActive">
-                    <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-					<li class="sidebar  lock"><form action="member.html"
-							class="personal_form">
-							<input type=hidden name="action" value="toShop"> <input
-								type="submit" value="商家專區" class="save_btn"
-								style="width: 150px; background: none; color: black">
-						</form></li>
-					<hr>
-                </ul>
+            
             </div>
             <div class="col-10">
             <div class="row">
             <div class="col-2">
-                <img src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":pic%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=(MemberVO.getMember_pic())!=null?pic:"./public/img/noimage.jpg"%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%= MemberVO.getMember_name()%></span>
@@ -138,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							for(ArticleVO article:list_myArticle){						
 						%>
 						<div class="card mb-3" >
-							<a href=#><div class="row no-gutters">
+							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+article.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
 								<div class="col-md-2">
 								</div>
 								<div class="col-md-4">
@@ -177,13 +153,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 </body>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
 	
 <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/wrunner-jquery.js"></script>
 <script src="<%=request.getContextPath() %>/js/header.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
 </html>

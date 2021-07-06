@@ -14,7 +14,7 @@
     
     MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
     pageContext.setAttribute("memberVO",memberVO);
-    String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator+memberVO.getMember_id()+ File.separator;
+    String picpath=request.getContextPath()+ File.separator+"UPLOAD" + File.separator + "member"+ File.separator + "pic"+ File.separator;
 
 %>
 
@@ -75,7 +75,10 @@
   div. firstline{
   	float:left;
   }
-  
+  .rightcontent{
+  	margin-left:20%;
+  	width: 1000px; 
+  }
   
 </style>
 
@@ -104,7 +107,7 @@
     </div>
 
 	
-	<div>
+	<div class="rightcontent" width="1000px;">
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color:red">請修正以下錯誤:</font>
@@ -140,9 +143,8 @@
 					<td class="table1">${memberVO.member_birth}</td>
 					<td class="table1">${memberVO.member_phone}</td>
 					<td class="table1">${memberVO.member_address}</td>
-					<td class="table1"><img src="<%=picpath %>${memberVO.member_pic}"></td>
+					<td class="table1"><img src="<%=picpath%>${memberVO.member_id}<%=File.separator%>${memberVO.member_pic}"></td>
 					<td class="table1">${memberVO.member_email}</td>
-<%-- 					<td class="table1"><%= (memberVO.getMember_status() == 1) ? "可使用" : "停權" %></td> --%>
 					<td class="table1">
 						<c:if test="${memberVO.member_status == 1}">可使用</c:if>
 						<c:if test="${memberVO.member_status != 1}">停權</c:if>
@@ -151,7 +153,7 @@
  					==1開放  <i class="fas fa-user"></i> 
  					-->
 					<td class="table1">
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.html" style="margin-bottom: 0px;">
+					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/manager/cmsMember.do" style="margin-bottom: 0px;">
 					     <button type="submit">
 						     <c:if test="${memberVO.member_status == 1}"><i class="fas fa-user-alt-slash"></i><br>停權</c:if>
 							 <c:if test="${memberVO.member_status != 1}"><i class="fas fa-user"></i><br>開放使用</c:if>

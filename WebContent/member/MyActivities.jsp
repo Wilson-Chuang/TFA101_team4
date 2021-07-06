@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":uploadFilePath%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=(MemberVO.getMember_pic())!=null?uploadFilePath:"./public/img/noimage.jpg"%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=((MemberVO) (session.getAttribute("login"))).getMember_name() %></span>
@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 							<ul class="list-group list-group-flush shopping_record">
   						<%for (ForumPostVO post : list_myForum) {%>  
-								<li class="list-group-item"><a href=#>您成功發表了「<%=post.getForum_post_title() %>」這則討論!</a></li>
+								<li class="list-group-item">您成功發表了「<%=post.getForum_post_title() %>」這則討論!</li>
 					<%}%>
 							</ul>
  					<%}else{%> 

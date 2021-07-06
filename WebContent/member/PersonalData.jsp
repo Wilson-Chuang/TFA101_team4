@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <select id="county-list" name="county" >
                     <option selected="selected" disabled="disabled"  style='display: none' value=''></option>
                     </select>
-                    <input type="text" name="address" value="<%=MemberVO.getMember_address()==null?"":add[2]%>"></label><br>
+                    <input type="text" name="address" value="<%=MemberVO.getMember_address()==null?"":add[2]%>" required></label><br>
                     
                     <label for="">電話<br><input type="text" name="MEMBER_PHONE" value="<%=MemberVO.getMember_phone()==null?"":MemberVO.getMember_phone() %>" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')"></label><br><br>
 					<label style="border:1px solid black;border-radius:5px;">上傳頭貼<input style="display:none" type="file" name="MEMBER_PIC" value="/upload/<%=MemberVO.getMember_pic() %>"></label><br>                

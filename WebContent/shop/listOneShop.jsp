@@ -83,8 +83,8 @@
 #preview {
       border: 1px solid lightgray;
       display: table;
-      width: 100px;
-      min-height: 150px;
+      width: 100%;
+/*       min-height: 150px; */
       position: relative;
     }
     #preview span.text {
@@ -101,7 +101,7 @@
      #preview_m {
       border: 1px solid lightgray;
       display: table;
-      width: 100px;
+      width: 100%;
       min-height: 150px;
       position: relative;
     }
@@ -145,64 +145,64 @@
     </div>
 
 
-		<table>
+		<table style="width:980px; table-layout:fixed; word-wrap:break-word; word-break ; break-all;">
 			<tr>
-				<th>商家編號</th>
-				<th>會員編號</th>
-				<th>統一編號</th>
-				<th>商家名稱</th>
-				<th>郵遞區號</th>
-				<th>縣市</th>
-				<th>地址</th>
-				<th>緯度</th>
-				<th>經度</th>
-				<th>商家介紹</th>
+				<th width="50px">商家<br>編號</th>
+				<th width="50px">會員<br>編號</th>
+				<th>統一<br>編號</th>
+				<th>商家<br>名稱</th>
+<!-- 				<th>郵遞區號</th> -->
+				<th width="60px">縣市</th>
+<!-- 				<th>地址</th> -->
+<!-- 				<th>緯度</th> -->
+<!-- 				<th>經度</th> -->
+<!-- 				<th>商家介紹</th> -->
 		<!-- 		<th>標籤</th> -->
-				<th>評價</th>
-				<th>評價總數</th>
-				<th>評價總和</th>
+				<th width="50px">評價</th>
+				<th width="50px">評價<br>總數</th>
+<!-- 				<th>評價總和</th> -->
 				<th>Email</th>
-				<th>聯絡電話</th>
-				<th>均消</th>
-				<th>營業時間</th>
-				<th>網站</th>
+<!-- 				<th>聯絡<br>電話</th> -->
+<!-- 				<th>均消</th> -->
+<!-- 				<th>營業時間</th> -->
+				<th width="100px">網站</th>
 				<th>圖片</th>
-				<th>圖片庫</th>
-				<th>建立時間</th>
-				<th>更新時間</th>
-				<th>總瀏覽數</th>
-				<th>預約功能</th>
+<!-- 				<th>圖片庫</th> -->
+<!-- 				<th>建立<br>時間</th> -->
+				<th>更新<br>時間</th>
+<!-- 				<th>總瀏<br>覽數</th> -->
+<!-- 				<th>預約功能</th> -->
 			</tr>
 			<tr>
 				<td><%=shopVO.getShop_id()%></td>
 				<td><%=shopVO.getMember_id()%></td>
 				<td><%=shopVO.getShop_tax_id()%></td>
 				<td><%=shopVO.getShop_name()%></td>
-				<td><%=shopVO.getShop_zip_code()%></td>
+<%-- 				<td><%=shopVO.getShop_zip_code()%></td> --%>
 				<td><%=shopVO.getShop_city()%></td>
-				<td><%=shopVO.getShop_address()%></td>
-				<td><%=shopVO.getShop_latitude()%></td>	
-				<td><%=shopVO.getShop_longitude()%></td>	
-				<td><%=shopVO.getShop_description()%></td>
+<%-- 				<td><%=shopVO.getShop_address()%></td> --%>
+<%-- 				<td><%=shopVO.getShop_latitude()%></td>	 --%>
+<%-- 				<td><%=shopVO.getShop_longitude()%></td>	 --%>
+<%-- 				<td><%=shopVO.getShop_description()%></td> --%>
 		<%-- 		<td><%=shopVO.getShop_tag()%></td> --%>
 				<td><%=shopVO.getShop_rating()%></td>
 				<td><%=shopVO.getShop_rating_count()%></td>
-				<td><%=shopVO.getShop_rating_total()%></td>
+<%-- 				<td><%=shopVO.getShop_rating_total()%></td> --%>
 				<td><%=shopVO.getShop_email()%></td>
-				<td><%=shopVO.getShop_phone()%></td>
-				<td><%=shopVO.getShop_price_level()%></td>
-				<td>
-					<% if(shopVO.getShop_opening_time().length()<1){ %>
-					<span class="text">無資料</span>
-					<% }else{ %>     
-					<%
-				    	String opening_time = shopVO.getShop_opening_time().replaceAll("[(\\[\")(\"\\])]", "").replaceAll("\\\\u2013", "-");
-				     	String[] week = opening_time.split(",");
-					    for (int i=0; i<week.length; i++) {
-				    %>
-				    	<% out.print(week[i]); %><br><br>	
-					<% }} %>		    
-				</td>
+<%-- 				<td><%=shopVO.getShop_phone()%></td> --%>
+<%-- 				<td><%=shopVO.getShop_price_level()%></td> --%>
+		<!-- 	<td> -->	
+<%-- 					<% if(shopVO.getShop_opening_time().length()<1){ %>   --%>
+<!-- 					<span class="text">無資料</span> -->
+<%-- 					<% }else{ %>      --%>
+<%-- 					<% --%>
+<!-- 				    	String opening_time = shopVO.getShop_opening_time().replaceAll("[(\\[\")(\"\\])]", "").replaceAll("\\\\u2013", "-"); -->
+<!-- 				     	String[] week = opening_time.split(","); -->
+<!-- 					    for (int i=0; i<week.length; i++) { -->
+<!-- 				    %> -->
+<%-- 				    	<% out.print(week[i]); %><br><br>	 --%>
+<%-- 					<% }} %>		     --%>
+<!-- 				</td> -->
 				<td><%=shopVO.getShop_website()%></td>
 				<td>
 				<div id="preview">
@@ -214,28 +214,28 @@
 					<% } %>
 				</div>
 				</td>
-				<td>
-					<div id="preview_m">
-					<% if(shopVO.getShop_gallery().length()<1){ %>
-					<span class="text">查無圖片</span>
-					<% }else{ %>      	
-				   	<div>
-				   	<%
-				    	String filename = shopVO.getShop_gallery().replaceAll("[\\[\\]\"]", "");
-				     	String[] values = filename.split(", ");
-					    for (int i=0; i<values.length; i++) {
-				    %>
-				      	<img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/<% out.print(shopVO.getShop_tax_id()); %>/gallery/<% out.print(values[i]); %>' 
-				      	title='<% out.print(values[i]); %>'/>		
-					<% } %>
-				   	</div>
-			      	<% } %>
-		   			</div>
-				</td>
-				<td><%=shopVO.getShop_create_time()%></td>
+<!-- 				<td> -->
+<!-- 					<div id="preview_m"> -->
+<%-- 					<% if(shopVO.getShop_gallery().length()<1){ %> --%>
+<!-- 					<span class="text">查無圖片</span> -->
+<%-- 					<% }else{ %>      	 --%>
+<!-- 				   	<div> -->
+<%-- 				   	<% --%>
+<!-- 				    	String filename = shopVO.getShop_gallery().replaceAll("[\\[\\]\"]", ""); -->
+<!-- 				     	String[] values = filename.split(", "); -->
+<!-- 					    for (int i=0; i<values.length; i++) { -->
+<!-- 				    %> -->
+<%-- 				      	<img class='preview_img' src='<%=request.getContextPath()%>/uploads/shop/<% out.print(shopVO.getShop_tax_id()); %>/gallery/<% out.print(values[i]); %>'  --%>
+<%-- 				      	title='<% out.print(values[i]); %>'/>		 --%>
+<%-- 					<% } %> --%>
+<!-- 				   	</div> -->
+<%-- 			      	<% } %> --%>
+<!-- 		   			</div> -->
+<!-- 				</td> -->
+<%-- 				<td><%=shopVO.getShop_create_time()%></td> --%>
 				<td><%=shopVO.getShop_update_time()%></td>
-				<td><%=shopVO.getShop_total_view()%></td>
-				<td><%=shopVO.getShop_reserv_status()%></td>
+<%-- 				<td><%=shopVO.getShop_total_view()%></td> --%>
+<%-- 				<td><%=shopVO.getShop_reserv_status()%></td> --%>
 			</tr>
 		</table>
 		

@@ -24,13 +24,18 @@ table {
 	margin-bottom: 1px;
 }
 
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
-
 th, td {
-	padding: 1px;
+	padding: 1px 0 1px 15px;
 	height:50px;
+}
+td{
+	border:0;
+	border-bottom: 1px solid #d1d1d1;
+	padding: 1px 0 1px 15px;
+}
+td .tabletitle{
+	border:none;
+	width:100px;
 }
 
 div.main_content {
@@ -91,6 +96,29 @@ div.main_content {
     #preview_m img.preview_img {
       width: 100%;
     }
+    
+   #back button:focus {
+     outline: none;
+  }
+  #back button{
+  	 /* 圓角 */
+     border-radius: 5%;
+    /* 輸入文字色彩設定 */
+     color: rgb(41, 41, 41);
+     padding: 5px 10px;
+  	 width:150px;
+  	 height:50px;
+  	 margin:20px 10px;
+  	 border-radius:20%;
+  	 background-color:#e9e9e9;
+  	 border: none;
+  }  
+  #back button a{
+	text-decoration: none; 
+	font-size:15px;
+	color: rgb(41, 41, 41);
+  }
+
 
 </style>
 
@@ -109,7 +137,7 @@ div.main_content {
     </div>
 
 	<div class="rightcontent">
-		<h3>商家資料修改</h3>
+		<h3>商家詳細資料</h3>
 	
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
@@ -122,120 +150,102 @@ div.main_content {
 		</c:if>
 	
 		<FORM METHOD="post" ACTION="shop.do" name="form1" enctype="multipart/form-data">
-			<table>
+			<table  style="width:980px; table-layout:fixed; word-wrap:break-word; word-break ; break-all;">
 				<tr>
-					<td>商家編號<font color=red><b>*</b></font></td>
+					<td class="tabletitle" width="100px" style="border:none">商家編號</td>
 					<td><%=shopVO.getShop_id()%></td>
 				</tr>
 				<jsp:useBean id="memberSvc" scope="page"
 					class="com.member.model.MemberService" />
 				<tr>
-					<td>會員編號<font color=red><b>*</b></font></td>
-					<td><select size="1" name="member_id">
-							<c:forEach var="memberVO" items="${memberSvc.all}">
-								<option value="${memberVO.member_id}"
-									${(shopVO.member_id==memberVO.member_id)? 'selected':'' }>${memberVO.member_id}
-							</c:forEach>
-					</select></td>
+					<td class="tabletitle" style="border:none">會員編號</td>
+					<td>
+						<c:forEach var="memberVO" items="${memberSvc.all}">
+		                    <c:if test="${shopVO.member_id==memberVO.member_id}">
+			                    ${memberVO.member_id}
+		                    </c:if>
+		                </c:forEach>
+					</td>
 				</tr>
 	
 				<tr>
-					<td>統一編號</td>
-					<td>
-						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_tax_id()%>" />
-						<input type="hidden" name="shop_tax_id" size="45" value="<%=shopVO.getShop_tax_id()%>" />
+					<td class="tabletitle" style="border:none">統一編號</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_tax_id()%>
 					</td>
 				</tr>
 				<tr>
-					<td>商家名稱</td>
-					<td><input type="TEXT" name="shop_name" size="45"
-						value="<%=shopVO.getShop_name()%>" /></td>
+					<td class="tabletitle" style="border:none">商家名稱</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_name()%></td>
 				</tr>
 				<tr>
-					<td>郵遞區號</td>
-					<td><input type="TEXT" name="shop_zip_code" size="45"
-						value="<%=shopVO.getShop_zip_code()%>" /></td>
+					<td class="tabletitle" style="border:none">郵遞區號</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_zip_code()%></td>
 				</tr>
 				<tr>
-					<td>縣市</td>
-					<td><input type="TEXT" name="shop_city" size="45"
-						value="<%=shopVO.getShop_city()%>" /></td>
+					<td class="tabletitle" style="border:none">縣市</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_city()%></td>
 				</tr>
 				<tr>
-					<td>地址</td>
-					<td><input type="TEXT" name="shop_address" size="45"
-						value="<%=shopVO.getShop_address()%>" /></td>
+					<td class="tabletitle" style="border:none">地址</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_address()%></td>
 				</tr>
 				<tr>
-					<td>緯度</td>
-					<td><input type="TEXT" name="shop_latitude" size="45" 
-						value="<%=shopVO.getShop_latitude()%>" /></td>
+					<td class="tabletitle" style="border:none">緯度</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_latitude()%></td>
 				</tr>
 				<tr>
-					<td>經度</td>
-					<td><input type="TEXT" name="shop_longitude" size="45"
-						value="<%=shopVO.getShop_longitude()%>" /></td>
+					<td class="tabletitle" style="border:none">經度</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_longitude()%></td>
 				</tr>
 				<tr>
-					<td>商家介紹</td>
-					<td><input type="TEXT" name="shop_description" size="45"
-						value="<%=shopVO.getShop_description()%>" /></td>
+					<td class="tabletitle" style="border:none">商家介紹</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_description()%></td>
 				</tr>
 				<tr>
-					<td>標籤</td>
-					<td><input type="TEXT" name="shop_tag" size="45"
-						value="<%=shopVO.getShop_tag()%>" /></td>
+					<td class="tabletitle" style="border:none">標籤</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_tag()%></td>
 				</tr>
 				<tr>
-					<td>評價</td>
+					<td class="tabletitle" style="border:none">評價</td>
 					<td>
-						<input type="TEXT"  size="45" disabled="disabled" value="<%=shopVO.getShop_rating()%>" />
-						<input type="hidden" name="shop_rating" size="45" value="<%=shopVO.getShop_rating()%>"/>				
+						<%= (shopVO==null)? "" : shopVO.getShop_rating()%>
 					</td>
 				</tr>
 				<tr>
-					<td>評價總數</td>
+					<td class="tabletitle" style="border:none">評價總數</td>
 					<td>
-						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_count()%>" />
-						<input type="hidden" name="shop_rating_count" size="45" value="<%=shopVO.getShop_rating_count()%>" />
+						<%= (shopVO==null)? "" : shopVO.getShop_rating_count()%>
 					</td>
 				</tr>
 				<tr>
-					<td>評價總和</td>
+					<td class="tabletitle" style="border:none">評價總和</td>
 					<td>
-						<input type="TEXT" size="45" disabled="disabled" value="<%=shopVO.getShop_rating_total()%>" />
-						<input type="hidden" name="shop_rating_total" size="45" value="<%=shopVO.getShop_rating_total()%>" />
+						<%= (shopVO==null)? "" : shopVO.getShop_rating_total()%>
 					</td>
 				</tr>
 				<tr>
-					<td>信箱</td>
-					<td><input type="TEXT" name="shop_email" size="45"
-						value="<%=shopVO.getShop_email()%>" /></td>
+					<td class="tabletitle" style="border:none">信箱</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_email()%></td>
 				</tr>
 				<tr>
-					<td>聯絡電話</td>
-					<td><input type="TEXT" name="shop_phone" size="45"
-						value="<%=shopVO.getShop_phone()%>" /></td>
+					<td class="tabletitle" style="border:none">聯絡電話</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_phone()%></td>
 				</tr>
 				<tr>
-					<td>均消</td>
-					<td><input type="TEXT" name="shop_price_level" size="45"
-						value="<%=shopVO.getShop_price_level()%>" /></td>
+					<td class="tabletitle" style="border:none">均消</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_price_level()%></td>
 				</tr>
 				<tr>
-					<td>營業時間</td>
-					<td><input type="TEXT" name="shop_opening_time" size="45"
-						value="<%=shopVO.getShop_opening_time()%>" /></td>
+					<td class="tabletitle" style="border:none">營業時間</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_opening_time()%></td>
 				</tr>
 				<tr>
-					<td>網站</td>
-					<td><input type="TEXT" name="shop_website" size="45"
-						value="<%=shopVO.getShop_website()%>" /></td>
+					<td class="tabletitle" style="border:none">網站</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_website()%></td>
 				</tr>
 				<tr>
-					<td>圖片</td>
+					<td class="tabletitle" style="border:none">圖片</td>
 					<td style="padding: 10px 0;">
-						<input type="file" id="p_file" name="shop_main_img" accept="image/*" /><br />
 				      	<div id="preview">
 				      	<% if(shopVO.getShop_main_img().length()<1 || shopVO.getShop_id()==null){ %>
 				      	<span class="text">預覽圖</span>
@@ -247,9 +257,8 @@ div.main_content {
 					</td>
 				</tr>
 				<tr>
-					<td>圖片庫</td>
+					<td class="tabletitle" style="border:none">圖片庫</td>
 					<td style="padding: 10px 0;">
-						<input type="file" id="p_file_m" name="shop_gallery" accept="image/*" multiple /><br />
 					     <div id="preview_m">
 					      	<% if(shopVO.getShop_gallery().length()<1 || shopVO.getShop_id()==null){ %>
 					      	<span class="text">預覽圖</span>
@@ -268,30 +277,38 @@ div.main_content {
 	      				</div>
 					</td>
 				</tr>
-<!-- 				<tr> -->
-				<!--	<td>更新時間:</td> -->
-<!-- 					<td><input name="shop_update_time" id="f_date2" type="hidden"></td> -->
-<!-- 				</tr> -->
 				<tr>
-					<td>總瀏覽數</td>
+					<td class="tabletitle" style="border:none">更新時間</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_update_time()%></td>
+				</tr>
+				<tr>
+					<td class="tabletitle" style="border:none">總瀏覽數</td>
 					<td>
-						<input type="TEXT" size="45" value="<%=shopVO.getShop_total_view()%>" disabled="disabled"/>
-						<input type="hidden" name="shop_total_view" size="45" value="<%=shopVO.getShop_total_view()%>" />
+						<%= (shopVO==null)? "" : shopVO.getShop_total_view()%>
 					</td>
 				</tr>
 				<tr>
-<!-- 				<td>預約功能</td> -->
-<!-- 					<td><input type="hidden" name="shop_reserv_status" size="45"  -->
-<%-- 						value="<%=shopVO.getShop_reserv_status()%>" /> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
+				<td class="tabletitle" style="border:none">預約功能</td>
+					<td><%= (shopVO==null)? "" : shopVO.getShop_reserv_status()%>
+					</td>
+				</tr>
 	
 			</table>
+			
 			<br> 
-			<input type="hidden" name="action" value="update"> 
-			<input type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
-			<input type="submit" value="送出修改" style="margin-left: 20%; margin-bottom: 30px; border:1px solid gray; border-radius:10%;" >
+			<div class="back" style="margin-left:20%;" height:80px;>
+				<button style="border:1px solid gray; border-radius:20px; height:50px; width:150px; padding:10px;">
+					<a href="${pageContext.request.contextPath}/shop/listAllShop.jsp" 
+					style="text-decoration: none; font-size:15px; color: rgb(41, 41, 41);">返回商家列表</a>
+				</button>
+				<input type="hidden" name="action" value="details_Update_display"> 
+				<input type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
+				<input type="submit" value="修改商家資料" 
+					style="margin-left: 20%; margin-bottom: 30px; border:1px solid gray; border-radius:20px;  height:50px;  width:150px; padding:10px;" >
+			</div>
+			
 		</FORM>
+		
 	</div>
 </div>
 

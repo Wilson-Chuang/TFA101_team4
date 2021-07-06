@@ -590,13 +590,13 @@ public class ShopDAO implements ShopDAO_interface {
 			for(int i = 0;i < keyArray.length;i++) {
 				if(i == keyArray.length - 1) {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ?)";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?))";
 					keyCount += 3;
 				}else {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ? OR ";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?) AND ";
 					keyCount += 3;
 				}				
 			}
@@ -705,13 +705,13 @@ public class ShopDAO implements ShopDAO_interface {
 			for(int i = 0;i < keyArray.length;i++) {
 				if(i == keyArray.length - 1) {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ?";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?)";
 					keyCount += 3;
 				}else {
 					tempStmt += 
-							"shop_name LIKE ? OR shop_description LIKE ?"
-							+ " OR shop_tag LIKE ? OR ";
+							"(shop_name LIKE ? OR shop_description LIKE ?"
+							+ " OR shop_tag LIKE ?) AND ";
 					keyCount += 3;
 				}				
 			}
@@ -1119,7 +1119,6 @@ public class ShopDAO implements ShopDAO_interface {
 			pstmt.setString(17, shopVO.getShop_gallery());
 			pstmt.setInt(18,shopVO.getShop_reserv_status());
 			pstmt.executeUpdate();
-			
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

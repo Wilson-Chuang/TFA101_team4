@@ -59,31 +59,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="row">
 
             <div class="col-2">
-                <ul class="sidebar_ul">
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toPersonal">
-                    <input type="submit" value="個人資料" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toWallet">
-                    <input type="submit" value="我的錢包" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toFavorites">
-                    <input type="submit" value="我的收藏" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-                    <li class="sidebar"><form method="post" action="member.html" class="personal_form"><input type=hidden name="action" value="toActive">
-                    <input type="submit" value="活動紀錄" class="save_btn" style="width:150px;background:none;color:black"></form>
-                        </li>
-                    <hr>
-					<li class="sidebar  lock"><form action="member.html"
-							class="personal_form">
-							<input type=hidden name="action" value="toShop"> <input
-								type="submit" value="商家專區" class="save_btn"
-								style="width: 150px; background: none; color: black">
-						</form></li>
-					<hr>
-                </ul>
             </div>
                     <div class="col-10">
                 <div class="row">

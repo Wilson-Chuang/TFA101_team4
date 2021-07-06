@@ -302,6 +302,8 @@ public class ShopServlet extends HttpServlet {
 			}
 		}
 		
+		
+		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 			try {
 				if (!errorMsgs.isEmpty()) {
@@ -633,16 +635,178 @@ public class ShopServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		if("fromShopid".equals(action)) {
-			res.setContentType("application/json; charset=utf-8");
-			ShopVO shopVO = shopSvc.getOneShop(shop_id);			
-			Gson gson = new Gson();
-	        String list = gson.toJson(shopVO);
-			JSONObject resJSON = new JSONObject();
-			resJSON.put("list", list);
-			resJSON.put("status", "OK");
-	        PrintWriter out = res.getWriter();				 
-	        out.println(resJSON);
+		
+		
+		//後台--展示詳細資料
+		if ("cms_details".equals(action)) { // 來自listAllShop.jsp 或  /dept/listShops_ByDeptno.jsp 的請求
+
+			try {
+				/***************************2.開始查詢資料****************************************/
+				ShopVO shopVO = shopSvc.getOneShop(shop_id);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("shopVO", shopVO); // 資料庫取出的shopVO物件,存入req
+				String url = "/shop/oneShop_details.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交oneShop_details.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理************************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
 		}
+		
+		if ("details_Update_display".equals(action)) { // 來自oneShop_details.jsp的請求
+
+			try {
+				/***************************2.開始查詢資料****************************************/
+				ShopVO shopVO = shopSvc.getOneShop(shop_id);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("shopVO", shopVO); // 資料庫取出的shopVO物件,存入req
+				String url = "/shop/update_details.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_shop_input.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理************************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+		if ("details_update".equals(action)) {   // 來自update_details.jsp的請求
+			try {
+				// 預設值
+				ShopVO oldVO = shopSvc.getOneShop(shop_id);
+				shop_main_img = oldVO.getShop_main_img();
+				shop_gallery = oldVO.getShop_gallery();
+				shop_create_time = oldVO.getShop_create_time();
+				shop_update_time = oldVO.getShop_update_time();
+				
+				// 統一編號更動檢查				
+				if(shop_tax_id != oldVO.getShop_tax_id()) {
+					String appPath = req.getServletContext().getRealPath("");
+					String uploadFilePath = appPath + File.separator + 
+							UPLOAD_DIR + File.separator;
+					File sourceFilename = new File(uploadFilePath + oldVO.getShop_tax_id());
+					File destFilename = new File(uploadFilePath + shop_tax_id);
+					if (sourceFilename.renameTo(destFilename)) {
+					    System.out.println(oldVO.getShop_tax_id() +"資料夾更名到" + shop_tax_id);
+					} else {
+					    System.out.println("資料夾名稱更名失敗");
+					}
+				}
+				
+				// 主圖更新
+				Part imgPart = req.getPart("shop_main_img");	
+				
+				if(imgPart.getSize() > 0) {
+					String appPath = req.getServletContext().getRealPath("");
+					String uploadFilePath = appPath + File.separator + 
+							UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "images";
+					File fileSaveDir = new File(uploadFilePath);
+					File[] listOfFiles = fileSaveDir.listFiles();
+					for (File file : listOfFiles) {
+				        if (file.isFile()) {
+				        	file.delete();
+				        }
+				    }
+			        if (!fileSaveDir.exists()) {
+			            fileSaveDir.mkdirs();
+			        }
+			        System.out.println("上傳到資料夾:" + fileSaveDir.getAbsolutePath());			        
+				    shop_main_img = Paths.get(imgPart.getSubmittedFileName()).getFileName().toString();
+				    imgPart.write(uploadFilePath + File.separator + shop_main_img);
+				}
+				
+				// 圖片庫更新
+				List<Part> fileParts = req.getParts().stream().filter(part -> 
+										"shop_gallery".equals(part.getName()) 
+										&& part.getSize() > 0).collect(Collectors.toList());
+			    
+			    if(!fileParts.isEmpty()) {
+			    	String appPath = req.getServletContext().getRealPath("");
+			    	String uploadFilePath = appPath + File.separator + 
+							UPLOAD_DIR + File.separator + shop_tax_id + File.separator + "gallery";
+			    	File fileSaveDir = new File(uploadFilePath);
+			        if (!fileSaveDir.exists()) {
+			            fileSaveDir.mkdirs();
+			        }
+			        System.out.println("上傳到資料夾:" + fileSaveDir.getAbsolutePath());		
+					HashSet<String> hs = new HashSet<String>();
+				    for (Part galleryPart : fileParts) {
+				        String fileName = Paths.get(galleryPart.getSubmittedFileName()).getFileName().toString();
+				        galleryPart.write(uploadFilePath + File.separator + fileName);
+				    }
+				    File[] listOfFiles = fileSaveDir.listFiles();
+				    for (File file : listOfFiles) {
+				        if (file.isFile()) {
+				        	hs.add(file.getName());
+				        }
+				    }
+				    shop_gallery = hs.toString();
+			    }
+				
+				// 更新時間
+				shop_update_time = new Timestamp(date.getTime());
+				
+				ShopVO shopVO = new ShopVO();
+				shopVO.setShop_id(shop_id);
+				shopVO.setMember_id(member_id);
+				shopVO.setShop_tax_id(shop_tax_id);
+				shopVO.setShop_name(shop_name);
+				shopVO.setShop_zip_code(shop_zip_code);
+				shopVO.setShop_city(shop_city);
+				shopVO.setShop_address(shop_address);
+				shopVO.setShop_latitude(shop_latitude);
+				shopVO.setShop_longitude(shop_longitude);
+				shopVO.setShop_description(shop_description);
+				shopVO.setShop_tag(shop_tag);
+				shopVO.setShop_rating(shop_rating);
+				shopVO.setShop_rating_count(shop_rating_count);
+				shopVO.setShop_rating_total(shop_rating_total);
+				shopVO.setShop_email(shop_email);
+				shopVO.setShop_phone(shop_phone);
+				shopVO.setShop_price_level(shop_price_level);
+				shopVO.setShop_opening_time(shop_opening_time);
+				shopVO.setShop_website(shop_website);
+				shopVO.setShop_main_img(shop_main_img);
+				shopVO.setShop_gallery(shop_gallery);
+				shopVO.setShop_update_time(shop_update_time);
+				shopVO.setShop_total_view(shop_total_view);
+				shopVO.setShop_reserv_status(shop_reserv_status);
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("shopVO", shopVO); // 含有輸入格式錯誤的shopVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/shop/update_details.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				
+				/***************************2.開始修改資料*****************************************/
+				shopVO = shopSvc.updateShop(shop_id,member_id,shop_tax_id,
+						shop_name,shop_zip_code,shop_city,shop_address,
+						shop_latitude,shop_longitude,shop_description,
+						shop_tag,shop_rating,shop_rating_count,shop_rating_total,
+						shop_email,shop_phone,shop_price_level,shop_opening_time,
+						shop_website,shop_main_img,shop_gallery,
+						shop_update_time,shop_total_view,shop_reserv_status);
+				shopVO = shopSvc.getOneShop(shop_id);
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("shopVO", shopVO); // 資料庫update成功後,正確的的shopVO物件,存入req
+				String url = "/shop/oneShop_details.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneShop.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.put("shopVO", "修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/shop/update_details.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 	}
 }

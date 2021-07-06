@@ -143,6 +143,20 @@ public class MemberServlet extends HttpServlet {
 				HttpSession session=req.getSession();
 				MemberVO MemberVO=(MemberVO)session.getAttribute("login");
 				int Member_id=MemberVO.getMember_id();
+				MemberService memsvc=new MemberService();
+				ShopVO ShopTest= memsvc.GET_ONE_BY_MEMBER(Member_id);
+				if (ShopTest.getShop_id()!=null) {
+					errorMsgs.add("已經申請過商家囉!(請勿重複申請)");
+					errorMsgs.add("請輸入帳號");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/ShopZone.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				
 				String shop_name = req.getParameter("Shop_name");
 				String shop_tax_id = req.getParameter("Shop_tax_id");
 				String shop_zip_code =req.getParameter("Shop_zip_code");
@@ -154,11 +168,10 @@ public class MemberServlet extends HttpServlet {
 				String shop_email=req.getParameter("Shop_email");
 				String shop_description=req.getParameter("shop_description");
 				String shop_tag=req.getParameter("Shop_tag");
-				System.out.println(req.getParameter("Shop_price_level"));
-				Integer shop_price_level=new Integer(req.getParameter("Shop_price_level"));
+				Integer Shop_price_level=new Integer(req.getParameter("Shop_price_level"));
 				String shop_opening_time=req.getParameter("Shop_opening_time");
 				String shop_website=req.getParameter("Shop_website");
-				String shop_main_img= "noimage.jpg";
+				String shop_main_img= "";
 				if(!((req.getPart("SHOP_MAIN_IMG")).getSize()==0)) {
 					Part part = req.getPart("SHOP_MAIN_IMG");
 					shop_main_img = getFileNameFromPart(part);
@@ -213,8 +226,7 @@ public class MemberServlet extends HttpServlet {
 					}
 				/*************************** 2.開始查詢資料 *****************************************/
 				ShopService shopSvc=new ShopService();
-				ShopVO ShopVO=shopSvc.insertShop(Member_id, shop_tax_id, shop_name, shop_zip_code, city, shop_address, shop_latitude, shop_longitude, shop_description, shop_tag, shop_email, shop_phone, shop_price_level, shop_opening_time, shop_website, shop_main_img, shop_gallery, shop_reserv_status);
-				
+				ShopVO ShopVO=shopSvc.insertShop(Member_id, shop_tax_id, shop_name, shop_zip_code, city, shop_address, shop_latitude, shop_longitude, shop_description, shop_tag, shop_email, shop_phone, Shop_price_level, shop_opening_time, shop_website, shop_main_img, shop_gallery, shop_reserv_status);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -1116,7 +1128,7 @@ public class MemberServlet extends HttpServlet {
 				MemberVO myMemberVO = (MemberVO)session.getAttribute("login");
 				int Member_id=myMemberVO.getMember_id();
 				String name = req.getParameter("SHOP_NAME");
-				String price_level_s = req.getParameter("SHOP_PRICE_LEVEL");
+				String price_level_s = req.getParameter("Shop_price_level");
 				int price_level=Integer.valueOf(price_level_s);
 				String opening_time = req.getParameter("SHOP_OPENING_TIME");
 				String city = req.getParameter("SHOP_CITY");
@@ -1184,6 +1196,7 @@ public class MemberServlet extends HttpServlet {
 				ShopVO ShopVO=new ShopVO();
 				ShopVO.setShop_name(name);
 				ShopVO.setShop_price_level(price_level);
+				System.out.println(price_level);
 				ShopVO.setShop_opening_time(opening_time);
 				ShopVO.setShop_address(address);
 				ShopVO.setShop_city(city);
@@ -1208,7 +1221,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("MemberVO", MemberVO); // 資料庫取出的empVO物件,存入req
 				req.setAttribute("ShopVO", ShopVO); // 資料庫取出的empVO物件,存入req
 				String url = "/member/ShopZone.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
@@ -1445,6 +1458,16 @@ public class MemberServlet extends HttpServlet {
 				
 				/*************************** 2.開始查詢資料 *****************************************/
 				MemberService memSvc=new MemberService();
+				List<String> list=memSvc.check();
+			     if(!(list.contains(member_mail))) {
+			    	 errorMsgs.add("信箱不存在");
+			     }
+			     if (!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/sign/signin.jsp");
+						failureView.forward(req, res);
+						return;//程式中斷
+					}
 				MemberVO memberVO = memSvc.getOneMem(member_mail);
 				Integer member_id=memberVO.getMember_id();
 				String new_password=getRandomString(8);

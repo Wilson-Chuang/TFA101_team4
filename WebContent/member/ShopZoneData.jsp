@@ -46,11 +46,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="col-10">
                 <form action="member.html"  method="post"  enctype="multipart/form-data">
-                	<label for="">店家編號<br><input type=text value="<%=ShopVO.getShop_id()%>" name="SHOP_ID"></label><br>
+                	<input type=hidden value="<%=ShopVO.getShop_id()%>" name="SHOP_ID">
                 	<input type=hidden value="<%=MemberVO.getMember_email() %>" name="MEMBER_EMAIL">
                 	<input type=hidden value="<%=ShopVO.getShop_main_img() %>" name="filename">
-                    <label for="">店名<br><input type="text" name="SHOP_NAME" value="<%=ShopVO.getShop_name() %>"></label><br>
-                    <label for="">商家均消:<select name="Shop_price_level"><option value=0>不選擇</option><option value=1>$150以下</option><option value=2>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option></select><br><br><label for="">營業時間<br><input type="text" name="SHOP_OPENING_TIME"  value="<%=ShopVO.getShop_opening_time() %>"></label><br>
+                    <label for="">店名<br><input type="text" name="SHOP_NAME" value="<%=ShopVO.getShop_name() %>"></label><br><br>
+                    <label for="">商家均消:<select name="Shop_price_level">
+                    <%if(ShopVO.getShop_price_level().equals(1)){ %><option value=0 >不選擇</option><option value=1 selected>$150以下</option><option value=2>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option>
+                    <%}else if(ShopVO.getShop_price_level().equals(2)){ %><option value=0 >不選擇</option><option value=1>$150以下</option><option value=2 selected>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option>
+                    <%}else if(ShopVO.getShop_price_level().equals(3)){ %><option value=0 >不選擇</option><option value=1>$150以下</option><option value=2>$150~$300</option><option value=3 selected>$300~$600</option><option value=4>$600以上</option>
+                    <%}else{%><option value=0 selected>不選擇</option><option value=1>$150以下</option><option value=2>$150~$300</option><option value=3>$300~$600</option><option value=4>$600以上</option><%} %>
+                    </select><br><br>
+                    <label for="">營業時間<br><input type="text" name="SHOP_OPENING_TIME"  value="<%=ShopVO.getShop_opening_time() %>"></label><br>
                     <label for="">地址<br><input type="text" name="address" value="<%=ShopVO.getShop_address()%>"></label><br>
                     <label for="">縣市<br><input type="text" name="SHOP_CITY" value="<%=ShopVO.getShop_city() %>"></label><br>
                     <label for="">粉絲專頁<br><input type="text" name="SHOP_WEBSITE" value="<%=ShopVO.getShop_website() %>"></label><br>

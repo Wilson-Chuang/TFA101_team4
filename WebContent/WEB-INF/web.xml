@@ -194,6 +194,15 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>cmsLoginFilter</filter-name>
+		<url-pattern>/shop/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 	
 
 	
@@ -389,5 +398,14 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>cmsMemberServlet</servlet-name>
+		<servlet-class>com.manager.controller.CMSMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cmsMemberServlet</servlet-name>
+		<url-pattern>/manager/cmsMember.do</url-pattern>
+	</servlet-mapping>
 	
 </web-app>

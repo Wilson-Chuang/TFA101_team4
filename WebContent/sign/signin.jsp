@@ -19,14 +19,13 @@
 <link href="${pageContext.request.contextPath}/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/wrunner-default-theme.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/css/header.css" rel="stylesheet">
-
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="./fontawesome-free-5.15.3-web/css/all.css">
 
 
 </head>
 <body class="sign_right" style="padding-top:50px;background-image: url('./loginBg.jpg');">
-<%@ include file="/pages/header.file" %>
+<%-- <%@ include file="/pages/header.file" %> --%>
 	
 	<div class="container">
 		<div class="row">

@@ -22,7 +22,7 @@
 
 </head>
 <body class="sign_right" style="padding-top:50px;background-image: url('./loginBg.jpg');">
-<%@ include file="/pages/header.file" %>
+<%-- <%@ include file="/pages/header.file" %> --%>
    
 	<div class="container">
 		<div class="row">

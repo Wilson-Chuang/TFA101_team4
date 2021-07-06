@@ -1,5 +1,6 @@
 var refine = [];
 var markerGroup = [];
+var filtertemp = [];
 
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
@@ -48,31 +49,51 @@ function pagelist(data){
 
 $("#orderbyrate").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortDesc(refine, 0, refine.length, "shop_rating");
-	pagelist(refine);
+	$("#search-order-now > span").text($(this).text());	
+	if(filtertemp.length > 0){
+		quickSortDesc(filtertemp, 0, filtertemp.length, "shop_rating");
+		pagelist(filtertemp);
+	}else{
+		quickSortDesc(refine, 0, refine.length, "shop_rating");
+		pagelist(refine);
+	}
 });
 
 $("#orderbypopular").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortDesc(refine, 0, refine.length, "shop_total_view");
-	pagelist(refine);
+	$("#search-order-now > span").text($(this).text());	
+	if(filtertemp.length > 0){
+		quickSortDesc(filtertemp, 0, filtertemp.length, "shop_total_view");
+		pagelist(filtertemp);
+	}else{
+		quickSortDesc(refine, 0, refine.length, "shop_total_view");
+		pagelist(refine);
+	}
 });
 
 
 $("#orderbycost").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortAsc(refine, 0, refine.length, "shop_price_level");
-	pagelist(refine);
+	$("#search-order-now > span").text($(this).text());	
+	if(filtertemp.length > 0){
+		quickSortAsc(filtertemp, 0, filtertemp.length, "shop_price_level");
+		pagelist(filtertemp);
+	}else{
+		quickSortAsc(refine, 0, refine.length, "shop_price_level");
+		pagelist(refine);
+	}
 });
 
 $("#orderbydistance").click(function(e){
 	e.preventDefault();
-	$("#search-order-now > span").text($(this).text());
-	quickSortDistance(refine, 0, refine.length, "shop_latitude", "shop_longitude");
-	pagelist(refine);
+	$("#search-order-now > span").text($(this).text());	
+	if(filtertemp.length > 0){
+		quickSortDistance(filtertemp, 0, filtertemp.length, "shop_latitude", "shop_longitude");
+		pagelist(filtertemp);
+	}else{
+		quickSortDistance(refine, 0, refine.length, "shop_latitude", "shop_longitude");
+		pagelist(refine);
+	}
 });
 
 function quickSortDistance(arr, startIdx, endIdx, prop1, prop2) {
@@ -172,13 +193,14 @@ function quickSortDesc(arr, startIdx, endIdx, prop) {
 $("#filterzero").click(function(e){
 	e.preventDefault();
 	$("#search-filter-menu > span").text($(this).text());
+	filtertemp = [];
 	pagelist(refine);
 });
 
 $("#filterone").click(function(e){
 	e.preventDefault();
 	$("#search-filter-menu > span").text($(this).text());
-	var filtertemp = [];
+	filtertemp = [];
 	$.each(refine, function(index, shopVO){
 		if(shopVO.shop_price_level == 1){
 			filtertemp.push(shopVO);
@@ -190,7 +212,7 @@ $("#filterone").click(function(e){
 $("#filtertwo").click(function(e){
 	e.preventDefault();
 	$("#search-filter-menu > span").text($(this).text());
-	var filtertemp = [];
+	filtertemp = [];
 	$.each(refine, function(index, shopVO){
 		if(shopVO.shop_price_level == 2){
 			filtertemp.push(shopVO);
@@ -202,7 +224,7 @@ $("#filtertwo").click(function(e){
 $("#filterthree").click(function(e){
 	e.preventDefault();
 	$("#search-filter-menu > span").text($(this).text());
-	var filtertemp = [];
+	filtertemp = [];
 	$.each(refine, function(index, shopVO){
 		if(shopVO.shop_price_level == 3){
 			filtertemp.push(shopVO);
@@ -214,7 +236,7 @@ $("#filterthree").click(function(e){
 $("#filterfour").click(function(e){
 	e.preventDefault();
 	$("#search-filter-menu > span").text($(this).text());
-	var filtertemp = [];
+	filtertemp = [];
 	$.each(refine, function(index, shopVO){
 		if(shopVO.shop_price_level == 4){
 			filtertemp.push(shopVO);
@@ -230,12 +252,13 @@ $("#search-filter-open").click(function(e){
 		$("#indicator").css("background-color", "#dce0e0");
 		$("#open-title").removeClass("fw-bold");
 		$(this).removeClass("active");
+		filtertemp = [];
 		pagelist(refine);
 	} else {
 		$(this).addClass("active");
 		$("#indicator").css("background-color", "#7ed321");
 		$("#open-title").addClass("fw-bold");		
-		var filtertemp = [];
+		filtertemp = [];
 		
 		$.each(refine, function(index, shopVO){
 			if(shopVO.shop_opening_time != null){

@@ -243,7 +243,6 @@ public class PartyDAO implements PartyDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
 				partyVO = new PartyVO();

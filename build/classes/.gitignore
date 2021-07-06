@@ -1,6 +1,8 @@
-/idv/
 /com/
-/shoppingServlet/
 /filters/
-/util/
+/idv/
+/shopping/
+/shoppingServlet/
+/test/
 /testdatasource/
+/util/

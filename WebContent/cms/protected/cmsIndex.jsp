@@ -66,26 +66,26 @@
 	}
 	.box1{
 	    background-color: rgb(126, 185, 205);
-	    border-top-left-radius: 20%;
-	    border-top-right-radius: 20%;
+	    border-top-left-radius: 40px;
+	    border-top-right-radius: 40px;
 	    height:70px;
 	}
 	.box2{
 	    background-color: rgb(255, 147, 179);
-	    border-top-left-radius: 20%;
-	    border-top-right-radius: 20%;
+	    border-top-left-radius: 40px;
+	    border-top-right-radius: 40px;
 	    height:70px;
 	}
 	.box3{
 	    background-color: rgb(240, 185, 140);
-	    border-top-left-radius: 20%;
-	    border-top-right-radius: 20%;
+	    border-top-left-radius: 40px;
+	    border-top-right-radius: 40px;
 	    height:70px;
 	}
 /* 	.box4{ */
 /* 	    background-color: rgb(0, 133, 174); */
-/* 	    border-top-left-radius: 20%; */
-/* 	    border-top-right-radius: 20%; */
+/* 	    border-top-left-radius:40px; */
+/* 	    border-top-right-radius: 40px; */
 /* 	    height:70px; */
 /* 	} */
 	.bottom{

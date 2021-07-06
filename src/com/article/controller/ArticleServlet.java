@@ -88,7 +88,7 @@ public class ArticleServlet extends HttpServlet {
 					
 			    String imageFileName = file.getSubmittedFileName();
 			
-			    String uploadPath = "C:/Users/Tibame_T14/Desktop/upload/"+imageFileName;
+			    String uploadPath = "C:/upload/"+imageFileName;
 			    		     
 			    FileOutputStream fos = new FileOutputStream(uploadPath);
 			    
@@ -113,9 +113,9 @@ public class ArticleServlet extends HttpServlet {
 			    
 			    Integer member_no = memberVO.getMember_id();
 
-//				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
+				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
 			    
-			    Integer shop_no = 2;
+//			    Integer shop_no = 2;
 			    
 				Integer category_no = new Integer(req.getParameter("category_no").trim());
 			
@@ -246,7 +246,7 @@ public class ArticleServlet extends HttpServlet {
 						
 				     filename = file.getSubmittedFileName();		   
 	    
-				     String uploadPath = "C:/Users/Tibame_T14/Desktop/upload/"+filename;	     
+				     String uploadPath = "C:/upload/"+filename;	     
 				     
 				     FileOutputStream fos = new FileOutputStream(uploadPath);
 				     InputStream is = file.getInputStream();     
@@ -265,9 +265,9 @@ public class ArticleServlet extends HttpServlet {
 			    
 			    Integer member_no = memberVO.getMember_id();
 
-//				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
+				Integer shop_no = new Integer(req.getParameter("shop_no").trim());
 			    
-			    Integer shop_no = 2;
+//			    Integer shop_no = 2;
 			    
 				Integer category_no = new Integer(req.getParameter("category_no").trim());
 			
@@ -761,7 +761,7 @@ public class ArticleServlet extends HttpServlet {
         	
 		    
 //        	vote(author_no,new Long((long) member_no)); //記得改用登入會員編號
-		    vote(author_no,103L);
+		    vote(author_no,330L);
         	rank();      
         	     	
         	Long addResult = votevo.getAddResult();

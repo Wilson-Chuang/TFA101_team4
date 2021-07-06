@@ -135,7 +135,7 @@
 						<c:choose>
 						    <c:when test="${sessionScope.login != null}">
 						    	<a href="#" class="link-dark text-decoration-none dropdown-toggle mx-4 logged" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-									<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+									<img src="<%=request.getContextPath()%>/public/img/noimage.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
 								</a>
 								<ul class="dropdown-menu text-small mt-2 logged" aria-labelledby="dropdownUser">
 									<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member.html?action=toPersonal">個人資料</a></li>

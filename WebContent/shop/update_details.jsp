@@ -288,9 +288,9 @@ div.main_content {
 	
 			</table>
 			<br> 
-			<input type="hidden" name="action" value="update"> 
+			<input type="hidden" name="action" value="details_update"> 
 			<input type="hidden" name="shop_id" value="<%=shopVO.getShop_id()%>">
-			<input type="submit" value="送出修改" style="margin-left: 20%; margin-bottom: 30px; border:1px solid gray; border-radius:10%;" >
+			<input type="submit" value="送出修改"  style="border:1px solid gray; border-radius:20px; height:50px; width:150px; padding:10px; margin-left:20%; margin-bottom:20px;" >
 		</FORM>
 	</div>
 </div>

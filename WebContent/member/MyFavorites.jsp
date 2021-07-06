@@ -79,7 +79,7 @@
 		<div class="row">
 			<div class="col-2">
 				<img
-					src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":uploadFilePath%>"
+					src="<%=(MemberVO.getMember_pic())!=null?uploadFilePath:"./public/img/noimage.jpg"%>"
 					width="150px" alt="" class="member_pic" id="showimg">
 			</div>
 			<div class="col-10">
@@ -140,8 +140,6 @@
 			<div class="col-10">
 				<ul class="nav nav-tabs">
 					<li class="favorite_page_li"><a class="favorite_page"
-						href="#article_follower" rel="external nofollow" data-toggle="tab">文章追蹤</a></li>
-					<li class="favorite_page_li"><a class="favorite_page"
 						href="#shop_favorite" rel="external nofollow" data-toggle="tab">餐廳收藏</a></li>
 					<li class="favorite_page_li"><a class="favorite_page"
 						href="#member_follower_fans" rel="external nofollow"
@@ -153,31 +151,6 @@
 				</ul>
 				<!--標籤的內容-->
 				<div id="myTabContent" class="tab-content">
-					<div class="tab-pane fade in active" id="article_follower">
-					<%
-					if(!list_article_fol.isEmpty()){
-							for(Article_FavoriteVO article_fav:list_article_fol){
-								int article_no=article_fav.getArticle_no();
-								ArticleVO ArticleVO=memSvc.getArticleFollowed(article_no);
-						%>
-						<div class="card mb-3" style="max-width: 540px;">
-							<a href="<%=request.getContextPath()+"/article/article.do?article_no="+ArticleVO.getArticle_no()+"&action=see_article" %>"><div class="row no-gutters">
-								<div class="col-md-4">
-								
-									<img src="/upload/<%=ArticleVO.getArticle_img_name()%>" class="card-img" alt="...">
-								</div>
-								<div class="col-md-8">
-								<p class="card-text">您追蹤了「<%=ArticleVO.getArticle_title() %>」這篇文章</p>
-								</div>
-							</div></a>
-						</div>
-						<%
- 							}
-					}else{
-						%> 
-					<img src="./public/img/empty.jpg" style="width:100%">
-					<%} %>
-					</div>
 					<div class="tab-pane fade" id="shop_favorite">
 					
 					
@@ -219,7 +192,7 @@
 						%>
 						<div class="card follow_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fans.getMember_id() %>">
-							<img class="card-img-top" src="<%=fans.getMember_pic().equals("noimage.jpg")?"./public/img/noimage.jpg":picpath+fans.getMember_id()+ File.separator+fans.getMember_pic()%>"
+							<img class="card-img-top" src="<%=fans.getMember_pic()!=null?picpath+fans.getMember_id()+ File.separator+fans.getMember_pic():"./public/img/noimage.jpg"%>"
 								alt="Card image cap" style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fans.getMember_name()%></h5>
@@ -239,9 +212,8 @@
 						%>
 						<div class="card fans_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fing.getMember_id() %>">
-							<img class="card-img-top"
-								src="<%=fing.getMember_pic().equals("noimage.jpg")?"./public/img/noimage.jpg":picpath+fing.getMember_id()+ File.separator+fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
-							<div class="card-body">
+							<img class="card-img-top" src="<%=fing.getMember_pic()!=null?picpath+fing.getMember_id()+ File.separator+fing.getMember_pic():"./public/img/noimage.jpg"%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
+								<div class="card-body">
 								<h5 class="card-title"><%=fing.getMember_name()%></h5>
 							</div>
 							<ul class="list-group list-group-flush">

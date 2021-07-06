@@ -74,6 +74,7 @@ div.like_block{
 .svg-inline--fa{
 	font-size: medium;
 }
+
 </style>
 	<!-- fontawesome -->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -124,7 +125,7 @@ div.like_block{
         <div><i class="fas fa-clock"></i>
             <fmt:formatDate value="<%=forumPost.getForum_post_time()%>" pattern="yyyy/MM/dd HH:mm" />
         </div>
-        <div>最後更新時間:
+        <div><i class="fas fa-history"></i>
             <fmt:formatDate value="<%=forumPost.getForum_update_time()%>" pattern="yyyy/MM/dd HH:mm" />
         </div>
         <br>
@@ -212,7 +213,7 @@ div.like_block{
                                 <div><i class="fas fa-clock"></i>
                                     <fmt:formatDate value="${forumReply.forum_reply_time}" pattern="yyyy/MM/dd HH:mm" />
                                 </div>
-                                <div> 最後更新時間:
+                                <div><i class="fas fa-history"></i>
                                     <fmt:formatDate value="${forumReply.forum_reply_update_time}"
                                         pattern="yyyy/MM/dd HH:mm" />
                                 </div>
@@ -411,7 +412,8 @@ div.like_block{
 				
 				
 				$.ajax({
-				    url: "http://localhost:8081/Team4/forumPost/forumPost.do",
+// 				    url: "http://localhost:8081/Team4/forumPost/forumPost.do",
+				    url: "<%=request.getContextPath()%>/forumPost/forumPost.do",
 				    type: "POST",
 				    data: { action: action, postid: postid, memberID: memberID },
 				    dataType: "json",
