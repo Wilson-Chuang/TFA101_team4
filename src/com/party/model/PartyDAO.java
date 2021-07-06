@@ -19,7 +19,7 @@ public class PartyDAO implements PartyDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/team4DB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -243,7 +243,6 @@ public class PartyDAO implements PartyDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
 				partyVO = new PartyVO();
