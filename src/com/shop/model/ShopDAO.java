@@ -1119,7 +1119,6 @@ public class ShopDAO implements ShopDAO_interface {
 			pstmt.setString(17, shopVO.getShop_gallery());
 			pstmt.setInt(18,shopVO.getShop_reserv_status());
 			pstmt.executeUpdate();
-			
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

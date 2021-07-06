@@ -39,7 +39,7 @@ String uploadFilePath = picpath +MemberVO.getMember_pic();
 <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":uploadFilePath%>" width="150px" alt="" class="member_pic" id="showimg">
+                <img src="<%=(MemberVO.getMember_pic())==null?"./public/img/noimage.jpg":uploadFilePath%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
                 <span class="member_name"><%=MemberVO.getMember_name() %></span>

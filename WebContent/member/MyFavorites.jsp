@@ -79,7 +79,7 @@
 		<div class="row">
 			<div class="col-2">
 				<img
-					src="<%=(MemberVO.getMember_pic()).equals("noimage.jpg")?"./public/img/noimage.jpg":uploadFilePath%>"
+					src="<%=(MemberVO.getMember_pic())==null?"./public/img/noimage.jpg":uploadFilePath%>"
 					width="150px" alt="" class="member_pic" id="showimg">
 			</div>
 			<div class="col-10">
@@ -192,7 +192,7 @@
 						%>
 						<div class="card follow_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fans.getMember_id() %>">
-							<img class="card-img-top" src="<%=fans.getMember_pic().equals("noimage.jpg")?"./public/img/noimage.jpg":picpath+fans.getMember_id()+ File.separator+fans.getMember_pic()%>"
+							<img class="card-img-top" src="<%=fans.getMember_pic()==null?"./public/img/noimage.jpg":picpath+fans.getMember_id()+ File.separator+fans.getMember_pic()%>"
 								alt="Card image cap" style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fans.getMember_name()%></h5>
@@ -213,7 +213,7 @@
 						<div class="card fans_card" style="width: 18rem;">
 						<a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+fing.getMember_id() %>">
 							<img class="card-img-top"
-								src="<%=fing.getMember_pic().equals("noimage.jpg")?"./public/img/noimage.jpg":picpath+fing.getMember_id()+ File.separator+fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
+								src="<%=fing.getMember_pic()==null?"./public/img/noimage.jpg":picpath+fing.getMember_id()+ File.separator+fing.getMember_pic()%>" alt="Card image cap"style="width:18rem;height:18rem;"></a>
 							<div class="card-body">
 								<h5 class="card-title"><%=fing.getMember_name()%></h5>
 							</div>

@@ -149,14 +149,12 @@ public class MemberServlet extends HttpServlet {
 				String city=req.getParameter("SHOP_CITY");
 				String shop_address=req.getParameter("address");
 				Double shop_latitude = new Double(req.getParameter("Shop_latitude"));
-				System.out.println(shop_latitude);
 				Double shop_longitude = new Double(req.getParameter("Shop_longitude"));
-				System.out.println(shop_longitude);
 				String shop_phone=req.getParameter("Shop_phone");
 				String shop_email=req.getParameter("Shop_email");
 				String shop_description=req.getParameter("shop_description");
 				String shop_tag=req.getParameter("Shop_tag");
-				Integer shop_price_level=new Integer(req.getParameter("Shop_price_level"));
+				Integer Shop_price_level=new Integer(req.getParameter("Shop_price_level"));
 				String shop_opening_time=req.getParameter("Shop_opening_time");
 				String shop_website=req.getParameter("Shop_website");
 				String shop_main_img= "";
@@ -214,8 +212,7 @@ public class MemberServlet extends HttpServlet {
 					}
 				/*************************** 2.開始查詢資料 *****************************************/
 				ShopService shopSvc=new ShopService();
-				ShopVO ShopVO=shopSvc.insertShop(Member_id, shop_tax_id, shop_name, shop_zip_code, city, shop_address, shop_latitude, shop_longitude, shop_description, shop_tag, shop_email, shop_phone, shop_price_level, shop_opening_time, shop_website, shop_main_img, shop_gallery, shop_reserv_status);
-				
+				ShopVO ShopVO=shopSvc.insertShop(Member_id, shop_tax_id, shop_name, shop_zip_code, city, shop_address, shop_latitude, shop_longitude, shop_description, shop_tag, shop_email, shop_phone, Shop_price_level, shop_opening_time, shop_website, shop_main_img, shop_gallery, shop_reserv_status);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
