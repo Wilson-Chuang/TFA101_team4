@@ -311,7 +311,6 @@ public class PartyDAO implements PartyDAO_interface {
 				// empVO 也稱為 Domain objects
 				forumPostLike = new PartyVO();
 				forumPostLike.setParty_id(rs.getInt("party_id"));
-				System.out.println(rs.getInt("party_id"));
 				forumPostLike.setParty_title(rs.getString("party_title"));
 				forumPostLike.setParty_start_time(rs.getTimestamp("party_start_time"));
 				forumPostLike.setParty_end_time(rs.getTimestamp("party_end_time"));

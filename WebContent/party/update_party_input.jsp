@@ -6,6 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 
 <%
 	PartyVO partyVO = (PartyVO) request.getAttribute("partyVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
@@ -20,6 +22,15 @@
 
 
 <script src="<%=request.getContextPath()%>/party/ckeditor/ckeditor.js"></script>
+
+<style>
+ 	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	color: white;
+	}
+</style>
 
 </head>
 <body bgcolor='white'>
@@ -48,10 +59,11 @@
 				<td><input type="TEXT" disabled="disabled" min="1" max="15" name="member_id" size="45"value="<%=partyVO.getMember_id()%>" /></td>
 			</tr>
 			
-			<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 			
 			<tr>
-				<td>餐廳地址:<input list="shop_no" name="shop_id"/>  
+				<td>餐廳地址:</td>
+				<td>
+				<input list="shop_no" name="shop_id"/>  
   				<datalist id="shop_no">
   					<c:forEach var="shopVO" items="${shopSvc.all}">
       					<option value="${shopVO.shop_id}"
@@ -102,11 +114,11 @@
 					      </td>
 			</tr>
 			
-			
 
 			<tr>
 				<td>揪團介紹:</td>
-				<td><textarea class="ckeditor" id="mContent" name="party_intro"></textarea></td>
+				<td><textarea class="ckeditor" id="mContent" name="party_intro" ${partyVO.party_intro} >
+	              </textarea></td>
 			</tr>
 		</table>
 		<br> 
@@ -115,6 +127,7 @@
 		     <input type="hidden" name="party_id" value="<%=partyVO.getParty_id()%>">
 		     <input type="submit" value="送出修改">
 		</FORM>
+
 
 </body>
 

@@ -16,16 +16,14 @@ import com.party_participants.model.PartyParticipantsVO;
 
 
 public class PartyServlet extends HttpServlet {
-
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -122,7 +120,6 @@ public class PartyServlet extends HttpServlet {
 		
 		
 		if ("getOne_For_member".equals(action)) { // 來自select_page.jsp的請求
-System.out.println("12345");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -131,13 +128,10 @@ System.out.println("12345");
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				Integer member_id = new Integer(req.getParameter("member_id").trim());
-System.out.println(member_id);
 				/*************************** 2.開始查詢資料 *****************************************/
 				PartyService partySvc = new PartyService();
 				Set<PartyVO> partyVO = partySvc.getAllmypartybymember(member_id);
-				System.out.println(partyVO);
 				for(PartyVO pa:partyVO) {
-				System.out.println(pa.getParty_id());
 				}
 				// Send the use back to the form, if there were errors
 
@@ -145,12 +139,10 @@ System.out.println(member_id);
 				req.setAttribute("member_id", member_id); // 資料庫取出的partyVO物件,存入req
 				String url = "/party/listParty.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-				System.out.println("88888");
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
-				System.out.println("111234567");
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/party/listAllParty.jsp");
 				failureView.forward(req, res);
@@ -185,12 +177,10 @@ System.out.println(member_id);
 			
 				Integer shop_id = null;
 				try {
-					System.out.println("shop");
 					shop_id = new Integer(req.getParameter("shop_id"));
 				} catch (NumberFormatException e) {
 					errorMsgs.add("沒有餐廳資訊");
 				}
-				System.out.println(shop_id);
 				
 				Integer party_participants_max = null;
 				try {
@@ -211,7 +201,6 @@ System.out.println(member_id);
 				
 				  java.sql.Timestamp Party_start_time = null;
 				    try {
-				    	System.out.println(req.getParameter("party_start_time").trim());
 				    	Party_start_time = java.sql.Timestamp.valueOf(req.getParameter("party_start_time").trim() + ":00");
 				    } catch (IllegalArgumentException e) {
 				    	Party_start_time = new java.sql.Timestamp(System.currentTimeMillis());
@@ -334,7 +323,6 @@ System.out.println(member_id);
 				Integer member_id = null;
 				try {
 					member_id = new Integer(req.getParameter("member_id"));
-					System.out.println(member_id);
 				} catch (NumberFormatException e) {
 					errorMsgs.add("請檢查是否已登入");
 				}
@@ -344,7 +332,6 @@ System.out.println(member_id);
 				Integer shop_id = null;
 				try {
 					shop_id = new Integer(req.getParameter("shop_id"));
-					System.out.println(shop_id);
 				} catch (NumberFormatException e) {
 					errorMsgs.add("查無此餐廳");
 				}
@@ -422,7 +409,7 @@ System.out.println(member_id);
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
-RequestDispatcher failureView = req.getRequestDispatcher("/party/update_party_input.jsp");
+RequestDispatcher failureView = req.getRequestDispatcher("/party/listMYParty.jsp");
 				failureView.forward(req, res);
 			}
 		}
