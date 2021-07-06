@@ -264,11 +264,11 @@ color:#fafafa;
 
 	<div class="party_data">
 		<div class="membername">
-		<c:forEach var="memberVO" items="${memberSvc.all}">
-	                    		<c:if test="${partyVO.member_id==memberVO.member_id}">
-		                   			${memberVO.member_name}
-	                    		</c:if>
-                			 </c:forEach> 
+			<c:forEach var="memberVO" items="${memberSvc.all}">
+	                <c:if test="${partyVO.member_id==memberVO.member_id}">
+		                   ${memberVO.member_name}
+	                </c:if>
+            </c:forEach> 
 		<h5>${partyVO.party_title}</h5>
 		</div>
 		<div>結束時間: <fmt:formatDate value="${partyVO.party_end_time}"
