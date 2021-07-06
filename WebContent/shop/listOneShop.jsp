@@ -147,30 +147,30 @@
 
 		<table style="width:980px; table-layout:fixed; word-wrap:break-word; word-break ; break-all;">
 			<tr>
-				<th>商家<br>編號</th>
-				<th>會員<br>編號</th>
+				<th width="50px">商家<br>編號</th>
+				<th width="50px">會員<br>編號</th>
 				<th>統一<br>編號</th>
 				<th>商家<br>名稱</th>
 <!-- 				<th>郵遞區號</th> -->
-				<th>縣市</th>
+				<th width="60px">縣市</th>
 <!-- 				<th>地址</th> -->
 <!-- 				<th>緯度</th> -->
 <!-- 				<th>經度</th> -->
 <!-- 				<th>商家介紹</th> -->
 		<!-- 		<th>標籤</th> -->
-				<th>評價</th>
-				<th>評價<br>總數</th>
+				<th width="50px">評價</th>
+				<th width="50px">評價<br>總數</th>
 <!-- 				<th>評價總和</th> -->
 				<th>Email</th>
-				<th>聯絡<br>電話</th>
+<!-- 				<th>聯絡<br>電話</th> -->
 <!-- 				<th>均消</th> -->
 <!-- 				<th>營業時間</th> -->
-				<th>網站</th>
-<!-- 				<th>圖片</th> -->
-				<th>圖片庫</th>
-				<th>建立<br>時間</th>
+				<th width="100px">網站</th>
+				<th>圖片</th>
+<!-- 				<th>圖片庫</th> -->
+<!-- 				<th>建立<br>時間</th> -->
 				<th>更新<br>時間</th>
-				<th>總瀏<br>覽數</th>
+<!-- 				<th>總瀏<br>覽數</th> -->
 <!-- 				<th>預約功能</th> -->
 			</tr>
 			<tr>
@@ -189,7 +189,7 @@
 				<td><%=shopVO.getShop_rating_count()%></td>
 <%-- 				<td><%=shopVO.getShop_rating_total()%></td> --%>
 				<td><%=shopVO.getShop_email()%></td>
-				<td><%=shopVO.getShop_phone()%></td>
+<%-- 				<td><%=shopVO.getShop_phone()%></td> --%>
 <%-- 				<td><%=shopVO.getShop_price_level()%></td> --%>
 		<!-- 	<td> -->	
 <%-- 					<% if(shopVO.getShop_opening_time().length()<1){ %>   --%>
@@ -234,8 +234,8 @@
 <!-- 				</td> -->
 <%-- 				<td><%=shopVO.getShop_create_time()%></td> --%>
 				<td><%=shopVO.getShop_update_time()%></td>
-				<td><%=shopVO.getShop_total_view()%></td>
-				<td><%=shopVO.getShop_reserv_status()%></td>
+<%-- 				<td><%=shopVO.getShop_total_view()%></td> --%>
+<%-- 				<td><%=shopVO.getShop_reserv_status()%></td> --%>
 			</tr>
 		</table>
 		
