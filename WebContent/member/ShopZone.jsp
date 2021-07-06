@@ -62,7 +62,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
 
         <div class="row">
-
+	<%-- 錯誤表列 --%>
+					<c:if test="${not empty errorMsgs}">
+						<font style="color: red">請修正以下錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
             <div class="col-2">
                 <ul class="sidebar_ul">
                     <li class="sidebar"><form action="member.html" class="personal_form"><input type=hidden name="action" value="toPersonal">

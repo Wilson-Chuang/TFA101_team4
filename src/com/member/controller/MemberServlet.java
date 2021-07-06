@@ -143,6 +143,20 @@ public class MemberServlet extends HttpServlet {
 				HttpSession session=req.getSession();
 				MemberVO MemberVO=(MemberVO)session.getAttribute("login");
 				int Member_id=MemberVO.getMember_id();
+				MemberService memsvc=new MemberService();
+				ShopVO ShopTest= memsvc.GET_ONE_BY_MEMBER(Member_id);
+				if (ShopTest.getShop_id()!=null) {
+					errorMsgs.add("已經申請過商家囉!(請勿重複申請)");
+					errorMsgs.add("請輸入帳號");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/ShopZone.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				
 				String shop_name = req.getParameter("Shop_name");
 				String shop_tax_id = req.getParameter("Shop_tax_id");
 				String shop_zip_code =req.getParameter("Shop_zip_code");
