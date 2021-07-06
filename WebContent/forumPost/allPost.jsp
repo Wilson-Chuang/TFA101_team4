@@ -98,7 +98,7 @@
 				<th>回覆</th>
 				<th><i class="fas fa-users"></i></th>
 				<th><i class="fas fa-thumbs-up"></i></th>
-				<th><i class="far fa-clock"></i></th>
+				<th><i class="fas fa-clock"></i></th>
 			</tr>
 		</thead>
 		

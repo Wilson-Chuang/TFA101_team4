@@ -88,7 +88,7 @@ public class ArticleServlet extends HttpServlet {
 					
 			    String imageFileName = file.getSubmittedFileName();
 			
-			    String uploadPath = "C:/Users/Tibame_T14/Desktop/upload/"+imageFileName;
+			    String uploadPath = "C:/upload/"+imageFileName;
 			    		     
 			    FileOutputStream fos = new FileOutputStream(uploadPath);
 			    
@@ -246,7 +246,7 @@ public class ArticleServlet extends HttpServlet {
 						
 				     filename = file.getSubmittedFileName();		   
 	    
-				     String uploadPath = "C:/Users/Tibame_T14/Desktop/upload/"+filename;	     
+				     String uploadPath = "C:/upload/"+filename;	     
 				     
 				     FileOutputStream fos = new FileOutputStream(uploadPath);
 				     InputStream is = file.getInputStream();     
