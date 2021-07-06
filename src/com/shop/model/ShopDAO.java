@@ -956,7 +956,6 @@ public class ShopDAO implements ShopDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				System.out.println(6);
 				shopVO = new ShopVO();
 				shopVO.setShop_id(rs.getInt("shop_id"));
 				shopVO.setMember_id(rs.getInt("member_id"));
