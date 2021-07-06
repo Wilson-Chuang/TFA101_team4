@@ -329,7 +329,9 @@ public class MemberServlet extends HttpServlet {
 				CommentVO CommentVO=comSvc.insert(member_id,shop_id,comment_text,comment_rating,filename);
 				ShopService shopSvc=new ShopService();
 				double rating=comSvc.countRatings(shop_id);
-				shopSvc.updateShopRaing(shop_id, rating);
+				String tag_old=(shopSvc.getOneShop(shop_id)).getShop_tag();
+				String tag=tag_old+" "+comment_text;
+				shopSvc.updateShopRaing(shop_id, rating,tag);
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -1029,7 +1031,7 @@ public class MemberServlet extends HttpServlet {
 						CommentVO CommentVO=comSvc.insert(member_id,shop_id,comment_text,comment_rating,filename);
 						ShopService shopSvc=new ShopService();
 						double rating=comSvc.countRatings(shop_id);
-						shopSvc.updateShopRaing(shop_id, rating);
+						shopSvc.updateShopRaing(shop_id, rating,"");
 						}
 					}
 					i++;
