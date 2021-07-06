@@ -5,7 +5,8 @@
 <%@ page import="com.shop.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="shopSvc" scope="page" class="com.shop.model.ShopService" />
 
 <%
     MemberVO member = (MemberVO) session.getAttribute("login");
@@ -37,26 +38,52 @@
   }
 </style>
 
+
+
 <style>
-  table {
-	width: 950px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  
-  .table_1 {
-  	border: 0;
-    padding: 5px;
-    margin: 0 5px;
-    text-align: center;
-    height: 80px;
-    vertical-align: middle;
-  }
-  .table_0{
-   padding-top: 15px;
-   vertical-align: middle;
-   }
+
+div.Party_btm {
+	height:800px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	overflow: hidden; 
+	margin: 0;
+	
+}
+
+
+
+  div.party_data{
+    width: 280px !important;
+    height: 70% !important;
+	display:inline-block;
+	border:5px #ccc solid;
+	border-radius: 10px;
+	box-shadow:5px 3px 5px 6px #cccccc;
+	
+	
+}
+   
+   div.t1{
+	font-family:Bold;
+	margin: 10px 25px;
+}
+   
+   
+</style>
+
+<style>
+
+ 	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+	color: white;
+	}
+
 </style>
 
 	<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
@@ -82,52 +109,52 @@
 	</ul>
 </c:if>
 
-<table>
-	<tr class="table_0">
-		<th class="table_1">揪團編號</th>
-		<th class="table_1">會員編號</th>
-		<th class="table_1">餐廳編號</th>
-		<th class="table_1">揪團標題</th>
-		<th class="table_1">揪團開始時間</th>
-		<th class="table_1">揪團結束時間</th>
-		<th class="table_1">揪團簡介</th>
-		<th class="table_1">成團人數最多限制</th>
-		<th class="table_1">成團人數最少限制</th>
-		<th class="table_1">備註</th>
-	</tr>
-	
+	<div class="Party_btm">
 	
 	<%@ include file="page5.file" %> 
 	<c:forEach var="partyVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-	
-		<tr class="table_0">
-			<td class="table_1">${partyVO.party_id}</td>
-			<td class="table_1">${partyVO.member_id}</td>
-			<td class="table_1">${partyVO.shop_id}</td>
-			<td class="table_1">${partyVO.party_title}</td>
-			<td class="table_1"><fmt:formatDate value="${partyVO.party_start_time}"
-						pattern="yyyy-MM-dd hh:mm" /></td> 
-			<td class="table_1"><fmt:formatDate value="${partyVO.party_end_time}"
-						pattern="yyyy-MM-dd hh:mm" /></td>   
-			<td class="table_1">${partyVO.party_intro}</td>
-			<td class="table_1">${partyVO.party_participants_max}</td>
-			<td class="table_1">${partyVO.party_participants_min}</td>
-			<td class="table_1">${partyVO.party_remarks}</td>
-			<td class="table_1">
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="party_id"  value="${partyVO.party_id}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td class="table_1">
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="party_id"  value="${partyVO.party_id}">
-			     <input type="hidden" name="action" value="delete2"></FORM>
-			</td>
-		</tr>
+		
+		
+	<div class="party_data">
+		<div class="t1">揪團編號 ${partyVO.party_id}</div>
+		<div class="t1">會員: 
+			<c:forEach var="memberVO" items="${memberSvc.all}">
+	               <c:if test="${partyVO.member_id==memberVO.member_id}">
+		                   	${memberVO.member_name}
+	               </c:if>
+            </c:forEach> </div>
+		<div class="t1">餐廳:
+			<c:forEach var="shopVO" items="${shopSvc.all}">
+	            <c:if test="${partyVO.shop_id==shopVO.shop_id}">${shopVO.shop_name}
+	        	</c:if>
+          	</c:forEach> </div>
+		<div class="t1">標題: ${partyVO.party_title}</div>
+		<div class="t1">開始時間: <fmt:formatDate value="${partyVO.party_start_time}"
+						pattern="yyyy-MM-dd hh:mm" /></div>
+		<div class="t1">結束時間: <fmt:formatDate value="${partyVO.party_end_time}"
+						pattern="yyyy-MM-dd hh:mm" /></div>
+		<div class="t1">簡介: ${partyVO.party_intro}</div>
+		<div class="t1">最多人數: ${partyVO.party_participants_max}</div>
+		<div class="t1">最低人數: ${partyVO.party_participants_min}</div>
+		<div class="t1">備註: ${partyVO.party_remarks}</div>
+		<div class="t1">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
+			<input type="submit" value="修改">
+			<input type="hidden" name="party_id"  value="${partyVO.party_id}">
+			<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+		</div>
+		
+		<div class="t1">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/party/party.do" style="margin-bottom: 0px;">
+		 	<input type="submit" value="刪除">
+			<input type="hidden" name="party_id"  value="${partyVO.party_id}">
+		    <input type="hidden" name="action" value="delete"></FORM>
+		</div>
+	</div>
+		
 	</c:forEach>
-</table>
+	
+	</div>
 <%@ include file="page2.file" %>
 
     <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>

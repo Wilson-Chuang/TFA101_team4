@@ -27,6 +27,7 @@ public class testVote {
 		// 發表文章
 		public static void publish(Map<String, String> author) {
 		    Jedis resource = JEDIS_POOL.getResource();
+		    resource.auth("123456");
 		    try {
 		        //自增生成ID(使用str)
 		        Long id = resource.incr(AUTHOR_ID);
@@ -46,6 +47,7 @@ public class testVote {
 		
 		public static void vote(Long authorId, Long userId) {
 		    Jedis resource = JEDIS_POOL.getResource();
+		    resource.auth("123456");
 		    try {
 		        //檢查當前使用者是否已經投過票(使用set)
 		        Long addResult = resource.sadd(AUTHOR_VOTE + authorId, userId.toString());
@@ -71,7 +73,7 @@ public class testVote {
 		//獲取排行榜資訊
 		public static void rank() {
 		    Jedis resource = JEDIS_POOL.getResource();
-		    
+		    resource.auth("123456");
 		    
 		    List list = new ArrayList();
 		    try {
@@ -131,7 +133,7 @@ public class testVote {
 		
 		public static void main(String[] args) {
 			Jedis resource = JEDIS_POOL.getResource();
-			
+			resource.auth("123456");
 		    //建立文章(建立10篇文章，id：1~10)
 //		    for (int i = 1; i <= 6; i++) {
 //		        Map<String, String> author = new HashMap<>();

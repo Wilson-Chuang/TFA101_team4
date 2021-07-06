@@ -8,15 +8,16 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Set;
 
 import util.Util;
 
+import com.party.model.PartyJDBCDAO;
 import com.party.model.PartyVO;;
 
 public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface {
 	static String driver = "com.mysql.cj.jdbc.Driver";
-	static String url = "jdbc:mysql://localhost:3306/party?serverTimezone=Asia/Taipei";
+	static String url = "jdbc:mysql://localhost:3306/Team4DB?serverTimezone=Asia/Taipei";
 	static String userid = "root";
 	static String passwd = "password";
 	
@@ -327,10 +328,10 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 	}
 	
 	
-//	public static void main(String[] args) {
-//		PartyParticipantsJDBCDAO dao = new PartyParticipantsJDBCDAO();
-//		PartyParticipantsVO t1 = new PartyParticipantsVO();
-		
+	public static void main(String[] args) {
+		PartyParticipantsJDBCDAO dao = new PartyParticipantsJDBCDAO();
+		PartyParticipantsVO t1 = new PartyParticipantsVO();
+//		
 //		t1.setParty_member_id(1);
 //		t1.setParty_participants_id(2);
 //		t1.setParty_id(1);
@@ -349,7 +350,75 @@ public class PartyParticipantsJDBCDAO implements PartyParticipantsDAO_interface 
 	
 	
 	
-	
+//	public static void main(String[] args) {
+//
+//	       PartyJDBCDAO dao = new PartyJDBCDAO();
+
+	//
+//			 修改
+//			PartyVO partyVO2 = new PartyVO();
+//			partyVO2.setParty_id(3);
+//			System.out.println("1");
+//			
+//			partyVO2.setParty_title("修改測試123");
+//			System.out.println("2");
+//			
+//			partyVO2.setParty_intro("修改測試123");
+//			System.out.println("3");
+//			
+//			partyVO2.setParty_participants_max(50);
+//			System.out.println("4");
+//			
+//			partyVO2.setParty_participants_min(30);
+//			System.out.println("5");
+//			
+//			partyVO2.setParty_start_time(Timestamp.valueOf("2021-08-06 01:01:01"));
+//			System.out.println("6");
+//			
+//			partyVO2.setParty_end_time(Timestamp.valueOf("2021-04-25 02:02:02"));
+//			System.out.println("7");
+//			
+//			partyVO2.setParty_remarks("備註11");
+//			System.out.println("8");
+//			partyVO2.setMember_id(1);
+//			System.out.println("9");
+//			partyVO2.setShop_id(1);
+//			System.out.println("10");
+//			dao.update(partyVO2);
+//		}
+	//
+//			 刪除
+			dao.delete(1);
+			System.out.println("成功");
+		}
+	//
+//			// 查詢
+//			EmpVO empVO3 = dao.findByPrimaryKey(7001);
+//			System.out.print(empVO3.getEmpno() + ",");
+//			System.out.print(empVO3.getEname() + ",");
+//			System.out.print(empVO3.getJob() + ",");
+//			System.out.print(empVO3.getHiredate() + ",");
+//			System.out.print(empVO3.getSal() + ",");
+//			System.out.print(empVO3.getComm() + ",");
+//			System.out.println(empVO3.getDeptno());
+//			System.out.println("---------------------");
+	//
+//			// 查詢
+//	       Set<PartyVO> set = dao.getAllmypartybymember(1);
+//			for (PartyVO aEmp : set) {
+//				System.out.print(aEmp.getParty_id() + ",");
+//				System.out.print(aEmp.getMember_id() + ",");
+//				System.out.print(aEmp.getShop_id() + ",");
+//				System.out.print(aEmp.getParty_title() + ",");
+//				System.out.print(aEmp.getParty_start_time() + ",");
+//				System.out.print(aEmp.getParty_end_time() + ",");
+//				System.out.print(aEmp.getParty_intro() + ",");
+//				System.out.print(aEmp.getParty_participants_max() + ",");
+//				System.out.print(aEmp.getParty_participants_min() + ",");
+//				System.out.print(aEmp.getParty_remarks() + ",");
+//				System.out.println();
+//			}
+//		}
 	
 	
 	

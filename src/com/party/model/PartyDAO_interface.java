@@ -11,5 +11,4 @@ public interface PartyDAO_interface {
     public List<PartyVO> getAll();
     public List<PartyVO> getAllmyparty(Integer party_id);
     public Set<PartyVO> getAllmypartybymember(Integer member_id);
-    public List<PartyVO> getAllmamber(Integer member_id);
 }

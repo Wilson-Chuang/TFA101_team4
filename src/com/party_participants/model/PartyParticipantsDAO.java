@@ -22,7 +22,7 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/team4DB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Team4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -30,7 +30,7 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 	
 	public static final String INSERT_STMT = "INSERT INTO PARTY_PARTICIPANTS(PARTY_MEMBER_ID, PARTY_ID) VALUES(?, ?)";
 	public static final String UPDATE_STMT = "UPDATE PARTY_PARTICIPANTS SET PARTY_MEMBER_ID = ?, PARTY_ID = ? PARTY_UP_TIME = ? WHERE PARTY_PARTICIPANTS_ID = ?";
-	public static final String DELETE_STMT = "DELETE FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
+	public static final String DELETE_STMT = "DELETE FROM PARTY_PARTICIPANTS WHERE PARTY_MEMBER_ID = ? AND PARTY_ID = ?";
 	public static final String FIND_BY_PK = "SELECT * FROM PARTY_PARTICIPANTS WHERE PARTY_PARTICIPANTS_ID = ?";
 	public static final String GET_ALL = "SELECT * FROM PARTY_PARTICIPANTS";
 	public static final String COUNT_BY_POST_ID = "SELECT COUNT(*) FROM PARTY_PARTICIPANTS WHERE PARTY_ID = ?";
@@ -116,7 +116,7 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 			}
 		}
 		@Override
-		public void delete(Integer party_participants_id) {
+		public void delete(Integer party_member_id, Integer party_id) {
 			int updateCount_party = 0;
 
 			Connection con = null;
@@ -131,7 +131,8 @@ public class PartyParticipantsDAO implements PartyParticipantsDAO_interface{
 
 				// 先刪除員工
 				pstmt = con.prepareStatement(DELETE_STMT);
-				pstmt.setInt(1, party_participants_id);
+				pstmt.setInt(1, party_member_id);
+				pstmt.setInt(2, party_id);
 				updateCount_party = pstmt.executeUpdate();
 				// 再刪除部門
 //				pstmt = con.prepareStatement(DELETE_STMT);

@@ -38,8 +38,8 @@ public class PartyParticipantsService {
 		return partyParticipants;
 	}
 	
-	public void deletePartyParticipants(Integer party_participants_id) {
-		dao.delete(party_participants_id);
+	public void deletePartyParticipants(Integer party_member_id, Integer party_id) {
+		dao.delete(party_member_id, party_id);
 	}
 	
 	public PartyParticipantsVO getOnePartyParticipants(Integer party_participants_id) {

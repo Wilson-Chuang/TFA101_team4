@@ -71,9 +71,6 @@ public class PartyService {
 	public Set<PartyVO> getAllmypartybymember(Integer member_id) {
 		return dao.getAllmypartybymember(member_id);
 	}
-	public List<PartyVO> getOne_For_mamber(Integer member_id) {
-		return dao.getAllmamber(member_id);
-	}
 	public List<PartyVO> getAllmyparty() {
 		return dao.getAll();
 	}

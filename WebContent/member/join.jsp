@@ -47,8 +47,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label for="">郵遞區號:	<input type="text" name="Shop_zip_code" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
                     <label for="">地址:		<input type="text" name="address" required></label><br><br>
                     <label for="">縣市:		<input type="text" name="SHOP_CITY" ></label><br><br>
-                    <label for="">商家所在地-經度:	<input type="text" name="Shop_latitude" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label><br><br>
-                    <label for="">商家所在地-緯度:	<input type="text" name="Shop_longitude" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label><br><br>
+                    <label for="">商家所在地-緯度:	<input type="text" name="Shop_latitude" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label><br><br>
+                    <label for="">商家所在地-經度:	<input type="text" name="Shop_longitude" maxlength="10" onkeyup="value=value.replace(/[^(\-|\+)?\d+(\.\d+)?$]/g,'.')" required></label><br><br>
                     <label for="">商家電話:	<input type="text" name="Shop_phone" maxlength="10" onkeyup="value=value.replace(/[^(\d)]/g,'')" required></label><br><br>
                     <label for="">商家信箱:	<input type="email" name="Shop_email"  ></label><br><br>
                     <label for="">商家介紹:	<textarea name="shop_description" required></textarea></label><br><br>
@@ -58,11 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label for="">商家網頁:	<input type="text" name="Shop_website" ></label><br><br>
 					<label style="border:1px solid black;border-radius:5px;">上傳封面<input style="display:none" type="file" name="SHOP_MAIN_IMG" ></label><br><br>              
                     <label style="border:1px solid black;border-radius:5px;">上傳圖片庫<input style="display:none" type="file" name="SHOP_GALLERY" multiple></label><br><br>            
-                    <label for="">訂位開放狀態:	
-<!--                     <select name="Shop_reservation_status"> -->
-<!--                             <option value=1 selected=selected >開放</option> -->
-<!--                             <option value=2 >未開放</option> -->
-<!--                    </select></label><br><br> -->
 					<input type=hidden name="Shop_reservation_status" value=1>
                     <input type="hidden" name="action" value="insert_shop">
                     <input type="submit" value="儲存" class="save_btn" style="width:150px">
