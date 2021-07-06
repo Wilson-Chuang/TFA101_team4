@@ -58,11 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label for="">商家網頁:	<input type="text" name="Shop_website" ></label><br><br>
 					<label style="border:1px solid black;border-radius:5px;">上傳封面<input style="display:none" type="file" name="SHOP_MAIN_IMG" ></label><br><br>              
                     <label style="border:1px solid black;border-radius:5px;">上傳圖片庫<input style="display:none" type="file" name="SHOP_GALLERY" multiple></label><br><br>            
-                    <label for="">訂位開放狀態:	
-<!--                     <select name="Shop_reservation_status"> -->
-<!--                             <option value=1 selected=selected >開放</option> -->
-<!--                             <option value=2 >未開放</option> -->
-<!--                    </select></label><br><br> -->
 					<input type=hidden name="Shop_reservation_status" value=1>
                     <input type="hidden" name="action" value="insert_shop">
                     <input type="submit" value="儲存" class="save_btn" style="width:150px">
