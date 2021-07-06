@@ -155,12 +155,13 @@ public class ShopService {
 		
 		return shopVO;
 	}
-	public ShopVO updateShopRaing(Integer shop_id,Double shop_rating) {
+	public ShopVO updateShopRaing(Integer shop_id,Double shop_rating,String shop_tag) {
 		
 		ShopVO shopVO = new ShopVO();
 		
 		shopVO.setShop_id(shop_id);
 		shopVO.setShop_rating(shop_rating);
+		shopVO.setShop_tag(shop_tag);
 		dao.update_rating(shopVO);
 		
 		return shopVO;

@@ -57,7 +57,7 @@ public class ShopDAO implements ShopDAO_interface {
 			+ "shop_update_time=?, shop_total_view=?, shop_reserv_status=?"
 			+ " where shop_id = ?";
 	private static final String UPDATE_RATING = 
-			"UPDATE shop set shop_rating=? where shop_id = ?";
+			"UPDATE shop set shop_rating=?,shop_tag=? where shop_id = ?";
 	private static final String ADD_TOTAL_VIEW = 
 			"UPDATE shop set shop_total_view=shop_total_view+1 where shop_id = ?";
 	private static final String INSERT_SHOP = "INSERT INTO shop (member_id,"
@@ -1026,7 +1026,8 @@ public class ShopDAO implements ShopDAO_interface {
 			pstmt = con.prepareStatement(UPDATE_RATING);
 			
 			pstmt.setDouble(1, shopVO.getShop_rating());
-			pstmt.setInt(2, shopVO.getShop_id());
+			pstmt.setString(2, shopVO.getShop_tag());
+			pstmt.setInt(3, shopVO.getShop_id());
 			
 			pstmt.executeUpdate();
 			
