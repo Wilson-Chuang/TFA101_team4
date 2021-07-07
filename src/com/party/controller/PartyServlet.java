@@ -249,7 +249,7 @@ public class PartyServlet extends HttpServlet {
 						party_participants_max, party_participants_min, party_remarks, member_id, shop_id);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ************/
-				String url = "/party/listMYParty.jsp";
+				String url = "/party/partyhome.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
@@ -434,7 +434,7 @@ RequestDispatcher failureView = req.getRequestDispatcher("/party/listMYParty.jsp
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("PartyParticipantsVO", PartyParticipantsVO); // 資料庫取出的partyVO物件,存入req
-				String url = "/party/myparty.jsp";
+				String url = "/party/partyhome.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 
