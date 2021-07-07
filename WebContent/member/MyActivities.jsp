@@ -93,6 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="nav nav-tabs">
 					<li class="favorite_page_li"><a class="favorite_page"
 						href="#myArticle" rel="external nofollow" data-toggle="tab">我的文章</a></li>
+					<li><a href="<%=request.getContextPath()+"/member/MemberList.jsp" %>" target=balnk>所有會員</a></li>
 					<li class="favorite_page_li"><a class="favorite_page"
 						href="#myforum" rel="external nofollow" data-toggle="tab">我的討論</a></li>
 				</ul>
