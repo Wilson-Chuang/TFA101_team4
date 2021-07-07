@@ -191,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  						%>
                     
                     <div class="comment_zone">
-                        <h3 class="user"><%=MemberVO.getMember_name() %></h3>
+                        <a href="<%=request.getContextPath()+"/public/Person.jsp?member_id="+com.getMEMBER_ID()%>" style="text-decoration:none;"><h3 class="user"><%=MemberVO.getMember_name() %></h3></a>
                         <p><%=com.getCOMMENT_TIME() %></p>
                         <span class="ratins"><%=com.getCOMMENT_RATING()%><i class="fas fa-star"></i></span><br>
                         <p><%=com.getCOMMENT_CONTENT() %></p>
