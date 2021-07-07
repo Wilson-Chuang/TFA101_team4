@@ -143,20 +143,7 @@ public class MemberServlet extends HttpServlet {
 				HttpSession session=req.getSession();
 				MemberVO MemberVO=(MemberVO)session.getAttribute("login");
 				int Member_id=MemberVO.getMember_id();
-				MemberService memsvc=new MemberService();
-				ShopVO ShopTest= memsvc.GET_ONE_BY_MEMBER(Member_id);
-				if (ShopTest.getShop_id()!=null) {
-					errorMsgs.add("已經申請過商家囉!(請勿重複申請)");
-					errorMsgs.add("請輸入帳號");
-				}
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/ShopZone.jsp");
-					failureView.forward(req, res);
-					return;//程式中斷
-				}
-				
-				
+
 				String shop_name = req.getParameter("Shop_name");
 				String shop_tax_id = req.getParameter("Shop_tax_id");
 				String shop_zip_code =req.getParameter("Shop_zip_code");
@@ -227,7 +214,6 @@ public class MemberServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 *****************************************/
 				ShopService shopSvc=new ShopService();
 				ShopVO ShopVO=shopSvc.insertShop(Member_id, shop_tax_id, shop_name, shop_zip_code, city, shop_address, shop_latitude, shop_longitude, shop_description, shop_tag, shop_email, shop_phone, Shop_price_level, shop_opening_time, shop_website, shop_main_img, shop_gallery, shop_reserv_status);
-				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -1198,7 +1184,6 @@ public class MemberServlet extends HttpServlet {
 				ShopVO ShopVO=new ShopVO();
 				ShopVO.setShop_name(name);
 				ShopVO.setShop_price_level(price_level);
-				System.out.println(price_level);
 				ShopVO.setShop_opening_time(opening_time);
 				ShopVO.setShop_address(address);
 				ShopVO.setShop_city(city);

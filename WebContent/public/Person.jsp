@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <img src="<%=(MemberVO.getMember_pic())!=null?pic:"./public/img/noimage.jpg"%>" width="150px" alt="" class="member_pic" id="showimg">
             </div>
             <div class="col-10">
-                <span class="member_name"><%= MemberVO.getMember_name()%></span>
+                <span class="member_name"><%= MemberVO.getMember_name()!=null?MemberVO.getMember_name():""%></span>
                 <%if(MemberVO.getMember_status()==1){ %>                
                 <span class="member_status">一般會員</span><br>
                 <%}else{ %>
