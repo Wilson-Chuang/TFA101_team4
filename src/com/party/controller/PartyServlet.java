@@ -441,7 +441,7 @@ RequestDispatcher failureView = req.getRequestDispatcher("/party/listMYParty.jsp
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/party/partyNew.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/party/partyNews.jsp");
 				failureView.forward(req, res);
 			}
 		}
