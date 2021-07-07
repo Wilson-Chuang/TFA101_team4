@@ -118,8 +118,35 @@ div.myparty{
 }
 
 
+
 </style>
 
+
+<style>
+/* 去掉a標籤底線 */
+a{ text-decoration:none} 
+a:hover{ text-decoration:none}
+
+/* 設定還沒有瀏覽過的連結 */
+a:link{
+color:blue;
+}
+
+/* 設定已經瀏覽過的連結 */
+a:visited {
+color:blue;
+}
+
+/* 設定滑鼠移經的連結 */
+a:hover {
+color:red;
+}
+
+/* 設定正在點選的連結 */
+a:active {
+color:#fafafa;
+}
+</style>
 
 <style>
  	input[type="submit"]{padding:5px 25px; background:#4166F8; border:0 none;
