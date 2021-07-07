@@ -760,8 +760,8 @@ public class ArticleServlet extends HttpServlet {
 		    Integer member_no = memberVO.getMember_id();
         	
 		    
-//        	vote(author_no,new Long((long) member_no)); //記得改用登入會員編號
-		    vote(author_no,330L);
+        	vote(author_no,new Long((long) member_no)); //記得改用登入會員編號
+//		    vote(author_no,330L);
         	rank();      
         	     	
         	Long addResult = votevo.getAddResult();
