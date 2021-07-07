@@ -113,12 +113,12 @@
 
         <div class="row">
            <div >
-                <div class="comment_table">
-                    	<form action="member.html"  method="post"  enctype="multipart/form-data">
-                    	<input type="hidden" name="action" value="getdbcomment">
-						<input type="submit" value="導入評論" class="comment_btn" style="width:150px;"><br><hr>
-						</form>
-                <div class="row">
+<!--                 <div class="comment_table"> -->
+<!--                     	<form action="member.html"  method="post"  enctype="multipart/form-data"> -->
+<!--                     	<input type="hidden" name="action" value="getdbcomment"> -->
+<!-- 						<input type="submit" value="導入評論" class="comment_btn" style="width:150px;"><br><hr> -->
+<!-- 						</form> -->
+<!--                 <div class="row"> -->
                 <c:if test="${not empty errorMsgs}">
 						<ul>
 							<c:forEach var="message" items="${errorMsgs}">
